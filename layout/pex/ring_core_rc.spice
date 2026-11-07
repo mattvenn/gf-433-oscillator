@@ -1,0 +1,2572 @@
+* ring_core: magic R+C extraction of layout/ring_core.gds (layout/gen/pex.sh)
+* extracted 2026-11-07T22:41:29+01:00 with magic 8.3.642, mode rc, from ring_core.gds
+.subckt ring_core VDD VSS vbn vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 a0 a1 a2 a3 a4
+X0 master.vbp master.vbp VDD.t27 VDD.t26 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X1 VSS.t19 a_934_3019# a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X2 VSS.t225 a_294_2456# a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X3 VDD.t21 master.vbp master.vbp VDD.t20 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X4 master.vbp a_294_1466# VSS.t154 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X5 VDD.t17 master.vbp a_17645_6854# VDD.t16 pfet_03v3 ad=2.7p pd=12.9u as=2.7p ps=12.9u w=6u l=1u
+X6 a_4199_95# a_294_1466# VSS.t78 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X7 master.vbp a_294_1466# VSS.t130 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X8 VSS.t309 vbn.t50 a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X9 VDD.t9 master.vbp a_2825_6854# VDD.t8 pfet_03v3 ad=2.7p pd=12.9u as=2.7p ps=12.9u w=6u l=1u
+X10 VDD.t11 master.vbp a_6530_6854# VDD.t10 pfet_03v3 ad=2.7p pd=12.9u as=2.7p ps=12.9u w=6u l=1u
+X11 VSS.t125 a_294_1466# master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X12 VSS.t182 bitb2.t0 a_294_3019# VSS.t181 nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X13 VSS.t335 vbn.t25 a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X14 VSS.t291 vbn.t71 a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X15 VSS.t89 a_294_1466# a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X16 VSS.t133 a_294_1466# a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X17 a_11609_95# a_294_1466# VSS.t112 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X18 a_15314_95# a_294_1466# VSS.t152 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X19 a_11609_95# vbn.t28 VSS.t332 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X20 a_494_95# a_294_1466# VSS.t75 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X21 VSS.t316 vbn.t43 a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X22 VSS.t268 vbn.t92 a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X23 a_4199_95# a_294_3019# VSS.t174 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X24 a_4199_95# vbn.t40 VSS.t319 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X25 a_494_95# a0.t2 a1.t1 VSS.t240 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X26 a_11609_95# a_294_1466# VSS.t145 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X27 a_494_95# vbn.t45 VSS.t315 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X28 vbn.t0 bit1.t0 a_934_3019# VSS.t0 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X29 VSS.t311 vbn.t48 a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X30 vbn.t4 bitb3.t1 a_294_2456# VDD.t0 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X31 vbn.t3 bitb0.t1 a_1574_3019# VDD.t43 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X32 a_11609_95# a_294_1466# VSS.t53 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X33 a_7904_95# a_294_1466# VSS.t138 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X34 master.vbp vbn.t14 VSS.t345 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X35 a_494_95# vbn.t87 VSS.t273 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X36 a_4199_95# a_294_1466# VSS.t31 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X37 VSS.t61 a_294_1466# a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X38 VSS.t337 vbn.t22 a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X39 VDD.t41 master.vbp master.vbp VDD.t40 pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=1u
+X40 vbn.t1 bitb4.t1 a_294_1466# VDD.t2 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X41 a_7904_95# vbn.t37 VSS.t322 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X42 master.vbp master.vbp VDD.t31 VDD.t30 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X43 a_11609_95# a_294_2456# VSS.t228 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X44 a_4199_95# vbn.t103 VSS.t254 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X45 a_7904_95# vbn.t31 VSS.t328 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X46 a_494_95# a_294_2456# VSS.t219 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X47 a_7904_95# a_294_1466# VSS.t95 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X48 a_15314_95# vbn.t19 VSS.t340 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X49 VSS.t267 vbn.t94 master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X50 VSS.t325 vbn.t34 a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X51 VSS.t296 vbn.t67 a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X52 a_494_95# a_294_3019# VSS.t162 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X53 VSS.t39 a_294_1466# a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X54 VSS.t283 vbn.t76 a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X55 a_4199_95# vbn.t80 VSS.t279 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X56 a_494_95# a_294_1466# VSS.t131 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X57 a_7904_95# vbn.t101 VSS.t258 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X58 VSS.t289 vbn.t60 a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X59 a_15314_95# a_294_2456# VSS.t204 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X60 VSS.t331 vbn.t29 a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X61 master.vbp a_294_2456# VSS.t216 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X62 master.vbp a_294_1466# VSS.t35 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X63 VSS.t171 a_294_3019# a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X64 VSS.t208 a_294_2456# a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X65 a_7904_95# a_294_1466# VSS.t33 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X66 VSS.t64 a_294_1466# master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X67 a_494_95# a_294_1466# VSS.t50 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X68 VSS.t274 vbn.t85 a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X69 a_494_95# vbn.t93 VSS.t263 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X70 a_11609_95# a_934_3019# VSS.t23 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X71 VSS.t193 a_294_2456# a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X72 a_4199_95# vbn.t38 VSS.t321 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X73 master.vbp vbn.t56 VSS.t304 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X74 a_15314_95# vbn.t65 VSS.t293 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X75 a_15314_95# a_934_3019# VSS.t21 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X76 a_15314_95# a_294_2456# VSS.t213 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X77 VSS.t45 a_294_1466# a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X78 VSS.t47 a_294_1466# a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X79 a_11609_95# vbn.t26 VSS.t334 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X80 VSS.t318 vbn.t41 a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X81 a_4199_95# a_294_2456# VSS.t187 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X82 VSS.t27 a_934_3019# a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X83 a_7904_95# a_294_2456# VSS.t224 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X84 a_4199_95# vbn.t44 VSS.t313 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X85 VSS.t249 vctrl.t5 a_494_95# VSS.t248 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X86 a_494_95# a_934_3019# VSS.t11 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X87 VSS.t97 a_294_1466# a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X88 a_11609_95# a_294_1466# VSS.t98 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X89 a_4199_95# a_294_1466# VSS.t136 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X90 vbn.t9 bit0.t0 a_1574_3019# VSS.t241 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X91 VDD.t15 master.vbp a_13940_6854# VDD.t14 pfet_03v3 ad=2.7p pd=12.9u as=2.7p ps=12.9u w=6u l=1u
+X92 a_15314_95# a_294_1466# VSS.t115 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X93 a_11609_95# a_294_1466# VSS.t147 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X94 VSS.t149 a_294_1466# a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X95 VSS.t314 vbn.t46 a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X96 VSS.t109 a_294_1466# a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X97 a_7904_95# a_294_1466# VSS.t140 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X98 master.vbp vbn.t12 VSS.t347 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X99 master.vbp vbn.t58 VSS.t287 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X100 a_4199_95# a_294_2456# VSS.t196 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X101 master.vbp a_294_3019# VSS.t180 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X102 VSS.t73 a_294_1466# a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X103 VSS.t164 a_294_3019# a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X104 VSS.t247 vctrl.t0 master.vbp VSS.t246 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X105 VSS.t215 a_294_2456# master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X106 a_494_95# a_294_1466# VSS.t68 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X107 master.vbp a_934_3019# VSS.t9 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X108 VSS.t188 a_294_2456# a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X109 a_11609_95# a_294_3019# VSS.t178 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X110 master.vbp master.vbp VDD.t39 VDD.t38 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X111 vbn.t2 bitb2.t1 a_294_3019# VDD.t4 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X112 a_7904_95# a1.t2 a2.t0 VSS.t156 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X113 a_7904_95# a_934_3019# VSS.t17 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X114 VSS.t253 vctrl.t2 a_11609_95# VSS.t252 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X115 a_494_95# a_294_3019# VSS.t173 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X116 a_4199_95# a_294_2456# VSS.t223 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X117 VSS.t184 bitb1.t0 a_934_3019# VSS.t0 nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X118 a_15314_95# vbn.t61 VSS.t301 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X119 VSS.t278 vbn.t81 a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X120 VSS.t270 vbn.t90 a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X121 a_11609_95# a3.t2 a4.t1 VSS.t3 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X122 VSS.t243 vctrl.t4 a_4199_95# VSS.t242 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X123 VSS.t251 vctrl.t1 a_15314_95# VSS.t250 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X124 a_4199_95# a_294_1466# VSS.t104 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X125 VSS.t266 vbn.t96 a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X126 VSS.t153 a_294_1466# master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X127 VSS.t307 vbn.t53 master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X128 VSS.t77 a_294_1466# a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X129 VSS.t128 a_294_1466# master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X130 master.vbp a_294_1466# VSS.t124 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X131 VSS.t285 vbn.t74 a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X132 a_7904_95# a_294_1466# VSS.t88 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X133 VSS.t103 a_294_1466# a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X134 VSS.t119 a_294_1466# a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X135 a_11609_95# vbn.t70 VSS.t292 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X136 VSS.t83 a_294_1466# a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X137 a_15314_95# a_294_1466# VSS.t121 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X138 a_15314_95# vbn.t63 VSS.t299 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X139 VSS.t276 vbn.t83 a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X140 vbn.t7 bit3.t0 a_294_2456# VSS.t1 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X141 master.vbp master.vbp VDD.t35 VDD.t34 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X142 VSS.t5 bitb4.t0 a_294_1466# VSS.t4 nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X143 a_15314_95# a2.t2 a3.t1 VSS.t183 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X144 a_7904_95# a_294_3019# VSS.t175 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X145 a_4199_95# a4.t2 a0.t0 VSS.t185 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X146 VSS.t245 vctrl.t3 a_7904_95# VSS.t244 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=4u
+X147 master.vbp vbn.t10 VSS.t349 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X148 a_2825_6854# a0.t3 a1.t0 VDD.t42 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X149 a_494_95# a_294_1466# VSS.t132 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X150 a_11609_95# vbn.t72 VSS.t290 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X151 a_15314_95# a_294_1466# VSS.t55 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X152 VSS.t2 bitb3.t0 a_294_2456# VSS.t1 nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X153 master.vbp a_294_2456# VSS.t217 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X154 master.vbp a_294_1466# VSS.t155 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X155 VSS.t59 a_294_1466# a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X156 a_494_95# vbn.t51 VSS.t288 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X157 VSS.t41 a_294_1466# a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X158 VSS.t93 a_294_1466# a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X159 a_494_95# a_294_2456# VSS.t190 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X160 a_15314_95# a_294_2456# VSS.t227 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X161 a_7904_95# a_294_1466# VSS.t142 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X162 VSS.t144 a_294_1466# a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X163 master.vbp vbn.t54 VSS.t306 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X164 VSS.t272 vbn.t88 a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X165 VSS.t344 vbn.t15 master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X166 VSS.t206 a_294_2456# a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X167 VSS.t259 vbn.t100 a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X168 a_15314_95# vbn.t59 VSS.t302 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X169 a_15314_95# vbn.t23 VSS.t329 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X170 VDD.t25 master.vbp master.vbp VDD.t24 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X171 a_11609_95# a_294_3019# VSS.t170 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X172 a_11609_95# a_294_2456# VSS.t207 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X173 a_4199_95# a_294_3019# VSS.t157 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X174 a_15314_95# a_294_2456# VSS.t211 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X175 a_15314_95# vbn.t17 VSS.t343 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X176 VSS.t169 a_294_3019# a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X177 VSS.t212 a_294_2456# a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X178 a_4199_95# a_294_1466# VSS.t44 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X179 master.vbp a_294_2456# VSS.t233 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X180 VSS.t327 vbn.t32 a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X181 a_11609_95# vbn.t68 VSS.t295 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X182 master.vbp master.vbp VDD.t19 VDD.t18 pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=1u
+X183 VSS.t167 a_294_3019# a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X184 VSS.t66 a_294_1466# master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X185 VSS.t265 vbn.t98 a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X186 VSS.t339 vbn.t20 a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X187 a_11609_95# a_1574_3019# VSS.t239 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X188 VSS.t49 a_294_1466# a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X189 a_11609_95# a_294_2456# VSS.t230 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X190 a_7904_95# vbn.t35 VSS.t324 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X191 a_494_95# a_1574_3019# VSS.t236 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X192 a_494_95# a_294_2456# VSS.t192 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X193 a_11609_95# a_294_1466# VSS.t96 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X194 VSS.t163 a_294_3019# a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X195 a_494_95# a_294_2456# VSS.t221 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X196 VSS.t256 vbn.t104 a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X197 a_7904_95# vbn.t77 VSS.t282 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X198 a_4199_95# a_294_1466# VSS.t76 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X199 VDD.t33 master.vbp master.vbp VDD.t32 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X200 VSS.t114 a_294_1466# a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X201 a_11609_95# a_294_1466# VSS.t101 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X202 a_11609_95# vbn.t30 VSS.t330 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X203 a_494_95# vbn.t49 VSS.t310 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X204 a_4199_95# vbn.t86 VSS.t261 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X205 VSS.t195 a_294_2456# a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X206 VSS.t161 a_294_3019# master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X207 a_494_95# a_294_1466# VSS.t71 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X208 a_11609_95# vbn.t24 VSS.t336 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X209 VSS.t303 vbn.t57 master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X210 vbn.t5 bitb1.t1 a_934_3019# VDD.t6 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X211 master.vbp a_294_3019# VSS.t160 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X212 master.vbp a_294_2456# VSS.t214 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X213 VSS.t67 a_294_1466# a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X214 a_494_95# a_294_1466# VSS.t134 VSS.t74 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X215 VSS.t333 vbn.t27 a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X216 a_7904_95# a_294_3019# VSS.t165 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X217 VSS.t172 a_294_3019# master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X218 a_7904_95# a_294_2456# VSS.t201 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X219 VSS.t176 a_294_3019# a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X220 a_4199_95# vbn.t42 VSS.t317 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X221 VSS.t158 a_294_3019# a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X222 VSS.t177 a_294_3019# a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X223 a_7904_95# vbn.t79 VSS.t280 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X224 a_494_95# vbn.t91 VSS.t269 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X225 VSS.t15 a_934_3019# a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X226 VSS.t166 a_294_3019# a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X227 a_4199_95# a_1574_3019# VSS.t234 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X228 a_15314_95# a_294_3019# VSS.t179 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X229 VSS.t320 vbn.t39 a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X230 a_7904_95# a_1574_3019# VSS.t235 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X231 master.vbp a_294_1466# VSS.t122 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X232 master.vbp vbn.t16 VSS.t341 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X233 a_10235_6854# a1.t3 a2.t1 VDD.t3 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X234 a_7904_95# a_294_2456# VSS.t226 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X235 VSS.t146 a_294_1466# a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X236 a_13940_6854# a3.t3 a4.t0 VDD.t1 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X237 VDD.t29 master.vbp master.vbp VDD.t28 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X238 a_7904_95# a_294_1466# VSS.t86 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X239 VSS.t123 a_294_1466# master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X240 a_494_95# vbn.t47 VSS.t312 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X241 VSS.t79 a_294_1466# a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X242 VSS.t87 a_294_1466# a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X243 VSS.t346 vbn.t13 master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X244 a_4199_95# a_294_1466# VSS.t137 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X245 VSS.t139 a_294_1466# a_7904_95# VSS.t18 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X246 VSS.t342 vbn.t18 a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X247 a_4199_95# a_294_1466# VSS.t81 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X248 a_7904_95# a_294_1466# VSS.t91 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X249 VSS.t151 a_294_1466# a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X250 a_15314_95# vbn.t21 VSS.t338 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X251 a_4199_95# vbn.t82 VSS.t277 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X252 a_494_95# a_294_1466# VSS.t37 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X253 a_494_95# vbn.t105 VSS.t255 VSS.t36 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X254 VSS.t257 vbn.t102 a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X255 a_7904_95# vbn.t33 VSS.t326 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X256 VSS.t300 vbn.t62 a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X257 a_11609_95# vbn.t66 VSS.t297 VSS.t111 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X258 VSS.t159 a_294_3019# a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X259 a_15314_95# vbn.t97 VSS.t264 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X260 master.vbp a_294_1466# VSS.t148 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X261 a_7904_95# vbn.t75 VSS.t284 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X262 a_17645_6854# a2.t3 a3.t0 VDD.t5 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X263 VSS.t57 a_294_1466# a_11609_95# VSS.t56 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X264 a_6530_6854# a4.t3 a0.t1 VDD.t7 pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X265 a_11609_95# a_294_1466# VSS.t58 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X266 a_15314_95# a_294_1466# VSS.t62 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X267 a_4199_95# a_294_1466# VSS.t85 VSS.t84 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X268 a_4199_95# vbn.t84 VSS.t275 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X269 VSS.t51 a_294_1466# a_15314_95# VSS.t26 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X270 VSS.t305 vbn.t55 master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X271 VSS.t298 vbn.t64 a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X272 master.vbp master.vbp VDD.t23 VDD.t22 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X273 VSS.t220 a_294_2456# a_494_95# VSS.t72 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X274 master.vbp vbn.t95 VSS.t262 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X275 a_494_95# a_294_1466# VSS.t40 VSS.t10 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X276 VSS.t348 vbn.t11 master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X277 a_11609_95# a_294_2456# VSS.t205 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X278 VSS.t108 a_294_1466# a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X279 VSS.t105 a_294_1466# a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X280 vbn.t8 bit2.t0 a_294_3019# VSS.t181 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X281 a_4199_95# a_294_2456# VSS.t186 VSS.t30 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X282 a_15314_95# a_294_1466# VSS.t150 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X283 VSS.t210 a_294_2456# a_15314_95# VSS.t60 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X284 VSS.t107 a_294_1466# master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X285 VDD.t37 master.vbp master.vbp VDD.t36 pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=1u
+X286 a_15314_95# a_294_3019# VSS.t168 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X287 master.vbp a_1574_3019# VSS.t237 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X288 a_11609_95# a_294_2456# VSS.t209 VSS.t100 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X289 VSS.t43 a_294_1466# a_4199_95# VSS.t42 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X290 VSS.t218 a_294_2456# master.vbp VSS.t106 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X291 a_494_95# a_294_2456# VSS.t194 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X292 master.vbp a_294_1466# VSS.t65 VSS.t8 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X293 VSS.t141 a_294_1466# a_7904_95# VSS.t92 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X294 VSS.t25 a_934_3019# a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X295 a_7904_95# a_294_1466# VSS.t48 VSS.t16 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X296 VSS.t229 a_294_2456# a_11609_95# VSS.t102 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X297 a_11609_95# a_294_1466# VSS.t143 VSS.t22 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X298 VSS.t13 a_934_3019# a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X299 VSS.t191 a_294_2456# a_494_95# VSS.t38 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X300 VSS.t222 a_294_2456# a_4199_95# VSS.t82 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X301 VSS.t231 a_294_2456# a_15314_95# VSS.t118 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X302 a_15314_95# a_1574_3019# VSS.t238 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X303 a_494_95# vbn.t89 VSS.t271 VSS.t70 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X304 a_15314_95# a_294_2456# VSS.t232 VSS.t120 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X305 VSS.t135 a_294_1466# a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X306 VDD.t13 master.vbp a_10235_6854# VDD.t12 pfet_03v3 ad=2.7p pd=12.9u as=2.7p ps=12.9u w=6u l=1u
+X307 a_15314_95# a_294_1466# VSS.t113 VSS.t54 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X308 master.vbp a_294_1466# VSS.t127 VSS.t126 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X309 a_15314_95# a_294_1466# VSS.t110 VSS.t20 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X310 master.vbp vbn.t52 VSS.t308 VSS.t129 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X311 vbn.t6 bit4.t0 a_294_1466# VSS.t4 nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X312 VSS.t99 a_294_1466# a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X313 VSS.t350 bitb0.t0 a_1574_3019# VSS.t241 nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X314 master.vbp a_294_2456# VSS.t203 VSS.t34 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X315 a_7904_95# a_294_2456# VSS.t199 VSS.t32 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X316 VSS.t189 a_294_2456# master.vbp VSS.t63 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X317 VSS.t69 a_294_1466# a_494_95# VSS.t12 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X318 a_15314_95# a_294_1466# VSS.t117 VSS.t116 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X319 a_7904_95# vbn.t73 VSS.t286 VSS.t94 nfet_03v3 ad=0.4835p pd=3.38u as=0.2555p ps=1.8u w=0.25u l=1u
+X320 VSS.t294 vbn.t69 a_11609_95# VSS.t24 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X321 VSS.t197 a_294_2456# a_4199_95# VSS.t14 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X322 VSS.t200 a_294_2456# a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X323 a_11609_95# vbn.t99 VSS.t260 VSS.t52 nfet_03v3 ad=0.2555p pd=1.8u as=0.4835p ps=3.38u w=0.25u l=1u
+X324 a_4199_95# a_934_3019# VSS.t7 VSS.t6 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X325 a_4199_95# a_294_2456# VSS.t198 VSS.t80 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X326 VSS.t323 vbn.t36 a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X327 VSS.t29 a_934_3019# master.vbp VSS.t28 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X328 a_7904_95# a_294_2456# VSS.t202 VSS.t90 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+X329 VSS.t281 vbn.t78 a_7904_95# VSS.t46 nfet_03v3 ad=0.2555p pd=1.8u as=0.2555p ps=1.8u w=0.25u l=1u
+R0 bit4 bit4.t0 56.0063
+R1 bit3 bit3.t0 56.0063
+R2 bit2 bit2.t0 56.0063
+R3 bit1 bit1.t0 56.0063
+R4 bit0 bit0.t0 56.0063
+R5 vctrl.n0 vctrl.t5 23.7783
+R6 vctrl.n0 vctrl.t4 19.3908
+R7 vctrl.n1 vctrl.t3 19.3908
+R8 vctrl.n2 vctrl.t2 19.3908
+R9 vctrl.n3 vctrl.t1 19.3908
+R10 vctrl.n4 vctrl.t0 19.3908
+R11 vctrl vctrl.n4 7.93945
+R12 vctrl.n4 vctrl.n3 4.388
+R13 vctrl.n3 vctrl.n2 4.388
+R14 vctrl.n2 vctrl.n1 4.388
+R15 vctrl.n1 vctrl.n0 4.388
+R16 vbn.n6 vbn.t51 16.0079
+R17 vbn.n4 vbn.t45 16.0079
+R18 vbn.n11 vbn.t44 16.0079
+R19 vbn.n9 vbn.t38 16.0079
+R20 vbn.n17 vbn.t37 16.0079
+R21 vbn.n15 vbn.t31 16.0079
+R22 vbn.n23 vbn.t30 16.0079
+R23 vbn.n21 vbn.t24 16.0079
+R24 vbn.n29 vbn.t23 16.0079
+R25 vbn.n27 vbn.t17 16.0079
+R26 vbn.n35 vbn.t16 16.0079
+R27 vbn.n33 vbn.t10 16.0079
+R28 vbn.n41 vbn.t93 16.0079
+R29 vbn.n39 vbn.t87 16.0079
+R30 vbn.n46 vbn.t86 16.0079
+R31 vbn.n44 vbn.t80 16.0079
+R32 vbn.n52 vbn.t79 16.0079
+R33 vbn.n50 vbn.t73 16.0079
+R34 vbn.n58 vbn.t72 16.0079
+R35 vbn.n56 vbn.t66 16.0079
+R36 vbn.n64 vbn.t65 16.0079
+R37 vbn.n62 vbn.t59 16.0079
+R38 vbn.n70 vbn.t58 16.0079
+R39 vbn.n68 vbn.t52 16.0079
+R40 vbn.n75 vbn.t104 16.0079
+R41 vbn.n76 vbn.t102 16.0079
+R42 vbn.n78 vbn.t100 16.0079
+R43 vbn.n80 vbn.t98 16.0079
+R44 vbn.n82 vbn.t96 16.0079
+R45 vbn.n84 vbn.t94 16.0079
+R46 vbn.n6 vbn.t50 15.629
+R47 vbn.n7 vbn.t49 15.629
+R48 vbn.n8 vbn.t48 15.629
+R49 vbn.n5 vbn.t47 15.629
+R50 vbn.n4 vbn.t46 15.629
+R51 vbn.n11 vbn.t43 15.629
+R52 vbn.n12 vbn.t42 15.629
+R53 vbn.n13 vbn.t41 15.629
+R54 vbn.n10 vbn.t40 15.629
+R55 vbn.n9 vbn.t39 15.629
+R56 vbn.n17 vbn.t36 15.629
+R57 vbn.n18 vbn.t35 15.629
+R58 vbn.n19 vbn.t34 15.629
+R59 vbn.n16 vbn.t33 15.629
+R60 vbn.n15 vbn.t32 15.629
+R61 vbn.n23 vbn.t29 15.629
+R62 vbn.n24 vbn.t28 15.629
+R63 vbn.n25 vbn.t27 15.629
+R64 vbn.n22 vbn.t26 15.629
+R65 vbn.n21 vbn.t25 15.629
+R66 vbn.n29 vbn.t22 15.629
+R67 vbn.n30 vbn.t21 15.629
+R68 vbn.n31 vbn.t20 15.629
+R69 vbn.n28 vbn.t19 15.629
+R70 vbn.n27 vbn.t18 15.629
+R71 vbn.n35 vbn.t15 15.629
+R72 vbn.n36 vbn.t14 15.629
+R73 vbn.n37 vbn.t13 15.629
+R74 vbn.n34 vbn.t12 15.629
+R75 vbn.n33 vbn.t11 15.629
+R76 vbn.n41 vbn.t92 15.629
+R77 vbn.n42 vbn.t91 15.629
+R78 vbn.n43 vbn.t90 15.629
+R79 vbn.n40 vbn.t89 15.629
+R80 vbn.n39 vbn.t88 15.629
+R81 vbn.n46 vbn.t85 15.629
+R82 vbn.n47 vbn.t84 15.629
+R83 vbn.n48 vbn.t83 15.629
+R84 vbn.n45 vbn.t82 15.629
+R85 vbn.n44 vbn.t81 15.629
+R86 vbn.n52 vbn.t78 15.629
+R87 vbn.n53 vbn.t77 15.629
+R88 vbn.n54 vbn.t76 15.629
+R89 vbn.n51 vbn.t75 15.629
+R90 vbn.n50 vbn.t74 15.629
+R91 vbn.n58 vbn.t71 15.629
+R92 vbn.n59 vbn.t70 15.629
+R93 vbn.n60 vbn.t69 15.629
+R94 vbn.n57 vbn.t68 15.629
+R95 vbn.n56 vbn.t67 15.629
+R96 vbn.n64 vbn.t64 15.629
+R97 vbn.n65 vbn.t63 15.629
+R98 vbn.n66 vbn.t62 15.629
+R99 vbn.n63 vbn.t61 15.629
+R100 vbn.n62 vbn.t60 15.629
+R101 vbn.n70 vbn.t57 15.629
+R102 vbn.n71 vbn.t56 15.629
+R103 vbn.n72 vbn.t55 15.629
+R104 vbn.n69 vbn.t54 15.629
+R105 vbn.n68 vbn.t53 15.629
+R106 vbn.n75 vbn.t105 15.629
+R107 vbn.n76 vbn.t103 15.629
+R108 vbn.n78 vbn.t101 15.629
+R109 vbn.n80 vbn.t99 15.629
+R110 vbn.n82 vbn.t97 15.629
+R111 vbn.n84 vbn.t95 15.629
+R112 vbn.n14 vbn.n8 13.388
+R113 vbn.n49 vbn.n43 13.388
+R114 vbn.n77 vbn.n75 13.388
+R115 vbn.n74 vbn.n38 13.1843
+R116 vbn.n74 vbn.n73 12.6787
+R117 vbn.n92 vbn.n91 11.8083
+R118 vbn.n86 vbn.t9 11.4102
+R119 vbn.n87 vbn.t0 11.4102
+R120 vbn.n88 vbn.t8 11.4102
+R121 vbn.n89 vbn.t7 11.4102
+R122 vbn.n90 vbn.t6 11.4102
+R123 vbn.n0 vbn.t3 10.8673
+R124 vbn.n0 vbn.t5 9.8915
+R125 vbn.n1 vbn.t2 9.8915
+R126 vbn.n2 vbn.t4 9.8915
+R127 vbn.n3 vbn.t1 9.8915
+R128 vbn.n14 vbn.n13 9.0005
+R129 vbn.n20 vbn.n19 9.0005
+R130 vbn.n26 vbn.n25 9.0005
+R131 vbn.n32 vbn.n31 9.0005
+R132 vbn.n38 vbn.n37 9.0005
+R133 vbn.n49 vbn.n48 9.0005
+R134 vbn.n55 vbn.n54 9.0005
+R135 vbn.n61 vbn.n60 9.0005
+R136 vbn.n67 vbn.n66 9.0005
+R137 vbn.n73 vbn.n72 9.0005
+R138 vbn.n77 vbn.n76 9.0005
+R139 vbn.n79 vbn.n78 9.0005
+R140 vbn.n81 vbn.n80 9.0005
+R141 vbn.n83 vbn.n82 9.0005
+R142 vbn.n85 vbn.n84 9.0005
+R143 vbn.n86 vbn.n85 5.18142
+R144 vbn.n91 vbn.n90 4.73142
+R145 vbn.n38 vbn.n32 4.388
+R146 vbn.n32 vbn.n26 4.388
+R147 vbn.n26 vbn.n20 4.388
+R148 vbn.n20 vbn.n14 4.388
+R149 vbn.n73 vbn.n67 4.388
+R150 vbn.n67 vbn.n61 4.388
+R151 vbn.n61 vbn.n55 4.388
+R152 vbn.n55 vbn.n49 4.388
+R153 vbn.n85 vbn.n83 4.388
+R154 vbn.n83 vbn.n81 4.388
+R155 vbn.n81 vbn.n79 4.388
+R156 vbn.n79 vbn.n77 4.388
+R157 vbn.n90 vbn.n89 0.976289
+R158 vbn.n89 vbn.n88 0.976289
+R159 vbn.n88 vbn.n87 0.976289
+R160 vbn.n87 vbn.n86 0.976289
+R161 vbn.n3 vbn.n2 0.976289
+R162 vbn.n2 vbn.n1 0.976289
+R163 vbn.n1 vbn.n0 0.976289
+R164 vbn vbn.n92 0.874447
+R165 vbn.n91 vbn.n74 0.506158
+R166 vbn.n5 vbn.n4 0.379447
+R167 vbn.n8 vbn.n5 0.379447
+R168 vbn.n8 vbn.n7 0.379447
+R169 vbn.n7 vbn.n6 0.379447
+R170 vbn.n10 vbn.n9 0.379447
+R171 vbn.n13 vbn.n10 0.379447
+R172 vbn.n13 vbn.n12 0.379447
+R173 vbn.n12 vbn.n11 0.379447
+R174 vbn.n16 vbn.n15 0.379447
+R175 vbn.n19 vbn.n16 0.379447
+R176 vbn.n19 vbn.n18 0.379447
+R177 vbn.n18 vbn.n17 0.379447
+R178 vbn.n22 vbn.n21 0.379447
+R179 vbn.n25 vbn.n22 0.379447
+R180 vbn.n25 vbn.n24 0.379447
+R181 vbn.n24 vbn.n23 0.379447
+R182 vbn.n28 vbn.n27 0.379447
+R183 vbn.n31 vbn.n28 0.379447
+R184 vbn.n31 vbn.n30 0.379447
+R185 vbn.n30 vbn.n29 0.379447
+R186 vbn.n34 vbn.n33 0.379447
+R187 vbn.n37 vbn.n34 0.379447
+R188 vbn.n37 vbn.n36 0.379447
+R189 vbn.n36 vbn.n35 0.379447
+R190 vbn.n40 vbn.n39 0.379447
+R191 vbn.n43 vbn.n40 0.379447
+R192 vbn.n43 vbn.n42 0.379447
+R193 vbn.n42 vbn.n41 0.379447
+R194 vbn.n45 vbn.n44 0.379447
+R195 vbn.n48 vbn.n45 0.379447
+R196 vbn.n48 vbn.n47 0.379447
+R197 vbn.n47 vbn.n46 0.379447
+R198 vbn.n51 vbn.n50 0.379447
+R199 vbn.n54 vbn.n51 0.379447
+R200 vbn.n54 vbn.n53 0.379447
+R201 vbn.n53 vbn.n52 0.379447
+R202 vbn.n57 vbn.n56 0.379447
+R203 vbn.n60 vbn.n57 0.379447
+R204 vbn.n60 vbn.n59 0.379447
+R205 vbn.n59 vbn.n58 0.379447
+R206 vbn.n63 vbn.n62 0.379447
+R207 vbn.n66 vbn.n63 0.379447
+R208 vbn.n66 vbn.n65 0.379447
+R209 vbn.n65 vbn.n64 0.379447
+R210 vbn.n69 vbn.n68 0.379447
+R211 vbn.n72 vbn.n69 0.379447
+R212 vbn.n72 vbn.n71 0.379447
+R213 vbn.n71 vbn.n70 0.379447
+R214 vbn.n92 vbn.n3 0.231421
+R215 bitb4.n0 bitb4.t1 96.3782
+R216 bitb4.n0 bitb4.t0 36.6137
+R217 bitb4 bitb4.n0 5.84932
+R218 bitb3.n0 bitb3.t1 96.3782
+R219 bitb3.n0 bitb3.t0 36.6137
+R220 bitb3 bitb3.n0 5.84932
+R221 bitb2.n0 bitb2.t1 96.3782
+R222 bitb2.n0 bitb2.t0 36.6137
+R223 bitb2 bitb2.n0 5.84932
+R224 bitb1.n0 bitb1.t1 96.3782
+R225 bitb1.n0 bitb1.t0 36.6137
+R226 bitb1 bitb1.n0 5.84932
+R227 bitb0.n0 bitb0.t1 96.3782
+R228 bitb0.n0 bitb0.t0 36.6137
+R229 bitb0 bitb0.n0 5.84932
+R230 a3.n1 a3.t3 104.691
+R231 a3.n1 a3.t2 66.383
+R232 a3 a3.n0 6.51603
+R233 a3 a3.n1 6.49234
+R234 a3.n0 a3.t1 4.60933
+R235 a3.n0 a3.t0 2.6465
+R236 a2.n0 a2.t3 105.178
+R237 a2.n0 a2.t2 65.8951
+R238 a2 a2.n0 9.09168
+R239 a2 a2.n1 9.06445
+R240 a2.n1 a2.t0 4.12143
+R241 a2.n1 a2.t1 3.13439
+R242 a4.n1 a4.t3 104.203
+R243 a4.n1 a4.t2 66.8709
+R244 a4 a4.n0 8.71037
+R245 a4 a4.n1 8.6855
+R246 a4.n0 a4.t1 5.09722
+R247 a4.n0 a4.t0 2.15861
+R248 a1.n0 a1.t3 105.666
+R249 a1.n0 a1.t2 65.4072
+R250 a1 a1.n0 9.09168
+R251 a1 a1.n1 9.06445
+R252 a1.n1 a1.t1 3.63354
+R253 a1.n1 a1.t0 3.62229
+R254 a0.n1 a0.t3 106.154
+R255 a0.n1 a0.t2 64.9193
+R256 a0.n2 a0.n0 8.50787
+R257 a0 a0.n2 5.93932
+R258 a0.n2 a0.n1 4.5005
+R259 a0.n0 a0.t1 4.11018
+R260 a0.n0 a0.t0 3.14564
+R261 VDD.n162 VDD.n4 1185.64
+R262 VDD.n163 VDD.n162 1185.56
+R263 VDD.t42 VDD.n155 1117.62
+R264 VDD.n155 VDD.n150 1061.59
+R265 VDD.n147 VDD.t5 895.004
+R266 VDD.n157 VDD.t3 895.004
+R267 VDD.t7 VDD.n156 895.004
+R268 VDD.n147 VDD.t14 759.213
+R269 VDD.n160 VDD.t12 759.213
+R270 VDD.n157 VDD.t10 759.213
+R271 VDD.n156 VDD.t8 759.213
+R272 VDD.n161 VDD.t1 570.419
+R273 VDD.t40 VDD.t43 538.112
+R274 VDD.t2 VDD.t0 415.952
+R275 VDD.t0 VDD.t4 415.952
+R276 VDD.t43 VDD.t6 415.952
+R277 VDD.n144 VDD.n6 387.865
+R278 VDD.n154 VDD.n149 343.683
+R279 VDD.t16 VDD.t18 338.214
+R280 VDD.n161 VDD.n160 324.584
+R281 VDD.n148 VDD.n6 313.839
+R282 VDD.n159 VDD.n148 307.125
+R283 VDD.n159 VDD.n158 307.125
+R284 VDD.n158 VDD.n149 307.125
+R285 VDD.n7 VDD.t2 290.791
+R286 VDD.n145 VDD.t4 278.647
+R287 VDD.t5 VDD.t16 216.054
+R288 VDD.t14 VDD.t1 216.054
+R289 VDD.t3 VDD.t12 216.054
+R290 VDD.t10 VDD.t7 216.054
+R291 VDD.t8 VDD.t42 216.054
+R292 VDD.t38 VDD.t40 157.496
+R293 VDD.t36 VDD.t38 157.496
+R294 VDD.t34 VDD.t36 157.496
+R295 VDD.t32 VDD.t34 157.496
+R296 VDD.t30 VDD.t32 157.496
+R297 VDD.t28 VDD.t30 157.496
+R298 VDD.t26 VDD.t28 157.496
+R299 VDD.t24 VDD.t26 157.496
+R300 VDD.t20 VDD.t22 157.496
+R301 VDD.t18 VDD.t20 157.496
+R302 VDD.t22 VDD.n146 146.895
+R303 VDD.t6 VDD.n145 137.304
+R304 VDD.n152 VDD.n151 73.2794
+R305 VDD.n146 VDD.t24 10.6012
+R306 VDD.n152 VDD.n150 6.3005
+R307 VDD.n142 VDD.n4 6.3005
+R308 VDD.n164 VDD.n163 6.3005
+R309 VDD.n153 VDD.n152 5.99587
+R310 VDD.n19 VDD.t19 5.97958
+R311 VDD.n8 VDD.t41 5.97958
+R312 VDD.n163 VDD.n3 5.77739
+R313 VDD.n7 VDD.n4 5.77739
+R314 VDD.n144 VDD.n143 4.26223
+R315 VDD.n125 VDD.n18 4.12458
+R316 VDD.n16 VDD.n15 4.12458
+R317 VDD.n131 VDD.n14 4.12458
+R318 VDD.n12 VDD.n11 4.12458
+R319 VDD.n138 VDD.n10 4.12458
+R320 VDD.n154 VDD.n153 2.44943
+R321 VDD.n18 VDD.t23 1.9605
+R322 VDD.n18 VDD.t21 1.9605
+R323 VDD.n15 VDD.t27 1.9605
+R324 VDD.n15 VDD.t25 1.9605
+R325 VDD.n14 VDD.t31 1.9605
+R326 VDD.n14 VDD.t29 1.9605
+R327 VDD.n11 VDD.t35 1.9605
+R328 VDD.n11 VDD.t33 1.9605
+R329 VDD.n10 VDD.t39 1.9605
+R330 VDD.n10 VDD.t37 1.9605
+R331 VDD.n38 VDD.t9 1.67497
+R332 VDD.n75 VDD.t11 1.67497
+R333 VDD.n89 VDD.t13 1.67497
+R334 VDD.n106 VDD.t15 1.67497
+R335 VDD.n120 VDD.t17 1.67497
+R336 VDD VDD.n164 1.53013
+R337 VDD.n140 VDD.n139 1.5005
+R338 VDD.n137 VDD.n9 1.5005
+R339 VDD.n136 VDD.n135 1.5005
+R340 VDD.n134 VDD.n133 1.5005
+R341 VDD.n132 VDD.n13 1.5005
+R342 VDD.n130 VDD.n129 1.5005
+R343 VDD.n128 VDD.n127 1.5005
+R344 VDD.n126 VDD.n17 1.5005
+R345 VDD.n124 VDD.n123 1.5005
+R346 VDD.n122 VDD.n121 1.5005
+R347 VDD.n119 VDD.n20 1.5005
+R348 VDD.n118 VDD.n117 1.5005
+R349 VDD.n116 VDD.n21 1.5005
+R350 VDD.n115 VDD.n114 1.5005
+R351 VDD.n113 VDD.n22 1.5005
+R352 VDD.n112 VDD.n111 1.5005
+R353 VDD.n110 VDD.n23 1.5005
+R354 VDD.n109 VDD.n108 1.5005
+R355 VDD.n107 VDD.n24 1.5005
+R356 VDD.n105 VDD.n104 1.5005
+R357 VDD.n103 VDD.n25 1.5005
+R358 VDD.n102 VDD.n101 1.5005
+R359 VDD.n100 VDD.n26 1.5005
+R360 VDD.n99 VDD.n98 1.5005
+R361 VDD.n97 VDD.n96 1.5005
+R362 VDD.n95 VDD.n27 1.5005
+R363 VDD.n94 VDD.n93 1.5005
+R364 VDD.n92 VDD.n28 1.5005
+R365 VDD.n91 VDD.n90 1.5005
+R366 VDD.n88 VDD.n29 1.5005
+R367 VDD.n87 VDD.n86 1.5005
+R368 VDD.n85 VDD.n30 1.5005
+R369 VDD.n84 VDD.n83 1.5005
+R370 VDD.n82 VDD.n31 1.5005
+R371 VDD.n81 VDD.n80 1.5005
+R372 VDD.n79 VDD.n32 1.5005
+R373 VDD.n78 VDD.n77 1.5005
+R374 VDD.n76 VDD.n33 1.5005
+R375 VDD.n74 VDD.n73 1.5005
+R376 VDD.n72 VDD.n34 1.5005
+R377 VDD.n71 VDD.n70 1.5005
+R378 VDD.n69 VDD.n35 1.5005
+R379 VDD.n68 VDD.n67 1.5005
+R380 VDD.n66 VDD.n36 1.5005
+R381 VDD.n65 VDD.n64 1.5005
+R382 VDD.n63 VDD.n37 1.5005
+R383 VDD.n62 VDD.n61 1.5005
+R384 VDD.n60 VDD.n59 1.5005
+R385 VDD.n58 VDD.n39 1.5005
+R386 VDD.n57 VDD.n56 1.5005
+R387 VDD.n55 VDD.n40 1.5005
+R388 VDD.n54 VDD.n53 1.5005
+R389 VDD.n52 VDD.n41 1.5005
+R390 VDD.n51 VDD.n50 1.5005
+R391 VDD.n49 VDD.n42 1.5005
+R392 VDD.n48 VDD.n47 1.5005
+R393 VDD.n46 VDD.n43 1.5005
+R394 VDD.n45 VDD.n44 1.5005
+R395 VDD.n2 VDD.n0 1.5005
+R396 VDD.n153 VDD.n1 1.10833
+R397 VDD.n143 VDD.n142 0.793993
+R398 VDD.n164 VDD.n1 0.788577
+R399 VDD.n143 VDD.n7 0.667097
+R400 VDD.n142 VDD.n141 0.468305
+R401 VDD.n151 VDD.n1 0.3505
+R402 VDD.n151 VDD.n3 0.321911
+R403 VDD.n141 VDD.n140 0.290313
+R404 VDD.n141 VDD.n8 0.218299
+R405 VDD.n156 VDD.n149 0.185794
+R406 VDD.n158 VDD.n157 0.185794
+R407 VDD.n160 VDD.n159 0.185794
+R408 VDD.n148 VDD.n147 0.185794
+R409 VDD.n146 VDD.n6 0.1755
+R410 VDD.n155 VDD.n154 0.147012
+R411 VDD.n145 VDD.n144 0.1055
+R412 VDD.n137 VDD.n136 0.0755
+R413 VDD.n133 VDD.n132 0.0755
+R414 VDD.n127 VDD.n126 0.0755
+R415 VDD.n119 VDD.n118 0.0755
+R416 VDD.n118 VDD.n21 0.0755
+R417 VDD.n114 VDD.n21 0.0755
+R418 VDD.n114 VDD.n113 0.0755
+R419 VDD.n113 VDD.n112 0.0755
+R420 VDD.n112 VDD.n23 0.0755
+R421 VDD.n108 VDD.n23 0.0755
+R422 VDD.n108 VDD.n107 0.0755
+R423 VDD.n105 VDD.n25 0.0755
+R424 VDD.n101 VDD.n25 0.0755
+R425 VDD.n101 VDD.n100 0.0755
+R426 VDD.n100 VDD.n99 0.0755
+R427 VDD.n96 VDD.n95 0.0755
+R428 VDD.n95 VDD.n94 0.0755
+R429 VDD.n94 VDD.n28 0.0755
+R430 VDD.n90 VDD.n28 0.0755
+R431 VDD.n88 VDD.n87 0.0755
+R432 VDD.n87 VDD.n30 0.0755
+R433 VDD.n83 VDD.n30 0.0755
+R434 VDD.n83 VDD.n82 0.0755
+R435 VDD.n82 VDD.n81 0.0755
+R436 VDD.n81 VDD.n32 0.0755
+R437 VDD.n77 VDD.n32 0.0755
+R438 VDD.n77 VDD.n76 0.0755
+R439 VDD.n74 VDD.n34 0.0755
+R440 VDD.n70 VDD.n34 0.0755
+R441 VDD.n70 VDD.n69 0.0755
+R442 VDD.n69 VDD.n68 0.0755
+R443 VDD.n68 VDD.n36 0.0755
+R444 VDD.n64 VDD.n36 0.0755
+R445 VDD.n64 VDD.n63 0.0755
+R446 VDD.n63 VDD.n62 0.0755
+R447 VDD.n59 VDD.n58 0.0755
+R448 VDD.n58 VDD.n57 0.0755
+R449 VDD.n57 VDD.n40 0.0755
+R450 VDD.n53 VDD.n40 0.0755
+R451 VDD.n53 VDD.n52 0.0755
+R452 VDD.n52 VDD.n51 0.0755
+R453 VDD.n51 VDD.n42 0.0755
+R454 VDD.n47 VDD.n42 0.0755
+R455 VDD.n47 VDD.n46 0.0755
+R456 VDD.n46 VDD.n45 0.0755
+R457 VDD.n45 VDD.n2 0.0755
+R458 VDD.n140 VDD.n9 0.0755
+R459 VDD.n135 VDD.n9 0.0755
+R460 VDD.n135 VDD.n134 0.0755
+R461 VDD.n134 VDD.n13 0.0755
+R462 VDD.n129 VDD.n13 0.0755
+R463 VDD.n129 VDD.n128 0.0755
+R464 VDD.n128 VDD.n17 0.0755
+R465 VDD.n123 VDD.n17 0.0755
+R466 VDD.n123 VDD.n122 0.0755
+R467 VDD.n122 VDD.n20 0.0755
+R468 VDD.n117 VDD.n20 0.0755
+R469 VDD.n117 VDD.n116 0.0755
+R470 VDD.n116 VDD.n115 0.0755
+R471 VDD.n115 VDD.n22 0.0755
+R472 VDD.n111 VDD.n22 0.0755
+R473 VDD.n111 VDD.n110 0.0755
+R474 VDD.n110 VDD.n109 0.0755
+R475 VDD.n109 VDD.n24 0.0755
+R476 VDD.n104 VDD.n24 0.0755
+R477 VDD.n104 VDD.n103 0.0755
+R478 VDD.n103 VDD.n102 0.0755
+R479 VDD.n102 VDD.n26 0.0755
+R480 VDD.n98 VDD.n26 0.0755
+R481 VDD.n98 VDD.n97 0.0755
+R482 VDD.n97 VDD.n27 0.0755
+R483 VDD.n93 VDD.n27 0.0755
+R484 VDD.n93 VDD.n92 0.0755
+R485 VDD.n92 VDD.n91 0.0755
+R486 VDD.n91 VDD.n29 0.0755
+R487 VDD.n86 VDD.n29 0.0755
+R488 VDD.n86 VDD.n85 0.0755
+R489 VDD.n85 VDD.n84 0.0755
+R490 VDD.n84 VDD.n31 0.0755
+R491 VDD.n80 VDD.n31 0.0755
+R492 VDD.n80 VDD.n79 0.0755
+R493 VDD.n79 VDD.n78 0.0755
+R494 VDD.n78 VDD.n33 0.0755
+R495 VDD.n73 VDD.n33 0.0755
+R496 VDD.n73 VDD.n72 0.0755
+R497 VDD.n72 VDD.n71 0.0755
+R498 VDD.n71 VDD.n35 0.0755
+R499 VDD.n67 VDD.n35 0.0755
+R500 VDD.n67 VDD.n66 0.0755
+R501 VDD.n66 VDD.n65 0.0755
+R502 VDD.n65 VDD.n37 0.0755
+R503 VDD.n61 VDD.n37 0.0755
+R504 VDD.n61 VDD.n60 0.0755
+R505 VDD.n60 VDD.n39 0.0755
+R506 VDD.n56 VDD.n39 0.0755
+R507 VDD.n56 VDD.n55 0.0755
+R508 VDD.n55 VDD.n54 0.0755
+R509 VDD.n54 VDD.n41 0.0755
+R510 VDD.n50 VDD.n41 0.0755
+R511 VDD.n50 VDD.n49 0.0755
+R512 VDD.n49 VDD.n48 0.0755
+R513 VDD.n48 VDD.n43 0.0755
+R514 VDD.n44 VDD.n43 0.0755
+R515 VDD.n44 VDD.n0 0.0755
+R516 VDD.n131 VDD.n130 0.0753125
+R517 VDD.n89 VDD.n88 0.06725
+R518 VDD.n139 VDD.n138 0.0666875
+R519 VDD.n164 VDD.n2 0.0665
+R520 VDD.n125 VDD.n124 0.0663125
+R521 VDD.n96 VDD.n5 0.066125
+R522 VDD.n107 VDD.n106 0.0640625
+R523 VDD VDD.n0 0.054875
+R524 VDD.n124 VDD.n19 0.051125
+R525 VDD.n139 VDD.n8 0.05075
+R526 VDD.n62 VDD.n38 0.048125
+R527 VDD.n75 VDD.n74 0.0475625
+R528 VDD.n121 VDD.n120 0.044375
+R529 VDD.n130 VDD.n16 0.0426875
+R530 VDD.n133 VDD.n12 0.0423125
+R531 VDD.n136 VDD.n12 0.0336875
+R532 VDD.n127 VDD.n16 0.0333125
+R533 VDD.n120 VDD.n119 0.031625
+R534 VDD.n150 VDD.n3 0.0285584
+R535 VDD.n76 VDD.n75 0.0284375
+R536 VDD.n59 VDD.n38 0.027875
+R537 VDD.n121 VDD.n19 0.024875
+R538 VDD.n162 VDD.n5 0.0212921
+R539 VDD.n162 VDD.n161 0.0212921
+R540 VDD.n106 VDD.n105 0.0119375
+R541 VDD.n99 VDD.n5 0.009875
+R542 VDD.n126 VDD.n125 0.0096875
+R543 VDD.n138 VDD.n137 0.0093125
+R544 VDD.n90 VDD.n89 0.00875
+R545 VDD.n132 VDD.n131 0.0006875
+R546 VSS.n164 VSS.n5 163889
+R547 VSS.n485 VSS.n5 163878
+R548 VSS.n163 VSS.n3 1770.17
+R549 VSS.n163 VSS.n4 1770.08
+R550 VSS.n486 VSS.n3 1770.08
+R551 VSS.n486 VSS.n4 1769.99
+R552 VSS.t129 VSS.t241 1038.7
+R553 VSS.n485 VSS.n484 803.312
+R554 VSS.n203 VSS.t183 413.908
+R555 VSS.t3 VSS.n277 413.908
+R556 VSS.n317 VSS.t156 413.908
+R557 VSS.t185 VSS.n388 413.908
+R558 VSS.n427 VSS.t240 413.908
+R559 VSS.t4 VSS.n164 373.654
+R560 VSS.t1 VSS.t4 360.529
+R561 VSS.t181 VSS.t1 360.529
+R562 VSS.t0 VSS.t181 360.529
+R563 VSS.t241 VSS.t0 360.529
+R564 VSS.t183 VSS.t120 211.329
+R565 VSS.t111 VSS.t3 211.329
+R566 VSS.t156 VSS.t94 211.329
+R567 VSS.t84 VSS.t185 211.329
+R568 VSS.t240 VSS.t74 211.329
+R569 VSS.n203 VSS.t34 155.762
+R570 VSS.n277 VSS.t54 155.762
+R571 VSS.n317 VSS.t52 155.762
+R572 VSS.n388 VSS.t32 155.762
+R573 VSS.n427 VSS.t30 155.762
+R574 VSS.n484 VSS.t36 155.762
+R575 VSS.t126 VSS.t106 140.012
+R576 VSS.t28 VSS.t126 140.012
+R577 VSS.t8 VSS.t28 140.012
+R578 VSS.t63 VSS.t8 140.012
+R579 VSS.t34 VSS.t63 140.012
+R580 VSS.t118 VSS.t116 140.012
+R581 VSS.t116 VSS.t26 140.012
+R582 VSS.t26 VSS.t20 140.012
+R583 VSS.t20 VSS.t60 140.012
+R584 VSS.t60 VSS.t54 140.012
+R585 VSS.t100 VSS.t102 140.012
+R586 VSS.t22 VSS.t24 140.012
+R587 VSS.t56 VSS.t22 140.012
+R588 VSS.t52 VSS.t56 140.012
+R589 VSS.t92 VSS.t90 140.012
+R590 VSS.t90 VSS.t18 140.012
+R591 VSS.t18 VSS.t16 140.012
+R592 VSS.t16 VSS.t46 140.012
+R593 VSS.t46 VSS.t32 140.012
+R594 VSS.t80 VSS.t82 140.012
+R595 VSS.t14 VSS.t80 140.012
+R596 VSS.t6 VSS.t14 140.012
+R597 VSS.t42 VSS.t6 140.012
+R598 VSS.t30 VSS.t42 140.012
+R599 VSS.t72 VSS.t70 140.012
+R600 VSS.t70 VSS.t12 140.012
+R601 VSS.t12 VSS.t10 140.012
+R602 VSS.t10 VSS.t38 140.012
+R603 VSS.t38 VSS.t36 140.012
+R604 VSS.t24 VSS.n278 136.948
+R605 VSS.t106 VSS.t246 131.261
+R606 VSS.t250 VSS.t118 131.261
+R607 VSS.t102 VSS.t252 131.261
+R608 VSS.t244 VSS.t92 131.261
+R609 VSS.t82 VSS.t242 131.261
+R610 VSS.t248 VSS.t72 131.261
+R611 VSS.n164 VSS.n163 49.0573
+R612 VSS.n486 VSS.n485 49.0573
+R613 VSS.n162 VSS.n2 22.1751
+R614 VSS.n487 VSS.n2 22.174
+R615 VSS.n390 VSS.t243 12.9855
+R616 VSS.n49 VSS.t245 12.9855
+R617 VSS.n280 VSS.t253 12.9855
+R618 VSS.n85 VSS.t251 12.9855
+R619 VSS.n166 VSS.t247 12.9855
+R620 VSS.n7 VSS.t249 12.9855
+R621 VSS.n393 VSS.t157 11.5171
+R622 VSS.n417 VSS.t186 11.5171
+R623 VSS.n424 VSS.t31 11.5171
+R624 VSS.n402 VSS.t76 11.5171
+R625 VSS.n409 VSS.t254 11.5171
+R626 VSS.n46 VSS.t261 11.5171
+R627 VSS.n40 VSS.t313 11.5171
+R628 VSS.n52 VSS.t165 11.5171
+R629 VSS.n378 VSS.t199 11.5171
+R630 VSS.n385 VSS.t33 11.5171
+R631 VSS.n363 VSS.t86 11.5171
+R632 VSS.n370 VSS.t258 11.5171
+R633 VSS.n61 VSS.t280 11.5171
+R634 VSS.n355 VSS.t322 11.5171
+R635 VSS.n283 VSS.t170 11.5171
+R636 VSS.n307 VSS.t205 11.5171
+R637 VSS.n314 VSS.t53 11.5171
+R638 VSS.n292 VSS.t96 11.5171
+R639 VSS.n299 VSS.t260 11.5171
+R640 VSS.n82 VSS.t290 11.5171
+R641 VSS.n76 VSS.t330 11.5171
+R642 VSS.n88 VSS.t168 11.5171
+R643 VSS.n267 VSS.t204 11.5171
+R644 VSS.n274 VSS.t55 11.5171
+R645 VSS.n252 VSS.t113 11.5171
+R646 VSS.n259 VSS.t264 11.5171
+R647 VSS.n97 VSS.t293 11.5171
+R648 VSS.n244 VSS.t329 11.5171
+R649 VSS.n169 VSS.t160 11.5171
+R650 VSS.n193 VSS.t203 11.5171
+R651 VSS.n200 VSS.t35 11.5171
+R652 VSS.n178 VSS.t122 11.5171
+R653 VSS.n185 VSS.t262 11.5171
+R654 VSS.n118 VSS.t287 11.5171
+R655 VSS.n112 VSS.t341 11.5171
+R656 VSS.n10 VSS.t162 11.5171
+R657 VSS.n474 VSS.t190 11.5171
+R658 VSS.n481 VSS.t37 11.5171
+R659 VSS.n459 VSS.t50 11.5171
+R660 VSS.n466 VSS.t255 11.5171
+R661 VSS.n19 VSS.t263 11.5171
+R662 VSS.n26 VSS.t288 11.5171
+R663 VSS.t246 VSS.t129 8.75117
+R664 VSS.t120 VSS.t250 8.75117
+R665 VSS.t252 VSS.t111 8.75117
+R666 VSS.t94 VSS.t244 8.75117
+R667 VSS.t242 VSS.t84 8.75117
+R668 VSS.t74 VSS.t248 8.75117
+R669 VSS.n414 VSS.n412 8.5055
+R670 VSS.n421 VSS.n419 8.5055
+R671 VSS.n399 VSS.n397 8.5055
+R672 VSS.n406 VSS.n404 8.5055
+R673 VSS.n43 VSS.n41 8.5055
+R674 VSS.n37 VSS.n35 8.5055
+R675 VSS.n375 VSS.n373 8.5055
+R676 VSS.n382 VSS.n380 8.5055
+R677 VSS.n360 VSS.n358 8.5055
+R678 VSS.n367 VSS.n365 8.5055
+R679 VSS.n58 VSS.n56 8.5055
+R680 VSS.n352 VSS.n350 8.5055
+R681 VSS.n304 VSS.n302 8.5055
+R682 VSS.n311 VSS.n309 8.5055
+R683 VSS.n289 VSS.n287 8.5055
+R684 VSS.n296 VSS.n294 8.5055
+R685 VSS.n79 VSS.n77 8.5055
+R686 VSS.n73 VSS.n71 8.5055
+R687 VSS.n264 VSS.n262 8.5055
+R688 VSS.n271 VSS.n269 8.5055
+R689 VSS.n249 VSS.n247 8.5055
+R690 VSS.n256 VSS.n254 8.5055
+R691 VSS.n94 VSS.n92 8.5055
+R692 VSS.n241 VSS.n239 8.5055
+R693 VSS.n190 VSS.n188 8.5055
+R694 VSS.n197 VSS.n195 8.5055
+R695 VSS.n175 VSS.n173 8.5055
+R696 VSS.n182 VSS.n180 8.5055
+R697 VSS.n115 VSS.n113 8.5055
+R698 VSS.n109 VSS.n107 8.5055
+R699 VSS.n471 VSS.n469 8.5055
+R700 VSS.n478 VSS.n476 8.5055
+R701 VSS.n456 VSS.n454 8.5055
+R702 VSS.n463 VSS.n461 8.5055
+R703 VSS.n16 VSS.n14 8.5055
+R704 VSS.n23 VSS.n21 8.5055
+R705 VSS.n392 VSS.n391 7.74761
+R706 VSS.n390 VSS.n389 7.74761
+R707 VSS.n416 VSS.n415 7.74761
+R708 VSS.n414 VSS.n413 7.74761
+R709 VSS.n423 VSS.n422 7.74761
+R710 VSS.n421 VSS.n420 7.74761
+R711 VSS.n401 VSS.n400 7.74761
+R712 VSS.n399 VSS.n398 7.74761
+R713 VSS.n408 VSS.n407 7.74761
+R714 VSS.n406 VSS.n405 7.74761
+R715 VSS.n45 VSS.n44 7.74761
+R716 VSS.n43 VSS.n42 7.74761
+R717 VSS.n39 VSS.n38 7.74761
+R718 VSS.n37 VSS.n36 7.74761
+R719 VSS.n51 VSS.n50 7.74761
+R720 VSS.n49 VSS.n48 7.74761
+R721 VSS.n377 VSS.n376 7.74761
+R722 VSS.n375 VSS.n374 7.74761
+R723 VSS.n384 VSS.n383 7.74761
+R724 VSS.n382 VSS.n381 7.74761
+R725 VSS.n362 VSS.n361 7.74761
+R726 VSS.n360 VSS.n359 7.74761
+R727 VSS.n369 VSS.n368 7.74761
+R728 VSS.n367 VSS.n366 7.74761
+R729 VSS.n60 VSS.n59 7.74761
+R730 VSS.n58 VSS.n57 7.74761
+R731 VSS.n354 VSS.n353 7.74761
+R732 VSS.n352 VSS.n351 7.74761
+R733 VSS.n282 VSS.n281 7.74761
+R734 VSS.n280 VSS.n279 7.74761
+R735 VSS.n306 VSS.n305 7.74761
+R736 VSS.n304 VSS.n303 7.74761
+R737 VSS.n313 VSS.n312 7.74761
+R738 VSS.n311 VSS.n310 7.74761
+R739 VSS.n291 VSS.n290 7.74761
+R740 VSS.n289 VSS.n288 7.74761
+R741 VSS.n298 VSS.n297 7.74761
+R742 VSS.n296 VSS.n295 7.74761
+R743 VSS.n81 VSS.n80 7.74761
+R744 VSS.n79 VSS.n78 7.74761
+R745 VSS.n75 VSS.n74 7.74761
+R746 VSS.n73 VSS.n72 7.74761
+R747 VSS.n87 VSS.n86 7.74761
+R748 VSS.n85 VSS.n84 7.74761
+R749 VSS.n266 VSS.n265 7.74761
+R750 VSS.n264 VSS.n263 7.74761
+R751 VSS.n273 VSS.n272 7.74761
+R752 VSS.n271 VSS.n270 7.74761
+R753 VSS.n251 VSS.n250 7.74761
+R754 VSS.n249 VSS.n248 7.74761
+R755 VSS.n258 VSS.n257 7.74761
+R756 VSS.n256 VSS.n255 7.74761
+R757 VSS.n96 VSS.n95 7.74761
+R758 VSS.n94 VSS.n93 7.74761
+R759 VSS.n243 VSS.n242 7.74761
+R760 VSS.n241 VSS.n240 7.74761
+R761 VSS.n168 VSS.n167 7.74761
+R762 VSS.n166 VSS.n165 7.74761
+R763 VSS.n192 VSS.n191 7.74761
+R764 VSS.n190 VSS.n189 7.74761
+R765 VSS.n199 VSS.n198 7.74761
+R766 VSS.n197 VSS.n196 7.74761
+R767 VSS.n177 VSS.n176 7.74761
+R768 VSS.n175 VSS.n174 7.74761
+R769 VSS.n184 VSS.n183 7.74761
+R770 VSS.n182 VSS.n181 7.74761
+R771 VSS.n117 VSS.n116 7.74761
+R772 VSS.n115 VSS.n114 7.74761
+R773 VSS.n111 VSS.n110 7.74761
+R774 VSS.n109 VSS.n108 7.74761
+R775 VSS.n9 VSS.n8 7.74761
+R776 VSS.n7 VSS.n6 7.74761
+R777 VSS.n473 VSS.n472 7.74761
+R778 VSS.n471 VSS.n470 7.74761
+R779 VSS.n480 VSS.n479 7.74761
+R780 VSS.n478 VSS.n477 7.74761
+R781 VSS.n458 VSS.n457 7.74761
+R782 VSS.n456 VSS.n455 7.74761
+R783 VSS.n465 VSS.n464 7.74761
+R784 VSS.n463 VSS.n462 7.74761
+R785 VSS.n18 VSS.n17 7.74761
+R786 VSS.n16 VSS.n15 7.74761
+R787 VSS.n25 VSS.n24 7.74761
+R788 VSS.n23 VSS.n22 7.74761
+R789 VSS.n428 VSS.n427 7.4505
+R790 VSS.n388 VSS.n357 7.4505
+R791 VSS.n318 VSS.n317 7.4505
+R792 VSS.n277 VSS.n246 7.4505
+R793 VSS.n204 VSS.n203 7.4505
+R794 VSS.n203 VSS.n172 7.4505
+R795 VSS.n277 VSS.n91 7.4505
+R796 VSS.n317 VSS.n286 7.4505
+R797 VSS.n388 VSS.n55 7.4505
+R798 VSS.n427 VSS.n396 7.4505
+R799 VSS.n203 VSS.n187 7.4505
+R800 VSS.n277 VSS.n261 7.4505
+R801 VSS.n317 VSS.n301 7.4505
+R802 VSS.n388 VSS.n372 7.4505
+R803 VSS.n427 VSS.n411 7.4505
+R804 VSS.n203 VSS.n171 7.4505
+R805 VSS.n277 VSS.n90 7.4505
+R806 VSS.n317 VSS.n285 7.4505
+R807 VSS.n388 VSS.n54 7.4505
+R808 VSS.n427 VSS.n395 7.4505
+R809 VSS.n203 VSS.n202 7.4505
+R810 VSS.n277 VSS.n276 7.4505
+R811 VSS.n317 VSS.n316 7.4505
+R812 VSS.n388 VSS.n387 7.4505
+R813 VSS.n427 VSS.n426 7.4505
+R814 VSS.n484 VSS.n483 7.4505
+R815 VSS.n484 VSS.n12 7.4505
+R816 VSS.n484 VSS.n468 7.4505
+R817 VSS.n484 VSS.n13 7.4505
+R818 VSS.n484 VSS.n453 7.4505
+R819 VSS.n162 VSS.n161 5.10914
+R820 VSS.n120 VSS.t5 5.05684
+R821 VSS.n157 VSS.t2 5.05684
+R822 VSS.n124 VSS.t182 5.05684
+R823 VSS.n150 VSS.t184 5.05684
+R824 VSS.n127 VSS.t350 5.05684
+R825 VSS.n488 VSS.n487 5.0527
+R826 VSS.n391 VSS.t164 3.77
+R827 VSS.n391 VSS.t7 3.77
+R828 VSS.n389 VSS.t15 3.77
+R829 VSS.n389 VSS.t234 3.77
+R830 VSS.n415 VSS.t195 3.77
+R831 VSS.n415 VSS.t196 3.77
+R832 VSS.n413 VSS.t197 3.77
+R833 VSS.n413 VSS.t198 3.77
+R834 VSS.n412 VSS.t158 3.77
+R835 VSS.n412 VSS.t174 3.77
+R836 VSS.n422 VSS.t43 3.77
+R837 VSS.n422 VSS.t44 3.77
+R838 VSS.n420 VSS.t45 3.77
+R839 VSS.n420 VSS.t187 3.77
+R840 VSS.n419 VSS.t222 3.77
+R841 VSS.n419 VSS.t223 3.77
+R842 VSS.n400 VSS.t77 3.77
+R843 VSS.n400 VSS.t78 3.77
+R844 VSS.n398 VSS.t79 3.77
+R845 VSS.n398 VSS.t81 3.77
+R846 VSS.n397 VSS.t83 3.77
+R847 VSS.n397 VSS.t85 3.77
+R848 VSS.n407 VSS.t257 3.77
+R849 VSS.n407 VSS.t104 3.77
+R850 VSS.n405 VSS.t135 3.77
+R851 VSS.n405 VSS.t136 3.77
+R852 VSS.n404 VSS.t105 3.77
+R853 VSS.n404 VSS.t137 3.77
+R854 VSS.n44 VSS.t274 3.77
+R855 VSS.n44 VSS.t275 3.77
+R856 VSS.n42 VSS.t276 3.77
+R857 VSS.n42 VSS.t277 3.77
+R858 VSS.n41 VSS.t278 3.77
+R859 VSS.n41 VSS.t279 3.77
+R860 VSS.n38 VSS.t316 3.77
+R861 VSS.n38 VSS.t317 3.77
+R862 VSS.n36 VSS.t318 3.77
+R863 VSS.n36 VSS.t319 3.77
+R864 VSS.n35 VSS.t320 3.77
+R865 VSS.n35 VSS.t321 3.77
+R866 VSS.n50 VSS.t166 3.77
+R867 VSS.n50 VSS.t17 3.77
+R868 VSS.n48 VSS.t19 3.77
+R869 VSS.n48 VSS.t235 3.77
+R870 VSS.n376 VSS.t200 3.77
+R871 VSS.n376 VSS.t201 3.77
+R872 VSS.n374 VSS.t188 3.77
+R873 VSS.n374 VSS.t202 3.77
+R874 VSS.n373 VSS.t159 3.77
+R875 VSS.n373 VSS.t175 3.77
+R876 VSS.n383 VSS.t47 3.77
+R877 VSS.n383 VSS.t48 3.77
+R878 VSS.n381 VSS.t49 3.77
+R879 VSS.n381 VSS.t224 3.77
+R880 VSS.n380 VSS.t225 3.77
+R881 VSS.n380 VSS.t226 3.77
+R882 VSS.n361 VSS.t87 3.77
+R883 VSS.n361 VSS.t88 3.77
+R884 VSS.n359 VSS.t89 3.77
+R885 VSS.n359 VSS.t91 3.77
+R886 VSS.n358 VSS.t93 3.77
+R887 VSS.n358 VSS.t95 3.77
+R888 VSS.n368 VSS.t259 3.77
+R889 VSS.n368 VSS.t138 3.77
+R890 VSS.n366 VSS.t139 3.77
+R891 VSS.n366 VSS.t140 3.77
+R892 VSS.n365 VSS.t141 3.77
+R893 VSS.n365 VSS.t142 3.77
+R894 VSS.n59 VSS.t281 3.77
+R895 VSS.n59 VSS.t282 3.77
+R896 VSS.n57 VSS.t283 3.77
+R897 VSS.n57 VSS.t284 3.77
+R898 VSS.n56 VSS.t285 3.77
+R899 VSS.n56 VSS.t286 3.77
+R900 VSS.n353 VSS.t323 3.77
+R901 VSS.n353 VSS.t324 3.77
+R902 VSS.n351 VSS.t325 3.77
+R903 VSS.n351 VSS.t326 3.77
+R904 VSS.n350 VSS.t327 3.77
+R905 VSS.n350 VSS.t328 3.77
+R906 VSS.n281 VSS.t171 3.77
+R907 VSS.n281 VSS.t23 3.77
+R908 VSS.n279 VSS.t25 3.77
+R909 VSS.n279 VSS.t239 3.77
+R910 VSS.n305 VSS.t206 3.77
+R911 VSS.n305 VSS.t207 3.77
+R912 VSS.n303 VSS.t208 3.77
+R913 VSS.n303 VSS.t209 3.77
+R914 VSS.n302 VSS.t176 3.77
+R915 VSS.n302 VSS.t178 3.77
+R916 VSS.n312 VSS.t57 3.77
+R917 VSS.n312 VSS.t58 3.77
+R918 VSS.n310 VSS.t59 3.77
+R919 VSS.n310 VSS.t228 3.77
+R920 VSS.n309 VSS.t229 3.77
+R921 VSS.n309 VSS.t230 3.77
+R922 VSS.n290 VSS.t97 3.77
+R923 VSS.n290 VSS.t98 3.77
+R924 VSS.n288 VSS.t99 3.77
+R925 VSS.n288 VSS.t101 3.77
+R926 VSS.n287 VSS.t103 3.77
+R927 VSS.n287 VSS.t112 3.77
+R928 VSS.n297 VSS.t265 3.77
+R929 VSS.n297 VSS.t143 3.77
+R930 VSS.n295 VSS.t144 3.77
+R931 VSS.n295 VSS.t145 3.77
+R932 VSS.n294 VSS.t146 3.77
+R933 VSS.n294 VSS.t147 3.77
+R934 VSS.n80 VSS.t291 3.77
+R935 VSS.n80 VSS.t292 3.77
+R936 VSS.n78 VSS.t294 3.77
+R937 VSS.n78 VSS.t295 3.77
+R938 VSS.n77 VSS.t296 3.77
+R939 VSS.n77 VSS.t297 3.77
+R940 VSS.n74 VSS.t331 3.77
+R941 VSS.n74 VSS.t332 3.77
+R942 VSS.n72 VSS.t333 3.77
+R943 VSS.n72 VSS.t334 3.77
+R944 VSS.n71 VSS.t335 3.77
+R945 VSS.n71 VSS.t336 3.77
+R946 VSS.n86 VSS.t169 3.77
+R947 VSS.n86 VSS.t21 3.77
+R948 VSS.n84 VSS.t27 3.77
+R949 VSS.n84 VSS.t238 3.77
+R950 VSS.n265 VSS.t210 3.77
+R951 VSS.n265 VSS.t211 3.77
+R952 VSS.n263 VSS.t212 3.77
+R953 VSS.n263 VSS.t213 3.77
+R954 VSS.n262 VSS.t177 3.77
+R955 VSS.n262 VSS.t179 3.77
+R956 VSS.n272 VSS.t61 3.77
+R957 VSS.n272 VSS.t62 3.77
+R958 VSS.n270 VSS.t51 3.77
+R959 VSS.n270 VSS.t227 3.77
+R960 VSS.n269 VSS.t231 3.77
+R961 VSS.n269 VSS.t232 3.77
+R962 VSS.n250 VSS.t114 3.77
+R963 VSS.n250 VSS.t115 3.77
+R964 VSS.n248 VSS.t109 3.77
+R965 VSS.n248 VSS.t117 3.77
+R966 VSS.n247 VSS.t119 3.77
+R967 VSS.n247 VSS.t121 3.77
+R968 VSS.n257 VSS.t266 3.77
+R969 VSS.n257 VSS.t110 3.77
+R970 VSS.n255 VSS.t149 3.77
+R971 VSS.n255 VSS.t150 3.77
+R972 VSS.n254 VSS.t151 3.77
+R973 VSS.n254 VSS.t152 3.77
+R974 VSS.n95 VSS.t298 3.77
+R975 VSS.n95 VSS.t299 3.77
+R976 VSS.n93 VSS.t300 3.77
+R977 VSS.n93 VSS.t301 3.77
+R978 VSS.n92 VSS.t289 3.77
+R979 VSS.n92 VSS.t302 3.77
+R980 VSS.n242 VSS.t337 3.77
+R981 VSS.n242 VSS.t338 3.77
+R982 VSS.n240 VSS.t339 3.77
+R983 VSS.n240 VSS.t340 3.77
+R984 VSS.n239 VSS.t342 3.77
+R985 VSS.n239 VSS.t343 3.77
+R986 VSS.n167 VSS.t172 3.77
+R987 VSS.n167 VSS.t9 3.77
+R988 VSS.n165 VSS.t29 3.77
+R989 VSS.n165 VSS.t237 3.77
+R990 VSS.n191 VSS.t189 3.77
+R991 VSS.n191 VSS.t214 3.77
+R992 VSS.n189 VSS.t215 3.77
+R993 VSS.n189 VSS.t216 3.77
+R994 VSS.n188 VSS.t161 3.77
+R995 VSS.n188 VSS.t180 3.77
+R996 VSS.n198 VSS.t64 3.77
+R997 VSS.n198 VSS.t65 3.77
+R998 VSS.n196 VSS.t66 3.77
+R999 VSS.n196 VSS.t217 3.77
+R1000 VSS.n195 VSS.t218 3.77
+R1001 VSS.n195 VSS.t233 3.77
+R1002 VSS.n176 VSS.t123 3.77
+R1003 VSS.n176 VSS.t124 3.77
+R1004 VSS.n174 VSS.t125 3.77
+R1005 VSS.n174 VSS.t127 3.77
+R1006 VSS.n173 VSS.t128 3.77
+R1007 VSS.n173 VSS.t130 3.77
+R1008 VSS.n183 VSS.t267 3.77
+R1009 VSS.n183 VSS.t148 3.77
+R1010 VSS.n181 VSS.t153 3.77
+R1011 VSS.n181 VSS.t154 3.77
+R1012 VSS.n180 VSS.t107 3.77
+R1013 VSS.n180 VSS.t155 3.77
+R1014 VSS.n116 VSS.t303 3.77
+R1015 VSS.n116 VSS.t304 3.77
+R1016 VSS.n114 VSS.t305 3.77
+R1017 VSS.n114 VSS.t306 3.77
+R1018 VSS.n113 VSS.t307 3.77
+R1019 VSS.n113 VSS.t308 3.77
+R1020 VSS.n110 VSS.t344 3.77
+R1021 VSS.n110 VSS.t345 3.77
+R1022 VSS.n108 VSS.t346 3.77
+R1023 VSS.n108 VSS.t347 3.77
+R1024 VSS.n107 VSS.t348 3.77
+R1025 VSS.n107 VSS.t349 3.77
+R1026 VSS.n8 VSS.t163 3.77
+R1027 VSS.n8 VSS.t11 3.77
+R1028 VSS.n6 VSS.t13 3.77
+R1029 VSS.n6 VSS.t236 3.77
+R1030 VSS.n472 VSS.t191 3.77
+R1031 VSS.n472 VSS.t192 3.77
+R1032 VSS.n470 VSS.t193 3.77
+R1033 VSS.n470 VSS.t194 3.77
+R1034 VSS.n469 VSS.t167 3.77
+R1035 VSS.n469 VSS.t173 3.77
+R1036 VSS.n479 VSS.t39 3.77
+R1037 VSS.n479 VSS.t40 3.77
+R1038 VSS.n477 VSS.t41 3.77
+R1039 VSS.n477 VSS.t219 3.77
+R1040 VSS.n476 VSS.t220 3.77
+R1041 VSS.n476 VSS.t221 3.77
+R1042 VSS.n457 VSS.t67 3.77
+R1043 VSS.n457 VSS.t68 3.77
+R1044 VSS.n455 VSS.t69 3.77
+R1045 VSS.n455 VSS.t71 3.77
+R1046 VSS.n454 VSS.t73 3.77
+R1047 VSS.n454 VSS.t75 3.77
+R1048 VSS.n464 VSS.t256 3.77
+R1049 VSS.n464 VSS.t131 3.77
+R1050 VSS.n462 VSS.t108 3.77
+R1051 VSS.n462 VSS.t132 3.77
+R1052 VSS.n461 VSS.t133 3.77
+R1053 VSS.n461 VSS.t134 3.77
+R1054 VSS.n17 VSS.t268 3.77
+R1055 VSS.n17 VSS.t269 3.77
+R1056 VSS.n15 VSS.t270 3.77
+R1057 VSS.n15 VSS.t271 3.77
+R1058 VSS.n14 VSS.t272 3.77
+R1059 VSS.n14 VSS.t273 3.77
+R1060 VSS.n24 VSS.t309 3.77
+R1061 VSS.n24 VSS.t310 3.77
+R1062 VSS.n22 VSS.t311 3.77
+R1063 VSS.n22 VSS.t312 3.77
+R1064 VSS.n21 VSS.t314 3.77
+R1065 VSS.n21 VSS.t315 3.77
+R1066 VSS.n203 VSS.n170 3.61228
+R1067 VSS.n277 VSS.n89 3.61228
+R1068 VSS.n317 VSS.n284 3.61228
+R1069 VSS.n388 VSS.n53 3.61228
+R1070 VSS.n427 VSS.n394 3.61228
+R1071 VSS.n484 VSS.n11 3.61228
+R1072 VSS.n278 VSS.t100 3.06324
+R1073 VSS.n161 VSS.n160 1.5755
+R1074 VSS VSS.n488 1.52112
+R1075 VSS.n160 VSS.n159 1.5005
+R1076 VSS.n158 VSS.n121 1.5005
+R1077 VSS.n156 VSS.n155 1.5005
+R1078 VSS.n154 VSS.n122 1.5005
+R1079 VSS.n153 VSS.n152 1.5005
+R1080 VSS.n151 VSS.n123 1.5005
+R1081 VSS.n149 VSS.n148 1.5005
+R1082 VSS.n147 VSS.n125 1.5005
+R1083 VSS.n146 VSS.n145 1.5005
+R1084 VSS.n144 VSS.n126 1.5005
+R1085 VSS.n143 VSS.n142 1.5005
+R1086 VSS.n141 VSS.n128 1.5005
+R1087 VSS.n140 VSS.n139 1.5005
+R1088 VSS.n138 VSS.n129 1.5005
+R1089 VSS.n137 VSS.n136 1.5005
+R1090 VSS.n135 VSS.n130 1.5005
+R1091 VSS.n134 VSS.n133 1.5005
+R1092 VSS.n132 VSS.n131 1.5005
+R1093 VSS.n106 VSS.n105 1.5005
+R1094 VSS.n208 VSS.n207 1.5005
+R1095 VSS.n209 VSS.n104 1.5005
+R1096 VSS.n211 VSS.n210 1.5005
+R1097 VSS.n212 VSS.n103 1.5005
+R1098 VSS.n214 VSS.n213 1.5005
+R1099 VSS.n215 VSS.n102 1.5005
+R1100 VSS.n217 VSS.n216 1.5005
+R1101 VSS.n218 VSS.n101 1.5005
+R1102 VSS.n220 VSS.n219 1.5005
+R1103 VSS.n221 VSS.n99 1.5005
+R1104 VSS.n237 VSS.n236 1.5005
+R1105 VSS.n235 VSS.n100 1.5005
+R1106 VSS.n234 VSS.n233 1.5005
+R1107 VSS.n232 VSS.n222 1.5005
+R1108 VSS.n231 VSS.n230 1.5005
+R1109 VSS.n229 VSS.n223 1.5005
+R1110 VSS.n227 VSS.n226 1.5005
+R1111 VSS.n225 VSS.n224 1.5005
+R1112 VSS.n70 VSS.n69 1.5005
+R1113 VSS.n322 VSS.n321 1.5005
+R1114 VSS.n323 VSS.n68 1.5005
+R1115 VSS.n325 VSS.n324 1.5005
+R1116 VSS.n326 VSS.n67 1.5005
+R1117 VSS.n328 VSS.n327 1.5005
+R1118 VSS.n329 VSS.n66 1.5005
+R1119 VSS.n331 VSS.n330 1.5005
+R1120 VSS.n332 VSS.n65 1.5005
+R1121 VSS.n334 VSS.n333 1.5005
+R1122 VSS.n335 VSS.n63 1.5005
+R1123 VSS.n348 VSS.n347 1.5005
+R1124 VSS.n346 VSS.n64 1.5005
+R1125 VSS.n345 VSS.n344 1.5005
+R1126 VSS.n343 VSS.n336 1.5005
+R1127 VSS.n342 VSS.n341 1.5005
+R1128 VSS.n340 VSS.n337 1.5005
+R1129 VSS.n339 VSS.n338 1.5005
+R1130 VSS.n34 VSS.n33 1.5005
+R1131 VSS.n432 VSS.n431 1.5005
+R1132 VSS.n433 VSS.n32 1.5005
+R1133 VSS.n435 VSS.n434 1.5005
+R1134 VSS.n436 VSS.n31 1.5005
+R1135 VSS.n438 VSS.n437 1.5005
+R1136 VSS.n439 VSS.n30 1.5005
+R1137 VSS.n441 VSS.n440 1.5005
+R1138 VSS.n442 VSS.n29 1.5005
+R1139 VSS.n444 VSS.n443 1.5005
+R1140 VSS.n445 VSS.n27 1.5005
+R1141 VSS.n450 VSS.n449 1.5005
+R1142 VSS.n448 VSS.n28 1.5005
+R1143 VSS.n447 VSS.n446 1.5005
+R1144 VSS.n1 VSS.n0 1.5005
+R1145 VSS.n392 VSS.n390 0.758395
+R1146 VSS.n393 VSS.n392 0.758395
+R1147 VSS.n416 VSS.n414 0.758395
+R1148 VSS.n417 VSS.n416 0.758395
+R1149 VSS.n423 VSS.n421 0.758395
+R1150 VSS.n424 VSS.n423 0.758395
+R1151 VSS.n401 VSS.n399 0.758395
+R1152 VSS.n402 VSS.n401 0.758395
+R1153 VSS.n408 VSS.n406 0.758395
+R1154 VSS.n409 VSS.n408 0.758395
+R1155 VSS.n45 VSS.n43 0.758395
+R1156 VSS.n46 VSS.n45 0.758395
+R1157 VSS.n39 VSS.n37 0.758395
+R1158 VSS.n40 VSS.n39 0.758395
+R1159 VSS.n51 VSS.n49 0.758395
+R1160 VSS.n52 VSS.n51 0.758395
+R1161 VSS.n377 VSS.n375 0.758395
+R1162 VSS.n378 VSS.n377 0.758395
+R1163 VSS.n384 VSS.n382 0.758395
+R1164 VSS.n385 VSS.n384 0.758395
+R1165 VSS.n362 VSS.n360 0.758395
+R1166 VSS.n363 VSS.n362 0.758395
+R1167 VSS.n369 VSS.n367 0.758395
+R1168 VSS.n370 VSS.n369 0.758395
+R1169 VSS.n60 VSS.n58 0.758395
+R1170 VSS.n61 VSS.n60 0.758395
+R1171 VSS.n354 VSS.n352 0.758395
+R1172 VSS.n355 VSS.n354 0.758395
+R1173 VSS.n282 VSS.n280 0.758395
+R1174 VSS.n283 VSS.n282 0.758395
+R1175 VSS.n306 VSS.n304 0.758395
+R1176 VSS.n307 VSS.n306 0.758395
+R1177 VSS.n313 VSS.n311 0.758395
+R1178 VSS.n314 VSS.n313 0.758395
+R1179 VSS.n291 VSS.n289 0.758395
+R1180 VSS.n292 VSS.n291 0.758395
+R1181 VSS.n298 VSS.n296 0.758395
+R1182 VSS.n299 VSS.n298 0.758395
+R1183 VSS.n81 VSS.n79 0.758395
+R1184 VSS.n82 VSS.n81 0.758395
+R1185 VSS.n75 VSS.n73 0.758395
+R1186 VSS.n76 VSS.n75 0.758395
+R1187 VSS.n87 VSS.n85 0.758395
+R1188 VSS.n88 VSS.n87 0.758395
+R1189 VSS.n266 VSS.n264 0.758395
+R1190 VSS.n267 VSS.n266 0.758395
+R1191 VSS.n273 VSS.n271 0.758395
+R1192 VSS.n274 VSS.n273 0.758395
+R1193 VSS.n251 VSS.n249 0.758395
+R1194 VSS.n252 VSS.n251 0.758395
+R1195 VSS.n258 VSS.n256 0.758395
+R1196 VSS.n259 VSS.n258 0.758395
+R1197 VSS.n96 VSS.n94 0.758395
+R1198 VSS.n97 VSS.n96 0.758395
+R1199 VSS.n243 VSS.n241 0.758395
+R1200 VSS.n244 VSS.n243 0.758395
+R1201 VSS.n168 VSS.n166 0.758395
+R1202 VSS.n169 VSS.n168 0.758395
+R1203 VSS.n192 VSS.n190 0.758395
+R1204 VSS.n193 VSS.n192 0.758395
+R1205 VSS.n199 VSS.n197 0.758395
+R1206 VSS.n200 VSS.n199 0.758395
+R1207 VSS.n177 VSS.n175 0.758395
+R1208 VSS.n178 VSS.n177 0.758395
+R1209 VSS.n184 VSS.n182 0.758395
+R1210 VSS.n185 VSS.n184 0.758395
+R1211 VSS.n117 VSS.n115 0.758395
+R1212 VSS.n118 VSS.n117 0.758395
+R1213 VSS.n111 VSS.n109 0.758395
+R1214 VSS.n112 VSS.n111 0.758395
+R1215 VSS.n9 VSS.n7 0.758395
+R1216 VSS.n10 VSS.n9 0.758395
+R1217 VSS.n473 VSS.n471 0.758395
+R1218 VSS.n474 VSS.n473 0.758395
+R1219 VSS.n480 VSS.n478 0.758395
+R1220 VSS.n481 VSS.n480 0.758395
+R1221 VSS.n458 VSS.n456 0.758395
+R1222 VSS.n459 VSS.n458 0.758395
+R1223 VSS.n465 VSS.n463 0.758395
+R1224 VSS.n466 VSS.n465 0.758395
+R1225 VSS.n18 VSS.n16 0.758395
+R1226 VSS.n19 VSS.n18 0.758395
+R1227 VSS.n25 VSS.n23 0.758395
+R1228 VSS.n26 VSS.n25 0.758395
+R1229 VSS.n426 VSS.n418 0.525105
+R1230 VSS.n411 VSS.n403 0.525105
+R1231 VSS.n387 VSS.n379 0.525105
+R1232 VSS.n372 VSS.n364 0.525105
+R1233 VSS.n316 VSS.n308 0.525105
+R1234 VSS.n301 VSS.n293 0.525105
+R1235 VSS.n276 VSS.n268 0.525105
+R1236 VSS.n261 VSS.n253 0.525105
+R1237 VSS.n202 VSS.n194 0.525105
+R1238 VSS.n187 VSS.n179 0.525105
+R1239 VSS.n483 VSS.n475 0.525105
+R1240 VSS.n468 VSS.n460 0.525105
+R1241 VSS.n170 VSS.n169 0.4874
+R1242 VSS.n89 VSS.n88 0.4874
+R1243 VSS.n284 VSS.n283 0.4874
+R1244 VSS.n53 VSS.n52 0.4874
+R1245 VSS.n394 VSS.n393 0.4874
+R1246 VSS.n11 VSS.n10 0.4874
+R1247 VSS.n425 VSS.n395 0.364053
+R1248 VSS.n410 VSS.n396 0.364053
+R1249 VSS.n428 VSS.n47 0.364053
+R1250 VSS.n386 VSS.n54 0.364053
+R1251 VSS.n371 VSS.n55 0.364053
+R1252 VSS.n357 VSS.n62 0.364053
+R1253 VSS.n315 VSS.n285 0.364053
+R1254 VSS.n300 VSS.n286 0.364053
+R1255 VSS.n318 VSS.n83 0.364053
+R1256 VSS.n275 VSS.n90 0.364053
+R1257 VSS.n260 VSS.n91 0.364053
+R1258 VSS.n246 VSS.n98 0.364053
+R1259 VSS.n201 VSS.n171 0.364053
+R1260 VSS.n186 VSS.n172 0.364053
+R1261 VSS.n204 VSS.n119 0.364053
+R1262 VSS.n482 VSS.n12 0.364053
+R1263 VSS.n467 VSS.n13 0.364053
+R1264 VSS.n453 VSS.n20 0.364053
+R1265 VSS.n418 VSS.n394 0.305634
+R1266 VSS.n379 VSS.n53 0.305634
+R1267 VSS.n308 VSS.n284 0.305634
+R1268 VSS.n268 VSS.n89 0.305634
+R1269 VSS.n194 VSS.n170 0.305634
+R1270 VSS.n475 VSS.n11 0.305634
+R1271 VSS.n418 VSS.n417 0.232605
+R1272 VSS.n425 VSS.n424 0.232605
+R1273 VSS.n403 VSS.n402 0.232605
+R1274 VSS.n410 VSS.n409 0.232605
+R1275 VSS.n47 VSS.n46 0.232605
+R1276 VSS.n429 VSS.n40 0.232605
+R1277 VSS.n379 VSS.n378 0.232605
+R1278 VSS.n386 VSS.n385 0.232605
+R1279 VSS.n364 VSS.n363 0.232605
+R1280 VSS.n371 VSS.n370 0.232605
+R1281 VSS.n62 VSS.n61 0.232605
+R1282 VSS.n356 VSS.n355 0.232605
+R1283 VSS.n308 VSS.n307 0.232605
+R1284 VSS.n315 VSS.n314 0.232605
+R1285 VSS.n293 VSS.n292 0.232605
+R1286 VSS.n300 VSS.n299 0.232605
+R1287 VSS.n83 VSS.n82 0.232605
+R1288 VSS.n319 VSS.n76 0.232605
+R1289 VSS.n268 VSS.n267 0.232605
+R1290 VSS.n275 VSS.n274 0.232605
+R1291 VSS.n253 VSS.n252 0.232605
+R1292 VSS.n260 VSS.n259 0.232605
+R1293 VSS.n98 VSS.n97 0.232605
+R1294 VSS.n245 VSS.n244 0.232605
+R1295 VSS.n194 VSS.n193 0.232605
+R1296 VSS.n201 VSS.n200 0.232605
+R1297 VSS.n179 VSS.n178 0.232605
+R1298 VSS.n186 VSS.n185 0.232605
+R1299 VSS.n119 VSS.n118 0.232605
+R1300 VSS.n205 VSS.n112 0.232605
+R1301 VSS.n475 VSS.n474 0.232605
+R1302 VSS.n482 VSS.n481 0.232605
+R1303 VSS.n460 VSS.n459 0.232605
+R1304 VSS.n467 VSS.n466 0.232605
+R1305 VSS.n20 VSS.n19 0.232605
+R1306 VSS.n452 VSS.n26 0.232605
+R1307 VSS.n159 VSS.n158 0.0755
+R1308 VSS.n156 VSS.n122 0.0755
+R1309 VSS.n152 VSS.n151 0.0755
+R1310 VSS.n149 VSS.n125 0.0755
+R1311 VSS.n145 VSS.n144 0.0755
+R1312 VSS.n144 VSS.n143 0.0755
+R1313 VSS.n143 VSS.n128 0.0755
+R1314 VSS.n139 VSS.n128 0.0755
+R1315 VSS.n139 VSS.n138 0.0755
+R1316 VSS.n138 VSS.n137 0.0755
+R1317 VSS.n137 VSS.n130 0.0755
+R1318 VSS.n133 VSS.n130 0.0755
+R1319 VSS.n133 VSS.n132 0.0755
+R1320 VSS.n132 VSS.n105 0.0755
+R1321 VSS.n208 VSS.n105 0.0755
+R1322 VSS.n209 VSS.n208 0.0755
+R1323 VSS.n210 VSS.n209 0.0755
+R1324 VSS.n210 VSS.n103 0.0755
+R1325 VSS.n214 VSS.n103 0.0755
+R1326 VSS.n215 VSS.n214 0.0755
+R1327 VSS.n216 VSS.n215 0.0755
+R1328 VSS.n216 VSS.n101 0.0755
+R1329 VSS.n220 VSS.n101 0.0755
+R1330 VSS.n221 VSS.n220 0.0755
+R1331 VSS.n236 VSS.n221 0.0755
+R1332 VSS.n236 VSS.n235 0.0755
+R1333 VSS.n235 VSS.n234 0.0755
+R1334 VSS.n234 VSS.n222 0.0755
+R1335 VSS.n230 VSS.n222 0.0755
+R1336 VSS.n230 VSS.n229 0.0755
+R1337 VSS.n227 VSS.n224 0.0755
+R1338 VSS.n224 VSS.n69 0.0755
+R1339 VSS.n322 VSS.n69 0.0755
+R1340 VSS.n323 VSS.n322 0.0755
+R1341 VSS.n324 VSS.n323 0.0755
+R1342 VSS.n324 VSS.n67 0.0755
+R1343 VSS.n328 VSS.n67 0.0755
+R1344 VSS.n329 VSS.n328 0.0755
+R1345 VSS.n330 VSS.n329 0.0755
+R1346 VSS.n330 VSS.n65 0.0755
+R1347 VSS.n334 VSS.n65 0.0755
+R1348 VSS.n335 VSS.n334 0.0755
+R1349 VSS.n347 VSS.n335 0.0755
+R1350 VSS.n347 VSS.n346 0.0755
+R1351 VSS.n346 VSS.n345 0.0755
+R1352 VSS.n345 VSS.n336 0.0755
+R1353 VSS.n341 VSS.n336 0.0755
+R1354 VSS.n341 VSS.n340 0.0755
+R1355 VSS.n340 VSS.n339 0.0755
+R1356 VSS.n339 VSS.n33 0.0755
+R1357 VSS.n432 VSS.n33 0.0755
+R1358 VSS.n433 VSS.n432 0.0755
+R1359 VSS.n434 VSS.n433 0.0755
+R1360 VSS.n434 VSS.n31 0.0755
+R1361 VSS.n438 VSS.n31 0.0755
+R1362 VSS.n439 VSS.n438 0.0755
+R1363 VSS.n440 VSS.n439 0.0755
+R1364 VSS.n440 VSS.n29 0.0755
+R1365 VSS.n444 VSS.n29 0.0755
+R1366 VSS.n445 VSS.n444 0.0755
+R1367 VSS.n449 VSS.n445 0.0755
+R1368 VSS.n449 VSS.n448 0.0755
+R1369 VSS.n448 VSS.n447 0.0755
+R1370 VSS.n447 VSS.n1 0.0755
+R1371 VSS.n488 VSS.n1 0.0755
+R1372 VSS.n160 VSS.n121 0.0755
+R1373 VSS.n155 VSS.n121 0.0755
+R1374 VSS.n155 VSS.n154 0.0755
+R1375 VSS.n154 VSS.n153 0.0755
+R1376 VSS.n153 VSS.n123 0.0755
+R1377 VSS.n148 VSS.n123 0.0755
+R1378 VSS.n148 VSS.n147 0.0755
+R1379 VSS.n147 VSS.n146 0.0755
+R1380 VSS.n146 VSS.n126 0.0755
+R1381 VSS.n142 VSS.n126 0.0755
+R1382 VSS.n142 VSS.n141 0.0755
+R1383 VSS.n141 VSS.n140 0.0755
+R1384 VSS.n140 VSS.n129 0.0755
+R1385 VSS.n136 VSS.n129 0.0755
+R1386 VSS.n136 VSS.n135 0.0755
+R1387 VSS.n135 VSS.n134 0.0755
+R1388 VSS.n134 VSS.n131 0.0755
+R1389 VSS.n131 VSS.n106 0.0755
+R1390 VSS.n207 VSS.n106 0.0755
+R1391 VSS.n211 VSS.n104 0.0755
+R1392 VSS.n212 VSS.n211 0.0755
+R1393 VSS.n213 VSS.n212 0.0755
+R1394 VSS.n213 VSS.n102 0.0755
+R1395 VSS.n217 VSS.n102 0.0755
+R1396 VSS.n218 VSS.n217 0.0755
+R1397 VSS.n219 VSS.n218 0.0755
+R1398 VSS.n219 VSS.n99 0.0755
+R1399 VSS.n237 VSS.n100 0.0755
+R1400 VSS.n233 VSS.n100 0.0755
+R1401 VSS.n233 VSS.n232 0.0755
+R1402 VSS.n232 VSS.n231 0.0755
+R1403 VSS.n231 VSS.n223 0.0755
+R1404 VSS.n226 VSS.n223 0.0755
+R1405 VSS.n226 VSS.n225 0.0755
+R1406 VSS.n225 VSS.n70 0.0755
+R1407 VSS.n321 VSS.n70 0.0755
+R1408 VSS.n325 VSS.n68 0.0755
+R1409 VSS.n326 VSS.n325 0.0755
+R1410 VSS.n327 VSS.n326 0.0755
+R1411 VSS.n327 VSS.n66 0.0755
+R1412 VSS.n331 VSS.n66 0.0755
+R1413 VSS.n332 VSS.n331 0.0755
+R1414 VSS.n333 VSS.n332 0.0755
+R1415 VSS.n333 VSS.n63 0.0755
+R1416 VSS.n348 VSS.n64 0.0755
+R1417 VSS.n344 VSS.n64 0.0755
+R1418 VSS.n344 VSS.n343 0.0755
+R1419 VSS.n343 VSS.n342 0.0755
+R1420 VSS.n342 VSS.n337 0.0755
+R1421 VSS.n338 VSS.n337 0.0755
+R1422 VSS.n338 VSS.n34 0.0755
+R1423 VSS.n431 VSS.n34 0.0755
+R1424 VSS.n435 VSS.n32 0.0755
+R1425 VSS.n436 VSS.n435 0.0755
+R1426 VSS.n437 VSS.n436 0.0755
+R1427 VSS.n437 VSS.n30 0.0755
+R1428 VSS.n441 VSS.n30 0.0755
+R1429 VSS.n442 VSS.n441 0.0755
+R1430 VSS.n443 VSS.n442 0.0755
+R1431 VSS.n443 VSS.n27 0.0755
+R1432 VSS.n450 VSS.n28 0.0755
+R1433 VSS.n446 VSS.n28 0.0755
+R1434 VSS.n446 VSS.n0 0.0755
+R1435 VSS.n451 VSS.n27 0.074375
+R1436 VSS.n430 VSS.n429 0.0715526
+R1437 VSS.n356 VSS.n349 0.0715526
+R1438 VSS.n320 VSS.n319 0.0715526
+R1439 VSS.n245 VSS.n238 0.0715526
+R1440 VSS.n206 VSS.n205 0.0715526
+R1441 VSS.n452 VSS.n451 0.0715526
+R1442 VSS.n238 VSS.n99 0.070625
+R1443 VSS.n228 VSS.n227 0.066125
+R1444 VSS.n127 VSS.n125 0.063875
+R1445 VSS.n320 VSS.n68 0.0606875
+R1446 VSS.n151 VSS.n150 0.059375
+R1447 VSS.n124 VSS.n122 0.054875
+R1448 VSS VSS.n0 0.054875
+R1449 VSS.n431 VSS.n430 0.0546875
+R1450 VSS.n163 VSS.n162 0.0535612
+R1451 VSS.n487 VSS.n486 0.0535612
+R1452 VSS.n426 VSS.n425 0.0526053
+R1453 VSS.n403 VSS.n395 0.0526053
+R1454 VSS.n411 VSS.n410 0.0526053
+R1455 VSS.n396 VSS.n47 0.0526053
+R1456 VSS.n429 VSS.n428 0.0526053
+R1457 VSS.n387 VSS.n386 0.0526053
+R1458 VSS.n364 VSS.n54 0.0526053
+R1459 VSS.n372 VSS.n371 0.0526053
+R1460 VSS.n62 VSS.n55 0.0526053
+R1461 VSS.n357 VSS.n356 0.0526053
+R1462 VSS.n316 VSS.n315 0.0526053
+R1463 VSS.n293 VSS.n285 0.0526053
+R1464 VSS.n301 VSS.n300 0.0526053
+R1465 VSS.n286 VSS.n83 0.0526053
+R1466 VSS.n319 VSS.n318 0.0526053
+R1467 VSS.n276 VSS.n275 0.0526053
+R1468 VSS.n253 VSS.n90 0.0526053
+R1469 VSS.n261 VSS.n260 0.0526053
+R1470 VSS.n98 VSS.n91 0.0526053
+R1471 VSS.n246 VSS.n245 0.0526053
+R1472 VSS.n202 VSS.n201 0.0526053
+R1473 VSS.n179 VSS.n171 0.0526053
+R1474 VSS.n187 VSS.n186 0.0526053
+R1475 VSS.n172 VSS.n119 0.0526053
+R1476 VSS.n205 VSS.n204 0.0526053
+R1477 VSS.n483 VSS.n482 0.0526053
+R1478 VSS.n460 VSS.n12 0.0526053
+R1479 VSS.n468 VSS.n467 0.0526053
+R1480 VSS.n20 VSS.n13 0.0526053
+R1481 VSS.n453 VSS.n452 0.0526053
+R1482 VSS.n207 VSS.n206 0.0509375
+R1483 VSS.n158 VSS.n157 0.050375
+R1484 VSS.n161 VSS.n120 0.045875
+R1485 VSS.n349 VSS.n348 0.041
+R1486 VSS.n349 VSS.n63 0.035
+R1487 VSS.n159 VSS.n120 0.030125
+R1488 VSS.n157 VSS.n156 0.025625
+R1489 VSS.n206 VSS.n104 0.0250625
+R1490 VSS.n430 VSS.n32 0.0213125
+R1491 VSS.n152 VSS.n124 0.021125
+R1492 VSS.n3 VSS.n2 0.0172203
+R1493 VSS.n5 VSS.n3 0.0172203
+R1494 VSS.n228 VSS.n4 0.0172203
+R1495 VSS.n278 VSS.n4 0.0172203
+R1496 VSS.n150 VSS.n149 0.016625
+R1497 VSS.n321 VSS.n320 0.0153125
+R1498 VSS.n145 VSS.n127 0.012125
+R1499 VSS.n229 VSS.n228 0.009875
+R1500 VSS.n238 VSS.n237 0.005375
+R1501 VSS.n451 VSS.n450 0.001625
+C0 a_294_3019# bitb2 1.60671f
+C1 a_294_1466# bit0 0.00562f
+C2 a_7904_95# a_294_2456# 1.1536f
+C3 bitb3 bit4 0
+C4 a0 a_6530_6854# 0.54607f
+C5 a4 a_934_3019# 0
+C6 bitb0 bit0 0.89063f
+C7 a_294_1466# vctrl 0.10167f
+C8 a_934_3019# a_15314_95# 0.25492f
+C9 a1 a_294_2456# 0
+C10 a_934_3019# bitb2 0.6081f
+C11 bit3 vbn 0.13334f
+C12 vctrl bitb0 0.05161f
+C13 a_294_1466# a_4199_95# 2.48713f
+C14 bit2 bit1 0.01315f
+C15 a_11609_95# a_294_1466# 2.48713f
+C16 master.vbp a3 0.02109f
+C17 a2 a_13940_6854# 0
+C18 bitb3 a_294_1466# 0.14596f
+C19 a4 a_294_2456# 0
+C20 a_15314_95# a_294_2456# 1.1536f
+C21 VDD a3 0.79622f
+C22 bitb1 bit2 0
+C23 a2 a_17645_6854# 0.12704f
+C24 bitb2 a_294_2456# 0.09219f
+C25 a_7904_95# a_294_1466# 2.48713f
+C26 a2 a_10235_6854# 0.5462f
+C27 a_2825_6854# a0 0.12693f
+C28 a_294_1466# a1 0
+C29 a_294_3019# a_1574_3019# 0.25323f
+C30 master.vbp bit0 0.00279f
+C31 a4 a_294_1466# 0
+C32 a_934_3019# a_1574_3019# 10.6722f
+C33 a_294_1466# a_15314_95# 2.48713f
+C34 bit1 bit0 0.01315f
+C35 a_294_1466# bitb2 0.14245f
+C36 master.vbp vctrl 0.21702f
+C37 a2 a3 0.65036f
+C38 a_294_3019# a_934_3019# 11.2051f
+C39 a_494_95# vbn 2.76357f
+C40 bitb1 bit0 0.10426f
+C41 bit2 vbn 0.13334f
+C42 a_1574_3019# a_294_2456# 0.23247f
+C43 bitb4 vctrl 0.06164f
+C44 vctrl bitb1 0.05456f
+C45 bitb3 VDD 0.95907f
+C46 a_294_3019# a_294_2456# 12.4236f
+C47 bitb4 bitb3 0.05403f
+C48 master.vbp a1 0.00843f
+C49 bit3 bit2 0.01315f
+C50 a_934_3019# a_294_2456# 0.48207f
+C51 VDD a1 0.78443f
+C52 a_294_1466# a_1574_3019# 0.15528f
+C53 a2 vctrl 0.01955f
+C54 a4 master.vbp 0.01784f
+C55 bitb0 a_1574_3019# 1.54622f
+C56 bit0 vbn 0.13334f
+C57 a_294_3019# a_294_1466# 0.15358f
+C58 a4 VDD 0.85095f
+C59 bitb2 bit1 0.10426f
+C60 a_494_95# a0 0.03074f
+C61 a2 a_11609_95# 0
+C62 VDD bitb2 0.95899f
+C63 vctrl vbn 0.06611f
+C64 a_294_3019# bitb0 0.09287f
+C65 a_13940_6854# a3 0.12719f
+C66 a_4199_95# vbn 2.76357f
+C67 a_934_3019# a_294_1466# 0.15352f
+C68 bitb2 bitb1 0.05403f
+C69 a2 a_7904_95# 0.22112f
+C70 a_11609_95# vbn 2.76357f
+C71 a_17645_6854# a3 0.54607f
+C72 a_934_3019# bitb0 0.04068f
+C73 a4 a_6530_6854# 0.12764f
+C74 bitb3 vbn 0.27741f
+C75 a2 a1 0.60867f
+C76 a_10235_6854# a3 0
+C77 a_7904_95# vbn 2.76357f
+C78 a_294_1466# a_294_2456# 14.1009f
+C79 bitb0 a_294_2456# 0.09287f
+C80 a_2825_6854# a1 0.54607f
+C81 a2 a4 0.08653f
+C82 a2 a_15314_95# 0.03027f
+C83 a_294_1466# bit4 0.57957f
+C84 master.vbp a_1574_3019# 0.11074f
+C85 bitb3 bit3 0.89063f
+C86 VDD a_1574_3019# 0.47382f
+C87 vctrl a0 0.03566f
+C88 vbn a_15314_95# 2.76357f
+C89 a_294_3019# master.vbp 0.65714f
+C90 a_294_3019# bit1 0
+C91 bitb2 vbn 0.27741f
+C92 a_294_3019# VDD 0.38061f
+C93 a0 a_4199_95# 0.2211f
+C94 bitb1 a_1574_3019# 0.6081f
+C95 a_934_3019# master.vbp 0.25496f
+C96 a_294_1466# bitb0 0.14874f
+C97 bitb4 a_294_3019# 0
+C98 a_934_3019# bit1 0.57698f
+C99 a_294_3019# bitb1 0.09219f
+C100 a_934_3019# VDD 0.38061f
+C101 bitb2 bit3 0
+C102 a_934_3019# bitb1 1.55026f
+C103 a1 a0 0.65196f
+C104 master.vbp a_294_2456# 1.15055f
+C105 vctrl a_494_95# 0.21327f
+C106 bit1 a_294_2456# 0
+C107 a2 a_1574_3019# 0.00103f
+C108 VDD a_294_2456# 0.38061f
+C109 vctrl a3 0.01972f
+C110 a_10235_6854# a1 0.12693f
+C111 a2 a_294_3019# 0
+C112 bitb4 a_294_2456# 0.60863f
+C113 a_13940_6854# a4 0.54607f
+C114 a4 a0 0.56353f
+C115 bitb1 a_294_2456# 0.08868f
+C116 a_1574_3019# vbn 1.04868f
+C117 bitb3 bit2 0.10426f
+C118 a_11609_95# a3 0.03021f
+C119 bitb4 bit4 0.89063f
+C120 a2 a_934_3019# 0
+C121 a4 a_10235_6854# 0
+C122 a_294_3019# vbn 1.17058f
+C123 a_294_1466# master.vbp 2.48102f
+C124 a_294_1466# bit1 0.00562f
+C125 a1 a_494_95# 0.22119f
+C126 a_294_1466# VDD 0.36869f
+C127 master.vbp bitb0 0.05019f
+C128 bitb0 bit1 0
+C129 a_934_3019# vbn 1.17044f
+C130 a1 a3 0.04361f
+C131 VDD bitb0 0.97221f
+C132 bitb4 a_294_1466# 1.66471f
+C133 a2 a_294_2456# 0
+C134 a_294_1466# bitb1 0.14245f
+C135 bitb0 bitb1 0.05403f
+C136 bitb2 bit2 0.89063f
+C137 vctrl a_4199_95# 0.21327f
+C138 a4 a3 0.56648f
+C139 a3 a_15314_95# 0.22105f
+C140 vbn a_294_2456# 1.17173f
+C141 a_11609_95# vctrl 0.21327f
+C142 a0 a_1574_3019# 0.00144f
+C143 bitb3 vctrl 0.06079f
+C144 bit4 vbn 0.14454f
+C145 a2 a_294_1466# 0
+C146 a_294_3019# a0 0.00199f
+C147 a_7904_95# vctrl 0.21327f
+C148 a1 vctrl 0.02827f
+C149 bit3 a_294_2456# 0.57717f
+C150 a_934_3019# a0 0.00191f
+C151 a_294_1466# vbn 16.6776f
+C152 a1 a_4199_95# 0
+C153 master.vbp VDD 16.5569f
+C154 bit3 bit4 0.01315f
+C155 bitb0 vbn 0.2493f
+C156 a4 vctrl 0.01955f
+C157 a_494_95# a_1574_3019# 0.09404f
+C158 vctrl a_15314_95# 0.21309f
+C159 bitb2 vctrl 0.05742f
+C160 bitb4 VDD 0.96968f
+C161 bitb1 bit1 0.89063f
+C162 a4 a_4199_95# 0.03021f
+C163 a_1574_3019# a3 0.00103f
+C164 a0 a_294_2456# 0
+C165 VDD bitb1 0.95899f
+C166 a_7904_95# a1 0.03034f
+C167 a_294_3019# a_494_95# 0.66027f
+C168 a_294_3019# bit2 0.57698f
+C169 a_11609_95# a4 0.22105f
+C170 master.vbp a_6530_6854# 0.15588f
+C171 a_294_1466# bit3 0.00582f
+C172 VDD a_6530_6854# 0.44415f
+C173 a_294_3019# a3 0
+C174 bitb3 bitb2 0.05403f
+C175 a_934_3019# a_494_95# 0.2551f
+C176 a2 master.vbp 0.02569f
+C177 a4 a1 0.0874f
+C178 a_934_3019# a3 0
+C179 a2 VDD 0.78435f
+C180 a_294_1466# a0 0
+C181 a_494_95# a_294_2456# 1.1536f
+C182 a_1574_3019# bit0 0.57698f
+C183 bit2 a_294_2456# 0
+C184 master.vbp vbn 2.75404f
+C185 master.vbp a_2825_6854# 0.13559f
+C186 bit1 vbn 0.13334f
+C187 vctrl a_1574_3019# 10.6753f
+C188 VDD vbn 1.75909f
+C189 a3 a_294_2456# 0
+C190 VDD a_2825_6854# 0.44415f
+C191 a_294_3019# bit0 0
+C192 a_4199_95# a_1574_3019# 0.09404f
+C193 bitb4 vbn 0.29401f
+C194 a_294_3019# vctrl 0.87349f
+C195 a_11609_95# a_1574_3019# 0.09404f
+C196 bitb1 vbn 0.27741f
+C197 a_934_3019# bit0 0
+C198 a_294_3019# a_4199_95# 0.66027f
+C199 a_294_1466# a_494_95# 2.48713f
+C200 a_11609_95# a_294_3019# 0.66027f
+C201 a_934_3019# vctrl 0.36666f
+C202 a_294_1466# bit2 0.00562f
+C203 a_7904_95# a_1574_3019# 0.09404f
+C204 a_294_3019# bitb3 0.60863f
+C205 a_294_1466# a3 0
+C206 a_934_3019# a_4199_95# 0.2551f
+C207 a1 a_1574_3019# 0.00113f
+C208 bitb4 bit3 0.10426f
+C209 bit0 a_294_2456# 0
+C210 a_11609_95# a_934_3019# 0.2551f
+C211 a_294_3019# a_7904_95# 0.66027f
+C212 bitb3 a_934_3019# 0
+C213 vctrl a_294_2456# 0.13347f
+C214 a_13940_6854# master.vbp 0.15588f
+C215 a_294_3019# a1 0
+C216 master.vbp a0 0.0114f
+C217 a_13940_6854# VDD 0.44415f
+C218 a4 a_1574_3019# 0.00103f
+C219 VDD a0 0.78096f
+C220 a_1574_3019# a_15314_95# 0.09387f
+C221 a_4199_95# a_294_2456# 1.1536f
+C222 a_7904_95# a_934_3019# 0.2551f
+C223 a_17645_6854# master.vbp 0.16196f
+C224 bitb2 a_1574_3019# 0
+C225 a_11609_95# a_294_2456# 1.1536f
+C226 a_10235_6854# master.vbp 0.15588f
+C227 a_934_3019# a1 0
+C228 a_17645_6854# VDD 0.44415f
+C229 bitb3 a_294_2456# 1.61009f
+C230 a_294_3019# a4 0
+C231 a_294_3019# a_15314_95# 0.65999f
+C232 a_10235_6854# VDD 0.44415f
+C233 bit4 VSS 2.06717f
+C234 bit3 VSS 2.05845f
+C235 bit2 VSS 2.05858f
+C236 bit1 VSS 2.0586f
+C237 bit0 VSS 2.05512f
+C238 vctrl VSS 14.06865f
+C239 vbn VSS 60.37825f
+C240 bitb4 VSS 1.87398f
+C241 bitb3 VSS 1.86297f
+C242 bitb2 VSS 1.87001f
+C243 bitb1 VSS 1.87254f
+C244 bitb0 VSS 2.53632f
+C245 a3 VSS 7.98122f
+C246 a2 VSS 7.97858f
+C247 a4 VSS 7.96984f
+C248 a1 VSS 7.97374f
+C249 a0 VSS 7.66395f
+C250 VDD VSS 0.2107p
+C251 a_15314_95# VSS 14.4843f
+C252 a_11609_95# VSS 14.4793f
+C253 a_7904_95# VSS 14.4793f
+C254 a_4199_95# VSS 14.4793f
+C255 a_494_95# VSS 14.4793f
+C256 a_294_1466# VSS 51.8728f
+C257 a_294_2456# VSS 27.428f
+C258 a_294_3019# VSS 16.7216f
+C259 a_934_3019# VSS 7.40017f
+C260 a_1574_3019# VSS 5.05011f
+C261 a_17645_6854# VSS 0.04007f
+C262 a_13940_6854# VSS 0.04007f
+C263 a_10235_6854# VSS 0.04007f
+C264 a_6530_6854# VSS 0.04007f
+C265 a_2825_6854# VSS 0.04007f
+C266 master.vbp VSS 18.7559f
+C267 VDD.n0 VSS 0.05705f
+C268 VDD.n1 VSS 0.02473f
+C269 VDD.n2 VSS 0.06217f
+C270 VDD.n4 VSS 0.19981f
+C271 VDD.n5 VSS 0.03307f
+C272 VDD.t1 VSS 0.53159f
+C273 VDD.t12 VSS 0.6592f
+C274 VDD.n6 VSS 0.02015f
+C275 VDD.t4 VSS 0.46949f
+C276 VDD.t0 VSS 0.5623f
+C277 VDD.t2 VSS 0.47771f
+C278 VDD.n7 VSS 0.27411f
+C279 VDD.t41 VSS 0.00981f
+C280 VDD.n8 VSS 0.2358f
+C281 VDD.n9 VSS 0.06614f
+C282 VDD.t39 VSS 0.00193f
+C283 VDD.t37 VSS 0.00193f
+C284 VDD.n10 VSS 0.01106f
+C285 VDD.t35 VSS 0.00193f
+C286 VDD.t33 VSS 0.00193f
+C287 VDD.n11 VSS 0.01106f
+C288 VDD.n12 VSS 0.0622f
+C289 VDD.n13 VSS 0.06614f
+C290 VDD.t31 VSS 0.00193f
+C291 VDD.t29 VSS 0.00193f
+C292 VDD.n14 VSS 0.01106f
+C293 VDD.t27 VSS 0.00193f
+C294 VDD.t25 VSS 0.00193f
+C295 VDD.n15 VSS 0.01106f
+C296 VDD.n16 VSS 0.0622f
+C297 VDD.n17 VSS 0.06614f
+C298 VDD.t23 VSS 0.00193f
+C299 VDD.t21 VSS 0.00193f
+C300 VDD.n18 VSS 0.01106f
+C301 VDD.t19 VSS 0.00981f
+C302 VDD.n19 VSS 0.0658f
+C303 VDD.n20 VSS 0.06614f
+C304 VDD.t17 VSS 0.04685f
+C305 VDD.n21 VSS 0.06614f
+C306 VDD.n22 VSS 0.06614f
+C307 VDD.n23 VSS 0.06614f
+C308 VDD.n24 VSS 0.06614f
+C309 VDD.t15 VSS 0.04685f
+C310 VDD.n25 VSS 0.06614f
+C311 VDD.n26 VSS 0.06614f
+C312 VDD.n27 VSS 0.06614f
+C313 VDD.n28 VSS 0.06614f
+C314 VDD.n29 VSS 0.06614f
+C315 VDD.t13 VSS 0.04685f
+C316 VDD.n30 VSS 0.06614f
+C317 VDD.n31 VSS 0.06614f
+C318 VDD.n32 VSS 0.06614f
+C319 VDD.n33 VSS 0.06614f
+C320 VDD.t11 VSS 0.04685f
+C321 VDD.n34 VSS 0.06614f
+C322 VDD.n35 VSS 0.06614f
+C323 VDD.n36 VSS 0.06614f
+C324 VDD.n37 VSS 0.06614f
+C325 VDD.t9 VSS 0.04685f
+C326 VDD.n38 VSS 0.05976f
+C327 VDD.n39 VSS 0.06614f
+C328 VDD.n40 VSS 0.06614f
+C329 VDD.n41 VSS 0.06614f
+C330 VDD.n42 VSS 0.06614f
+C331 VDD.n43 VSS 0.06614f
+C332 VDD.n44 VSS 0.06614f
+C333 VDD.n45 VSS 0.06614f
+C334 VDD.n46 VSS 0.06614f
+C335 VDD.n47 VSS 0.06614f
+C336 VDD.n48 VSS 0.06614f
+C337 VDD.n49 VSS 0.06614f
+C338 VDD.n50 VSS 0.06614f
+C339 VDD.n51 VSS 0.06614f
+C340 VDD.n52 VSS 0.06614f
+C341 VDD.n53 VSS 0.06614f
+C342 VDD.n54 VSS 0.06614f
+C343 VDD.n55 VSS 0.06614f
+C344 VDD.n56 VSS 0.06614f
+C345 VDD.n57 VSS 0.06614f
+C346 VDD.n58 VSS 0.06614f
+C347 VDD.n59 VSS 0.04514f
+C348 VDD.n60 VSS 0.06614f
+C349 VDD.n61 VSS 0.06614f
+C350 VDD.n62 VSS 0.05407f
+C351 VDD.n63 VSS 0.06614f
+C352 VDD.n64 VSS 0.06614f
+C353 VDD.n65 VSS 0.06614f
+C354 VDD.n66 VSS 0.06614f
+C355 VDD.n67 VSS 0.06614f
+C356 VDD.n68 VSS 0.06614f
+C357 VDD.n69 VSS 0.06614f
+C358 VDD.n70 VSS 0.06614f
+C359 VDD.n71 VSS 0.06614f
+C360 VDD.n72 VSS 0.06614f
+C361 VDD.n73 VSS 0.06614f
+C362 VDD.n74 VSS 0.05382f
+C363 VDD.n75 VSS 0.05976f
+C364 VDD.n76 VSS 0.04539f
+C365 VDD.n77 VSS 0.06614f
+C366 VDD.n78 VSS 0.06614f
+C367 VDD.n79 VSS 0.06614f
+C368 VDD.n80 VSS 0.06614f
+C369 VDD.n81 VSS 0.06614f
+C370 VDD.n82 VSS 0.06614f
+C371 VDD.n83 VSS 0.06614f
+C372 VDD.n84 VSS 0.06614f
+C373 VDD.n85 VSS 0.06614f
+C374 VDD.n86 VSS 0.06614f
+C375 VDD.n87 VSS 0.06614f
+C376 VDD.n88 VSS 0.0625f
+C377 VDD.n89 VSS 0.05976f
+C378 VDD.n90 VSS 0.03671f
+C379 VDD.n91 VSS 0.06614f
+C380 VDD.n92 VSS 0.06614f
+C381 VDD.n93 VSS 0.06614f
+C382 VDD.n94 VSS 0.06614f
+C383 VDD.n95 VSS 0.06614f
+C384 VDD.n96 VSS 0.06201f
+C385 VDD.n97 VSS 0.06614f
+C386 VDD.n98 VSS 0.06614f
+C387 VDD.n99 VSS 0.0372f
+C388 VDD.n100 VSS 0.06614f
+C389 VDD.n101 VSS 0.06614f
+C390 VDD.n102 VSS 0.06614f
+C391 VDD.n103 VSS 0.06614f
+C392 VDD.n104 VSS 0.06614f
+C393 VDD.n105 VSS 0.03811f
+C394 VDD.n106 VSS 0.05976f
+C395 VDD.n107 VSS 0.0611f
+C396 VDD.n108 VSS 0.06614f
+C397 VDD.n109 VSS 0.06614f
+C398 VDD.n110 VSS 0.06614f
+C399 VDD.n111 VSS 0.06614f
+C400 VDD.n112 VSS 0.06614f
+C401 VDD.n113 VSS 0.06614f
+C402 VDD.n114 VSS 0.06614f
+C403 VDD.n115 VSS 0.06614f
+C404 VDD.n116 VSS 0.06614f
+C405 VDD.n117 VSS 0.06614f
+C406 VDD.n118 VSS 0.06614f
+C407 VDD.n119 VSS 0.04679f
+C408 VDD.n120 VSS 0.05976f
+C409 VDD.n121 VSS 0.03009f
+C410 VDD.n122 VSS 0.06614f
+C411 VDD.n123 VSS 0.06614f
+C412 VDD.n124 VSS 0.05134f
+C413 VDD.n125 VSS 0.0622f
+C414 VDD.n126 VSS 0.03712f
+C415 VDD.n127 VSS 0.04754f
+C416 VDD.n128 VSS 0.06614f
+C417 VDD.n129 VSS 0.06614f
+C418 VDD.n130 VSS 0.05159f
+C419 VDD.n131 VSS 0.0622f
+C420 VDD.n132 VSS 0.03315f
+C421 VDD.n133 VSS 0.05151f
+C422 VDD.n134 VSS 0.06614f
+C423 VDD.n135 VSS 0.06614f
+C424 VDD.n136 VSS 0.0477f
+C425 VDD.n137 VSS 0.03696f
+C426 VDD.n138 VSS 0.0622f
+C427 VDD.n139 VSS 0.05134f
+C428 VDD.n140 VSS 0.27107f
+C429 VDD.n141 VSS 0.73448f
+C430 VDD.n142 VSS 0.52523f
+C431 VDD.n143 VSS 0.09079f
+C432 VDD.n144 VSS 0.23154f
+C433 VDD.n145 VSS 0.28115f
+C434 VDD.t6 VSS 0.37396f
+C435 VDD.t43 VSS 0.64487f
+C436 VDD.t40 VSS 0.47018f
+C437 VDD.t38 VSS 0.21291f
+C438 VDD.t36 VSS 0.21291f
+C439 VDD.t34 VSS 0.21291f
+C440 VDD.t32 VSS 0.21291f
+C441 VDD.t30 VSS 0.21291f
+C442 VDD.t28 VSS 0.21291f
+C443 VDD.t26 VSS 0.21291f
+C444 VDD.t24 VSS 0.11362f
+C445 VDD.n146 VSS 0.10645f
+C446 VDD.t22 VSS 0.20574f
+C447 VDD.t20 VSS 0.21291f
+C448 VDD.t18 VSS 0.33506f
+C449 VDD.t16 VSS 0.37464f
+C450 VDD.t5 VSS 0.75099f
+C451 VDD.t14 VSS 0.6592f
+C452 VDD.n147 VSS 1.11812f
+C453 VDD.n148 VSS 0.01175f
+C454 VDD.n149 VSS 0.01647f
+C455 VDD.t3 VSS 0.75099f
+C456 VDD.n150 VSS 0.76395f
+C457 VDD.n151 VSS 0.02316f
+C458 VDD.n152 VSS 0.04009f
+C459 VDD.n153 VSS 0.04222f
+C460 VDD.n154 VSS 0.16031f
+C461 VDD.n155 VSS 1.47297f
+C462 VDD.t42 VSS 0.90146f
+C463 VDD.t8 VSS 0.6592f
+C464 VDD.n156 VSS 1.11812f
+C465 VDD.t7 VSS 0.75099f
+C466 VDD.t10 VSS 0.6592f
+C467 VDD.n157 VSS 1.11812f
+C468 VDD.n158 VSS 0.01069f
+C469 VDD.n159 VSS 0.01069f
+C470 VDD.n160 VSS 0.73256f
+C471 VDD.n161 VSS 0.60495f
+C472 VDD.n162 VSS 0.37444f
+C473 VDD.n163 VSS 0.19979f
+C474 VDD.n164 VSS 0.05964f
+C475 a0.t1 VSS 0.41609f
+C476 a0.t0 VSS 0.08183f
+C477 a0.n0 VSS 0.55851f
+C478 a0.t3 VSS 0.1121f
+C479 a0.t2 VSS 0.05585f
+C480 a0.n1 VSS 0.50858f
+C481 a0.n2 VSS 0.8295f
+C482 a1.t3 VSS 0.12091f
+C483 a1.t2 VSS 0.06228f
+C484 a1.n0 VSS 0.73528f
+C485 a1.t0 VSS 0.41676f
+C486 a1.t1 VSS 0.11344f
+C487 a1.n1 VSS 0.65811f
+C488 a4.t0 VSS 0.29112f
+C489 a4.t1 VSS 0.19828f
+C490 a4.n0 VSS 0.67172f
+C491 a4.t3 VSS 0.11644f
+C492 a4.t2 VSS 0.06825f
+C493 a4.n1 VSS 0.75998f
+C494 a2.t3 VSS 0.1179f
+C495 a2.t2 VSS 0.06314f
+C496 a2.n0 VSS 0.72642f
+C497 a2.t1 VSS 0.37243f
+C498 a2.t0 VSS 0.13858f
+C499 a2.n1 VSS 0.66306f
+C500 a3.t0 VSS 0.32361f
+C501 a3.t1 VSS 0.16294f
+C502 a3.n0 VSS 0.53585f
+C503 a3.t3 VSS 0.11375f
+C504 a3.t2 VSS 0.06361f
+C505 a3.n1 VSS 0.81096f
+C506 bitb0.t1 VSS 0.39442f
+C507 bitb0.t0 VSS 0.09671f
+C508 bitb0.n0 VSS 3.33592f
+C509 bitb1.t1 VSS 0.45902f
+C510 bitb1.t0 VSS 0.11255f
+C511 bitb1.n0 VSS 3.88231f
+C512 bitb2.t1 VSS 0.45627f
+C513 bitb2.t0 VSS 0.11187f
+C514 bitb2.n0 VSS 3.85899f
+C515 bitb3.t1 VSS 0.44861f
+C516 bitb3.t0 VSS 0.10999f
+C517 bitb3.n0 VSS 3.79423f
+C518 bitb4.t1 VSS 0.43755f
+C519 bitb4.t0 VSS 0.10728f
+C520 bitb4.n0 VSS 3.7007f
+C521 vbn.t3 VSS 0.47723f
+C522 vbn.t5 VSS 0.45315f
+C523 vbn.n0 VSS 0.45711f
+C524 vbn.t2 VSS 0.45315f
+C525 vbn.n1 VSS 0.21307f
+C526 vbn.t4 VSS 0.45315f
+C527 vbn.n2 VSS 0.21307f
+C528 vbn.t1 VSS 0.45315f
+C529 vbn.n3 VSS 0.14518f
+C530 vbn.t45 VSS 0.09052f
+C531 vbn.t46 VSS 0.08858f
+C532 vbn.n4 VSS 0.18835f
+C533 vbn.t47 VSS 0.08858f
+C534 vbn.n5 VSS 0.10831f
+C535 vbn.t48 VSS 0.08858f
+C536 vbn.t51 VSS 0.09052f
+C537 vbn.t50 VSS 0.08858f
+C538 vbn.n6 VSS 0.18835f
+C539 vbn.t49 VSS 0.08858f
+C540 vbn.n7 VSS 0.10831f
+C541 vbn.n8 VSS 0.34606f
+C542 vbn.t38 VSS 0.09052f
+C543 vbn.t39 VSS 0.08858f
+C544 vbn.n9 VSS 0.18835f
+C545 vbn.t40 VSS 0.08858f
+C546 vbn.n10 VSS 0.10831f
+C547 vbn.t41 VSS 0.08858f
+C548 vbn.t44 VSS 0.09052f
+C549 vbn.t43 VSS 0.08858f
+C550 vbn.n11 VSS 0.18835f
+C551 vbn.t42 VSS 0.08858f
+C552 vbn.n12 VSS 0.10831f
+C553 vbn.n13 VSS 0.11652f
+C554 vbn.n14 VSS 1.27885f
+C555 vbn.t31 VSS 0.09052f
+C556 vbn.t32 VSS 0.08858f
+C557 vbn.n15 VSS 0.18835f
+C558 vbn.t33 VSS 0.08858f
+C559 vbn.n16 VSS 0.10831f
+C560 vbn.t34 VSS 0.08858f
+C561 vbn.t37 VSS 0.09052f
+C562 vbn.t36 VSS 0.08858f
+C563 vbn.n17 VSS 0.18835f
+C564 vbn.t35 VSS 0.08858f
+C565 vbn.n18 VSS 0.10831f
+C566 vbn.n19 VSS 0.11652f
+C567 vbn.n20 VSS 0.808f
+C568 vbn.t24 VSS 0.09052f
+C569 vbn.t25 VSS 0.08858f
+C570 vbn.n21 VSS 0.18835f
+C571 vbn.t26 VSS 0.08858f
+C572 vbn.n22 VSS 0.10831f
+C573 vbn.t27 VSS 0.08858f
+C574 vbn.t30 VSS 0.09052f
+C575 vbn.t29 VSS 0.08858f
+C576 vbn.n23 VSS 0.18835f
+C577 vbn.t28 VSS 0.08858f
+C578 vbn.n24 VSS 0.10831f
+C579 vbn.n25 VSS 0.11652f
+C580 vbn.n26 VSS 0.808f
+C581 vbn.t17 VSS 0.09052f
+C582 vbn.t18 VSS 0.08858f
+C583 vbn.n27 VSS 0.18835f
+C584 vbn.t19 VSS 0.08858f
+C585 vbn.n28 VSS 0.10831f
+C586 vbn.t20 VSS 0.08858f
+C587 vbn.t23 VSS 0.09052f
+C588 vbn.t22 VSS 0.08858f
+C589 vbn.n29 VSS 0.18835f
+C590 vbn.t21 VSS 0.08858f
+C591 vbn.n30 VSS 0.10831f
+C592 vbn.n31 VSS 0.11652f
+C593 vbn.n32 VSS 0.808f
+C594 vbn.t10 VSS 0.09052f
+C595 vbn.t11 VSS 0.08858f
+C596 vbn.n33 VSS 0.18835f
+C597 vbn.t12 VSS 0.08858f
+C598 vbn.n34 VSS 0.10831f
+C599 vbn.t13 VSS 0.08858f
+C600 vbn.t16 VSS 0.09052f
+C601 vbn.t15 VSS 0.08858f
+C602 vbn.n35 VSS 0.18835f
+C603 vbn.t14 VSS 0.08858f
+C604 vbn.n36 VSS 0.10831f
+C605 vbn.n37 VSS 0.11652f
+C606 vbn.n38 VSS 1.44171f
+C607 vbn.t87 VSS 0.09052f
+C608 vbn.t88 VSS 0.08858f
+C609 vbn.n39 VSS 0.18835f
+C610 vbn.t89 VSS 0.08858f
+C611 vbn.n40 VSS 0.10831f
+C612 vbn.t90 VSS 0.08858f
+C613 vbn.t93 VSS 0.09052f
+C614 vbn.t92 VSS 0.08858f
+C615 vbn.n41 VSS 0.18835f
+C616 vbn.t91 VSS 0.08858f
+C617 vbn.n42 VSS 0.10831f
+C618 vbn.n43 VSS 0.34606f
+C619 vbn.t80 VSS 0.09052f
+C620 vbn.t81 VSS 0.08858f
+C621 vbn.n44 VSS 0.18835f
+C622 vbn.t82 VSS 0.08858f
+C623 vbn.n45 VSS 0.10831f
+C624 vbn.t83 VSS 0.08858f
+C625 vbn.t86 VSS 0.09052f
+C626 vbn.t85 VSS 0.08858f
+C627 vbn.n46 VSS 0.18835f
+C628 vbn.t84 VSS 0.08858f
+C629 vbn.n47 VSS 0.10831f
+C630 vbn.n48 VSS 0.11652f
+C631 vbn.n49 VSS 1.27885f
+C632 vbn.t73 VSS 0.09052f
+C633 vbn.t74 VSS 0.08858f
+C634 vbn.n50 VSS 0.18835f
+C635 vbn.t75 VSS 0.08858f
+C636 vbn.n51 VSS 0.10831f
+C637 vbn.t76 VSS 0.08858f
+C638 vbn.t79 VSS 0.09052f
+C639 vbn.t78 VSS 0.08858f
+C640 vbn.n52 VSS 0.18835f
+C641 vbn.t77 VSS 0.08858f
+C642 vbn.n53 VSS 0.10831f
+C643 vbn.n54 VSS 0.11652f
+C644 vbn.n55 VSS 0.808f
+C645 vbn.t66 VSS 0.09052f
+C646 vbn.t67 VSS 0.08858f
+C647 vbn.n56 VSS 0.18835f
+C648 vbn.t68 VSS 0.08858f
+C649 vbn.n57 VSS 0.10831f
+C650 vbn.t69 VSS 0.08858f
+C651 vbn.t72 VSS 0.09052f
+C652 vbn.t71 VSS 0.08858f
+C653 vbn.n58 VSS 0.18835f
+C654 vbn.t70 VSS 0.08858f
+C655 vbn.n59 VSS 0.10831f
+C656 vbn.n60 VSS 0.11652f
+C657 vbn.n61 VSS 0.808f
+C658 vbn.t59 VSS 0.09052f
+C659 vbn.t60 VSS 0.08858f
+C660 vbn.n62 VSS 0.18835f
+C661 vbn.t61 VSS 0.08858f
+C662 vbn.n63 VSS 0.10831f
+C663 vbn.t62 VSS 0.08858f
+C664 vbn.t65 VSS 0.09052f
+C665 vbn.t64 VSS 0.08858f
+C666 vbn.n64 VSS 0.18835f
+C667 vbn.t63 VSS 0.08858f
+C668 vbn.n65 VSS 0.10831f
+C669 vbn.n66 VSS 0.11652f
+C670 vbn.n67 VSS 0.808f
+C671 vbn.t52 VSS 0.09052f
+C672 vbn.t53 VSS 0.08858f
+C673 vbn.n68 VSS 0.18835f
+C674 vbn.t54 VSS 0.08858f
+C675 vbn.n69 VSS 0.10831f
+C676 vbn.t55 VSS 0.08858f
+C677 vbn.t58 VSS 0.09052f
+C678 vbn.t57 VSS 0.08858f
+C679 vbn.n70 VSS 0.18835f
+C680 vbn.t56 VSS 0.08858f
+C681 vbn.n71 VSS 0.10831f
+C682 vbn.n72 VSS 0.11652f
+C683 vbn.n73 VSS 1.42098f
+C684 vbn.n74 VSS 1.09797f
+C685 vbn.t104 VSS 0.09052f
+C686 vbn.t105 VSS 0.08858f
+C687 vbn.n75 VSS 0.33184f
+C688 vbn.t102 VSS 0.09052f
+C689 vbn.t103 VSS 0.08858f
+C690 vbn.n76 VSS 0.17022f
+C691 vbn.n77 VSS 1.13953f
+C692 vbn.t100 VSS 0.09052f
+C693 vbn.t101 VSS 0.08858f
+C694 vbn.n78 VSS 0.17022f
+C695 vbn.n79 VSS 0.808f
+C696 vbn.t98 VSS 0.09052f
+C697 vbn.t99 VSS 0.08858f
+C698 vbn.n80 VSS 0.17022f
+C699 vbn.n81 VSS 0.808f
+C700 vbn.t96 VSS 0.09052f
+C701 vbn.t97 VSS 0.08858f
+C702 vbn.n82 VSS 0.17022f
+C703 vbn.n83 VSS 0.808f
+C704 vbn.t94 VSS 0.09052f
+C705 vbn.t95 VSS 0.08858f
+C706 vbn.n84 VSS 0.17022f
+C707 vbn.n85 VSS 0.88032f
+C708 vbn.t9 VSS 0.1719f
+C709 vbn.n86 VSS 0.5947f
+C710 vbn.t0 VSS 0.1719f
+C711 vbn.n87 VSS 0.21142f
+C712 vbn.t8 VSS 0.1719f
+C713 vbn.n88 VSS 0.21142f
+C714 vbn.t7 VSS 0.1719f
+C715 vbn.n89 VSS 0.21142f
+C716 vbn.t6 VSS 0.1719f
+C717 vbn.n90 VSS 0.17135f
+C718 vbn.n91 VSS 0.97055f
+C719 vbn.n92 VSS 0.51801f
+C720 vctrl.t5 VSS 1.02286f
+C721 vctrl.t4 VSS 0.76108f
+C722 vctrl.n0 VSS 2.43959f
+C723 vctrl.t3 VSS 0.76108f
+C724 vctrl.n1 VSS 1.28267f
+C725 vctrl.t2 VSS 0.76108f
+C726 vctrl.n2 VSS 1.28267f
+C727 vctrl.t1 VSS 0.76108f
+C728 vctrl.n3 VSS 1.28267f
+C729 vctrl.t0 VSS 0.76108f
+C730 vctrl.n4 VSS 1.74467f
+C731 bit0.t0 VSS 0.30238f
+C732 bit1.t0 VSS 0.30424f
+C733 bit2.t0 VSS 0.30423f
+C734 bit3.t0 VSS 0.3042f
+C735 bit4.t0 VSS 0.28501f
+.ends
