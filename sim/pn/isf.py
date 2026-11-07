@@ -14,10 +14,12 @@
   g_x = g weighted by which device conducts at that phase (node rising -> head, falling -> foot).
 
 Variants: se (vco_cand se N=5), diff (vco_cand diff N=4), cgm (vco_bias N=5, n-well + n+ resistor),
-cgmf (cgm + 1 Mohm / 20 pF RC between vbn and its loads; vbnf starts at its DC value, see stage_a).
+cgmf (cgm + 1 Mohm / 20 pF RC between vbn and its loads; vbnf starts at its DC value, see stage_a),
+cgmq (cgmf + the quiet reference from docs/bias_tuning_results.md, code 5).
+--set K=V overrides a vco_bias.P parameter of a bias variant (repeatable); without it results are unchanged.
 
 Usage (repo root):
-  python3 sim/pn/isf.py <variant> [--corner typical] [--temp 27] [--m 60] [--jobs 1] [--out build/pn]
+  python3 sim/pn/isf.py <variant> [--corner typical] [--temp 27] [--m 60] [--jobs 1] [--out build/pn] [--set K=V] [--tag _x]
 Writes <out>/<variant>_<corner>_t<temp>/ : decks, logs, isf.csv, noise_*.txt, result.json, L.png
 Run time: about 5-10 s per ISF phase per job on a laptop core; --m 60 is the production setting.
 """
@@ -45,10 +47,30 @@ VARIANTS = {
     # cgm + RC low-pass (1 Mohm ppolyf_u_3k, 20 pF) between the reference and every vbn load
     "cgmf": dict(kind="bias", n=5, code=10, vctrl=1.65, nodes=5, inj="a2", out="a0",
                  set=dict(rideal=0, lnw=4.5, lnp=100.0, rf=1e6, cf=20e-12)),
+    # cgmf + the quiet reference of docs/bias_tuning_results.md (Job 1): MN1/MN2 as 14 x 14 series-parallel arrays of
+    # the 2/1 um unit, PMOS mirror x14 (56/14 um), master leg x4, lnw retuned for zero tempco. Code 5 is the code
+    # nearest 433.92 MHz at tt 27 C, vctrl 1.65 V with cw = 2 fF (436.3 MHz). The reference starts at its DC point.
+    "cgmq": dict(kind="bias", n=5, code=5, vctrl=1.65, nodes=5, inj="a2", out="a0", ic_ref=True,
+                 set=dict(rideal=0, lnw=3.665, lnp=100.0, rf=1e6, cf=20e-12, nsn=14, wpm=56.0, lpm=14.0, mr=4.0)),
 }
 VDD = 3.3
 R_VCTRL = 100e3      # assumed source resistance of the vctrl filter (thermal noise only)
 S_VDD = (100e-9) ** 2  # assumed VDD noise PSD, V^2/Hz (100 nV/rtHz white); reported separately too
+
+
+def with_sets(v, sets):
+    """Copy of variant v with `K=V` overrides of vco_bias.P merged into v['set'] (no sets: v unchanged)."""
+    if not sets:
+        return v
+    if v["kind"] != "bias":
+        sys.exit("--set only applies to vco_bias variants")
+    st = dict(v.get("set", {}))
+    for kv in sets:
+        k, x = kv.split("=", 1)
+        if k not in vco_bias.P:
+            sys.exit(f"--set: unknown parameter {k}")
+        st[k] = type(vco_bias.P[k])(float(x))
+    return dict(v, set=st)
 
 
 def circuit(v, corner):
@@ -61,7 +83,7 @@ def circuit(v, corner):
     else:
         p = dict(vco_bias.P); p.update(v.get("set", {}))
         body, ic = vco_bias.netlist(p)
-        body = body.replace("XMN1 n1 n1 0 0", "XMN1 n1i n1 0 0") + "vir n1 n1i 0\n"
+        body = body.replace("XMN1 n1 n1 ", "XMN1 n1i n1 ", 1) + "vir n1 n1i 0\n"
         body = body.replace("Rvbn n1 vbn 1", "Vbnp n1 vbn 0")   # probe source for df/dvbn
         src = f"vdd vdd 0 {VDD}\nvctrl vctrl 0 {v['vctrl']}\n"
     for b in range(p["bits"]):
@@ -129,6 +151,13 @@ quit
     return float(re.search(r"^v\(vbn\)\s*=\s*(\S+)", list(log.values())[0], re.M).group(1))
 
 
+def no_uic(deck, v):
+    """ic_ref variants: start the tran from a DC operating point (only the ring nodes and vbnf held by .ic) instead
+    of uic, so the reference and every PDK-subcircuit internal node start at DC. With uic, those internal nodes
+    start at 0 V and a large reference does not recover within the run (vbn sagged by up to 0.5 V)."""
+    return deck.replace(" 0.5p uic\n", " 0.5p\n") if v.get("ic_ref") else deck
+
+
 def stage_a(v, corner, temp, wd, jobs):
     net, ic, p = circuit(v, corner)
     tstop = 140
@@ -147,6 +176,7 @@ def stage_a(v, corner, temp, wd, jobs):
     corr = 0.0
     for it in range(3 if filt else 1):
         decks = {"ref": ref_deck(net, icf("ref", corr), v, temp, tstop)}
+        decks = {k: no_uic(d, v) for k, d in decks.items()}
         if filt and it == 0:     # first pass: measure the start-up step only
             l = ngspice(wd, decks, 1)["ref"]
             corr = grab(l, "vbnf") - dc["ref"]
@@ -156,7 +186,7 @@ def stage_a(v, corner, temp, wd, jobs):
                       "vdd_lo": ref_deck(net, icf("vdd_lo", corr), v, temp, tstop, f"alter vdd {VDD - 0.05}\n"),
                       "bias_hi": ref_deck(net, icf("bias_hi", corr), v, temp, tstop,
                                           f"alter {bias} {(v['vctrl'] if bias == 'vctrl' else 0) + 0.005}\n")})
-        logs = ngspice(wd, decks, jobs)
+        logs = ngspice(wd, {k: no_uic(d, v) for k, d in decks.items()}, jobs)
         break
     ic = icf("ref", corr)
     f = {k: 10 / (grab(l, "t10") - grab(l, "t0")) for k, l in logs.items()}
@@ -206,7 +236,7 @@ Iinj 0 {k} PULSE(0 0 1 0.5p 0.5p 1p 1)
 .endc
 .end
 """
-    logs = ngspice(wd, decks, jobs)
+    logs = ngspice(wd, {n: no_uic(d, v) for n, d in decks.items()}, jobs)
     rows = []
     for l in logs.values():
         tr = tw + float(re.search(r"^REF (\S+)", l, re.M).group(1))
@@ -256,19 +286,22 @@ quit
 """
 
 
-def bias_noise_deck(p, corner, temp):
-    """Voltage noise on the load gates (vbn, or vbnf after the RC filter) from the const-gm reference alone (no ring)."""
+def bias_noise_deck(p, corner, temp, sweep="dec 10 1k 1G", out="noise_vbn.txt", node=None, edit=None):
+    """Voltage noise on the load gates (vbn, or vbnf after the RC filter) from the const-gm reference alone (no ring).
+    sweep/out/node: .noise sweep, output file and probed node (default the load-gate net); edit: body -> body."""
     body, _ = vco_bias.netlist(dict(p, n=0))
-    node = vco_bias.gnet(p)
+    if edit:
+        body = edit(body)
+    node = node or vco_bias.gnet(p)
     src = f"vdd vdd 0 {VDD} ac 1\nvctrl vctrl 0 1.65\n" + "".join(f"vbit{b} bit{b} 0 0\nvbitb{b} bitb{b} 0 {VDD}\n" for b in range(p["bits"]))
     return f"""* vbn noise
 {MODELS.format(corner=corner)}
 {src}{body}
 .control
 option temp={temp}
-noise v({node}) vdd dec 10 1k 1G
+noise v({node}) vdd {sweep}
 setplot noise1
-wrdata noise_vbn.txt onoise_spectrum
+wrdata {out} onoise_spectrum
 quit
 .endc
 .end
@@ -328,9 +361,12 @@ def main():
     ap.add_argument("--m", type=int, default=60, help="ISF phases per period")
     ap.add_argument("--jobs", type=int, default=1, help="parallel ngspice processes")
     ap.add_argument("--out", default="build/pn")
+    ap.add_argument("--set", action="append", default=[], metavar="K=V",
+                    help="override a vco_bias.P parameter of a 'bias' variant (repeatable), e.g. --set w1=20")
+    ap.add_argument("--tag", default="", help="suffix for the output directory (useful with --set)")
     a_ = ap.parse_args()
-    v = VARIANTS[a_.variant]
-    wd = REPO / a_.out / f"{a_.variant}_{a_.corner}_t{a_.temp:g}"
+    v = with_sets(VARIANTS[a_.variant], a_.set)
+    wd = REPO / a_.out / f"{a_.variant}{a_.tag}_{a_.corner}_t{a_.temp:g}"
     net, ic, p, a = stage_a(v, a_.corner, a_.temp, wd, a_.jobs)
     print(f"A: f0 {a['f0']/1e6:.2f} MHz  P {a['P']*1e3:.2f} mW  K_vdd {a['K_vdd']/1e6:.1f} MHz/V  "
           f"K_{a['bias_line']} {a['K_bias']/1e6:.1f} MHz/V  vbn {a['vbn']:.3f} vbp {a['vbp']:.3f}", flush=True)
@@ -343,7 +379,7 @@ def main():
     freqs = [1e4, 1e5, 1e6, 1e7]
     stats, res = combine(v, a, rows, psd, freqs)
     fom = {f: r["L"] - 20 * math.log10(a["f0"] / f) + 10 * math.log10(a["P"] / 1e-3) for f, r in res.items()}
-    out = dict(variant=a_.variant, corner=a_.corner, temp=a_.temp, m=a_.m, A=a, isf=stats,
+    out = dict(variant=a_.variant, set=v.get("set", {}), corner=a_.corner, temp=a_.temp, m=a_.m, A=a, isf=stats,
                L={f"{f:g}": r for f, r in res.items()}, FOM={f"{f:g}": x for f, x in fom.items()},
                assumptions=dict(R_vctrl=R_VCTRL, S_vdd=S_VDD))
     (wd / "result.json").write_text(json.dumps(out, indent=1))
