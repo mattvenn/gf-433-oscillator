@@ -132,12 +132,14 @@ def stage_b(v, net, ic, a, temp, m, wd, jobs, dq_amp=1e-3):
     tstop = (tmeas + 3 * T) * 1e9
     dq = dq_amp * 1.5e-12          # 0.5 ps rise + 1 ps flat + 0.5 ps fall
     chunks = [list(range(i, m, jobs)) for i in range(jobs)]
+    tw = tmeas - 0.3 * T           # meas window start; edges are measured as intervals from it
+                                   # (meas/echo keep ~6-7 digits: absolute times would quantize to 0.1-1 ps)
     decks = {}
     for c, js in enumerate(chunks):
         ctl = f"""option temp={temp}
 tran 0.5p {tstop:.3f}n 0 0.5p uic
-meas tran tr WHEN v({o})={VDD/2} RISE=1 TD={tmeas*1e9 - 0.3*T*1e9:.4f}n
-echo "REF $&tr"
+meas tran trf TRIG AT={tw:.9e} TARG v({o}) VAL={VDD/2} RISE=1 TD={tw:.9e}
+echo "REF $&trf"
 destroy all
 """
         for j in js:
@@ -145,10 +147,10 @@ destroy all
             ctl += f"""alter @iinj[pulse] [ 0 {dq_amp} {td:.6e} 0.5p 0.5p 1p 1 ]
 option temp={temp}
 tran 0.5p {tstop:.3f}n 0 0.5p uic
-meas tran tp WHEN v({o})={VDD/2} RISE=1 TD={tmeas*1e9 - 0.3*T*1e9:.4f}n
-meas tran va FIND v({k}) AT={td - 1e-12:.6e}
-meas tran vb FIND v({k}) AT={td + 1e-12:.6e}
-echo "ISF {j} $&tp $&va $&vb"
+meas tran tpf TRIG AT={tw:.9e} TARG v({o}) VAL={VDD/2} RISE=1 TD={tw:.9e}
+meas tran va FIND v({k}) AT={td - 3e-12:.6e}
+meas tran vb FIND v({k}) AT={td:.6e}
+echo "ISF {j} $&tpf $&va $&vb"
 destroy all
 """
         decks[f"isf_{c}"] = f"""* ISF chunk {c}
@@ -164,13 +166,14 @@ Iinj 0 {k} PULSE(0 0 1 0.5p 0.5p 1p 1)
     logs = ngspice(wd, decks, jobs)
     rows = []
     for l in logs.values():
-        tr = float(re.search(r"^REF (\S+)", l, re.M).group(1))
+        tr = tw + float(re.search(r"^REF (\S+)", l, re.M).group(1))
         for mm in re.finditer(r"^ISF (\d+) (\S+) (\S+) (\S+)", l, re.M):
             j, tp, va, vb = int(mm.group(1)), *map(float, mm.groups()[1:])
+            tp = tw + tp
             dphi = -2 * math.pi * (tp - tr) / T          # earlier edge = phase advance
             rows.append((j, j / m * 2 * math.pi, dphi / dq, va, vb))
     rows.sort()
-    (wd / "isf.csv").write_text("j,phi,g_rad_per_C,v_before,v_after\n" +
+    (wd / "isf.csv").write_text("j,phi,g_rad_per_C,v_m3ps,v_at_td\n" +
                                 "".join(f"{r[0]},{r[1]:.5f},{r[2]:.6e},{r[3]:.4f},{r[4]:.4f}\n" for r in rows))
     return rows
 
@@ -197,7 +200,7 @@ def noise_deck(p, v, a, side, corner, temp):
 {MODELS.format(corner=corner)}
 vdd vdd 0 {VDD}
 vbp vbp 0 {a['vbp']}
-{gates}{dut}vd d 0 {VDD/2}
+{gates}{dut}vd d 0 {VDD/2} ac 1
 hs no 0 vsn 1
 .control
 option temp={temp}
@@ -213,7 +216,7 @@ quit
 def bias_noise_deck(p, corner, temp):
     """Voltage noise of vbn from the const-gm reference alone (no ring)."""
     body, _ = vco_bias.netlist(dict(p, n=0))
-    src = f"vdd vdd 0 {VDD}\nvctrl vctrl 0 1.65\n" + "".join(f"vbit{b} bit{b} 0 0\nvbitb{b} bitb{b} 0 {VDD}\n" for b in range(p["bits"]))
+    src = f"vdd vdd 0 {VDD} ac 1\nvctrl vctrl 0 1.65\n" + "".join(f"vbit{b} bit{b} 0 0\nvbitb{b} bitb{b} 0 {VDD}\n" for b in range(p["bits"]))
     return f"""* vbn noise
 {MODELS.format(corner=corner)}
 {src}{body}
@@ -247,6 +250,7 @@ def interp_log(fx, fs, f):
 
 def combine(v, a, rows, psd, out_freqs):
     # split the ISF by which device conducts: node rising (or about to) -> head, falling -> foot
+    # (both voltages are sampled before the pulse, so the injected charge does not bias the split)
     gh = [r[2] if r[4] >= r[3] else 0.0 for r in rows]
     gf = [r[2] if r[4] < r[3] else 0.0 for r in rows]
     stats = {}
