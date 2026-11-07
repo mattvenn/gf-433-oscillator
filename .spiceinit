@@ -1,0 +1,5 @@
+* ngspice startup flags; tools/osic-mac copies this into build/ (ngspice reads .spiceinit from its cwd).
+* Do NOT set ngbehavior=hsa globally (breaks some binned models); gf180 models are fine without it.
+set ng_nomodcheck
+set num_threads=4
+option noinit

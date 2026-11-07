@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GF180 VCO options</title>
+<style>
+@page { size: A4; margin: 0 }
+:root {
+  --bg:#0c0818; --panel:#150f26; --panel2:#1e1636; --line:#382c5a; --text:#f1edf8; --muted:#b4a9cf; --faint:#81749e;
+  --z2a-cyan:#5cc8da; --z2a-purple:#7a3bbf; --z2a-magenta:#d9409f;
+  --ink:#1e1636; --ink2:#4a3f66; --ink3:#7a6f96; --rule:#d8d1e6; --tint:#f5f2fa;
+  --sans:"Avenir Next", Avenir, "Nunito Sans", "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing:border-box }
+html, body { margin:0; padding:0; background:#fff; color:var(--ink); font-family:var(--sans); font-size:8.6pt; line-height:1.38;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact }
+.page { width:210mm; height:297mm; position:relative; overflow:hidden; page-break-after:always; break-after:page;
+  display:flex; flex-direction:column }
+.page:last-child { page-break-after:auto; break-after:auto }
+header { display:flex; align-items:center; justify-content:space-between; gap:6mm; padding:3.2mm 12mm; color:var(--text);
+  background:linear-gradient(90deg, rgba(12,8,24,.55) 0%, rgba(12,8,24,.8) 22%, rgba(12,8,24,.88) 100%),
+  url(brand_header.jpg) center 40%/cover, var(--panel) }
+.brand { display:flex; align-items:center; gap:2.6mm; color:var(--text) }
+.brand svg { width:9.5mm; height:9.5mm; flex:none }
+.brand span { display:flex; flex-direction:column; line-height:1.15 }
+.brand small { font-size:6.6pt; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--z2a-cyan) }
+.brand b { font-size:12pt; letter-spacing:-.01em }
+header .tag { font-size:7.4pt; color:var(--muted); text-align:right; max-width:110mm }
+main { flex:1; padding:4.5mm 12mm 3mm; display:flex; flex-direction:column; gap:2.6mm; min-height:0; justify-content:space-between }
+.box { font-size:9.2pt }
+footer { display:flex; justify-content:space-between; gap:4mm; padding:2.6mm 12mm 4mm; font-size:6.8pt; color:var(--ink3);
+  border-top:0.4mm solid var(--rule); margin:0 12mm; padding-left:0; padding-right:0 }
+h1 { margin:0; font-size:17pt; line-height:1.15; letter-spacing:-.01em; font-weight:700 }
+h2 { margin:0 0 1.4mm; font-size:9.6pt; font-weight:700; color:var(--ink); padding-bottom:.8mm;
+  border-bottom:0.5mm solid var(--z2a-purple); display:inline-block }
+.titleblock .meta { margin-top:1.2mm; color:var(--ink2); font-size:8.2pt; display:flex; gap:3mm; flex-wrap:wrap; align-items:center }
+footer .nw { white-space:nowrap }
+footer { align-items:center }
+footer a.claude { background:#D97757; color:#fff; text-decoration:none; font-weight:600; padding:.2mm 2mm; border-radius:1mm; white-space:nowrap }
+.pill { display:inline-block; padding:.3mm 2.2mm; border-radius:99px; font-size:7.2pt; font-weight:600 }
+.pill.pre { background:var(--z2a-magenta); color:#fff }
+.pill.sim { background:var(--tint); color:var(--ink); border:0.3mm solid var(--rule) }
+p { margin:0 0 1.4mm }
+ul { margin:0; padding-left:4mm } li { margin:0 0 .7mm }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:6mm }
+.cols3 { display:grid; grid-template-columns:62fr 124fr; gap:6mm }
+table { width:100%; border-collapse:collapse; font-size:7.4pt; line-height:1.3; font-variant-numeric:tabular-nums }
+thead th { text-align:left; font-weight:700; padding:1.1mm 1.6mm; border-bottom:0.5mm solid var(--ink) }
+thead th.a { color:#7a3bbf } thead th.b { color:#d9409f } thead th.pl { color:#1f9bb3 }
+tbody th { text-align:left; font-weight:500; color:var(--ink2); padding:.45mm 1.4mm; width:24% }
+tbody td { padding:.45mm 1.4mm }
+td.c { color:#7a3bbf; font-weight:600 }
+tbody tr:nth-child(odd) { background:var(--tint) }
+td.pl { color:var(--ink2) }
+figure { margin:0 }
+figure img { display:block; width:100% }
+figcaption { font-size:7.0pt; color:var(--ink2); margin-top:.6mm }
+.key { display:inline-block; width:4mm; height:1.1mm; border-radius:1mm; vertical-align:middle; margin:0 1mm 0 0 }
+.note { font-size:7.1pt; color:var(--ink2) }
+.box { background:var(--tint); border-left:0.8mm solid var(--z2a-purple); padding:2mm 3mm; border-radius:0 1.5mm 1.5mm 0 }
+.box.b { border-left-color:var(--z2a-magenta) }
+.box h3 { margin:0 0 1mm; font-size:8.6pt }
+ol { margin:0; padding-left:4.5mm } ol li { margin-bottom:.9mm }
+</style></head><body>
+
+<div class="page">
+<header><div class="brand"><svg viewBox="0 0 3401.5 3401.6" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" transform="matrix(1.3333333,0,0,-1.3333333,1322.7806,2078.743)"><g transform="matrix(5,0,0,5,-1133.86,-1133.8572)"><path transform="translate(338.1049,200.4037)" d="m 0,0 66.389,-22.676 -214.282,-56.036 15.083,29.348 h -110.97 l 131.522,261.79 H -274.566 C -296.924,174.5 -309.75,130.285 -309.75,83.061 c 0,-111.623 71.706,-206.523 171.573,-241.105 l 36.387,72.291 73.68,29.884 -57.325,-114.332 c 10.101,-1.237 20.385,-1.857 30.803,-1.857 61.288,0 117.509,21.622 161.506,57.626 L 57.358,113.964 Z"/><path transform="translate(283.4731,538.5829)" d="M 0,0 C -66.422,0 -126.907,-25.385 -172.292,-66.974 H 35.485 l -131.84,-261.941 h 47.291 l 11.221,22.308 42.174,-14.398 127.86,254.031 73.127,-339.567 c 31.288,42.342 49.784,94.716 49.784,151.423 C 255.102,-114.231 140.887,0 0,0"/></g></g></svg><span><small>Zero to ASIC Course</small><b>GF180 433.92 MHz VCO</b></span></div>
+<div class="tag">Preliminary · pre-silicon, schematic simulation, not extracted</div></header>
+<main>
+<div class="titleblock">
+<h1>Tunable 433.92 MHz ring oscillator: GF180 candidate options</h1>
+<div class="meta"><span>Matt Venn / Zero to ASIC Course</span><span>2026-11-07</span><span class="pill pre">Preliminary</span>
+<span class="pill sim">Pre-silicon · schematic simulation (ngspice, gf180mcuD nfet/pfet_03v3) · not extracted</span></div>
+</div>
+
+<div class="cols">
+<div>
+<h2>Description</h2>
+<p><b style="color:#7a3bbf">Option A</b> uses about 2.2× less power than <b style="color:#d9409f">Option B</b>
+and rejects supply changes about 2.7× better; B gives the complementary outputs the antenna drive needs.
+As drawn, both tune far too steeply with vctrl; a constant-gm bias fixes this. A plain inverter ring is the untuned baseline.</p>
+<p>Both are current-starved ring VCOs (voltage-controlled oscillators) for a Tiny Tapeout GF180MCU transmitter. Each inverter's
+current is set by a PMOS head and an NMOS foot of binary legs switched between <b>vctrl</b> and 0: the 4-bit <b>code</b> tunes
+coarsely, vctrl finely. A is a 5-stage single-ended (SE) ring; B is two 4-stage rings tied by weak cross-coupled inverters.</p>
+</div>
+<div>
+<h2>Features</h2>
+<ul>
+<li>Coarse: 4-bit binary foot legs (k = 8 base), ×2.06 (A) / ×2.89 (B) at vctrl 1.5 V</li>
+<li>Fine: vctrl on every leg; 117–1,039 MHz (A), 146–832 MHz (B)</li>
+<li>Power at 433.92 MHz: A 0.91 mW, B 2.03 mW (plain ring 2.46 mW)</li>
+<li>A + constant-gm bias (a β-multiplier, whose current is set by an on-chip resistor, not vctrl): 5-bit coarse,
+ ±3.8 % fine; Kvco (frequency change per volt of vctrl) about 16 MHz/V vs 782 for A</li>
+<li>3.3 V devices only, no inductors, small area</li>
+</ul>
+</div>
+</div>
+
+<figure><img src="fig0_topology.svg" alt="stage and ring topologies"></figure>
+
+<div>
+<h2>Key specifications</h2>
+<table><thead><tr><th>tt, 27 °C, 3.3 V unless noted</th><th class="a">A · SE N=5</th>
+<th class="b">B · diff N=4</th><th class="a">A + const-gm bias</th><th class="pl">Plain ring (baseline)</th></tr></thead>
+<tbody><tr><th>Tuning span (all codes, vctrl)</th><td>117–1,039 MHz</td><td>146–832 MHz</td><td class='c'>236–728 MHz</td><td class='pl'>none</td></tr>
+<tr><th>Coarse range, top / bottom code</th><td>×2.06 (1.5 V)</td><td>×2.89 (1.5 V)</td><td class='c'>×2.84, about 15 MHz steps</td><td class='pl'>—</td></tr>
+<tr><th>Fine tuning: Kvco at 433.92 MHz</th><td>782 MHz/V</td><td>522 MHz/V</td><td class='c'>about 16 MHz/V, ±3.8 %</td><td class='pl'>—</td></tr>
+<tr><th>df/dVDD, %/10 mV (kHz at 433.92 MHz)</th><td>−0.11 (−474)</td><td>−0.29 (−1,269)</td><td class='c'>−0.27 (−1,170)</td><td class='pl'>+0.23 (+993)</td></tr>
+<tr><th>Tempco, 0–70 °C</th><td>−2,197 ppm/°C</td><td>−1,982 ppm/°C</td><td class='c'>+2,952 ppm/°C</td><td class='pl'>−1,843 ppm/°C</td></tr>
+<tr><th>PVT spread (process, VDD, temp.)</th><td>×0.68 … ×1.42</td><td>×0.62 … ×1.52</td><td class='c'>×0.78 … ×1.23</td><td class='pl'>×0.73 … ×1.29</td></tr>
+<tr><th>Power at 433.92 MHz</th><td>0.91 mW</td><td>2.03 mW</td><td class='c'>1.59 mW at 508 MHz</td><td class='pl'>2.46 mW</td></tr>
+<tr><th>Outputs</th><td>1, single-ended</td><td>2, complementary</td><td class='c'>1, single-ended</td><td class='pl'>1, single-ended</td></tr></tbody></table>
+
+</div>
+
+<figure><img src="fig1_f_vs_vctrl.svg" alt="frequency vs vctrl">
+<figcaption><b>Fig. 1.</b> Frequency vs vctrl for codes 0, 3, 7, 11, 15 (light → dark), tt 27 °C 3.3 V; at code 7, A reaches
+433.92 MHz at 1.36 V and B at 1.67 V. Points below about 110 MHz are outside the measurement window (10 periods in 100–200 ns) and are not plotted. B: coarse sweep (codes 0/7/15, vctrl 0.9/1.2/1.5/2.0/2.5/3.3 V), so its curves and Kvco are coarse.</figcaption></figure>
+</main>
+<footer><span class="nw">Zero to ASIC Course · zerotoasiccourse.com · Matt Venn</span>
+<span>GF180 433.92 MHz VCO options · 2026-11-07 · Preliminary</span>
+<a class="claude" href="https://claude.com/claude-code">Made with Claude</a><span class="nw">1 / 2</span></footer>
+</div>
+
+<div class="page">
+<header><div class="brand"><svg viewBox="0 0 3401.5 3401.6" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" transform="matrix(1.3333333,0,0,-1.3333333,1322.7806,2078.743)"><g transform="matrix(5,0,0,5,-1133.86,-1133.8572)"><path transform="translate(338.1049,200.4037)" d="m 0,0 66.389,-22.676 -214.282,-56.036 15.083,29.348 h -110.97 l 131.522,261.79 H -274.566 C -296.924,174.5 -309.75,130.285 -309.75,83.061 c 0,-111.623 71.706,-206.523 171.573,-241.105 l 36.387,72.291 73.68,29.884 -57.325,-114.332 c 10.101,-1.237 20.385,-1.857 30.803,-1.857 61.288,0 117.509,21.622 161.506,57.626 L 57.358,113.964 Z"/><path transform="translate(283.4731,538.5829)" d="M 0,0 C -66.422,0 -126.907,-25.385 -172.292,-66.974 H 35.485 l -131.84,-261.941 h 47.291 l 11.221,22.308 42.174,-14.398 127.86,254.031 73.127,-339.567 c 31.288,42.342 49.784,94.716 49.784,151.423 C 255.102,-114.231 140.887,0 0,0"/></g></g></svg><span><small>Zero to ASIC Course</small><b>GF180 433.92 MHz VCO</b></span></div>
+<div class="tag">Preliminary · pre-silicon, schematic simulation, not extracted</div></header>
+<main>
+<div class="cols">
+<figure><img src="fig2_kvco.svg" alt="Kvco vs vctrl">
+<figcaption><b>Fig. 2.</b> Kvco vs vctrl: about 782 MHz/V for A at 433.92 MHz, about 16 MHz/V with constant-gm bias (black). <span class="key" style="background:#7a3bbf"></span>A solid,
+<span class="key" style="background:#d9409f"></span>B dashed; code 7 bold, codes 0 and 15 faint.</figcaption></figure>
+<figure><img src="fig5_power.svg" alt="power vs frequency">
+<figcaption><b>Fig. 3.</b> Supply power vs frequency for every code: A draws 0.91 mW at 433.92 MHz, B 2.03 mW.
+The plain ring draws about 2.5 mW whatever N is.</figcaption></figure>
+</div>
+
+<div class="cols3">
+<figure><img src="fig4_sensitivity.svg" alt="supply and temperature sensitivity">
+<figcaption><b>Fig. 4.</b> Supply sensitivity (±150 mV) and tempco (0–70 °C, fixed vctrl) at tt; A is lowest at −0.11 %/10 mV.</figcaption></figure>
+<figure><img src="fig3_pvt.svg" alt="PVT spread">
+<figcaption><b>Fig. 5.</b> PVT (process, voltage, temperature) spread, each normalised to its own tt 27 °C 3.3 V; A spans ×0.68 to ×1.42. A and B at code 7, vctrl 1.5 V.</figcaption></figure>
+</div>
+
+<div>
+<h2>Trade-offs</h2>
+<div class="cols">
+<div class="box"><h3 style="color:#7a3bbf">Option A: single-ended, N=5</h3><ul>
+<li>Lower power: 0.91 mW at 433.92 MHz vs 2.03 mW for B
+ (2.09 vs 4.67 µW/MHz).</li>
+<li>Better supply rejection (PSRR): −0.11 vs −0.29 %/10 mV, opposite in sign to the plain ring as the current is fixed and the swing is VDD.</li>
+<li>Kvco at 433.92 MHz (code 7): 782 MHz/V vs 522 for B (higher: A sits lower on its curve, at 1.36 V).</li>
+<li>One output only: the antiphase antenna drive needs an extra inverter, which adds skew.</li>
+</ul></div>
+<div class="box b"><h3 style="color:#d9409f">Option B: pseudo-differential, N=4</h3><ul>
+<li>Complementary outputs a0 / b0 for the antiphase antenna drive, no extra splitter.</li>
+<li>Possibly less flicker upconversion (low-frequency transistor noise turned into phase noise), as symmetric waveforms give a smaller
+ ISF (impulse sensitivity function) average; <b>needs a phase-noise simulation</b>.</li>
+<li>No tail current source, so supply rejection is about 2.7× worse than A.</li>
+<li>About 2.2× the power of A at 433.92 MHz and 1.7× the devices.</li>
+</ul></div>
+</div>
+</div>
+
+<p class="note">Sizes: core Wn/Wp 2/5 µm, L 0.28 µm; starving L 1 µm. Plain-ring figures from N=15. Tuning span: codes 0–15, vctrl 1.0–3.3 V
+(A + const-gm: codes 0–31, vctrl 0–3.3 V; PVT and sensitivities at code 15, vctrl 1.65 V). Data: <code>sim/vco/</code>.
+Regenerate: <code>python3 docs/datasheet/make_datasheet.py</code>.</p>
+</main>
+<footer><span class="nw">Zero to ASIC Course · zerotoasiccourse.com · Matt Venn</span>
+<span>GF180 433.92 MHz VCO options · 2026-11-07 · Preliminary</span>
+<a class="claude" href="https://claude.com/claude-code">Made with Claude</a><span class="nw">2 / 2</span></footer>
+</div>
+</body></html>
