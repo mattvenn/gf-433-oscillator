@@ -31,7 +31,7 @@ check the results are physical, and commit them to `docs/pn_results.md` and `sim
    on. The comparison is still valid within one tool version.
 3. **Smoke test** (about 10 min): `python3 sim/pn/isf.py se --m 8 --jobs 8 --out build/pn_smoke`
    - Stage A line: f0 should be about 430–440 MHz (it is set up for 433.92 at tt), P about 0.9 mW,
-     K_vdd about −1300 MHz/V, K_vctrl large and positive (about +800 MHz/V).
+     K_vdd about −50 MHz/V (−0.11 %/10 mV), K_vctrl large and positive (about +800 MHz/V).
    - The ISF in `build/pn_smoke/se_typical_t27/isf.csv` (`g_rad_per_C`) should be small near the rails
      and peak near the node's edges, with both signs present.
    - L(1 MHz) in the range −80 … −120 dBc/Hz.
