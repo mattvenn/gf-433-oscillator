@@ -1,0 +1,4 @@
+  options reltol=1e-4
+  save v(a0)
+  // ZOH noise mode aborts (timestep too small), SDE works. transient noise: 20 GHz noise bandwidth (>> f0), flicker rows down to 1 MHz, hmax = 1/(2*5*20G) = 5 ps
+  analysis tn tran step=5p stop=0.7u maxstep=5p noisefmax=20e9 noisefmin=1e6 oversample=5 noiseseed=1 noisemode="sde"

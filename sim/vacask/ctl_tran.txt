@@ -1,0 +1,3 @@
+  options reltol=1e-4
+  save v(a0) i(vdd) v(vbp)
+  analysis tr tran step=1p stop=140n maxstep=2p

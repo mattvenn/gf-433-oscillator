@@ -13,7 +13,8 @@
             + K_bias^2 * S_bias(f) / f^2 + K_vdd^2 * S_vdd / f^2 ;   L(f) = S_phi / 2
   g_x = g weighted by which device conducts at that phase (node rising -> head, falling -> foot).
 
-Variants: se (vco_cand se N=5), diff (vco_cand diff N=4), cgm (vco_bias N=5, n-well + n+ resistor).
+Variants: se (vco_cand se N=5), diff (vco_cand diff N=4), cgm (vco_bias N=5, n-well + n+ resistor),
+cgmf (cgm + 1 Mohm / 20 pF RC between vbn and its loads; vbnf starts at its DC value, see stage_a).
 
 Usage (repo root):
   python3 sim/pn/isf.py <variant> [--corner typical] [--temp 27] [--m 60] [--jobs 1] [--out build/pn]
@@ -41,6 +42,9 @@ VARIANTS = {
     "diff": dict(kind="cand", topo="diff", n=4, code=7, vctrl=1.67, nodes=8, inj="a2", out="a0"),
     "cgm":  dict(kind="bias", n=5, code=10, vctrl=1.65, nodes=5, inj="a2", out="a0",
                  set=dict(rideal=0, lnw=4.5, lnp=100.0)),
+    # cgm + RC low-pass (1 Mohm ppolyf_u_3k, 20 pF) between the reference and every vbn load
+    "cgmf": dict(kind="bias", n=5, code=10, vctrl=1.65, nodes=5, inj="a2", out="a0",
+                 set=dict(rideal=0, lnw=4.5, lnp=100.0, rf=1e6, cf=20e-12)),
 }
 VDD = 3.3
 R_VCTRL = 100e3      # assumed source resistance of the vctrl filter (thermal noise only)
@@ -100,6 +104,7 @@ meas tran t0 WHEN v({o})={VDD/2} RISE=1 TD=100n
 meas tran t10 WHEN v({o})={VDD/2} RISE=11 TD=100n
 meas tran iavg AVG i(vdd) FROM=100n TO={tstop}n
 meas tran vbn AVG v(vbn) FROM=100n TO={tstop}n
+meas tran vbnf AVG v(vbnf) FROM=100n TO={tstop}n
 meas tran vbp AVG v(vbp) FROM=100n TO={tstop}n
 quit
 .endc
@@ -107,18 +112,56 @@ quit
 """
 
 
+def op_vbn(net, temp, wd, vdd=VDD, dv=0.0):
+    """DC value of vbn (= vbnf: the filtered gates draw no DC current), at supply vdd and probe offset dv."""
+    log = ngspice(wd, {f"op_{vdd:.2f}_{dv:g}": f"""* op
+{net}
+.control
+option temp={temp}
+alter vdd {vdd}
+alter vbnp {dv}
+op
+print v(vbn)
+quit
+.endc
+.end
+"""})
+    return float(re.search(r"^v\(vbn\)\s*=\s*(\S+)", list(log.values())[0], re.M).group(1))
+
+
 def stage_a(v, corner, temp, wd, jobs):
     net, ic, p = circuit(v, corner)
     tstop = 140
-    decks = {"ref": ref_deck(net, ic, v, temp, tstop),
-             "vdd_hi": ref_deck(net, ic, v, temp, tstop, f"alter vdd {VDD + 0.05}\n"),
-             "vdd_lo": ref_deck(net, ic, v, temp, tstop, f"alter vdd {VDD - 0.05}\n")}
+    filt = v["kind"] == "bias" and vco_bias.gnet(p) != "vbn"
+    ic0 = ic
+    dc = {}
+    if filt:   # DC value of vbn (= vbnf) at each stage-A operating point
+        for key, vdd, dv in (("ref", VDD, 0.0), ("vdd_hi", VDD + 0.05, 0.0), ("vdd_lo", VDD - 0.05, 0.0), ("bias_hi", VDD, 0.005)):
+            dc[key] = op_vbn(net, temp, wd, vdd, dv)
+    def icf(key, corr=0.0):
+        # the RC (tens of us) is far slower than the 140 ns run: start vbnf at its DC value. The ring's
+        # start-up (uic) also pumps a few mV onto cf, which the diode would remove in ns but the RC holds
+        # for tens of us, so `corr` pre-subtracts that step (measured on a first ref run).
+        return ic0 + (f" v(vbnf)={dc[key] - corr:.6f}" if filt else "")
     bias = "vctrl" if v["kind"] == "cand" else "vbnp"
-    decks["bias_hi"] = ref_deck(net, ic, v, temp, tstop, f"alter {bias} {(v['vctrl'] if bias == 'vctrl' else 0) + 0.005}\n")
-    logs = ngspice(wd, decks, jobs)
+    corr = 0.0
+    for it in range(3 if filt else 1):
+        decks = {"ref": ref_deck(net, icf("ref", corr), v, temp, tstop)}
+        if filt and it == 0:     # first pass: measure the start-up step only
+            l = ngspice(wd, decks, 1)["ref"]
+            corr = grab(l, "vbnf") - dc["ref"]
+            print(f"A: vbnf start-up step {corr*1e3:+.2f} mV -> corrected .ic", flush=True)
+            continue
+        decks.update({"vdd_hi": ref_deck(net, icf("vdd_hi", corr), v, temp, tstop, f"alter vdd {VDD + 0.05}\n"),
+                      "vdd_lo": ref_deck(net, icf("vdd_lo", corr), v, temp, tstop, f"alter vdd {VDD - 0.05}\n"),
+                      "bias_hi": ref_deck(net, icf("bias_hi", corr), v, temp, tstop,
+                                          f"alter {bias} {(v['vctrl'] if bias == 'vctrl' else 0) + 0.005}\n")})
+        logs = ngspice(wd, decks, jobs)
+        break
+    ic = icf("ref", corr)
     f = {k: 10 / (grab(l, "t10") - grab(l, "t0")) for k, l in logs.items()}
     a = dict(f0=f["ref"], T=1 / f["ref"], t0=grab(logs["ref"], "t0"), P=-grab(logs["ref"], "iavg") * VDD,
-             vbn=grab(logs["ref"], "vbn"), vbp=grab(logs["ref"], "vbp"),
+             vbn=grab(logs["ref"], "vbn"), vbnf=grab(logs["ref"], "vbnf"), vbnf_ic_corr=corr, vbp=grab(logs["ref"], "vbp"),
              K_vdd=(f["vdd_hi"] - f["vdd_lo"]) / 0.1, K_bias=(f["bias_hi"] - f["ref"]) / 0.005, bias_line=bias)
     if not all(math.isfinite(x) for x in (a["f0"], a["t0"])):
         sys.exit(f"stage A failed, see {wd}/ref.log")
@@ -214,15 +257,16 @@ quit
 
 
 def bias_noise_deck(p, corner, temp):
-    """Voltage noise of vbn from the const-gm reference alone (no ring)."""
+    """Voltage noise on the load gates (vbn, or vbnf after the RC filter) from the const-gm reference alone (no ring)."""
     body, _ = vco_bias.netlist(dict(p, n=0))
+    node = vco_bias.gnet(p)
     src = f"vdd vdd 0 {VDD} ac 1\nvctrl vctrl 0 1.65\n" + "".join(f"vbit{b} bit{b} 0 0\nvbitb{b} bitb{b} 0 {VDD}\n" for b in range(p["bits"]))
     return f"""* vbn noise
 {MODELS.format(corner=corner)}
 {src}{body}
 .control
 option temp={temp}
-noise v(vbn) vdd dec 10 1k 1G
+noise v({node}) vdd dec 10 1k 1G
 setplot noise1
 wrdata noise_vbn.txt onoise_spectrum
 quit

@@ -24,8 +24,9 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          wff=0.25, lff=4.0,                      # fine leg per stage (gate vctrl)
          w1=2.0, l1=1.0, kb=4, r=6e3, tcr=0.0,   # beta multiplier: MN1 W/L, K, R (ohm), R tc1 (1/K)
          wpm=4.0, lpm=1.0,                       # beta multiplier PMOS mirror
-         cw=2e-15, rideal=1,
-         rw=2.0, lnw=12.0, lnp=0.0)        # real R: width, nwell length, n+ diff length (um)                     # wiring C; rideal=1: ideal R with tc1=tcr, else ppolyf_u
+         cw=2e-15, rideal=1,                     # wiring C; rideal=1: ideal R with tc1=tcr, else nwell + n+ diff
+         rw=2.0, lnw=12.0, lnp=0.0,              # real R: width, nwell length, n+ diff length (um)
+         rf=0.0, cf=0.0, rfw=1.0)                # vbn RC filter: ppolyf_u_3k rf ohm (width rfw um), ideal cf (F); 0 = off
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 
 
@@ -34,9 +35,23 @@ def fet(name, d, g, s, b, typ, w, l, m=1):
     return f"X{name} {d} {g} {s} {b} {typ} w={w}u l={l}u ad={a}p as={a}p pd={p}u ps={p}u m={m}\n"
 
 
-def foot(tag, p, out):
-    """Foot network from `out` to ground: base + coarse legs + fine leg."""
-    s = fet(f"F{tag}", out, "vbn", "0", "0", "nfet_03v3", p["wfu"], p["ls"], p["k"])
+RSH_3K, DW_3K, RT_3K = 3000.0, 0.02256, 33.16   # ppolyf_u_3k sheet (ohm/sq), width loss per side (um), end R (ohm.um)
+
+
+def rf_length(p):
+    """ppolyf_u_3k length (um) giving rf ohm at width rfw (tt, 25 C: body + two end resistors)."""
+    w = p["rfw"] - 2 * DW_3K
+    return (p["rf"] - 2 * RT_3K / w) * w / RSH_3K
+
+
+def gnet(p):
+    """Net that drives the load gates: vbn, or the filtered vbnf when the RC filter is on."""
+    return "vbnf" if p.get("rf", 0) > 0 and p.get("cf", 0) > 0 else "vbn"
+
+
+def foot(tag, p, out, g="vbn"):
+    """Foot network from `out` to ground: base + coarse legs + fine leg (base gate on `g`)."""
+    s = fet(f"F{tag}", out, g, "0", "0", "nfet_03v3", p["wfu"], p["ls"], p["k"])
     for b in range(p["bits"]):
         s += fet(f"F{tag}_{b}", out, f"g{b}", "0", "0", "nfet_03v3", p["wfu"], p["ls"], 2 ** b)
     s += fet(f"FF{tag}", out, "vctrl", "0", "0", "nfet_03v3", p["wff"], p["lff"])
@@ -61,16 +76,20 @@ def netlist(p):
     s += fet("MS1", "x", "0", "vdd", "vdd", "pfet_03v3", 0.5, 10.0)
     s += fet("MS2", "x", "n1", "0", "0", "nfet_03v3", 2.0, 0.28)
     s += fet("MS3", "n2", "x", "n1", "0", "nfet_03v3", 1.0, 0.28)
+    g = gnet(p)
     # coarse gate switches: g_b = bit ? vbn : 0
     for b in range(p["bits"]):
-        s += (fet(f"TN{b}", f"g{b}", f"bit{b}", "vbn", "0", "nfet_03v3", 2, 0.28)
-              + fet(f"TP{b}", f"g{b}", f"bitb{b}", "vbn", "vdd", "pfet_03v3", 5, 0.28)
+        s += (fet(f"TN{b}", f"g{b}", f"bit{b}", g, "0", "nfet_03v3", 2, 0.28)
+              + fet(f"TP{b}", f"g{b}", f"bitb{b}", g, "vdd", "pfet_03v3", 5, 0.28)
               + fet(f"TD{b}", f"g{b}", f"bitb{b}", "0", "0", "nfet_03v3", 1, 0.28))
     s += "Rvbn n1 vbn 1\n"   # vbn = n1 (named net; 1 ohm keeps MN1 as the reference diode)
+    if g != "vbn":            # RC low-pass vbn -> vbnf: real hi-R poly, ideal C (a MOS cap on silicon)
+        s += f"XRF vbn vbnf 0 ppolyf_u_3k r_width={p['rfw']}e-6 r_length={rf_length(p):.3f}e-6\n"
+        s += f"CF vbnf 0 {p['cf']}\n"
     # master: copy of one stage's foot (x mr) into a PMOS diode -> vbp
     total = p["k"] + 2 ** p["bits"] - 1
     s += fet("MPB", "vbp", "vbp", "vdd", "vdd", "pfet_03v3", p["wpb"], p["ls"], max(1, round(p["mr"] * total / 4)))
-    s += foot("M", dict(p, wfu=p["wfu"] * p["mr"], wff=p["wff"] * p["mr"]), "vbp")
+    s += foot("M", dict(p, wfu=p["wfu"] * p["mr"], wff=p["wff"] * p["mr"]), "vbp", g)
     # ring
     n = p["n"]
     for i in range(n):
@@ -78,7 +97,7 @@ def netlist(p):
         s += fet(f"H{i}", f"h{i}", "vbp", "vdd", "vdd", "pfet_03v3", p["whead"], p["ls"])
         s += fet(f"P{i}", y, a, f"h{i}", "vdd", "pfet_03v3", p["wp"], p["L"])
         s += fet(f"N{i}", y, a, f"f{i}", "0", "nfet_03v3", p["wn"], p["L"])
-        s += foot(f"s{i}", p, f"f{i}")
+        s += foot(f"s{i}", p, f"f{i}", g)
         s += f"Cw{i} {y} 0 {p['cw']}\n"
     ics = " ".join(f"v(a{i})={0 if i % 2 == 0 else 3.3}" for i in range(n))
     return s, ics

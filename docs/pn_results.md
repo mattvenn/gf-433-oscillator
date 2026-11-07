@@ -97,3 +97,37 @@ dominates. That term uses an assumed 100 kOhm vctrl resistor (thermal noise only
 with whatever the real loop filter is. Without it, the device-only L(1 MHz) would be -102.9 (se) and -106.0 dBc/Hz (diff).
 cgm is dominated at every offset by the noise of its own const-gm vbn reference, about 15-20 dB above its device noise.
 The vdd term uses an assumed 100 nV/√Hz white supply and is 10-35 dB below the total everywhere.
+
+## Follow-up 1: RC filter on the const-gm bias (laptop, 2026-11-07)
+
+An optional RC low-pass (`rf`, `cf` in `sim/vco/vco_bias.py`; variant `cgmf` in `sim/pn/isf.py`) sits between the
+const-gm reference and every gate on vbn. With rf = 1 MΩ (ppolyf_u_3k, 1 × 318 µm) and cf = 20 pF (about
+68 × 68 µm as a MOS capacitor), the corner is about 8 kHz.
+
+| case (tt) | L(10k / 100k / 1M / 10M) dBc/Hz | rms FM 1-10 kHz / 1-100 kHz |
+|---|---|---|
+| se | -46.3 / -71.1 / -92.3 / -112.4 | 9.2 / 16.6 kHz |
+| cgm | -24.2 / -53.6 / -81.4 / -105.1 | 129 / 188 kHz |
+| cgmf 1 MΩ / 20 pF, ISF run m=8 | -28.4 / -72.2 / -96.3 / -116.5 | 117 / 125 kHz (predicted) |
+| cgmf 3 MΩ / 20 pF, predicted | -35.6 / -72.5 / -95.8 / -116.4 | 87 / 89 kHz |
+
+The filter removes the reference noise above about 30 kHz, but the reference's flicker noise (about 2 µV/√Hz at
+1 kHz) is below the corner and still sets the rms FM in the band that matters for FSK. A quieter reference
+(larger devices) or a smaller K_vbn is needed. The ring's start-up pumps about 4 mV onto cf, so `isf.py` now measures
+that step and corrects the initial condition of vbnf. The filtered run's f0 is 416.74 MHz, +0.05 % from cgm.
+
+## Follow-up 2: cross-check with VACASK transient noise (laptop, 2026-11-07)
+
+VACASK bdb6df9 (in the 2026.05 image) has no PSS or pnoise analysis, so the check uses its transient noise
+(`noisemode="sde"`, noise up to 20 GHz) on the se ring with ideal bias, and converts the period jitter
+with L(Δf) = f0³ · σ_T² / Δf². This is valid for white noise only. Scripts are in `sim/vacask/`.
+
+| Δf | VACASK, head + foot (2 seeds) | ISF, device-only |
+|---|---|---|
+| 1 MHz | -105.5 | -102.9 (includes flicker) |
+| 10 MHz | -125.5 | -125.0 |
+
+Noiseless f0 is 431.29 MHz in VACASK against 431.09 MHz in ngspice, with identical power. The two methods agree
+to 0.5 dB where white noise dominates. The inverter transistors' own noise, which the ISF noise decks leave out,
+adds only about 0.2 dB. The flicker region (below about 1 MHz) has not been checked independently at the time of
+writing.
