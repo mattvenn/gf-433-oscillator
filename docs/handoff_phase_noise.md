@@ -1,3 +1,5 @@
+> Done (2026-11-07): results in docs/pn_results.md
+
 # Handoff: phase-noise sweep of the candidate VCOs (sim pod)
 
 **Goal: run the ISF phase-noise sweep (`sim/pn/run_all.sh`) for the 3 VCO variants × 5 process corners,
