@@ -5,7 +5,10 @@ keeping it temperature-compensated. Then measure phase noise and the full tuning
 reference, and commit the results to `docs/bias_tuning_results.md` and `sim/results/2026-11-08/`.**
 
 A second agent may be doing the ring layout (`docs/handoff_ring_layout.md`) in the same repo at the same time.
-Commit only your own files, use `git pull --rebase` before pushing, and use at most **20 CPUs** (`PAR × JOBS ≤ 20`).
+Use your own clone (see "Host and tools"), commit only your own files, use `git pull --rebase` before pushing,
+and use at most **20 CPUs** (`PAR × JOBS ≤ 20`). You own `sim/vco/vco_bias.py` and `sim/pn/*` tonight. The layout agent
+imports `vco_bias.py` read-only, so keep `netlist()` and `P` backwards compatible (only add parameters, with defaults
+that give today's netlist).
 
 ## Decision so far (Gate 1, partial, 2026-11-07)
 - **Topology: one single-ended, current-starved ring, N = 5.** This is the "cgm" structure in `sim/vco/vco_bias.py`:
@@ -22,7 +25,9 @@ Commit only your own files, use `git pull --rebase` before pushing, and use at m
 
 ## Host and tools
 - You are in the IIC-OSIC-TOOLS pod. `tools/osic-mac` runs tools directly there. Don't edit it.
-- Clone over HTTPS: `git clone https://github.com/mattvenn/gf-433-oscillator.git` into `/foss/designs`.
+- Clone over HTTPS into **your own directory**, which nobody else uses:
+  `cd /foss/designs && git clone https://github.com/mattvenn/gf-433-oscillator.git gf433-sims`.
+  The layout agent uses `gf433-layout`. Never `cd` into its checkout.
   The `GITHUB_TOKEN` credential helper is set up by Matt. If a push fails on authentication, stop and say so;
   don't try other credentials.
 - Start every new scripted run with a single short case, and check its log before launching the batch.

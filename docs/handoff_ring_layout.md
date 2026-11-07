@@ -5,7 +5,11 @@ checks, plus an extracted-versus-schematic frequency comparison. Commit it with 
 `docs/ring_layout.md`.**
 
 A second agent may be running bias and tuning sims (`docs/handoff_bias_and_tuning.md`) in the same repo at the same
-time. Commit only your own files, use `git pull --rebase` before pushing, and use at most **8 CPUs**.
+time. Work in **your own clone**: `cd /foss/designs && git clone https://github.com/mattvenn/gf-433-oscillator.git gf433-layout`
+(HTTPS, with the `GITHUB_TOKEN` credential helper Matt set up). The sims agent uses `gf433-sims`; never `cd` into its
+checkout. Use at most **8 CPUs**. You own `layout/`, `mag/` and `docs/ring_layout.md`. **Don't edit anything under
+`sim/`.** Import `sim/vco/vco_bias.py` read-only, and put any new code (netlist export, PEX swap) under `layout/gen/`.
+Commit only your own files, and use `git pull --rebase` before pushing.
 
 ## What to draw
 The ring core of `sim/vco/vco_bias.py` (function `netlist()`, default `P`, real resistor settings
@@ -49,12 +53,14 @@ Units: µm. The 3.3 V devices are `nfet_03v3` and `pfet_03v3` in gf180mcuD.
 2. **Antenna: 0 violations.** Prove the check works with a deliberate violation on a copy.
 3. **LVS:**
    - "Circuits match uniquely" and **no property errors** (W, L, m all correct).
-   - The source netlist must be the schematic. Export the core as a `.subckt` from `vco_bias.py`'s own netlist
-     (add an export function), not from the layout generator's parameters.
+   - The source netlist must be the schematic. Export the core as a `.subckt` from `vco_bias.netlist()`, in a new
+     script `layout/gen/export_core.py` that imports it and leaves out the reference devices. Don't build the source
+     from the layout generator's own parameters.
    - Mutation-test LVS once: swap two coarse-bit legs on a copy; LVS must fail.
 4. **Extraction and simulation:**
-   - Extract for simulation (C first, then RC), and swap the extracted core into the `vco_bias.py` deck in place of
-     the schematic core. Use `tools/pexswap.py` or a small new option.
+   - Extract for simulation (C first, then RC), and swap the extracted core into a copy of the `vco_bias.deck()` output
+     in place of the schematic core. Do this in a new script `layout/gen/pex_sim.py`, using `tools/pexswap.py` if it
+     fits.
    - At tt and 27 °C, ideal vbn from the schematic reference, run codes 0 / 10 / 31 at vctrl 1.65. Compare f and
      power with the schematic (`cw = 2 fF`).
    - Report the shift. The schematic plus 2 fF is expected to be within about 10 %. Larger means the wiring C
@@ -72,7 +78,7 @@ Units: µm. The 3.3 V devices are `nfet_03v3` and `pfet_03v3` in gf180mcuD.
 - run times;
 - open issues.
 
-Commit the generator, the export function, the small Tcl/Python check scripts, the GDS of the core (it is small),
+Commit the generator, `export_core.py`, `pex_sim.py`, the small Tcl/Python check scripts, the GDS of the core (it is small),
 and the report. Stage and commit in one command, never `git add -A`, and don't commit `build/` or `sim.yaml`.
 Then `git pull --rebase` and `git push`.
 
