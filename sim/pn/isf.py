@@ -70,6 +70,9 @@ def ngspice(workdir, decks, jobs=1):
     """Run decks (name -> text) in workdir, `jobs` ngspice processes in parallel (one container each)."""
     workdir.mkdir(parents=True, exist_ok=True)
     rel = workdir.relative_to(REPO)
+    # ngspice reads .spiceinit from its cwd; one thread each when several run in parallel
+    init = (REPO / ".spiceinit").read_text()
+    (workdir / ".spiceinit").write_text(re.sub(r"num_threads=\d+", f"num_threads={1 if jobs > 1 else 4}", init))
     for n, t in decks.items():
         (workdir / f"{n}.cir").write_text(t)
     def one(n):
