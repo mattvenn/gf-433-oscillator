@@ -1,3 +1,5 @@
+> Done (2026-11-07): see docs/ring_layout.md
+
 # Handoff: ring-core layout generator, DRC/LVS/PEX (sim pod, overnight)
 
 **Goal: a parametric layout generator for the VCO ring core, clean in DRC (magic and KLayout), LVS and antenna
