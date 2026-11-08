@@ -3,9 +3,9 @@
 
   tc    --lnws 3.665,5,6 --code 6      tt: f at 0/27/70 C for each n-well length -> tempco (ppm/C, LSQ slope / f27)
   pvt   --code 6                       5 corners x 0/70 C (+ tt 27 C, VDD 3.25/3.35) at vctrl 1.65
-  ki    --code 6                       tt 27 C: DAC current I (series probe Vdac), vg, f; then f with +-1 % of I
+  ki    --code 6                       [--corner/--temp, default tt 27 C]: DAC current I (series probe Vdac), vg, f; then f with +-1 % of I
                                        injected into vg (pulled to GND) -> K_I = df/dI
-  dacn  --code 6                       dense .noise (dec 50, 1k-100M) of the DAC output current, vg held by a DC
+  dacn  --code 6 --ki ki.json          [--corner/--temp] dense .noise (dec 50, 1k-100M) of the DAC output current, vg held by a DC
                                        source at its operating value: total (reference + gate switches + DAC) and
                                        DAC-only (DAC gates on noiseless sources at their DC values)
   isf   --code 6 --m 40                ISF of the cfed ring (stage B of isf.py, crossings at mid-swing) + drain
@@ -135,6 +135,8 @@ def main():
     ap.add_argument("--m", type=int, default=40)
     ap.add_argument("--tstep", default="0.5p", help="isf: tran step (0.5p = isf.py production; 2p for a quick run)")
     ap.add_argument("--ki", default=None, help="dacn: ki.json to read I, vg, f, K_I from")
+    ap.add_argument("--corner", default="typical", help="ki / dacn: model corner")
+    ap.add_argument("--temp", type=float, default=27.0, help="ki / dacn: temperature (C)")
     a = ap.parse_args()
     p = params(a.set)
     out = REPO / "build/cfed" / a.name
@@ -168,29 +170,30 @@ def main():
                       f"P {r['p_w']*1e3:.3f} mW")
         (out / f"{a.mode}.json").write_text(json.dumps(rows, indent=1))
     elif a.mode == "ki":
-        base = {"ki_0": tran_deck(p, "typical", 27, a.code, 1.65)}
-        vb.run(out, list(base.items()), 1)
+        C, T = a.corner, a.temp
+        base = {"ki_0": tran_deck(p, C, T, a.code, 1.65)}
+        vb.run(out, list(base.items()), 2)   # 2: one-thread ngspice
         r0 = parse_ki((out / "ki_0.log").read_text())
         di = 0.01 * abs(r0["i"])
-        decks = [(f"ki_{s}", tran_deck(p, "typical", 27, a.code, 1.65, f"Iinj vg 0 {sgn * di:.6e}\n"))
+        decks = [(f"ki_{s}", tran_deck(p, C, T, a.code, 1.65, f"Iinj vg 0 {sgn * di:.6e}\n"))
                  for s, sgn in (("p", 1), ("m", -1))]
-        decks.append(("ki_vp", tran_deck(p, "typical", 27, a.code, 1.65).replace("vdd vdd 0 3.3", "vdd vdd 0 3.35")))
-        decks.append(("ki_vm", tran_deck(p, "typical", 27, a.code, 1.65).replace("vdd vdd 0 3.3", "vdd vdd 0 3.25")))
+        decks.append(("ki_vp", tran_deck(p, C, T, a.code, 1.65).replace("vdd vdd 0 3.3", "vdd vdd 0 3.35")))
+        decks.append(("ki_vm", tran_deck(p, C, T, a.code, 1.65).replace("vdd vdd 0 3.3", "vdd vdd 0 3.25")))
         vb.run(out, decks, a.jobs)
         r = {n[3:]: parse_ki((out / f"{n}.log").read_text()) for n, _ in decks}
         K_I = (r["p"]["f"] - r["m"]["f"]) / (2 * di)
         K_vdd = (r["vp"]["f"] - r["vm"]["f"]) / 0.1
-        res = dict(code=a.code, f0=r0["f"], I=abs(r0["i"]), vg=r0["vg"], amin=r0["amin"], amax=r0["amax"], K_I=K_I,
+        res = dict(corner=C, temp=T, code=a.code, f0=r0["f"], I=abs(r0["i"]), vg=r0["vg"], amin=r0["amin"], amax=r0["amax"], K_I=K_I,
                    K_vdd=K_vdd, dlnf_dlnI=K_I * abs(r0["i"]) / r0["f"], runs=r)
         print(json.dumps({k: v for k, v in res.items() if k != "runs"}, indent=1))
         (out / "ki.json").write_text(json.dumps(res, indent=1))
     elif a.mode == "dacn":
         ki = json.loads(Path(a.ki).read_text())
-        op = isf.ngspice(out, {"op_vbn": f"* op\n{tcm.HDR.format(corner='typical')}vdd vdd 0 3.3\nvctrl vctrl 0 1.65\n"
+        op = isf.ngspice(out, {"op_vbn": f"* op\n{tcm.HDR.format(corner=a.corner)}vdd vdd 0 3.3\nvctrl vctrl 0 1.65\n"
                                + "".join(f"vbit{b} bit{b} 0 0\nvbitb{b} bitb{b} 0 3.3\n" for b in range(p['bits']))
-                               + vb.netlist(dict(p, n=0))[0] + "\n.control\nop\nprint v(vbn)\nquit\n.endc\n.end\n"}, 1)
+                               + vb.netlist(dict(p, n=0))[0] + f"\n.control\noption temp={a.temp}\nop\nprint v(vbn)\nquit\n.endc\n.end\n"}, 2)
         vbn = float(re.search(r"^v\(vbn\)\s*=\s*(\S+)", op["op_vbn"], re.M).group(1))
-        decks = {f"dacn_{q}": dac_noise_deck(p, "typical", 27, ki["vg"], vbn, a.code, q == "dac", f"dacn_{q}.txt")
+        decks = {f"dacn_{q}": dac_noise_deck(p, a.corner, a.temp, ki["vg"], vbn, a.code, q == "dac", f"dacn_{q}.txt")
                  for q in ("tot", "dac")}
         logs = isf.ngspice(out, decks, 2)
         idc = abs(float(re.search(r"^i\(vdac\)\s*=\s*(\S+)", logs["dacn_tot"], re.M).group(1)))
@@ -208,7 +211,7 @@ def main():
               for lo, hi in BANDS}
         L = {f"{f0:g}": {k: 10 * math.log10(at(ft, t, f0) / f0 ** 2 / 2) for k, t in dict(terms, total=tot).items()}
              for f0 in (1e4, 1e5, 1e6, 1e7)}
-        res = dict(set=a.set, vbn=vbn, vg=ki["vg"], I_dac_noise_op=idc, K_I=KI,
+        res = dict(set=a.set, corner=a.corner, temp=a.temp, code=a.code, vbn=vbn, vg=ki["vg"], I_dac_noise_op=idc, K_I=KI,
                    SI_1k=dict(tot=at(ft, st, 1e3), dac=at(fd, sd, 1e3)), SI_10M=dict(tot=at(ft, st, 1e7), dac=at(fd, sd, 1e7)),
                    fm=fm, L=L)
         (out / "dacn.json").write_text(json.dumps(res, indent=1))
