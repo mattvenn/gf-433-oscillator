@@ -7,6 +7,9 @@ Check the generated schematics are the simulated circuit (run from the repo root
      and vs the committed layout/ref/ring_core_v3.spice (both wfu 0.30; the layout-side LVS is layout/gen/check_v3.sh)
   3. netgen vco_cfed vs sim/vco/vco_bias.py netlist() at the chosen design (Cw* dropped, Rvbn merged,
      Cvg -> the v3 MOS decap, as the schematic)
+  3b. netgen + device sizes: lsdiv vs sim/lsdiv/lsdiv.py block() (the simulated level shifter + /4, drawn passives);
+      mutation: R1's length +10 % in a copy of the netlist -> the device diff must fail (netgen black-boxes the
+      PDK resistors, so only the size diff sees it)
   4. mutation: one DAC leg's m changed in a copy of cfed_dac.sch -> both comparisons must fail
   5. simulate vco_cfed from the xschem netlist at tt 27 C, code 9, vctrl 1.65 V, against vco_bias's own
      deck at the same point (same deck, only the circuit swapped); |df| < 0.5 %
@@ -77,7 +80,7 @@ def vco_ref(p, path):
                     f'.subckt vco_ref {" ".join(vco_cfed.PINS)}\n' + '\n'.join(lines) + '\n.ends\n')
 
 
-SUBCKTS = ('cfed_ring', 'cfed_dac', 'ring_core_v3', 'cgm_ref', 'vco_cfed')
+SUBCKTS = ('cfed_ring', 'cfed_dac', 'ring_core_v3', 'cgm_ref', 'vco_cfed', 'lsdiv', 'ls_ac', 'tspc_t1', 'tspc_t2')
 
 
 def devices(path):
@@ -86,7 +89,9 @@ def devices(path):
     device lines is the flat circuit. Catches what netgen can't: the PDK resistors are black boxes to it."""
     from collections import Counter
     out = Counter()
-    for ln in Path(path).read_text().splitlines():
+    text = Path(path).read_text()
+    subs = set(SUBCKTS) | set(re.findall(r'(?im)^\.subckt\s+(\S+)', text))
+    for ln in text.splitlines():
         t = ln.split()
         if not t or t[0][0] not in 'XxCc' or t[0].startswith('**'):
             continue
@@ -96,7 +101,7 @@ def devices(path):
                               else float(v), 18)
         if t[0][0] in 'Cc':
             out[('c', float(pos[2]))] += 1
-        elif pos[-1] in SUBCKTS:
+        elif pos[-1] in subs:
             continue
         elif 'fet' in pos[-1]:
             out[(pos[-1], num(kv['w']), num(kv['l']), int(kv.get('m', 1)))] += 1
@@ -167,6 +172,22 @@ def main():
     log(f'vco_cfed vs vco_bias.netlist(), device-by-device sizes (incl. R, C): {"PASS" if okd else "FAIL"} '
         f'({sum(devices(OUT / "vco_cfed.spice").values())} devices){" " + "; ".join(dd) if dd else ""}')
     ok3 &= okd
+    # 3b. lsdiv vs the simulated block
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('sim_lsdiv', Path(REPO) / 'sim' / 'lsdiv' / 'lsdiv.py')
+    LS = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(LS)
+    (OUT / 'ref_lsdiv.spice').write_text(LS.block())
+    ok6, r6 = netgen('lsdiv.spice', 'lsdiv', 'ref_lsdiv.spice', 'lsdiv', 'lvs_lsdiv')
+    ok7, d7 = diff(OUT / 'lsdiv.spice', OUT / 'ref_lsdiv.spice')
+    log(f'lsdiv vs lsdiv.py block(): {"PASS" if ok6 else "FAIL"}  [{r6}]; device sizes '
+        f'{"PASS" if ok7 else "FAIL"} ({sum(devices(OUT / "lsdiv.spice").values())} devices){" " + "; ".join(d7) if d7 else ""}')
+    mtxt = re.sub(r'(XR1 .*r_length=)([\d.]+)(e-6)', lambda m: f'{m.group(1)}{float(m.group(2)) * 1.1:.3f}{m.group(3)}',
+                  (OUT / 'lsdiv.spice').read_text())
+    (OUT / 'mut_lsdiv.spice').write_text(mtxt)
+    ok8, d8 = diff(OUT / 'mut_lsdiv.spice', OUT / 'ref_lsdiv.spice')
+    log(f'mutation R1 length +10 %: device diff {"FAIL (expected)" if not ok8 else "PASS (BAD: not caught)"}  [{"; ".join(d8)}]')
+    ok3 &= ok6 and ok7 and not ok8 and mtxt != (OUT / 'lsdiv.spice').read_text()
     # 4. mutation: FC_3 (bit 3, m = 8) -> m = 7 in a copy
     mut = OUT / 'mut'
     if mut.exists():

@@ -38,6 +38,7 @@ S = dict(cc=2.0e-15, cpa=0.2e-15, cpg=0.4e-15,          # coupling C, its plate 
          wn1=0.22, wp1=0.5, l1=0.28,                    # inv1 (and, in (a), its replica: same size)
          wr=0.22, lr=2.0,                               # bias pseudo-R: pfet, gate VSS, bulk VDD ((a) tuned: lr 20)
          r1=500e3, c1=1e-12,                            # (c): output low-pass for the bias (tau 0.5 us)
+         real=0, r1w=1.0, c1w=16.0, c1l=16.0,           # real=1: R1 ppolyf_u_3k (width r1w), C1 nfet cap W/L (um)
          wn2=0.6, wp2=1.5, wn3=1.2, wp3=3.0,            # inv2, inv3 (= LS output, drives the /2 clock)
          # LS (b): replica ring stage (VDD/vg) -> PMOS-input cross-coupled latch -> inverter
          wbn=0.42, wbp=1.0, wxp=1.5, wxn=0.5,
@@ -81,11 +82,38 @@ def ls_c(s, inp="a0", out="lsout", vdd="vls"):
     """(a) without the replica: inv1's gate bias is the low-passed LS output (R1, C1), through the long PMOS.
     3 inversions -> negative DC feedback: mean(out) -> inv1's bias, so the output duty -> Vtrip1 / VDD."""
     return (f"Cc {inp} lg {s['cc']}\nCpa {inp} 0 {s['cpa']}\nCpg lg 0 {s['cpg']}\n"
-            + f"R1 {out} lf {s['r1']}\nC1 lf 0 {s['c1']}\n"
+            + passives(s, out)
             + fet("LRB", "lg", "0", "lf", vdd, "pfet_03v3", s["wr"], s["lr"])
             + inv("L1", "lg", "lo1", vdd, s["wn1"], s["wp1"], s["l1"])
             + inv("L2", "lo1", "lo2", vdd, s["wn2"], s["wp2"])
             + inv("L3", "lo2", out, vdd, s["wn3"], s["wp3"]))
+
+
+def passives(s, out):
+    """R1 (out -> lf) and C1 (lf -> VSS): ideal, or with s['real'] the drawn devices: R1 ppolyf_u_3k sized by
+    vco_bias.rf_length (500 kOhm: 1 x 166 um), C1 an nfet_03v3 gate cap (gate lf, S/D/B VSS, 16 x 16 um ~ 1 pF;
+    lf sits at INV1's trip point, ~1.5 V, well into inversion)."""
+    if not s.get("real"):
+        return f"R1 {out} lf {s['r1']}\nC1 lf 0 {s['c1']}\n"
+    rl = vb.rf_length(dict(rf=s["r1"], rfw=s["r1w"]))
+    return (f"XR1 {out} lf 0 ppolyf_u_3k r_width={s['r1w']}e-6 r_length={rl:.3f}e-6\n"
+            + fet("C1", "0", "lf", "0", "0", "nfet_03v3", s["c1w"], s["c1l"]))
+
+
+def block(s=None):
+    """The drawn block as a .subckt (LVS / schematic source): LS (c) with the real passives + TSPC /4 + buffer.
+    Ports VDD VSS a0 ck. Not in it: the parasitic stand-ins Cpa/Cpg, the 20 fF ck wire and the std-cell DFF (loads).
+    Cc stays an ideal C (it is a metal-finger cap, no device)."""
+    s = dict(S if s is None else s, real=1)
+    body = ls_c(s, out="ls") + divider(s, clk="ls")
+    lines = []
+    for ln in body.splitlines():
+        t = ln.split()
+        if t[0] in ("Cpa", "Cpg", "Cwire", "XFF"):
+            continue
+        t = [{"vls": "VDD", "vdv": "VDD", "0": "VSS"}.get(x, x) for x in t]
+        lines.append(" ".join(t))
+    return ".subckt lsdiv VDD VSS a0 ck\n" + "\n".join(lines) + "\n.ends\n"
 
 
 def ls_b(s, inp="a0", out="lsout", vdd="vls"):
