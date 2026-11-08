@@ -6,6 +6,9 @@ SIMULATION code blocks, launcher, embedded graphs, lab_pin connections).
 Connectivity is by net labels: every pin gets a lab_pin placed exactly on it,
 which xschem treats as connected. Generated schematics are checked by
 netlisting them with xschem (tools/osic xschem -n -s -q ...).
+
+sky130 devices: mos(), inv(), poly_r(), mim(). GF180MCU (gf180mcuD, symbols/<name>.sym):
+gmos(), ginv(), gres(); GF180_MODELS is the model include block.
 """
 import os
 import re
@@ -45,6 +48,15 @@ LIB_PINS = {
     'sky130_fd_pr/cap_mim_m3_1.sym': {'c0': (0, -30), 'c1': (0, 30)},
     **{f'sky130_fd_pr/res_{k}_po_{w}.sym': {'P': (0, -30), 'M': (0, 30), 'B': (-20, 0)}
        for k in ('high', 'xhigh') for w in ('0p69', '1p41', '2p85')},
+    # GF180MCU (gf180mcuD libs.tech/xschem/symbols, referenced as symbols/<name>.sym)
+    **{f'symbols/{k}fet_{v}.sym': {'D': (20, -30) if k == 'n' else (20, 30), 'G': (-20, 0),
+                                   'S': (20, 30) if k == 'n' else (20, -30), 'B': (20, 0)}
+       for k in 'np' for v in ('03v3', '05v0', '06v0')},
+    **{f'symbols/{r}.sym': {'P': (0, -30), 'M': (0, 30), 'B': (-20, 0)}
+       for r in ('nwell', 'nplus_u', 'pplus_u', 'npolyf_u', 'ppolyf_u', 'ppolyf_u_1k', 'ppolyf_u_2k',
+                 'ppolyf_u_3k', 'ppolyf_s', 'npolyf_s')},
+    **{f'symbols/{c}.sym': {'G': (0, -30), 'B': (0, 30)}
+       for c in ('cap_nmos_03v3', 'cap_pmos_03v3', 'cap_mim_1f0fF', 'cap_mim_2f0fF')},
     # pinless
     'sky130_fd_pr/corner.sym': {},
     'devices/code.sym': {},
@@ -428,6 +440,48 @@ def ports(sch, x0, y0, names, kind='iopin'):
     for i, nm in enumerate(names):
         sch.items.append(Inst(f'devices/{kind}.sym', x0, y0 + i * 30, 0, 0,
                               {'name': sch._name('p'), 'lab': nm}))
+
+
+GF_SAB = 0.5     # S/D extension (um) for ad/as/pd/ps, as sim/vco/vco_bias.py fet()
+
+
+def gmos(sch, kind, x, y, W, L, m=1, name=None, rot=0, flip=0, ad=True):
+    """Place a GF180MCU nfet_03v3 / pfet_03v3 (symbols/<kind>fet_03v3.sym, 4 pins) with
+    W, L in um and multiplier m. ad/as/pd/ps as vco_bias.fet() (W x 0.5 um diffusion);
+    nrd/nrs/sa/sb/sd = 0, the model subckt's defaults, so the netlist line is the
+    same device as vco_bias writes."""
+    model = f'{kind}fet_03v3'
+    props = {'L': f'{L}u', 'W': f'{W}u', 'nf': '1', 'm': str(m)}
+    if ad:
+        a, pp = W * GF_SAB, 2 * (W + GF_SAB)
+        props.update({'ad': f'{a}p', 'as': f'{a}p', 'pd': f'{pp}u', 'ps': f'{pp}u'})
+    else:
+        props.update({'ad': '0', 'as': '0', 'pd': '0', 'ps': '0'})
+    props.update({'nrd': '0', 'nrs': '0', 'sa': '0', 'sb': '0', 'sd': '0', 'model': model, 'spiceprefix': 'X'})
+    return sch.place(f'symbols/{model}.sym', x, y, rot=rot, flip=flip, name=name or sch._name('M'), **props)
+
+
+def ginv(sch, x, y, pkw, nkw, h=75):
+    """GF180 CMOS inverter, PMOS (gmos() kwargs pkw) over NMOS (nkw); as inv()."""
+    p = gmos(sch, 'p', x - 20, y - h, **pkw)
+    n = gmos(sch, 'n', x - 20, y + h, **nkw)
+    g, d = (x - 40, y), (x, y)
+    sch.bus(p.pin('G'), n.pin('G'), [g])
+    sch.bus(p.pin('D'), n.pin('D'), [d])
+    return p, n, g, d
+
+
+def gres(sch, model, x, y, W, L, rot=0, flip=0, name=None, m=1):
+    """GF180 resistor (nwell, nplus_u, ppolyf_u_3k, ...): W, L in um; pins P, M, B."""
+    return sch.place(f'symbols/{model}.sym', x, y, rot=rot, flip=flip, name=name or sch._name('R'),
+                     W=f'{W}e-6', L=f'{L}e-6', model=model, spiceprefix='X', m=str(m))
+
+
+GF180_MODELS = """
+.include $::180MCU_MODELS/design.ngspice
+.lib $::180MCU_MODELS/sm141064.ngspice typical
+.lib $::180MCU_MODELS/sm141064.ngspice res_typical
+"""
 
 
 TT_MODELS = """
