@@ -1,4 +1,4 @@
-> Running: step 1/3 (calibration) since 13:12, ETA 13:52
+> Running: step 2/3 (36 power-on runs) since 13:51, ETA 14:37
 
 # Handoff: power-on start-up of the current-fed ring (sim pod)
 
