@@ -11,7 +11,8 @@ on the next handoff, and anything that doesn't work gets cut.
 1. **Never end a turn with untracked work running.** Start long jobs with the Bash tool's `run_in_background: true`
    (the harness re-invokes you when the command exits), not `nohup … &`. If a job has to survive the session
    (nohup), also start a **Monitor** on a done-marker file or a log line, so the harness still wakes you.
-2. **One driver script per handoff, with every job chained in it**: job 1 → job 2 → job 3 → summary. Run it as a
+2. **One driver script per handoff, with every job chained in it.** Corner lists come from a config section in the
+   handoff, not from the script, so a policy change between runs is a one-line edit:: job 1 → job 2 → job 3 → summary. Run it as a
    single background command. Each step writes `build/<topic>/status.txt` (step, start time, done or failed), and the
    final step writes `build/<topic>/DONE` or `FAILED`. Steps that depend on an earlier result read it from a file,
    not from you. That way there are no gaps while waiting for a human or agent decision.
@@ -21,8 +22,10 @@ on the next handoff, and anything that doesn't work gets cut.
    - On failure, the driver stops and writes `FAILED` with the log tail. Diagnose and retry at most twice, then write
      up and stop.
 4. **Heartbeat fallback.** After launching, schedule a wakeup (**ScheduleWakeup**, or `/loop` in dynamic mode) at
-   about 1.5× the estimated run time, at least 20 minutes. It only matters if a notification is missed.
-5. **Report progress where the laptop can see it.**
+   about 1.5× the estimated run time, at least 20 minutes. The maximum is 60 minutes, so re-arm it each time it fires.
+   It only matters if a notification is missed.
+5. **Report progress where the laptop can see it.** The Running line gives the ETA of the current step, not the
+   whole run.
    - Commit and push a one-line `STATUS` line at the top of the handoff (`> Running: step 2/4 since 01:10, ETA
      02:30`) at each step change.
    - At the end, push the `Done` line.
@@ -66,3 +69,14 @@ and what is the swing? Revisit this if the topology changes.
 - Drop 0 / 70 °C unless a check is specifically about robustness, for example start-up.
 - Temperature compensation becomes "keep the drift small around 27 °C", not a strict null over 0–70 °C. This loosens
   the coupled DAC-width / lnw / range sizing.
+
+## First test result (2026-11-08, `docs/handoff_cfed_sizing.md`)
+**Every rule worked.**
+- The driver ran 71 minutes unattended, with a step change and a status push each time.
+- The agent woke 5 s after the driver exited, and the results were pushed **1 min 51 s after the last sim**.
+- The laptop Monitor saw `Done` with no human ping.
+
+**Fixes applied above:**
+- the 60 min heartbeat cap;
+- a per-step ETA;
+- corners taken from the handoff.
