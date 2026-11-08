@@ -8,7 +8,7 @@ sim/vco/vco_bias.py netlist() with the chosen sizing (common.WINNER):
   PMOS mirror MP1/MP2 (wpm/lpm), MP2 the diode.
   Start-up: MS1 (weak, long PMOS, always on) pulls x high while vbn is low, MS3 then feeds
       n2 -> vbn; once vbn is up MS2 pulls x low and MS3 turns off.
-  Filter: RF ppolyf_u_1k rf ohm (the run is 1 kOhm/sq), CF cf to VSS -> vbnf (CF ideal here, as in vco_bias:
+  Filter: RF ppolyf_u_1k rf ohm (the run is 1 kOhm/sq), CF cf to VSS -> vbnf (CF an nfet gate cap, as vco_bias cfm=mos; formerly ideal:
       a MOS cap in layout).
 vco_bias's Rvbn (1 ohm, naming n1 as vbn) is a plain net here: n1 = vbn.
 
@@ -18,7 +18,7 @@ reaches n2 (the PMOS gate wire) and vbn (the NMOS gate wire) without crossing an
 
     python3 xschem/gen/cgm_ref.py
 """
-from common import DEV, P, Sch, place, vmirror, finish, title, bulk, port, supply
+from common import DEV, P, Sch, place, vmirror, finish, title, bulk, port, supply, wl
 
 PINS = ['VDD', 'VSS', 'vbn', 'vbnf']
 NS = int(P['nsn'])
@@ -105,16 +105,20 @@ def build():
     rf = vmirror(s, 'RF', xf, 340, val=f"{P['rf'] / 1e6:g} MΩ (ppolyf {DEV['RF']['w']:g}/{DEV['RF']['l']:.3g})")
     assert rf.nets == dict(M='vbn', P='vbnf', B='VSS')
     cfd = DEV['CF']
-    assert cfd['nets'] == ['vbnf', 'VSS']
-    cf = s.place('symbols/cap.sym', xf, 480, name='CF', value=cfd['value'], m='1', val=f'"{P["cf"] * 1e12:g} pF"')
+    assert cfd['nets'] == ['VSS', 'vbnf', 'VSS', 'VSS'], cfd
+    cf = place(s, 'CF', xf + 20, 500, val=f"{P['cf'] * 1e12:g} pF: {wl(cfd)}")
     s.bus(vbd, (xr, 250), [(xf, 250)])
     s.wire((xf, 250), rf.pin('M'))
     port(s, (xr, 250), 'vbn', 'out')
-    s.bus(rf.pin('P'), cf.pin('p'), [(xf, 420)])
+    s.bus(rf.pin('P'), cf.pin('G'), [(xf, 420)])
     s.wire((xf, 420), (xr, 420))
     port(s, (xr, 420), 'vbnf', 'out')
     s.wire(rf.pin('B'), (xf - 40, 340)); supply(s, (xf - 40, 340), 'VSS')
-    supply(s, cf.pin('m'), 'VSS')
+    xt = cf.pin('D')[0] + 20                     # S/D/B tied to VSS, as the vg decap
+    s.wire(cf.pin('D'), (xt, cf.pin('D')[1])); s.wire(cf.pin('B'), (xt, cf.pin('B')[1]))
+    s.bus((xt, cf.pin('D')[1]), (xt, cf.pin('S')[1]), [(xt, cf.pin('B')[1])])
+    s.wire(cf.pin('S'), (xt, cf.pin('S')[1]))
+    supply(s, (xt, cf.pin('S')[1]), 'VSS')
     # ---- notes
     s.text(30, 420, f'MN2: {NS} in series,', 0.35)
     s.text(30, 450, f"each {DEV['MN2']['w']:g}/{DEV['MN2']['l']:g} ×{DEV['MN2']['m']}", 0.35)

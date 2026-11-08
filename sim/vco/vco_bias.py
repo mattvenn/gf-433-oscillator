@@ -33,7 +33,7 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          wpm=4.0, lpm=1.0,                       # beta multiplier PMOS mirror
          cw=2e-15, rideal=1,                     # wiring C; rideal=1: ideal R with tc1=tcr, else nwell + n+ diff
          rw=2.0, lnw=12.0, lnp=0.0,              # real R: width, nwell length, n+ diff length (um)
-         rf=0.0, cf=0.0, rfw=1.0, rfm='1k',     # vbn RC filter: ppolyf_u_<rfm> rf ohm (width rfw um), ideal cf (F); 0 = off
+         rf=0.0, cf=0.0, rfw=1.0, rfm='1k', cfm='mos', cf_nf=10, cf_l=10.0,     # vbn RC filter: ppolyf_u_<rfm> rf ohm (width rfw um), ideal cf (F); 0 = off
          nsn=1,                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
          cfn=0.0,                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
          topo="starved",                         # ring stage: starved | stack | cfed (see netlist())
@@ -52,6 +52,16 @@ def fet(name, d, g, s, b, typ, w, l, m=1):
 # results from before 2026-11-08, which sized RF for 3 kOhm/sq.
 HRES = {"1k": (1000.0, 0.0148, 85.45), "3k": (3000.0, 0.02256, 33.16)}
 RSH_3K, DW_3K, RT_3K = HRES["3k"]
+
+
+COX = 4.07e-3   # nfet_03v3 gate C per area incl. overlap (F/m2), tt, Vg 1.1-3 V (layout/gen/ring_core_v3.py)
+
+
+def cf_size(p):
+    """(m, L um, W um) of the vbnf filter cap as an nfet_03v3 gate cap (gate vbnf, S/D/B VSS): cf_nf fingers of
+    L cf_l; vbnf ~1.2 V is well into inversion (the vg decap holds 2.95-3.00 pF over 1.1-3.0 V)."""
+    m, L = int(p["cf_nf"]), p["cf_l"]
+    return m, L, round(p["cf"] / (m * L * 1e-6 * COX) * 1e6, 2)
 
 
 def rf_length(p):
@@ -115,9 +125,13 @@ def netlist(p):
               + fet(f"TP{b}", f"g{b}", f"bitb{b}", g, "vdd", "pfet_03v3", 5, 0.28)
               + fet(f"TD{b}", f"g{b}", f"bitb{b}", "0", "0", "nfet_03v3", 1, 0.28))
     s += "Rvbn n1 vbn 1\n"   # vbn = n1 (named net; 1 ohm keeps MN1 as the reference diode)
-    if g != "vbn":            # RC low-pass vbn -> vbnf: real hi-R poly, ideal C (a MOS cap on silicon)
+    if g != "vbn":            # RC low-pass vbn -> vbnf: hi-R poly + nfet gate cap (cfm=ideal: ideal C)
         s += f"XRF vbn vbnf 0 ppolyf_u_{p.get('rfm', '1k')} r_width={p['rfw']}e-6 r_length={rf_length(p):.3f}e-6\n"
-        s += f"CF vbnf 0 {p['cf']}\n"
+        if p.get("cfm", "mos") == "mos":   # drawn: nfet gate cap; cfm=ideal reproduces results before 2026-11-08
+            m, L, W = cf_size(p)
+            s += f"XCF 0 vbnf 0 0 nfet_03v3 w={W}u l={L}u m={m}\n"
+        else:
+            s += f"CF vbnf 0 {p['cf']}\n"
     n = p["n"]
     if topo == "cfed":   # shared DAC from vg to GND + decap; plain inverters between VDD and vg
         kw, kl = max(p["kc"], 1.0), 1.0 / min(p["kc"], 1.0)   # kc > 1: wider; kc < 1: longer (keeps W >= min)

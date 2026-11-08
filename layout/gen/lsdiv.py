@@ -29,7 +29,8 @@ sys.path.insert(0, str(HERE))
 from ring_core import Cell, CO, CO_POLY, ENC_CO, POLY_DIFF, ENDCAP, TPITCH  # noqa: E402
 
 REPO = HERE.parents[1]
-A0_Y = 4715          # the core's a0 tap centre (ring_core_v3.py: label at gl - 100, ty = 4715)
+A0_Y = 4715          # a0 pin centre in lsdiv coordinates. NB the core's a0 tap is at y = 36170 (ring_core_v3 rows[0]):
+                     # place lsdiv at dy = +31455 (or mirrored) at the top level so the two meet
 
 # sizes (um) = sim/lsdiv/lsdiv.py S
 S = dict(wn1=0.22, wp1=0.5, wr=0.22, lr=2.0, wn2=0.6, wp2=1.5, wn3=1.2, wp3=3.0,

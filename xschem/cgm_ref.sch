@@ -148,9 +148,14 @@ N 500 250 780 250 {}
 N 780 250 1000 250 {}
 N 780 250 780 310 {}
 N 780 370 780 420 {}
-N 780 420 780 450 {}
+N 780 420 780 500 {}
 N 780 420 1000 420 {}
 N 760 340 740 340 {}
+N 820 470 840 470 {}
+N 820 500 840 500 {}
+N 840 470 840 500 {}
+N 840 500 840 530 {}
+N 820 530 840 530 {}
 C {devices/iopin.sym} -220 -80 0 1 {name=p2
 lab=VDD}
 C {devices/iopin.sym} -220 1340 0 1 {name=p1
@@ -777,11 +782,24 @@ model=ppolyf_u_1k
 spiceprefix=X
 m=1
 val="1 MΩ (ppolyf 1/970)"}
-C {symbols/cap.sym} 780 480 0 0 {name=CF
-value=2e-11
-m=1
-val="20 pF"}
+C {symbols/nfet_03v3.sym} 800 500 0 0 {name=CF
+L=10.0u
+W=49.14u
+nf=1
+m=10
+ad=24.57p
+as=24.57p
+pd=99.28u
+ps=99.28u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="20 pF: 49.1/10 ×10"}
 C {symbols/gnd.sym} 740 340 0 0 {name=l5
 lab=VSS}
-C {symbols/gnd.sym} 780 510 0 0 {name=l6
+C {symbols/gnd.sym} 840 530 0 0 {name=l6
 lab=VSS}

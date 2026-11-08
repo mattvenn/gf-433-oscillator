@@ -14,8 +14,9 @@ the right edge. R1 (top right) and C1 (top left) sit above the VDD rail.
 
 ## Floorplan
 - **Size:** bbox 0…40.49 × −2.70…34.31 µm (1498 µm²). It uses the same y origin as `layout/ring_core_v3.gds`, so
-  the a0 pin (M2, right edge, y = 4.715 µm) lines up with the core's a0 tap. Place lsdiv with its right bbox edge on
-  the core's left bbox edge, and the two a0 M2 shapes meet.
+  the a0 pin is on M2 at the right edge, y = 4.715 µm in lsdiv's coordinates. **Correction:** the core's a0 tap is at
+  y = 36.17 µm (the ring rows sit above the decap), not 4.715 µm, so lsdiv has to be placed 31.455 µm higher (or
+  mirrored) at the top level for the two a0 M2 shapes to meet; a vertical M2 jog instead would add about 3 fF on a0.
 - **Logic band (bottom):**
   - from the bottom up: the VSS rail (M1 + M2, p+ tap strip under it), the N row, a 4-track M2 routing channel, the
     P row in the n-well, and the VDD rail (n+ well tap strip under it);
