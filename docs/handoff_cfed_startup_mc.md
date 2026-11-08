@@ -1,4 +1,4 @@
-> Running: sims done 14:39, write-up in progress
+> Done (2026-11-08): see docs/cfed_startup_results.md
 
 # Handoff: power-on start-up of the current-fed ring (sim pod)
 

@@ -197,4 +197,4 @@ Times are from `status.txt`, on 20 CPUs throughout.
 | heartbeat (ScheduleWakeup ≤ 60 min, re-armed) | yes: fired at 14:12 and was re-armed for 14:59; not needed at the end |
 | woke on driver exit and went straight to the write-up | yes: woke at 14:39:34, 4 s after `DONE` |
 | CPU budget ≤ 20 | yes. The extra map-check runs waited until the pool was at ≤ 18 |
-| last sim to results push | see the commit time of this file against 14:39:27 (target < 30 min) |
+| last sim to results push | **2 min 30 s** (last sim 14:39:27, results pushed in d1c5119 at 14:41:57; target < 30 min) |
