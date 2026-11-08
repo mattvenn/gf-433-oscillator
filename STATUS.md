@@ -93,7 +93,7 @@ It is to become an **FM radio toolkit**:
   extracted layout runs at about 0.87× the schematic.
 - **Kvco is not linear:** the fine leg is flat below about 1 V and square-law above it, so measure Kvco at the
   operating point before setting the FSK step.
-- **xschem-viewer has no GF180 library:** the symbols are copied into `xschem/symbols/`. Check that they render
-  after a push.
+- **xschem-viewer has no GF180 library:** the symbols are copied into `xschem/symbols/`. They render correctly
+  (confirmed by Matt, 2026-11-08).
 - **Leftover Docker containers** from killed subagent runs (for example a hung xschem render): check with `docker ps`.
 - **Never commit `sim.yaml`:** it holds the VNC password.
