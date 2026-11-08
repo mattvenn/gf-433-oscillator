@@ -4,7 +4,7 @@
 #      lsdiv_lvs.spice with two documented edits:
 #        - the "Cc a0 net1 2e-15" line removed: Cc is drawn as M2/M3 metal fingers, which extract as parasitic C,
 #          not as a device (its value is checked by layout/gen/pex_lsdiv.sh instead);
-#        - ppolyf_u_3k -> ppolyf_u_1k: magic's gf180mcuD tech extracts the hi-res poly layer only as ppolyf_u_1k
+#        - ppolyf_u_3k -> ppolyf_u_1k (only for old netlists; the source is ppolyf_u_1k since the run is 1 kOhm/sq):
 #          (the mask is the same; the sheet value is a process option, and the PDK's variant D LVS deck uses 1k).
 #   2. check_v2.sh on the GDS: magic DRC, KLayout DRC (FEOL+BEOL; the summary line shows the rules that ran),
 #      antenna, netgen LVS layout vs lsdiv_lvs.spice

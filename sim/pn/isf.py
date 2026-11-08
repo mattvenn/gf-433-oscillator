@@ -44,7 +44,7 @@ VARIANTS = {
     "diff": dict(kind="cand", topo="diff", n=4, code=7, vctrl=1.67, nodes=8, inj="a2", out="a0"),
     "cgm":  dict(kind="bias", n=5, code=10, vctrl=1.65, nodes=5, inj="a2", out="a0",
                  set=dict(rideal=0, lnw=4.5, lnp=100.0)),
-    # cgm + RC low-pass (1 Mohm ppolyf_u_3k, 20 pF) between the reference and every vbn load
+    # cgm + RC low-pass (1 Mohm ppolyf_u_1k (3k before 2026-11-08), 20 pF) between the reference and every vbn load
     "cgmf": dict(kind="bias", n=5, code=10, vctrl=1.65, nodes=5, inj="a2", out="a0",
                  set=dict(rideal=0, lnw=4.5, lnp=100.0, rf=1e6, cf=20e-12)),
     # cgmf + the quiet reference of docs/bias_tuning_results.md (Job 1): MN1/MN2 as 14 x 14 series-parallel arrays of

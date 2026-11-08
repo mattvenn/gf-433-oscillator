@@ -8,7 +8,7 @@ sim/vco/vco_bias.py netlist() with the chosen sizing (common.WINNER):
   PMOS mirror MP1/MP2 (wpm/lpm), MP2 the diode.
   Start-up: MS1 (weak, long PMOS, always on) pulls x high while vbn is low, MS3 then feeds
       n2 -> vbn; once vbn is up MS2 pulls x low and MS3 turns off.
-  Filter: RF ppolyf_u_3k rf ohm, CF cf to VSS -> vbnf (CF ideal here, as in vco_bias:
+  Filter: RF ppolyf_u_1k rf ohm (the run is 1 kOhm/sq), CF cf to VSS -> vbnf (CF ideal here, as in vco_bias:
       a MOS cap in layout).
 vco_bias's Rvbn (1 ohm, naming n1 as vbn) is a plain net here: n1 = vbn.
 

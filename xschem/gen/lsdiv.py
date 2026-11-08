@@ -8,7 +8,7 @@ lsdiv: the a0 level shifter + TSPC /4 prescaler + clock buffer (docs/lsdiv_desig
   tspc_t2  : the same, smaller, clk = q1, q = q2 (ls / 4)
   lsdiv    : the three in a row, then the clock buffer B1 (q2 -> ck)
 
-Source of truth: sim/lsdiv/lsdiv.py block() (the simulated circuit with the drawn passives: R1 ppolyf_u_3k,
+Source of truth: sim/lsdiv/lsdiv.py block() (the simulated circuit with the drawn passives: R1 ppolyf_u_1k,
 C1 nfet_03v3 gate cap). Every device is looked up there by name, so W, L, m and the nets are the simulated ones.
 
     python3 xschem/gen/lsdiv.py
@@ -125,11 +125,11 @@ def build_ls():
     s.text(100, 440, 'lf', 0.3)
     s.text(80, -26, 'lg', 0.3)
     s.text(520, 560, 'C1 ~1 pF gate cap', 0.3)
-    s.text(960, 300, 'R1 500k', 0.3)
+    s.text(960, 300, 'R1 ~164k', 0.3)
     supplies(s, xl, 640)
     title(s, xl, -560, ['ls_ac: AC-coupled level shifter with duty-correcting feedback',
                         'a0 swings vg..VDD; Cc removes vg, INV1-3 restore the full rail (ls)',
-                        'R1/C1 low-pass ls (tau 0.5 us) back to lg through LRB: 3 inversions = negative DC '
+                        'R1/C1 low-pass ls (tau ~0.16 us) back to lg through LRB: 3 inversions = negative DC '
                         'feedback, so mean(ls) sits at INV1\'s trip point (duty ~50 %)'])
     finish(s, 'ls_ac', ['VDD', 'VSS', 'a0', 'ls'], left=['a0'], right=['ls'], top=['VDD'], bottom=['VSS'],
            width=160, label='LS')

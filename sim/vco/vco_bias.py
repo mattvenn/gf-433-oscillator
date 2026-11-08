@@ -33,7 +33,7 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          wpm=4.0, lpm=1.0,                       # beta multiplier PMOS mirror
          cw=2e-15, rideal=1,                     # wiring C; rideal=1: ideal R with tc1=tcr, else nwell + n+ diff
          rw=2.0, lnw=12.0, lnp=0.0,              # real R: width, nwell length, n+ diff length (um)
-         rf=0.0, cf=0.0, rfw=1.0,                # vbn RC filter: ppolyf_u_3k rf ohm (width rfw um), ideal cf (F); 0 = off
+         rf=0.0, cf=0.0, rfw=1.0, rfm='1k',     # vbn RC filter: ppolyf_u_<rfm> rf ohm (width rfw um), ideal cf (F); 0 = off
          nsn=1,                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
          cfn=0.0,                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
          topo="starved",                         # ring stage: starved | stack | cfed (see netlist())
@@ -47,13 +47,18 @@ def fet(name, d, g, s, b, typ, w, l, m=1):
     return f"X{name} {d} {g} {s} {b} {typ} w={w}u l={l}u ad={a}p as={a}p pd={p}u ps={p}u m={m}\n"
 
 
-RSH_3K, DW_3K, RT_3K = 3000.0, 0.02256, 33.16   # ppolyf_u_3k sheet (ohm/sq), width loss per side (um), end R (ohm.um)
+# hi-res poly (sm141064.ngspice, tt): sheet (ohm/sq), width loss per side (um), end resistor (ohm.um, each end).
+# The run is the 1 kOhm/sq option (docs/platform.md, TT 2026-11-06): 1k is the default; 3k only to reproduce the
+# results from before 2026-11-08, which sized RF for 3 kOhm/sq.
+HRES = {"1k": (1000.0, 0.0148, 85.45), "3k": (3000.0, 0.02256, 33.16)}
+RSH_3K, DW_3K, RT_3K = HRES["3k"]
 
 
 def rf_length(p):
-    """ppolyf_u_3k length (um) giving rf ohm at width rfw (tt, 25 C: body + two end resistors)."""
-    w = p["rfw"] - 2 * DW_3K
-    return (p["rf"] - 2 * RT_3K / w) * w / RSH_3K
+    """ppolyf_u_<rfm> length (um) giving rf ohm at width rfw (tt, 25 C: body + two end resistors)."""
+    rsh, dw, rt = HRES[p.get("rfm", "1k")]
+    w = p["rfw"] - 2 * dw
+    return (p["rf"] - 2 * rt / w) * w / rsh
 
 
 def gnet(p):
@@ -111,7 +116,7 @@ def netlist(p):
               + fet(f"TD{b}", f"g{b}", f"bitb{b}", "0", "0", "nfet_03v3", 1, 0.28))
     s += "Rvbn n1 vbn 1\n"   # vbn = n1 (named net; 1 ohm keeps MN1 as the reference diode)
     if g != "vbn":            # RC low-pass vbn -> vbnf: real hi-R poly, ideal C (a MOS cap on silicon)
-        s += f"XRF vbn vbnf 0 ppolyf_u_3k r_width={p['rfw']}e-6 r_length={rf_length(p):.3f}e-6\n"
+        s += f"XRF vbn vbnf 0 ppolyf_u_{p.get('rfm', '1k')} r_width={p['rfw']}e-6 r_length={rf_length(p):.3f}e-6\n"
         s += f"CF vbnf 0 {p['cf']}\n"
     n = p["n"]
     if topo == "cfed":   # shared DAC from vg to GND + decap; plain inverters between VDD and vg

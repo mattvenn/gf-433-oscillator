@@ -20,6 +20,7 @@ Click a link to open it in the online viewer. Previews (SVG and PNG, rendered he
 
 ## Notes
 - **GF180 symbols:** the viewer only knows the xschem, sky130 and IHP libraries. So I copied the 5 PDK symbols I use into `xschem/symbols/` (from open_pdks 7b70722e). The schematics reference them as `symbols/nfet_03v3.sym`, the same name xschem finds in the PDK, and the viewer finds them next to the `.sch`.
+- **Filter resistor:** RF is `ppolyf_u_1k`, 1 × 970 µm for 1 MΩ: the run's hi-res poly is 1 kΩ/sq (`docs/platform.md`). It was ppolyf_u_3k (1 × 318 µm) before 2026-11-08.
 - **Ideal parts:** the 20 pF filter cap is ideal (`devices/capa.sym`), the same as in `vco_bias`. On silicon it will be a MOS cap, which isn't laid out yet.
 - **What isn't drawn:** vco_bias's 1 Ω `Rvbn`, which only gives n1 the name vbn, is just the net vbn here. The wiring caps `Cw*` are left out too.
 - **The bit buses:** they are separate pins (bit0…bit4, bitb0…bitb4), so the names match the layout's pins.

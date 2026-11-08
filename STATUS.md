@@ -60,9 +60,9 @@ It is to become an **FM radio toolkit**:
      - don't clock the ÷4 below about 150 MHz (sf fails below that; the ring never goes there).
    - **433.92 MHz codes re-mapped** (`docs/remap_results.md`): recommended tt 12, ss 14, ff 10, sf 12, fs 13 (vctrl
      1.7–2.3 V), 3–4 codes above the schematic map; every corner has two or more codes that reach 433.92.
-   - **Hi-res poly is 1 kΩ/sq (confirmed, `docs/platform.md`), not the 3k the sims use.** The 1 MΩ reference filter
-     resistor drawn as ppolyf_u_3k would be about 330 kΩ: switch the design to ppolyf_u_1k (about 1000 squares for
-     1 MΩ) before the reference layout. lsdiv's R1 (~170 kΩ at 1k) is harmless (extracted sim unchanged).
+   - **Hi-res poly is 1 kΩ/sq (confirmed, `docs/platform.md`); the design now uses ppolyf_u_1k.** `vco_bias.py`
+     sizes RF for 1 MΩ at 1k (970 µm at 1 µm wide; `rfm=3k` reproduces older results). tt 27 °C code 9 noise is
+     unchanged (7.87 kHz rms 1–10 kHz). lsdiv's R1 stays as drawn (about 164 kΩ); extracted corners unchanged.
 3. **Digital macro** (LibreLane): ÷8…÷256 (overall ÷32 / ÷64 / ÷1024), the `uo_out` buffers and mux, and later the
    code latch / TX enable / FLL counter.
 4. **Layout of the reference:** the 14 × 14 arrays, the n-well + n+ resistor, and the 20 pF filter cap (about 8.7k µm²).

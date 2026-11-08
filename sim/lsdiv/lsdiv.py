@@ -2,7 +2,7 @@
 """a0 -> level shifter -> TSPC /4 -> buffer -> std-cell DFF clock (+20 fF), on the cfed ring (extracted v3 core).
 
   python3 sim/lsdiv/lsdiv.py ring --runs main|robust|vdd|cand|one [--jobs 8] [--tstop 1.2e-6] [--ls a|b] [--set K=V]
-  python3 sim/lsdiv/lsdiv.py ring --runs one --ls x [--r1 3k|1k]   # the extracted layout block (layout/pex/lsdiv_c.spice)
+  python3 sim/lsdiv/lsdiv.py ring --runs one --ls x [--r1 1k|3k]   # the extracted layout block (layout/pex/lsdiv_c.spice)
   python3 sim/lsdiv/lsdiv.py div  [--jobs 8]           # /4 alone: ideal clock (through the LS output inverter), f sweep
   python3 sim/lsdiv/lsdiv.py summary                   # tables from build/lsdiv/*.json -> sim/lsdiv/results/
 
@@ -39,7 +39,7 @@ S = dict(cc=2.0e-15, cpa=0.2e-15, cpg=0.4e-15,          # coupling C, its plate 
          wn1=0.22, wp1=0.5, l1=0.28,                    # inv1 (and, in (a), its replica: same size)
          wr=0.22, lr=2.0,                               # bias pseudo-R: pfet, gate VSS, bulk VDD ((a) tuned: lr 20)
          r1=500e3, c1=1e-12,                            # (c): output low-pass for the bias (tau 0.5 us)
-         real=0, r1w=1.0, c1w=16.0, c1l=16.0,           # real=1: R1 ppolyf_u_3k (width r1w), C1 nfet cap W/L (um)
+         real=0, r1w=1.0, r1l=159.125, c1w=16.0, c1l=16.0,  # real=1: R1 ppolyf_u_1k r1w x r1l (as drawn), C1 nfet cap W/L (um)
          wn2=0.6, wp2=1.5, wn3=1.2, wp3=3.0,            # inv2, inv3 (= LS output, drives the /2 clock)
          # LS (b): replica ring stage (VDD/vg) -> PMOS-input cross-coupled latch -> inverter
          wbn=0.42, wbp=1.0, wxp=1.5, wxn=0.5,
@@ -91,13 +91,13 @@ def ls_c(s, inp="a0", out="lsout", vdd="vls"):
 
 
 def passives(s, out):
-    """R1 (out -> lf) and C1 (lf -> VSS): ideal, or with s['real'] the drawn devices: R1 ppolyf_u_3k sized by
-    vco_bias.rf_length (500 kOhm: 1 x 166 um), C1 an nfet_03v3 gate cap (gate lf, S/D/B VSS, 16 x 16 um ~ 1 pF;
-    lf sits at INV1's trip point, ~1.5 V, well into inversion)."""
+    """R1 (out -> lf) and C1 (lf -> VSS): ideal (500 kOhm, 1 pF), or with s['real'] the drawn devices: R1 ppolyf_u_1k
+    1 x 159.125 um as laid out (sized for 500 kOhm at 3 kOhm/sq; the run is 1 kOhm/sq, so ~164 kOhm, tau ~0.16 us,
+    still ~70x the ring period: verified on the extracted block), C1 an nfet_03v3 gate cap (gate lf, S/D/B VSS,
+    16 x 16 um ~ 1 pF; lf sits at INV1's trip point, ~1.5 V, well into inversion)."""
     if not s.get("real"):
         return f"R1 {out} lf {s['r1']}\nC1 lf 0 {s['c1']}\n"
-    rl = vb.rf_length(dict(rf=s["r1"], rfw=s["r1w"]))
-    return (f"XR1 {out} lf 0 ppolyf_u_3k r_width={s['r1w']}e-6 r_length={rl:.3f}e-6\n"
+    return (f"XR1 {out} lf 0 ppolyf_u_1k r_width={s['r1w']}e-6 r_length={s['r1l']}e-6\n"
             + fet("C1", "0", "lf", "0", "0", "nfet_03v3", s["c1w"], s["c1l"]))
 
 
@@ -133,7 +133,7 @@ def divider(s, clk="lsout", vdd="vdv"):
 
 
 LSX = REPO / "layout/pex/lsdiv_c.spice"    # extracted block (layout/gen/pex_lsdiv.sh c), --ls x
-R1MODEL = {"m": "3k"}                      # --r1 3k|1k: model for the extracted hi-res poly R1 (magic names it 1k)
+R1MODEL = {"m": "1k"}                      # --r1 1k|3k: model for the extracted hi-res poly R1 (the run is 1k)
 
 
 def ls_x(s):
@@ -328,7 +328,7 @@ def main():
     ap.add_argument("--worst", default="ss,0,31", help="vdd run: corner,temp,code[;...]")
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--tag", default="")
-    ap.add_argument("--r1", default="3k", choices=["3k", "1k"], help="--ls x: R1 model (the extraction says 1k)")
+    ap.add_argument("--r1", default="1k", choices=["1k", "3k"], help="--ls x: R1 model (1k: the run; 3k: old results)")
     a = ap.parse_args()
     R1MODEL["m"] = a.r1
     for kv in a.set:

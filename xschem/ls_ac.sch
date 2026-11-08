@@ -10,10 +10,10 @@ T {(no PDK device; LVS drops it)} -300 120 0 0 0.3 0.3 {}
 T {lf} 100 440 0 0 0.3 0.3 {}
 T {lg} 80 -26 0 0 0.3 0.3 {}
 T {C1 ~1 pF gate cap} 520 560 0 0 0.3 0.3 {}
-T {R1 500k} 960 300 0 0 0.3 0.3 {}
+T {R1 ~164k} 960 300 0 0 0.3 0.3 {}
 T {ls_ac: AC-coupled level shifter with duty-correcting feedback} -400 -560 0 0 0.7 0.7 {}
 T {a0 swings vg..VDD; Cc removes vg, INV1-3 restore the full rail (ls)} -400 -500 0 0 0.42 0.42 {}
-T {R1/C1 low-pass ls (tau 0.5 us) back to lg through LRB: 3 inversions = negative DC feedback, so mean(ls) sits at INV1's trip point (duty ~50 %)} -400 -466 0 0 0.42 0.42 {}
+T {R1/C1 low-pass ls (tau ~0.16 us) back to lg through LRB: 3 inversions = negative DC feedback, so mean(ls) sits at INV1's trip point (duty ~50 %)} -400 -466 0 0 0.42 0.42 {}
 N 160 -75 160 0 {}
 N 160 0 160 75 {}
 N 200 -45 200 0 {}
@@ -216,10 +216,10 @@ C {symbols/vdd.sym} 80 330 0 0 {name=l9
 lab=VDD}
 C {symbols/gnd.sym} -20 330 0 0 {name=l10
 lab=VSS}
-C {symbols/ppolyf_u_3k.sym} 900 330 2 0 {name=R1
+C {symbols/ppolyf_u_1k.sym} 900 330 2 0 {name=R1
 W=1.0e-6
 L=159.125e-6
-model=ppolyf_u_3k
+model=ppolyf_u_1k
 spiceprefix=X
 m=1
 val="1/159"}

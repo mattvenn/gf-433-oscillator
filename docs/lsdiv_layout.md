@@ -44,16 +44,13 @@ the right edge. R1 (top right) and C1 (top left) sit above the VDD rail.
 | Mutation: tspc_t1 Xn3 gate clk → net4 | LVS fails (netlists do not match), as expected |
 | Mutation: XB1p W 2.5 → 2.0 | LVS fails (property errors), as expected |
 
-The LVS source is a copy of the xschem netlist with two edits:
-- **The Cc line is removed.** Cc is drawn as metal fingers, which extract as parasitic C, not as a device. Its
-  value is checked by extraction instead (below).
-- **ppolyf_u_3k is renamed to ppolyf_u_1k.** magic's gf180mcuD tech extracts the hi-res poly only as ppolyf_u_1k.
-  The mask is the same, and the sheet value (1k / 2k / 3k) is a process option.
+The LVS source is a copy of the xschem netlist with the **Cc line removed**: Cc is drawn as metal fingers, which
+extract as parasitic C, not as a device. Its value is checked by extraction instead (below).
 
-**Open question:** the PDK's KLayout LVS deck sets variant D to `poly_res=1K`. If the Tiny Tapeout gf180mcuD
-shuttle uses the 1 kΩ/sq option, R1 is about 170 kΩ, not 500 kΩ. The same applies to the 1 MΩ reference filter
-resistor. At tt, code 9, the extracted block gives the same f and LS duty (47.9 %) with R1 at 1k or 3k, so lsdiv doesn't
-care (see the note under Table 1).
+**Hi-res poly is 1 kΩ/sq on this run** (Tiny Tapeout, 2026-11-06; `docs/platform.md`), which is also the only
+device magic extracts. R1 was sized for 3 kΩ/sq (500 kΩ); as drawn (1 × 159 µm) it is about 164 kΩ, and the
+schematic now says `ppolyf_u_1k` at the drawn length, so no rename is needed for LVS. With R1 at 1k the extracted
+block gives the same f and duty as at 3k at every corner run (Table 2 note); the block power rises by 0.01 mW.
 
 ## Extraction (`layout/gen/pex_lsdiv.sh c`, magic 8.3.642)
 | Quantity | Extracted | Target / model |
@@ -75,7 +72,7 @@ care (see the note under Table 1).
   - Worth checking whether the core's RC netlist has the same effect on its ports.
 
 ## Simulation: extracted lsdiv on the extracted v3 core
-`python3 sim/lsdiv/lsdiv.py ring --runs one|cand --ls x [--r1 3k|1k]`
+`python3 sim/lsdiv/lsdiv.py ring --runs one|cand --ls x [--r1 1k|3k]` (default 1k, the run's option)
 - **The deck:** `--ls x` swaps in `layout/pex/lsdiv_c.spice`. It keeps the 20 fF ck wire and the standard-cell D
   flip-flop (DFF) as loads, and drops Cpa / Cpg, because the extraction has the real ones.
 - **Settings:** 27 °C, VDD 3.3 V, 1.2 µs, f measured over the last 40 %.
@@ -95,6 +92,7 @@ care (see the note under Table 1).
 With R1 at 1k (`--r1 1k`) the extracted block gives 370.97 MHz, 47.9 % duty, ÷4 exact and 0.638 mW.
 
 **Table 2.** Corners, R1 = ppolyf_u_3k. The schematic column uses ideal R1 and C1 (`sim/lsdiv/results/ring_main_c.json`).
+Re-run with R1 = ppolyf_u_1k (`ring_candx1k_x.json`, 2026-11-08): every f within 0.01 MHz, duty and ÷4 identical, power +0.01 mW.
 
 | Corner, code | f no block (MHz) | Δf extracted | Δf schematic | LS duty extracted / schematic | ÷4 | Power extracted / schematic (mW) |
 |---|---|---|---|---|---|---|

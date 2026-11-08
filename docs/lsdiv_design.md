@@ -77,10 +77,12 @@ An ideal clock, through the LS output inverter, swept from 10 MHz to 4 GHz (`lsd
   never runs this slowly, but it sets a floor: **don't clock this ÷4 from anything slower than about 150 MHz.**
 
 ## Drawn passives (schematic, 2026-11-08)
-The results above use an ideal R1 and C1. The drawn devices are R1 = ppolyf_u_3k, 1 × 159 µm (500 kΩ), and
+The results above use an ideal R1 and C1. The drawn devices are R1 = hi-res poly, 1 × 159 µm, and
 C1 = an nfet_03v3 gate cap, 16 × 16 µm (about 1 pF; gate on lf, which sits near 1.5 V, so well into inversion).
 With them, at tt 27 °C code 9: f(a0) 373.04 MHz (373.05 before), LS duty 49.5 % (49.4), ÷4 exact,
-LS power 0.236 mW (0.210). Schematic: `xschem/lsdiv.sch` (`docs/schematics.md`), generated from `lsdiv.py block()`.
+LS power 0.236 mW (0.210). R1 was sized for 3 kΩ/sq (500 kΩ); the run is 1 kΩ/sq, so as drawn it is about
+164 kΩ (τ about 0.16 µs, still about 70 ring periods): the schematic now uses `ppolyf_u_1k` at the drawn length,
+and the extracted block behaves the same with it (`docs/lsdiv_layout.md`). Schematic: `xschem/lsdiv.sch` (`docs/schematics.md`), generated from `lsdiv.py block()`.
 
 ## For layout
 - **a0 tap:** put Cc at the a0 M2 edge tap. Cc is a metal-finger cap (M2–M3 fringe) of about 2 fF; MIM is far too
@@ -88,7 +90,7 @@ LS power 0.236 mW (0.210). Schematic: `xschem/lsdiv.sch` (`docs/schematics.md`),
   0.1 fF/µm. Run any long route on the lg side, or better after INV1.
 - **lg:** this is a MΩ node. Keep it short and away from ls and ck. Its own C only cuts the swing; 0.4 fF is
   modelled.
-- **Passives:** Cc, R1 and C1 are ideal in the sim. R1 is ppolyf_u_3k (about 170 squares) and C1 is a 1 pF
+- **Passives:** Cc, R1 and C1 are ideal in the sim. R1 is hi-res poly, about 164 squares (164 kΩ at the run's 1 kΩ/sq) and C1 is a 1 pF
   nfet_03v3 cap (about 250 µm²).
 - **Supply:** give LS + ÷4 its own VDD/VSS branch, not shared with the ring rails, plus about 10 pF of MOS decap at
   the block. The charge per edge is about 0.1 pC, so the ripple is about 10 mV.

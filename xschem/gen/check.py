@@ -106,7 +106,7 @@ def devices(path):
         elif 'fet' in pos[-1]:
             out[(pos[-1], num(kv['w']), num(kv['l']), int(kv.get('m', 1)))] += 1
         else:
-            out[(pos[-1], float(kv['r_width']), float(kv['r_length']))] += 1
+            out[(pos[-1], round(float(kv['r_width']), 12), round(float(kv['r_length']), 12))] += 1
     return out
 
 
