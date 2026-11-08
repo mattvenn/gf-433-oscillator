@@ -1,0 +1,77 @@
+name: lvs
+
+# LVS of the Tiny Tapeout wrapper: gds/tt_um_mattvenn_gf433_vco.gds (flattened, extracted with magic) against
+# lvs/tt_um_mattvenn_gf433_vco.spice (lvs/make_source.py) with netgen; layout/gen/check_tt.sh does the work and
+# fails unless the circuits match uniquely with no property or pin errors, the resistor sizes match and its
+# three mutations are caught. Same PDK as the TT precheck (gf180mcuD, open_pdks e8daeda, via ciel).
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  PDK_ROOT: /home/runner/pdk
+  PDK: gf180mcuD
+  PDK_VERSION: e8daeda73ca8f5814dbc0b11d1d05802251a3750
+  MAGIC_TAG: "8.3.642"     # the version the project extracts with (CLAUDE.md: 8.3.684 drops substrate C)
+  NETGEN_TAG: "1.5.323"
+  EDA: /home/runner/eda
+
+jobs:
+  lvs:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install gf180mcuD PDK
+        uses: TinyTapeout/ciel-action@v1
+        with:
+          pdk_name: ${{ env.PDK }}
+          pdk_version: ${{ env.PDK_VERSION }}
+          pdk_root: ${{ env.PDK_ROOT }}
+
+      - name: Install build and runtime packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential m4 csh tcl-dev tk-dev libx11-dev \
+            libcairo2-dev libglu1-mesa-dev libncurses-dev zlib1g-dev python3-pip
+          pip3 install --break-system-packages klayout==0.30.12
+
+      - name: Cache magic and netgen
+        id: cache-eda
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.EDA }}
+          key: eda-ubuntu-24.04-magic-${{ env.MAGIC_TAG }}-netgen-${{ env.NETGEN_TAG }}
+
+      - name: Build magic and netgen
+        if: steps.cache-eda.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /tmp/src && cd /tmp/src
+          git clone --depth 1 --branch "$MAGIC_TAG" https://github.com/RTimothyEdwards/magic
+          git clone --depth 1 --branch "$NETGEN_TAG" https://github.com/RTimothyEdwards/netgen
+          (cd magic && ./configure --prefix="$EDA" && make -j"$(nproc)" && make install)
+          (cd netgen && ./configure --prefix="$EDA" && make -j"$(nproc)" && make install)
+
+      - name: Tool versions
+        run: |
+          "$EDA/bin/magic" --version
+          "$EDA/bin/netgen" -batch quit | head -1
+
+      - name: LVS (layout/gen/check_tt.sh)
+        run: |
+          MAGIC="$EDA/bin/magic" NETGEN="$EDA/bin/netgen" bash layout/gen/check_tt.sh
+          grep -q "^CHECK OK" build/check/tt/summary.txt
+          cat build/check/tt/summary.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload LVS reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lvs_reports
+          path: |
+            build/check/tt/summary.txt
+            build/check/tt/*.report
+            build/check/tt/*.log
+            build/check/tt/mut/*.report
+            build/check/tt/tt_um_mattvenn_gf433_vco_lay.spice
