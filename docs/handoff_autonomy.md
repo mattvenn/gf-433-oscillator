@@ -12,7 +12,7 @@ on the next handoff, and anything that doesn't work gets cut.
    (the harness re-invokes you when the command exits), not `nohup … &`. If a job has to survive the session
    (nohup), also start a **Monitor** on a done-marker file or a log line, so the harness still wakes you.
 2. **One driver script per handoff, with every job chained in it.** Corner lists come from a config section in the
-   handoff, not from the script, so a policy change between runs is a one-line edit:: job 1 → job 2 → job 3 → summary. Run it as a
+   handoff, not from the script, so a policy change between runs is a one-line edit. The chain: job 1 → job 2 → job 3 → summary. Run it as a
    single background command. Each step writes `build/<topic>/status.txt` (step, start time, done or failed), and the
    final step writes `build/<topic>/DONE` or `FAILED`. Steps that depend on an earlier result read it from a file,
    not from you. That way there are no gaps while waiting for a human or agent decision.
