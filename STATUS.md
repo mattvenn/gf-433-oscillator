@@ -66,7 +66,12 @@ It is to become an **FM radio toolkit**:
      unchanged (7.87 kHz rms 1–10 kHz). lsdiv's R1 stays as drawn (about 164 kΩ); extracted corners unchanged.
 3. **Digital macro** (LibreLane): ÷8…÷256 (overall ÷32 / ÷64 / ÷1024), the `uo_out` buffers and mux, and later the
    code latch / TX enable / FLL counter.
-4. **Layout of the reference:** the 14 × 14 arrays, the n-well + n+ resistor, and the 20 pF filter cap (about 8.7k µm²).
+4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
+   Extracted core + extracted reference: f within −0.03 % of the schematic reference at tt/ss/ff, vbnf start-up
+   88–94 µs. **Top-level assembly in progress** (core + level shifter + reference + LS decap, tile fit).
+   - **Tempco at room temperature is +100…+140 ppm/°C (about 45–60 kHz/°C)**, schematic and layout alike. The sizing
+     nulled the 0–70 °C least-squares slope (+1.6 ppm/°C), but f(T) is a parabola peaking near 35 °C. For
+     room-temperature operation, re-tune the n-well length lnw to put the peak at 27 °C (only RBW's length changes).
 5. **Receiver blocks:**
    - port the OOK LNA (linear, not limiting) and TX driver to GF180;
    - new: mixer, IF preamp, filter, limiter and comparator.
