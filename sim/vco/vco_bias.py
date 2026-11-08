@@ -334,7 +334,8 @@ def main():
         alt = [0 if i % 2 == 0 else 3.3 for i in range(p["n"])]     # the deck's own .ic (alternating)
         for c, t in cts:
             for k in range(a.seeds + 1):
-                ics = alt if k == 0 else [round(random.Random(f"{c}{t}{k}").uniform(0, 3.3), 4) for _ in range(p["n"])]
+                rng = random.Random(f"{c}{t}{k}")    # one generator per seed, so every node gets its own value
+                ics = alt if k == 0 else [round(rng.uniform(0, 3.3), 4) for _ in range(p["n"])]
                 n = f"rs_{c}_t{t:g}_{'alt' if k == 0 else f's{k}'}"
                 decks.append((n, ringstart_deck(p, c, t, ics, a.code, a.vctrl, a.vdd)))
                 meta[n] = dict(corner=c, temp=t, seed=k, ics=ics)

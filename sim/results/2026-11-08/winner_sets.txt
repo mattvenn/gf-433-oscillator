@@ -1,0 +1,1 @@
+--set rideal=0 --set lnp=100 --set lnw=3.665 --set nsn=14 --set wpm=56 --set lpm=14 --set mr=4
