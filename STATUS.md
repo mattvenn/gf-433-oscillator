@@ -23,6 +23,7 @@ It is to become an **FM radio toolkit**:
 | Topology | Five inverters between VDD and a shared node vg (3 pF decap); one binary-weighted current DAC (base 6 + 5 bits, unit 1.2/5.33 µm) plus a fine leg on vctrl; const-gm reference with a 1 MΩ / 20 pF RC filter | `docs/cfed_results.md`, `docs/schematics.md` |
 | Range, full PVT (schematic) | 228–750 MHz (target ≤ 310 / ≥ 700); 433.92 at codes 7–11 | `docs/cfed_sizing_results.md` |
 | Range, extracted v3 RC | 194–677 MHz worst case (target ≤ 310 / ≥ 620); 433.92 at codes about 10–15 | `docs/cfed_v3_check.md` |
+| 433.92 codes, extracted core + level shifter | tt 12, ss 14, ff 10, sf 12, fs 13 at vctrl 1.7–2.3 V | `docs/remap_results.md` |
 | Monotonic / no gaps | yes at all PVT; fine/step ≥ 2.1 (needs 1.3) | `docs/cfed_sizing_results.md` |
 | DAC mismatch (MC, N = 900) | 0 % non-monotonic, worst DNL ±0.13, fine/step ≥ 3.1 | `docs/cfed_v3_check.md` |
 | rms FM, 1–10 kHz | 7.3–8.3 kHz over PVT (limit 15); the reference path dominates | `docs/cfed_sizing_results.md` |
@@ -48,15 +49,19 @@ It is to become an **FM radio toolkit**:
    - check the carrier's core regulator (R1 or R3 feed, VDD_CORE noise);
    - check the RP2350 13.56 / 27.12 MHz reference clock;
    - if time allows, measure a `ua` pin's R and C.
-2. **Level shifter + TSPC ÷4 prescaler: designed, schematic on the extracted v3 core** (`docs/lsdiv_design.md`,
-   `sim/lsdiv/`).
-   - **Level shifter:** an AC-coupled inverter (Cc 2 fF) with duty-correcting feedback. Duty 47–54 %, ÷4 exact at all
-     25 points, −1.0…−1.2 % f, 0.2–0.7 mW.
+2. **Level shifter + TSPC ÷4 prescaler: schematic and layout done** (`docs/lsdiv_design.md`, `docs/lsdiv_layout.md`,
+   `xschem/lsdiv.sch`, `layout/lsdiv.gds`, 40.5 × 37 µm, DRC/LVS/antenna clean).
+   - On the extracted core: ÷4 exact, duty 46–51 %, −1.5…−1.8 % f; Cc extracted 1.99 fF.
    - **Open:**
-     - layout (Cc right at the a0 tap; its own supply branch and about 10 pF of decap);
-     - spurious edges below 50 MHz input at sf (the ring's minimum is 169 MHz);
-     - **re-map the 433.92 codes on the extracted core**: the extracted RC range is 169–769 MHz, and 433.92 sits a few
-       codes above the schematic map's codes.
+     - block power is about 1.7× the schematic (0.63 mW at tt code 9): routing C on the TSPC nodes;
+     - the RC extraction double-counts Cc on a0 (sims use the C-only `lsdiv_c.spice`); check the core's RC ports for
+       the same effect;
+     - sf/fs, 0/70 °C, VDD ±4.5 %, MC on the extracted block; the ~10 pF supply decap (top level);
+     - don't clock the ÷4 below about 150 MHz (sf fails below that; the ring never goes there).
+   - **433.92 MHz codes re-mapped** (`docs/remap_results.md`): recommended tt 12, ss 14, ff 10, sf 12, fs 13 (vctrl
+     1.7–2.3 V), 3–4 codes above the schematic map; every corner has two or more codes that reach 433.92.
+   - **Ask the TT team:** the gf180mcuD decks extract the hi-res poly only as `ppolyf_u_1k`. If the run is the
+     1 kΩ/sq option, the 1 MΩ reference filter resistor (drawn as ppolyf_u_3k) comes out about 330 kΩ.
 3. **Digital macro** (LibreLane): ÷8…÷256 (overall ÷32 / ÷64 / ÷1024), the `uo_out` buffers and mux, and later the
    code latch / TX enable / FLL counter.
 4. **Layout of the reference:** the 14 × 14 arrays, the n-well + n+ resistor, and the 20 pF filter cap (about 8.7k µm²).
@@ -72,7 +77,7 @@ It is to become an **FM radio toolkit**:
 ## Done since the morning
 - The xschem schematics are redrawn as wired, textbook-style sheets (no net labels). Checks pass, and they render in
   xschem-viewer.
-- The level shifter and ÷4 prescaler (above).
+- The level shifter and ÷4 prescaler: schematic, layout, extracted sims (above), and the 433.92 code re-map.
 - **The xschem netlist is now the LVS source of the v3 core** (`layout/gen/check_v3.sh`). It caught that the committed
   `layout/ring_core_v3.gds` was the wfu 0.25 layout, not the chosen 0.30. The GDS, `layout/ref/ring_core_v3.spice` and
   the floorplan PNG are now 0.30, the layout the extracted netlists (`*_w30chk_rc.spice`) were made from. All checks pass.
