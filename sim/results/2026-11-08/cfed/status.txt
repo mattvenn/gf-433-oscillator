@@ -1,0 +1,10 @@
+2026-11-08 11:35:21 driver start (out build/cfed_sizing, jobs 20, start step 1)
+2026-11-08 11:35:21 step 1/4 job1 null+check+pick started
+2026-11-08 12:27:29 step 1/4 job1 null+check+pick done
+2026-11-08 12:27:29 step 2/4 job2 map started
+2026-11-08 12:41:34 step 2/4 job2 map done
+2026-11-08 12:41:34 step 3/4 job3 noise started
+2026-11-08 12:46:22 step 3/4 job3 noise done
+2026-11-08 12:46:22 step 4/4 summary started
+2026-11-08 12:46:24 step 4/4 summary done
+2026-11-08 12:46:24 all steps done in 71 min

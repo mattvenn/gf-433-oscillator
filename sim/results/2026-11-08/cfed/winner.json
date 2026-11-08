@@ -1,0 +1,16 @@
+{
+ "w": 1.2,
+ "lnw": 5.0226,
+ "code_tt": 9,
+ "tc_tt": 1.640627204227004,
+ "passed": true,
+ "why": "smallest w with the range met and |tempco| <= 50 ppm/C at tt",
+ "sets": [
+  "ka=16",
+  "rf=1e6",
+  "cf=20e-12",
+  "wfu=0.3",
+  "wff=0.3",
+  "lnw=5.0226"
+ ]
+}
