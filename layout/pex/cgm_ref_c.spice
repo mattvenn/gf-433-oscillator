@@ -1,0 +1,1206 @@
+* cgm_ref: magic R+C extraction of layout/cgm_ref.gds (layout/gen/pex.sh)
+* extracted 2026-11-08T18:24:03+01:00 with magic 8.3.642, mode c, from cgm_ref.gds
+.subckt cgm_ref VDD VSS vbn vbnf vctrl
+X0 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X1 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X2 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X3 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X4 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X5 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X6 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X7 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X8 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X9 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X10 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X11 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X12 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X13 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X14 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X15 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X16 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X17 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X18 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X19 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X20 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X21 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X22 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X23 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X24 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X25 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X26 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X27 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X28 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X29 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X30 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X31 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X32 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X33 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X34 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X35 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X36 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X37 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X38 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X39 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X40 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X41 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X42 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X43 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X44 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X45 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X46 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X47 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X48 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X49 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X50 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X51 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X52 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X53 VSS vbnf VSS VSS nfet_03v3 ad=22.113p pd=99.18u as=0.30257n ps=1.14364m w=49.14u l=10u
+X54 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X55 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X56 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X57 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X58 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X59 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X60 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X61 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X62 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X63 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X64 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X65 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X66 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X67 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X68 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X69 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X70 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X71 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X72 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X73 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X74 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X75 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X76 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X77 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X78 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X79 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X80 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X81 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X82 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X83 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X84 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X85 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X86 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X87 vbn net1 VDD VDD pfet_03v3 ad=3.92p pd=14.56u as=6.3p ps=28.9u w=14u l=14u
+X88 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X89 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X90 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X91 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X92 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X93 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X94 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X95 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X96 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X97 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X98 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X99 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X100 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X101 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X102 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X103 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X104 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X105 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X106 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X107 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X108 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X109 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X110 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X111 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X112 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X113 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X114 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X115 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X116 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X117 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X118 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X119 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X120 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X121 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X122 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X123 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X124 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X125 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X126 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X127 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X128 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X129 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X130 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X131 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X132 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X133 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X134 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X135 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X136 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X137 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X138 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X139 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X140 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X141 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X142 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X143 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X144 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X145 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X146 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X147 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X148 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X149 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X150 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X151 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X152 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X153 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X154 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X155 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X156 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X157 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X158 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X159 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X160 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X161 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X162 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X163 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X164 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X165 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X166 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X167 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X168 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X169 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X170 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X171 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X172 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X173 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X174 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X175 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X176 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X177 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X178 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X179 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X180 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X181 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X182 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X183 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X184 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X185 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X186 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X187 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X188 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X189 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X190 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X191 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X192 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X193 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X194 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X195 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X196 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X197 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X198 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X199 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X200 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X201 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X202 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X203 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X204 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X205 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X206 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X207 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X208 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X209 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X210 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X211 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X212 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X213 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X214 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X215 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X216 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X217 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X218 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X219 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X220 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X221 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X222 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X223 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X224 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X225 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X226 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X227 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X228 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X229 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X230 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X231 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X232 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X233 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X234 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X235 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X236 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X237 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X238 VDD VSS net2 VDD pfet_03v3 ad=0.225p pd=1.9u as=0.225p ps=1.9u w=0.5u l=10u
+X239 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X240 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X241 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X242 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X243 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X244 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X245 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X246 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X247 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X248 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X249 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X250 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X251 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X252 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X253 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X254 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X255 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X256 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X257 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X258 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X259 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X260 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X261 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X262 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X263 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X264 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X265 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X266 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X267 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X268 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X269 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X270 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X271 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X272 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X273 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X274 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X275 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X276 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X277 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X278 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X279 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X280 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X281 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X282 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X283 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X284 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X285 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X286 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X287 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X288 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X289 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X290 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X291 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X292 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X293 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X294 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X295 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X296 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X297 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X298 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X299 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X300 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X301 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X302 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X303 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X304 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X305 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X306 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X307 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X308 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X309 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X310 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X311 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X312 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X313 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X314 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X315 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X316 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X317 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X318 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X319 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X320 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X321 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X322 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X323 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X324 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X325 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X326 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X327 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X328 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X329 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X330 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X331 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X332 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X333 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X334 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X335 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X336 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X337 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X338 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X339 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X340 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X341 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X342 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X343 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X344 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X345 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X346 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X347 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X348 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X349 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X350 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X351 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X352 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X353 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X354 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X355 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X356 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X357 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X358 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X359 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X360 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X361 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X362 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X363 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X364 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X365 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X366 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X367 VDD net1 net1 VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X368 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X369 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X370 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X371 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X372 vbn net2 net1 VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X373 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X374 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X375 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X376 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X377 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X378 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X379 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X380 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X381 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X382 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X383 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X384 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X385 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X386 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X387 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X388 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X389 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X390 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X391 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X392 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X393 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X394 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X395 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X396 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X397 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X398 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X399 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X400 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X401 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X402 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X403 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X404 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X405 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X406 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X407 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X408 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X409 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X410 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X411 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X412 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X413 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X414 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X415 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X416 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X417 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X418 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X419 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X420 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X421 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X422 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X423 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X424 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X425 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X426 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X427 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X428 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X429 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X430 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X431 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X432 net3 net4 VSS nwell r_width=2u r_length=5.025u
+X433 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X434 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X435 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X436 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X437 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X438 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X439 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X440 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X441 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X442 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X443 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X444 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X445 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X446 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X447 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X448 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X449 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X450 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X451 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X452 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X453 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X454 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X455 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X456 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X457 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X458 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X459 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X460 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X461 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X462 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X463 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X464 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X465 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X466 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X467 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X468 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X469 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X470 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X471 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X472 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X473 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X474 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X475 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X476 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X477 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X478 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X479 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X480 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X481 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X482 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X483 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X484 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X485 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X486 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X487 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X488 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X489 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X490 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X491 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X492 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X493 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X494 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X495 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X496 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X497 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X498 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X499 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X500 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X501 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X502 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X503 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X504 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X505 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X506 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X507 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X508 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X509 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X510 VDD net1 vbn VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X511 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X512 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X513 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X514 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X515 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X516 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X517 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X518 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X519 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X520 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X521 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X522 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X523 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X524 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X525 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X526 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X527 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X528 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X529 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X530 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X531 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X532 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X533 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X534 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X535 net1 net1 VDD VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X536 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X537 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X538 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X539 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X540 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X541 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X542 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X543 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X544 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X545 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X546 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X547 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X548 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X549 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X550 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X551 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X552 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X553 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X554 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X555 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X556 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X557 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X558 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X559 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X560 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X561 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X562 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X563 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X564 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X565 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X566 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X567 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X568 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X569 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X570 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X571 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X572 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X573 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X574 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X575 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X576 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X577 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X578 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X579 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X580 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X581 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X582 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X583 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X584 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X585 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X586 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X587 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X588 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X589 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X590 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X591 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X592 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X593 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X594 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X595 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X596 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X597 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X598 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X599 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X600 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X601 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X602 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X603 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X604 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X605 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X606 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X607 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X608 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X609 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X610 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X611 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X612 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X613 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X614 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X615 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X616 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X617 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X618 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X619 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X620 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X621 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X622 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X623 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X624 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X625 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X626 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X627 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X628 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X629 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X630 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X631 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X632 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X633 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X634 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X635 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X636 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X637 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X638 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X639 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X640 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X641 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X642 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X643 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X644 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X645 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X646 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X647 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X648 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X649 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X650 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X651 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X652 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X653 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X654 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X655 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X656 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X657 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X658 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X659 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X660 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X661 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X662 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X663 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X664 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X665 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X666 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X667 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X668 net1 net1 VDD VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X669 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X670 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X671 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X672 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X673 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X674 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X675 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X676 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X677 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X678 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X679 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X680 VSS vbn net2 VSS nfet_03v3 ad=0.9p pd=4.9u as=2.36p ps=6.36u w=2u l=0.28u
+X681 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X682 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X683 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X684 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X685 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X686 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X687 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X688 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X689 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X690 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X691 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X692 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X693 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X694 VDD net1 net1 VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X695 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X696 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X697 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X698 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X699 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X700 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X701 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X702 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X703 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X704 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X705 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X706 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X707 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X708 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X709 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X710 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X711 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X712 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X713 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X714 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X715 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X716 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X717 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X718 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X719 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X720 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X721 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X722 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X723 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X724 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X725 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X726 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X727 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X728 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X729 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X730 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X731 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X732 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X733 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X734 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X735 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X736 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X737 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X738 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X739 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X740 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X741 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X742 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X743 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X744 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X745 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X746 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X747 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X748 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X749 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X750 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X751 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X752 vbn net1 VDD VDD pfet_03v3 ad=3.92p pd=14.56u as=3.92p ps=14.56u w=14u l=14u
+X753 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X754 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X755 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X756 a_27926_4127# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X757 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X758 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X759 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X760 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X761 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X762 vbn vbnf VSS ppolyf_u_1k r_width=1u r_length=0.97023m
+X763 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X764 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X765 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X766 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X767 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X768 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X769 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X770 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X771 vbn vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X772 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X773 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X774 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X775 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X776 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X777 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X778 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X779 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X780 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X781 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X782 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X783 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X784 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X785 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X786 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X787 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X788 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X789 VSS vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X790 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X791 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X792 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X793 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X794 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X795 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X796 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X797 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X798 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X799 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X800 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X801 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X802 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X803 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X804 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X805 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X806 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X807 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X808 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X809 a_27926_5287# vbn a_28216_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X810 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X811 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X812 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X813 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X814 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X815 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X816 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X817 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X818 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X819 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X820 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X821 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X822 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X823 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X824 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X825 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X826 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X827 a_28216_4707# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X828 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X829 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X830 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X831 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X832 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X833 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X834 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X835 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X836 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X837 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X838 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X839 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X840 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X841 a_28216_8187# vbn vbn VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X842 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X843 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X844 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X845 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X846 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X847 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X848 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X849 a_28216_7027# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X850 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X851 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X852 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X853 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X854 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X855 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X856 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X857 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X858 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X859 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X860 a_27926_7607# vbn a_28216_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X861 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X862 a_28216_1227# vbn VSS VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X863 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X864 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X865 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X866 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X867 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X868 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X869 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X870 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X871 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X872 net4 VSS VSS nplus_u r_width=2u r_length=100u
+X873 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X874 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X875 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X876 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X877 a_28216_4707# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X878 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X879 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X880 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X881 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X882 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X883 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X884 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X885 a_28216_3547# vbn a_27926_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X886 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X887 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X888 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X889 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X890 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X891 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X892 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X893 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X894 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X895 a_27926_2967# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X896 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X897 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X898 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X899 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X900 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X901 a_28216_8187# vbn a_27926_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X902 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X903 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X904 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X905 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X906 a_27926_1807# vbn a_28216_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X907 a_28216_2387# vbn a_27926_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X908 a_28216_3547# vbn a_27926_2967# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X909 VDD net1 vbn VDD pfet_03v3 ad=6.3p pd=28.9u as=3.92p ps=14.56u w=14u l=14u
+X910 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X911 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X912 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X913 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X914 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X915 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X916 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X917 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X918 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X919 a_27926_6447# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X920 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X921 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X922 a_28216_5867# vbn a_27926_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X923 a_28216_7027# vbn a_27926_6447# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X924 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X925 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X926 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X927 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X928 a_27926_5287# vbn a_28216_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X929 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X930 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X931 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X932 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X933 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X934 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X935 a_23540_4707# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X936 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X937 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X938 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X939 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X940 a_23540_3547# vbn a_23250_4127# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X941 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X942 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X943 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X944 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X945 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X946 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X947 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X948 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X949 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X950 a_28216_1227# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X951 a_23540_8187# vbn net1 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X952 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X953 a_23540_8187# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X954 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X955 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X956 net3 vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X957 a_27926_7607# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X958 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X959 a_23540_7027# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X960 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X961 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X962 a_23250_2967# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X963 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X964 a_27926_1807# vbn a_28216_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X965 a_23250_1807# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X966 a_28216_5867# vbn a_27926_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X967 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X968 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X969 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X970 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X971 VSS vbnf VSS VSS nfet_03v3 ad=13.7592p pd=49.7u as=0 ps=0 w=49.14u l=10u
+X972 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X973 a_23540_1227# vbn net3 VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X974 a_23540_5867# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X975 a_23250_5287# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X976 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X977 a_23250_6447# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X978 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X979 a_27926_2967# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X980 a_23250_1807# vbn a_23540_1227# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X981 a_23540_7027# vbn a_23250_7607# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X982 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X983 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X984 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X985 a_23250_4127# vbn a_23540_4707# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X986 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X987 a_23250_6447# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X988 a_23540_4707# vbn a_23250_5287# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X989 a_23250_7607# vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X990 a_27926_6447# vbn a_28216_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X991 a_23540_2387# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X992 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X993 a_23250_2967# vbn a_23540_2387# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.56p ps=2.56u w=2u l=1u
+X994 a_27926_4127# vbn a_28216_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X995 a_23250_5287# vbn a_23540_5867# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X996 a_23540_2387# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X997 a_23250_7607# vbn a_23540_7027# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X998 a_23540_5867# vbn a_23250_6447# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X999 net1 vbn a_23540_8187# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X1000 a_23250_4127# vbn a_23540_3547# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X1001 a_23540_3547# vbn a_23250_2967# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+X1002 a_28216_2387# vbn a_27926_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.9p ps=4.9u w=2u l=1u
+X1003 a_23540_1227# vbn a_23250_1807# VSS nfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=1u
+C0 vctrl net3 0.07808f
+C1 a_28216_7027# a_28216_5867# 0.05596f
+C2 vbn a_23250_7607# 13.2849f
+C3 a_23540_2387# a_23250_1807# 10.222f
+C4 net2 net1 0.14595f
+C5 a_23540_5867# a_23540_7027# 0.01838f
+C6 a_27926_7607# a_23540_8187# 2.88648f
+C7 a_28216_8187# vbn 6.27374f
+C8 a_27926_2967# vctrl 0
+C9 a_23250_4127# a_23250_2967# 0.18664f
+C10 a_23540_2387# a_28216_1227# 0
+C11 a_23540_5867# a_23540_4707# 0.01838f
+C12 a_23250_4127# vbn 13.2616f
+C13 a_27926_4127# a_23540_3547# 0.03322f
+C14 vbn a_23540_8187# 12.6636f
+C15 vbn a_28216_4707# 3.49251f
+C16 vctrl a_23250_2967# 0.07604f
+C17 vbn a_23540_1227# 12.5272f
+C18 a_23250_4127# a_23250_5287# 0.18664f
+C19 vbn a_27926_5287# 3.48625f
+C20 vbn a_23250_6447# 13.2616f
+C21 vbn vctrl 1.86478f
+C22 a_28216_5867# a_28216_4707# 0.05596f
+C23 a_28216_5867# a_27926_5287# 2.37452f
+C24 a_28216_5867# a_23250_6447# 2.91652f
+C25 a_28216_2387# vctrl 0.3277f
+C26 a_23250_5287# a_28216_4707# 2.91652f
+C27 a_23540_2387# a_23540_3547# 0.01838f
+C28 a_28216_3547# a_23540_4707# 0.00115f
+C29 a_27926_6447# a_28216_7027# 2.37452f
+C30 a_23250_1807# a_23540_1227# 10.9861f
+C31 a_23250_5287# a_27926_5287# 4.1149f
+C32 a_23250_5287# a_23250_6447# 0.18664f
+C33 a_23250_1807# vctrl 2.4556f
+C34 a_27926_7607# net1 0
+C35 a_27926_6447# a_23250_7607# 0.00177f
+C36 VDD vbn 0.24761f
+C37 a_23540_5867# vbn 12.4223f
+C38 a_28216_1227# a_23540_1227# 4.04491f
+C39 a_28216_3547# a_27926_2967# 2.37452f
+C40 a_27926_2967# a_27926_1807# 0.05596f
+C41 vctrl a_28216_1227# 0.00174f
+C42 a_23250_4127# a_27926_4127# 4.1149f
+C43 a_23540_5867# a_28216_5867# 4.03621f
+C44 a_27926_7607# a_23540_7027# 0.03322f
+C45 vbn net1 53.2906f
+C46 net4 net3 0.09601f
+C47 net2 vbn 0.27863f
+C48 a_23540_5867# a_23250_5287# 11.0476f
+C49 a_27926_4127# a_28216_4707# 2.37452f
+C50 a_28216_7027# a_23250_7607# 2.91652f
+C51 a_23250_4127# a_23540_3547# 10.9862f
+C52 a_28216_3547# a_23250_2967# 0.03482f
+C53 a_27926_4127# a_27926_5287# 0.05596f
+C54 a_27926_1807# a_23250_2967# 0.00177f
+C55 vbn a_23540_7027# 12.4252f
+C56 a_23540_4707# a_23250_2967# 0
+C57 a_28216_8187# a_28216_7027# 0.05596f
+C58 a_28216_3547# vbn 3.49251f
+C59 vbn a_27926_1807# 3.27202f
+C60 a_28216_5867# a_23540_7027# 0.00115f
+C61 a_27926_6447# a_27926_5287# 0.05596f
+C62 a_23250_4127# a_23540_2387# 0
+C63 vbnf vbn 0.01083f
+C64 a_27926_6447# a_23250_6447# 4.1149f
+C65 a_23540_4707# vbn 12.4223f
+C66 a_28216_2387# a_28216_3547# 0.05596f
+C67 vbn net3 6.10627f
+C68 a_28216_2387# a_27926_1807# 2.34764f
+C69 vctrl a_23540_3547# 0.01256f
+C70 a_28216_8187# a_23250_7607# 0.03482f
+C71 a_23250_5287# a_23540_7027# 0
+C72 a_27926_2967# a_23250_2967# 4.1149f
+C73 a_28216_7027# a_23540_8187# 0.00115f
+C74 a_23250_1807# a_27926_1807# 4.00658f
+C75 a_23540_2387# a_23540_1227# 0
+C76 a_23250_5287# a_23540_4707# 10.9862f
+C77 a_27926_2967# vbn 3.48625f
+C78 a_23540_2387# vctrl 8.43974f
+C79 a_23250_1807# net3 0.1968f
+C80 net4 vbn 0.00346f
+C81 a_23540_8187# a_23250_7607# 11.0477f
+C82 a_28216_7027# a_23250_6447# 0.03482f
+C83 a_28216_2387# a_27926_2967# 2.37431f
+C84 a_27926_6447# a_23540_5867# 0.03322f
+C85 a_27926_1807# a_28216_1227# 2.37431f
+C86 a_27926_7607# vbn 3.54873f
+C87 a_28216_1227# net3 0.05949f
+C88 a_28216_8187# a_23540_8187# 4.07037f
+C89 a_23250_7607# a_23250_6447# 0.18664f
+C90 vbn a_23250_2967# 13.2571f
+C91 a_27926_4127# a_28216_3547# 2.37431f
+C92 a_28216_2387# a_23250_2967# 2.91652f
+C93 a_23250_4127# a_28216_4707# 0.03482f
+C94 a_27926_6447# a_23540_7027# 2.88648f
+C95 a_27926_4127# a_23540_4707# 2.88648f
+C96 a_28216_2387# vbn 3.49251f
+C97 vbn a_28216_5867# 3.49251f
+C98 a_23250_4127# vctrl 0.00108f
+C99 a_23250_1807# a_23250_2967# 0.17041f
+C100 a_23540_5867# a_23250_7607# 0
+C101 a_28216_3547# a_23540_3547# 4.03621f
+C102 a_23540_8187# a_23250_6447# 0
+C103 a_23250_5287# vbn 13.2616f
+C104 a_23250_1807# vbn 13.1706f
+C105 a_27926_5287# a_28216_4707# 2.37431f
+C106 a_23540_4707# a_23540_3547# 0.01838f
+C107 a_28216_8187# VDD 0.00481f
+C108 a_27926_4127# a_27926_2967# 0.05596f
+C109 net1 a_23250_7607# 0.17366f
+C110 net2 a_23250_7607# 0.01558f
+C111 vctrl a_23540_1227# 0.06613f
+C112 a_23250_5287# a_28216_5867# 0.03482f
+C113 a_28216_2387# a_23250_1807# 0.0269f
+C114 a_27926_5287# a_23250_6447# 0.00177f
+C115 a_28216_7027# a_23540_7027# 4.03621f
+C116 a_23540_2387# a_27926_1807# 0.72603f
+C117 vbn a_28216_1227# 3.47973f
+C118 a_28216_8187# net1 1.20914f
+C119 a_23250_4127# a_23540_5867# 0
+C120 a_23540_2387# net3 0.00101f
+C121 a_27926_2967# a_23540_3547# 2.88648f
+C122 a_28216_2387# a_28216_1227# 0.05596f
+C123 VDD a_23540_8187# 0.00193f
+C124 a_23540_7027# a_23250_7607# 10.9862f
+C125 a_27926_6447# a_27926_7607# 0.05596f
+C126 a_23540_5867# a_28216_4707# 0.00115f
+C127 a_23250_1807# a_28216_1227# 2.91652f
+C128 net1 a_23540_8187# 9.66738f
+C129 a_23540_2387# a_27926_2967# 0.03322f
+C130 net2 a_23540_8187# 0.0117f
+C131 a_23540_5867# a_27926_5287# 2.88648f
+C132 a_27926_4127# vbn 3.48625f
+C133 a_23540_5867# a_23250_6447# 10.9862f
+C134 a_23540_3547# a_23250_2967# 11.0476f
+C135 a_27926_6447# vbn 3.48625f
+C136 a_23250_4127# a_28216_3547# 2.91652f
+C137 vbn a_23540_3547# 12.4223f
+C138 a_23540_7027# a_23540_8187# 0.01838f
+C139 a_27926_4127# a_23250_5287# 0.00177f
+C140 a_27926_7607# a_28216_7027# 2.37431f
+C141 a_27926_6447# a_28216_5867# 2.37431f
+C142 a_23250_4127# a_23540_4707# 11.0476f
+C143 a_23540_2387# a_23250_2967# 10.9859f
+C144 a_28216_2387# a_23540_3547# 0.00115f
+C145 a_28216_3547# a_28216_4707# 0.05596f
+C146 a_27926_7607# a_23250_7607# 4.1149f
+C147 a_23540_7027# a_23250_6447# 11.0476f
+C148 a_23540_2387# vbn 11.9387f
+C149 a_27926_1807# a_23540_1227# 0.03322f
+C150 a_23250_5287# a_23540_3547# 0
+C151 a_23540_4707# a_28216_4707# 4.03621f
+C152 a_23250_1807# a_23540_3547# 0
+C153 VDD net1 26.4536f
+C154 vctrl a_27926_1807# 4.74781f
+C155 net2 VDD 0.05007f
+C156 vbn a_28216_7027# 3.49334f
+C157 a_28216_2387# a_23540_2387# 3.97376f
+C158 net3 a_23540_1227# 12.307f
+C159 a_23540_4707# a_27926_5287# 0.03322f
+C160 a_23250_4127# a_27926_2967# 0.00177f
+C161 vbnf vctrl 2.98467f
+C162 a_23540_4707# a_23250_6447# 0
+C163 a_28216_8187# a_27926_7607# 2.37452f
+C164 vctrl VSS 13.3002f
+C165 vbnf VSS 0.10095p
+C166 vbn VSS 0.18966p
+C167 VDD VSS 0.24724p
+C168 a_28216_1227# VSS 3.92673f
+C169 a_27926_1807# VSS 1.69719f
+C170 a_28216_2387# VSS 1.65655f
+C171 a_27926_2967# VSS 1.65198f
+C172 a_28216_3547# VSS 1.65655f
+C173 a_27926_4127# VSS 1.65198f
+C174 a_28216_4707# VSS 1.65655f
+C175 a_27926_5287# VSS 1.65198f
+C176 a_28216_5867# VSS 1.65655f
+C177 a_27926_6447# VSS 1.65198f
+C178 a_28216_7027# VSS 1.65655f
+C179 a_27926_7607# VSS 1.65198f
+C180 a_28216_8187# VSS 2.25067f
+C181 a_23540_1227# VSS 1.87337f
+C182 a_23250_1807# VSS 3.9691f
+C183 a_23540_2387# VSS 1.31364f
+C184 a_23250_2967# VSS 3.9634f
+C185 a_23540_3547# VSS 1.34623f
+C186 a_23250_4127# VSS 3.96359f
+C187 a_23540_4707# VSS 1.34623f
+C188 a_23250_5287# VSS 3.96359f
+C189 a_23540_5867# VSS 1.34623f
+C190 a_23250_6447# VSS 3.96359f
+C191 a_23540_7027# VSS 1.34623f
+C192 a_23250_7607# VSS 3.95929f
+C193 a_23540_8187# VSS 1.67149f
+C194 net2 VSS 0.65251f
+C195 net1 VSS 12.6032f
+C196 net4 VSS 0.65403f
+C197 net3 VSS 11.5332f
+.ends
