@@ -1,4 +1,4 @@
-# Where we are (end of 2026-11-08)
+# Where we are (end of 2026-11-08, evening)
 
 This is the "pick up from here" note: a summary, the next steps, and where everything lives. The detail and evidence
 for each result are in the docs it links.
@@ -48,8 +48,15 @@ It is to become an **FM radio toolkit**:
    - check the carrier's core regulator (R1 or R3 feed, VDD_CORE noise);
    - check the RP2350 13.56 / 27.12 MHz reference clock;
    - if time allows, measure a `ua` pin's R and C.
-2. **Level shifter (vg…VDD → full rail) + TSPC ÷4 prescaler**: in progress (`sim/lsdiv/`, `docs/lsdiv_design.md` when
-   done). Requirements: duty 50 ± 10 %, load on a0 ≤ 2 fF, toggling up to ≥ 1 GHz.
+2. **Level shifter + TSPC ÷4 prescaler: designed, schematic on the extracted v3 core** (`docs/lsdiv_design.md`,
+   `sim/lsdiv/`).
+   - **Level shifter:** an AC-coupled inverter (Cc 2 fF) with duty-correcting feedback. Duty 47–54 %, ÷4 exact at all
+     25 points, −1.0…−1.2 % f, 0.2–0.7 mW.
+   - **Open:**
+     - layout (Cc right at the a0 tap; its own supply branch and about 10 pF of decap);
+     - spurious edges below 50 MHz input at sf (the ring's minimum is 169 MHz);
+     - **re-map the 433.92 codes on the extracted core**: the extracted RC range is 169–769 MHz, and 433.92 sits a few
+       codes above the schematic map's codes.
 3. **Digital macro** (LibreLane): ÷8…÷256 (overall ÷32 / ÷64 / ÷1024), the `uo_out` buffers and mux, and later the
    code latch / TX enable / FLL counter.
 4. **Layout of the reference:** the 14 × 14 arrays, the n-well + n+ resistor, and the 20 pF filter cap (about 8.7k µm²).
@@ -62,9 +69,10 @@ It is to become an **FM radio toolkit**:
 7. **Sign-off:** full PVT (5 corners × 0/27/70 °C × VDD ±4.5 %) plus MC on the extracted tile.
 8. **Estimated tile:** 2x2.
 
-## In progress at the time of writing
-- The level shifter / prescaler design (laptop subagent, `sim/lsdiv/`).
-- The xschem schematics being redrawn as wired, textbook-style sheets (laptop subagent, `xschem/gen/`).
+## Done since the morning
+- The xschem schematics are redrawn as wired, textbook-style sheets (no net labels). Checks pass, and they render in
+  xschem-viewer.
+- The level shifter and ÷4 prescaler (above).
 
 ## How things run
 - **Tools:** `tools/osic-mac <cmd>` runs IIC-OSIC-TOOLS (laptop image 2026.05; sim pod 2026.09). **It doesn't pass
