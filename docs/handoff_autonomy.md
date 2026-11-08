@@ -53,7 +53,8 @@ Simulation time goes into dimensions that matter. In each handoff, list which co
 1. **The full set once per circuit change** (5 process corners × 0/70 °C, plus tt 27 °C): find which corner sets each
    limit (top of range, bottom of range, worst noise, worst fine/step).
 2. **Iterate on those 3–4 bounding corners only.**
-3. **The full set again only for sign-off.**
+3. **The full set again only for sign-off**: 5 process corners × 0/27/70 °C × VDD 3.15/3.3/3.45 V, plus Monte Carlo,
+   on the extracted layout. This is the only place the wide temperature and VDD ranges are run.
 
 **VDD:** the current-fed ring moves −0.008 %/10 mV, so ±4.5 % VDD is about 0.1 % of f and stays out of maps and
 sweeps. Keep one low-VDD spot check (3.15 V) at the worst corner, for headroom: is the DAC still saturated under vg,
