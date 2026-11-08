@@ -1,0 +1,164 @@
+* lsdiv: magic R+C extraction of layout/lsdiv.gds (layout/gen/pex.sh)
+* extracted 2026-11-08T17:04:42+01:00 with magic 8.3.642, mode c, from lsdiv.gds
+.subckt lsdiv VDD VSS a0 ck
+X0 VDD q1 a_1192_1223# VDD pfet_03v3 ad=0.336p pd=1.76u as=1.2p ps=4.4u w=1.2u l=0.28u
+X1 VSS q1 a_2042_240# VSS nfet_03v3 ad=0.168p pd=1.16u as=0.168p ps=1.16u w=0.6u l=0.28u
+X2 VDD a_877_412# q2 VDD pfet_03v3 ad=0.675p pd=3.9u as=1.5p ps=5u w=1.5u l=0.28u
+X3 lf ls VSS ppolyf_u_1k r_width=1u r_length=0.15912m
+X4 a_3836_1223# a_2929_412# VSS VSS nfet_03v3 ad=1p pd=4u as=0.28p ps=1.56u w=1u l=0.28u
+X5 a_3350_160# a_3244_1223# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X6 VDD lg lo1 VDD pfet_03v3 ad=0.225p pd=1.9u as=1.1p ps=5.4u w=0.5u l=0.28u
+X7 lo2 lo1 VSS VSS nfet_03v3 ad=0.6p pd=3.2u as=0.27p ps=2.1u w=0.6u l=0.28u
+X8 VSS lg lo1 VSS nfet_03v3 ad=0.1686p pd=1.74u as=0.5448p ps=5.16u w=0.22u l=0.28u
+X9 ls lo2 VDD VDD pfet_03v3 ad=3p pd=8u as=1.35p ps=6.9u w=3u l=0.28u
+X10 ck q2 VSS VSS nfet_03v3 ad=1p pd=4u as=0.45p ps=2.9u w=1u l=0.28u
+X11 a_2929_412# a_3244_1223# VDD VDD pfet_03v3 ad=2p pd=6u as=0.9p ps=4.9u w=2u l=0.28u
+X12 a_2042_240# a_1784_1223# a_1192_1223# VSS nfet_03v3 ad=0.168p pd=1.16u as=0.6p ps=3.2u w=0.6u l=0.28u
+X13 a_3668_1223# a_2929_412# VDD VDD pfet_03v3 ad=0.56p pd=2.56u as=0.56p ps=2.56u w=2u l=0.28u
+X14 VDD a_2929_412# q1 VDD pfet_03v3 ad=0.675p pd=3.9u as=1.5p ps=5u w=1.5u l=0.28u
+X15 VDD ls a_3244_1223# VDD pfet_03v3 ad=0.56p pd=2.56u as=2p ps=6u w=2u l=0.28u
+X16 VSS ls a_4094_160# VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=0.28u
+X17 a_1784_1223# q1 a_1616_1223# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.336p ps=1.76u w=1.2u l=0.28u
+X18 a_3836_1223# ls a_3668_1223# VDD pfet_03v3 ad=2p pd=6u as=0.56p ps=2.56u w=2u l=0.28u
+X19 VSS a_877_412# q2 VSS nfet_03v3 ad=0.27p pd=2.1u as=0.6p ps=3.2u w=0.6u l=0.28u
+X20 a_877_412# q1 a_1298_240# VSS nfet_03v3 ad=0.6p pd=3.2u as=0.168p ps=1.16u w=0.6u l=0.28u
+X21 lf VSS lg VDD pfet_03v3 ad=0.2808p pd=2.76u as=0.2808p ps=2.76u w=0.22u l=2u
+X22 a_4094_160# a_3836_1223# a_3244_1223# VSS nfet_03v3 ad=0.28p pd=1.56u as=1p ps=4u w=1u l=0.28u
+X23 VSS lf VSS VSS nfet_03v3 ad=7.2p pd=32.9u as=17.9846p ps=90.48u w=16u l=16u
+X24 ck q2 VDD VDD pfet_03v3 ad=2.5p pd=7u as=1.125p ps=5.9u w=2.5u l=0.28u
+X25 a_1784_1223# a_877_412# VSS VSS nfet_03v3 ad=0.6p pd=3.2u as=0.168p ps=1.16u w=0.6u l=0.28u
+X26 a_1298_240# a_1192_1223# VSS VSS nfet_03v3 ad=0.168p pd=1.16u as=0.27p ps=2.1u w=0.6u l=0.28u
+X27 VSS a_2929_412# q1 VSS nfet_03v3 ad=0.27p pd=2.1u as=0.6p ps=3.2u w=0.6u l=0.28u
+X28 a_877_412# a_1192_1223# VDD VDD pfet_03v3 ad=1.2p pd=4.4u as=0.54p ps=3.3u w=1.2u l=0.28u
+X29 ls lo2 VSS VSS nfet_03v3 ad=1.2p pd=4.4u as=0.54p ps=3.3u w=1.2u l=0.28u
+X30 a_1616_1223# a_877_412# VDD VDD pfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=0.28u
+X31 lo2 lo1 VDD VDD pfet_03v3 ad=1.5p pd=5u as=0.675p ps=3.9u w=1.5u l=0.28u
+X32 a_2929_412# ls a_3350_160# VSS nfet_03v3 ad=1p pd=4u as=0.28p ps=1.56u w=1u l=0.28u
+C0 a_1616_1223# VDD 0.14459f
+C1 a_3350_160# a_2929_412# 0.07726f
+C2 a_4094_160# a_2929_412# 0.0061f
+C3 lf a0 0.00402f
+C4 a_2042_240# q1 0.00604f
+C5 lf lg 0.22692f
+C6 a_1784_1223# a_2929_412# 0.00175f
+C7 a_2929_412# a_3836_1223# 0.70987f
+C8 a_3244_1223# lo1 0
+C9 lf q1 0.00168f
+C10 lf lo2 0
+C11 a_877_412# q1 1.57175f
+C12 a_1192_1223# a_1784_1223# 0.87554f
+C13 a_2929_412# lo1 0
+C14 q2 VDD 0.37427f
+C15 a_1192_1223# ck 0
+C16 lf ls 0.11442f
+C17 a_3668_1223# a_3244_1223# 0.00509f
+C18 a_1616_1223# q1 0.01095f
+C19 a_2042_240# a_1784_1223# 0.00564f
+C20 VDD a0 0.03342f
+C21 a_1784_1223# lf 0
+C22 VDD lg 0.33992f
+C23 VDD q1 0.47949f
+C24 a_1784_1223# a_877_412# 0.70254f
+C25 a_3668_1223# a_2929_412# 0.01794f
+C26 VDD lo2 0.39275f
+C27 a_1298_240# a_1192_1223# 0.00757f
+C28 ck a_877_412# 0.00936f
+C29 a_2929_412# a_3244_1223# 0.74379f
+C30 a_3668_1223# a_1192_1223# 0
+C31 lf lo1 0.00642f
+C32 VDD ls 1.22951f
+C33 q2 q1 0.00656f
+C34 a_1616_1223# a_1784_1223# 0.08507f
+C35 a_1192_1223# a_3244_1223# 0.00334f
+C36 a_3350_160# VDD 0.00198f
+C37 a_4094_160# VDD 0.00409f
+C38 a0 lg 1.98512f
+C39 a_1298_240# a_877_412# 0.04749f
+C40 a_1784_1223# VDD 0.21816f
+C41 a_3836_1223# VDD 0.26831f
+C42 a_3668_1223# lf 0
+C43 lg lo2 0.00588f
+C44 a_1192_1223# a_2929_412# 0.00223f
+C45 ck VDD 0.31514f
+C46 a_3244_1223# lf 0
+C47 VDD lo1 0.28227f
+C48 q2 a_1784_1223# 0
+C49 a_3244_1223# a_877_412# 0
+C50 ls lg 0
+C51 ls q1 0.00995f
+C52 q2 ck 1.12345f
+C53 ls lo2 0.96168f
+C54 a_2929_412# lf 0.00156f
+C55 a_1298_240# VDD 0.00222f
+C56 a_2929_412# a_877_412# 0.0098f
+C57 a_1192_1223# a_2042_240# 0.04322f
+C58 a_1784_1223# q1 0.67113f
+C59 a_3668_1223# VDD 0.23085f
+C60 a_3836_1223# q1 0
+C61 a_1192_1223# lf 0
+C62 a_3836_1223# lo2 0.08987f
+C63 ck q1 0
+C64 a_1192_1223# a_877_412# 0.71835f
+C65 a_3350_160# ls 0.01045f
+C66 a_4094_160# ls 0.01106f
+C67 a_3244_1223# VDD 0.51666f
+C68 lo1 lg 0.20859f
+C69 a_1784_1223# ls 0
+C70 a_3836_1223# ls 0.63671f
+C71 lo1 lo2 1.04229f
+C72 a_2042_240# a_877_412# 0.00463f
+C73 a_2929_412# VDD 0.58961f
+C74 a_4094_160# a_3836_1223# 0.00911f
+C75 a_1192_1223# a_1616_1223# 0.00388f
+C76 lf a_877_412# 0.00167f
+C77 a_1298_240# q1 0.00689f
+C78 lo1 ls 0.12117f
+C79 a_1784_1223# a_3836_1223# 0.00248f
+C80 a_1192_1223# VDD 0.40251f
+C81 a_1784_1223# ck 0
+C82 a_4094_160# lo1 0
+C83 a_3244_1223# q1 0.00721f
+C84 a_3836_1223# lo1 0
+C85 a_1616_1223# lf 0
+C86 a_3244_1223# lo2 0.003f
+C87 a_1616_1223# a_877_412# 0.01101f
+C88 a_3668_1223# ls 0.02307f
+C89 a_1192_1223# q2 0.00738f
+C90 a_2042_240# VDD 0.00406f
+C91 lf VDD 2.57939f
+C92 a_2929_412# q1 0.74328f
+C93 VDD a_877_412# 0.45003f
+C94 a_3244_1223# ls 1.35416f
+C95 a_2929_412# lo2 0.02485f
+C96 a_3668_1223# a_3836_1223# 0.14135f
+C97 a_3350_160# a_3244_1223# 0.01134f
+C98 a_4094_160# a_3244_1223# 0.07136f
+C99 a_1192_1223# q1 1.29375f
+C100 q2 lf 0
+C101 a_2929_412# ls 1.56506f
+C102 a_1784_1223# a_3244_1223# 0
+C103 q2 a_877_412# 0.7483f
+C104 a_3836_1223# a_3244_1223# 0.88042f
+C105 a0 VSS 0.59049f
+C106 ck VSS 0.52051f
+C107 VDD VSS 29.2867f
+C108 a_4094_160# VSS 0.14599f
+C109 a_3350_160# VSS 0.14869f
+C110 a_2042_240# VSS 0.09609f
+C111 a_1298_240# VSS 0.09795f
+C112 lg VSS 1.43835f
+C113 lo1 VSS 0.65272f
+C114 a_3836_1223# VSS 0.56414f
+C115 a_3668_1223# VSS 0.01195f
+C116 a_1784_1223# VSS 0.47458f
+C117 a_1616_1223# VSS 0.01275f
+C118 a_1192_1223# VSS 0.51067f
+C119 q1 VSS 0.88832f
+C120 a_877_412# VSS 1.00618f
+C121 a_3244_1223# VSS 0.52691f
+C122 a_2929_412# VSS 1.00806f
+C123 q2 VSS 0.80919f
+C124 lo2 VSS 0.69051f
+C125 ls VSS 1.64111f
+C126 lf VSS 7.26912f
+.ends

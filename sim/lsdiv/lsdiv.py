@@ -2,6 +2,7 @@
 """a0 -> level shifter -> TSPC /4 -> buffer -> std-cell DFF clock (+20 fF), on the cfed ring (extracted v3 core).
 
   python3 sim/lsdiv/lsdiv.py ring --runs main|robust|vdd|cand|one [--jobs 8] [--tstop 1.2e-6] [--ls a|b] [--set K=V]
+  python3 sim/lsdiv/lsdiv.py ring --runs one --ls x [--r1 3k|1k]   # the extracted layout block (layout/pex/lsdiv_c.spice)
   python3 sim/lsdiv/lsdiv.py div  [--jobs 8]           # /4 alone: ideal clock (through the LS output inverter), f sweep
   python3 sim/lsdiv/lsdiv.py summary                   # tables from build/lsdiv/*.json -> sim/lsdiv/results/
 
@@ -131,6 +132,20 @@ def divider(s, clk="lsout", vdd="vdv"):
             + "XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1\n")
 
 
+LSX = REPO / "layout/pex/lsdiv_c.spice"    # extracted block (layout/gen/pex_lsdiv.sh c), --ls x
+R1MODEL = {"m": "3k"}                      # --r1 3k|1k: model for the extracted hi-res poly R1 (magic names it 1k)
+
+
+def ls_x(s):
+    """The extracted lsdiv block (Cc, Cpa/Cpg and the wiring C are in the extraction) + the same loads as divider():
+    the 20 fF ck wire and the std-cell DFF. One supply (vls) feeds LS + /4 + buffer, so p_ls is the block total
+    and p_div is 0. ls and q1 are brought out as extra ports (lsout, q1) for analyse()."""
+    t = LSX.read_text().replace(".subckt lsdiv VDD VSS a0 ck", ".subckt lsdiv_x VDD VSS a0 ck ls q1")
+    t = t.replace(" ppolyf_u_1k ", f" ppolyf_u_{R1MODEL['m']} ")
+    return (t + "Xlsdiv vls 0 a0 ck lsout q1 lsdiv_x\n" + f"Cwire ck 0 {s['cwire']}\n"
+            + "XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1\n")
+
+
 def ring(p, core="pex"):
     body, ics = vb.netlist(p)
     if core == "pex":
@@ -152,7 +167,8 @@ def ring_deck(p, s, corner, temp, code, vdd, block, tstop, core="pex"):
     body, ics = ring(p, core)
     bits = "".join(f"vbit{b} bit{b} 0 {vdd if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else vdd}\n"
                    for b in range(5))
-    blk = "" if block == "none" else dict(a=ls_a, b=ls_b, c=ls_c)[block](s) + divider(s)
+    blk = ("" if block == "none" else ls_x(s) if block == "x"
+           else dict(a=ls_a, b=ls_b, c=ls_c)[block](s) + divider(s))
     t0 = 0.6 * tstop
     save = "v(a0) v(vg)" + ("" if block == "none" else " v(lsout) v(q1) v(ck) i(vls) i(vdv)")
     return f"""* lsdiv ring {corner} {temp} code {code} vdd {vdd} block {block}
@@ -312,7 +328,9 @@ def main():
     ap.add_argument("--worst", default="ss,0,31", help="vdd run: corner,temp,code[;...]")
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--tag", default="")
+    ap.add_argument("--r1", default="3k", choices=["3k", "1k"], help="--ls x: R1 model (the extraction says 1k)")
     a = ap.parse_args()
+    R1MODEL["m"] = a.r1
     for kv in a.set:
         k, v = kv.split("=")
         S[k] = float(v)
