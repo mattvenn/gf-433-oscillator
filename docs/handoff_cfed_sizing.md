@@ -1,3 +1,5 @@
+> Running: step 1/4 (job1 null+check+pick) since 11:35, ETA 13:16
+
 # Handoff: current-fed ring final sizing, PVT tuning map and PVT noise (sim pod)
 
 **Goal: size the DAC width of the current-fed ring so that, with the temperature compensation re-nulled, it covers
