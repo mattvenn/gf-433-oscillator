@@ -1,4 +1,4 @@
-> Running: step 1/4 (job1 null+check+pick) since 11:35, ETA 13:16
+> Running: step 2/4 (job2 map) since 12:27, ETA 12:58
 
 # Handoff: current-fed ring final sizing, PVT tuning map and PVT noise (sim pod)
 
