@@ -34,7 +34,8 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          cw=2e-15, rideal=1,                     # wiring C; rideal=1: ideal R with tc1=tcr, else nwell + n+ diff
          rw=2.0, lnw=12.0, lnp=0.0,              # real R: width, nwell length, n+ diff length (um)
          rf=0.0, cf=0.0, rfw=1.0,                # vbn RC filter: ppolyf_u_3k rf ohm (width rfw um), ideal cf (F); 0 = off
-         nsn=1)                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
+         nsn=1,                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
+         cfn=0.0)                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 
 
@@ -114,11 +115,13 @@ def netlist(p):
         s += fet(f"N{i}", y, a, f"f{i}", "0", "nfet_03v3", p["wn"], p["L"])
         s += foot(f"s{i}", p, f"f{i}", g)
         s += f"Cw{i} {y} 0 {p['cw']}\n"
+        if p.get("cfn", 0) > 0:   # the master's foot drains on vbp (a diode node), so it gets none
+            s += f"Cfn{i} f{i} 0 {p['cfn']}\n"
     ics = " ".join(f"v(a{i})={0 if i % 2 == 0 else 3.3}" for i in range(n))
     return s, ics
 
 
-def deck(p, corner, points, uic=True):
+def deck(p, corner, points, uic=True, swing=False):
     """uic=False: start each tran from the DC operating point with the ring nodes held at their .ic (needed when
     the reference is too slow to start within the 100 ns before the measurement, e.g. large scaled references)."""
     body, ics = netlist(p)
@@ -128,6 +131,8 @@ def deck(p, corner, points, uic=True):
         tag = f"c{code}_v{vc:.2f}_t{t}_d{vdd:.2f}"
         alts = "".join(f"alter vbit{b} {vdd if (code >> b) & 1 else 0}\nalter vbitb{b} {0 if (code >> b) & 1 else vdd}\n"
                        for b in range(p["bits"]))
+        sw = "meas tran amin MIN v(a0) FROM=100n TO=200n\nmeas tran amax MAX v(a0) FROM=100n TO=200n\n" if swing else ""
+        swe = f'echo "SW {tag} $&amin $&amax"\n' if swing else ""
         ctl.append(f"""option temp={t}
 alter vdd {vdd}
 alter vctrl {vc}
@@ -137,10 +142,10 @@ meas tran t2 WHEN v(a0)={vdd/2} RISE=11 TD=100n
 meas tran iavg AVG i(vdd) FROM=100n TO=200n
 meas tran vb AVG v(vbn) FROM=100n TO=200n
 meas tran ir AVG i(vir) FROM=100n TO=200n
-let f = 10/(t2-t1)
+{sw}let f = 10/(t2-t1)
 let pw = -iavg*{vdd}
 echo "RES {tag} {code} {vc} {t} {vdd} $&f $&pw $&vb $&ir"
-destroy all
+{swe}destroy all
 """)
     return f"""* vco_bias {corner}
 .include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
@@ -281,7 +286,8 @@ def map_summary(rows, maxc, target=433.92e6, lo=310e6, hi=620e6):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["sweep", "pvt", "tc", "map", "startup", "ringstart"])
+    ap.add_argument("mode", choices=["sweep", "pvt", "tc", "map", "startup", "ringstart", "cfsweep"])
+    ap.add_argument("--cfns", default="0,3,6,10,15,25", help="cfsweep: foot-node C per stage (fF), comma list")
     ap.add_argument("--seeds", type=int, default=6, help="ringstart: random initial states per corner x temp")
     ap.add_argument("--vdd", type=float, default=3.3, help="ringstart: supply")
     ap.add_argument("--code", type=int, default=15)
@@ -325,6 +331,28 @@ def main():
                   f"{r['step_max']/1e6:7.2f} {r['step_max_code']:3d} {r['fine_min']/1e6:7.2f} {r['fine_over_step']:9.2f} "
                   f"{'yes' if r['covers'] else 'NO':>7s} {r['nonmono'] or ''}")
         print(f"wrote {outdir}/map.csv, map_summary.json")
+        return
+    elif a.mode == "cfsweep":   # foot-node C sweep: codes x Cf x corner x temp at 3.3 V, + fine range at codes 0/maxc
+        import json
+        codes = [int(c) for c in a.codes.split(",")] if a.codes else [0, 1, 2, 3, 5, 8, 12, maxc]
+        pts = lambda t: ([(c, 1.65, t, 3.3) for c in codes] + [(c, vc, t, 3.3) for c in (0, maxc) for vc in (0.0, 3.3)])
+        cts = [(c, float(t)) for c in a.corners.split(",") for t in a.temps.split(",")]
+        decks = [(f"cf{cf:g}_{c}_t{t:g}", deck(dict(p, cfn=cf * 1e-15), c, pts(t), uic=False, swing=True))
+                 for cf in [float(x) for x in a.cfns.split(",")] for c, t in cts]
+        run(outdir, decks, a.jobs)
+        rows = []
+        for n, _ in decks:
+            log = (outdir / f"{n}.log").read_text()
+            sw = {m.group(1): (float(m.group(2)), float(m.group(3)))
+                  for m in re.finditer(r"^SW (\S+) (\S+) (\S+)$", log, re.M)}
+            for m in re.finditer(r"^RES (\S+) (\S+) (\S+) (\S+) (\S+) (\S*) (\S+) (\S+) (\S+)$", log, re.M):
+                cf, c, t = n.split("_", 2)
+                rows.append(dict(cfn=float(cf[2:]), corner=c, temp=float(t[1:]), code=int(m.group(2)), vctrl=float(m.group(3)),
+                                 f=float(m.group(6)) if m.group(6) else float("nan"), p_w=float(m.group(7)),
+                                 i_a=float(m.group(7)) / 3.3, vmin=sw.get(m.group(1), (float("nan"),) * 2)[0],
+                                 vmax=sw.get(m.group(1), (float("nan"),) * 2)[1]))
+        (outdir / "cfsweep.json").write_text(json.dumps(dict(p=p, rows=rows), indent=1))
+        print(f"wrote {outdir}/cfsweep.json ({len(rows)} points)")
         return
     elif a.mode == "ringstart":   # ring mode check at --code (pass 0) and --vctrl, from random initial states
         import json, random
