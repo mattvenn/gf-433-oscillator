@@ -1,4 +1,4 @@
-> Running: step 3/3 (summary) since 14:39, ETA 14:41
+> Running: sims done 14:39, write-up in progress
 
 # Handoff: power-on start-up of the current-fed ring (sim pod)
 
