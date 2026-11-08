@@ -1,0 +1,7 @@
+{"note": "map.csv method (DC op + ring .ic, VDD 3.3) at typical 27 C, vctrl 1.65; f over 100-200 ns vs over the last 2 us; sim/pn/cfed_mapref.py",
+ "runs": [
+  {"code": 0, "tstop": 20e-6, "tmax": "20p", "f_100_200n": 223861146.8, "vg_100_200n": 2.104385, "f_last2us": 222443752.5, "vg_last2us": 2.105896, "wall_s": 133},
+  {"code": 31, "tstop": 20e-6, "tmax": "20p", "f_100_200n": 804690663.4, "vg_100_200n": 1.508763, "f_last2us": 798966818.4, "vg_last2us": 1.515072, "wall_s": 176},
+  {"code": 0, "tstop": 200e-9, "tmax": "5p", "f_100_200n": 223836962.1, "vg_100_200n": 2.104409},
+  {"code": 31, "tstop": 200e-9, "tmax": "5p", "f_100_200n": 805117117.6, "vg_100_200n": 1.509426}],
+ "map_csv": {"code0": 224933000.0, "code31": 805237000.0}}
