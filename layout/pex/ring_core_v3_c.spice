@@ -1,0 +1,215 @@
+* ring_core: magic R+C extraction of layout/ring_core.gds (layout/gen/pex.sh)
+* extracted 2026-11-08T11:35:15+01:00 with magic 8.3.642, mode c, from ring_core_v3.gds
+.subckt ring_core VDD VSS vbn vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 vg a0 a1 a2 a3 a4
+X0 vbn bitb0 a_6156_6633# VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X1 VSS vg VSS VSS nfet_03v3 ad=13.8195p pd=62.32u as=0.1289n ps=0.52988m w=30.71u l=4u
+X2 VSS vbn vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X3 a_6006_4464# bitb2 VSS VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X4 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X5 VSS a_6006_14# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X6 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X7 vg a_6156_6633# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X8 a3 a2 VDD VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X9 VSS a_6006_14# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X10 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X11 a4 a3 VDD VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X12 vbn bit1 a_6896_6633# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X13 vg a_6006_4464# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X14 vbn bitb4 a_6006_14# VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X15 VSS vg VSS VSS nfet_03v3 ad=8.5988p pd=31.27u as=0 ps=0 w=30.71u l=4u
+X16 vg a4 a0 VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X17 a_6006_856# bitb3 VSS VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X18 vbn bit2 a_6006_4464# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X19 VSS vg VSS VSS nfet_03v3 ad=8.5988p pd=31.27u as=0 ps=0 w=30.71u l=4u
+X20 VSS a_6006_14# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X21 vg a_6006_856# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X22 VSS a_6006_856# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X23 VSS a_6006_856# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X24 VSS vg VSS VSS nfet_03v3 ad=8.5988p pd=31.27u as=0 ps=0 w=30.71u l=4u
+X25 VSS a_6006_856# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X26 a2 a1 vg VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X27 vg a_6006_856# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X28 VSS vctrl vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=21.335u
+X29 VSS vg VSS VSS nfet_03v3 ad=8.5988p pd=31.27u as=0 ps=0 w=30.71u l=4u
+X30 vg a_6006_856# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X31 VSS vbn vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X32 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X33 VSS vbn vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X34 vbn bitb1 a_6896_6633# VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X35 vbn bit3 a_6006_856# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X36 VSS a_6006_14# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X37 VSS a_6006_14# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X38 VDD a4 a0 VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X39 a_6156_6633# bitb0 VSS VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X40 VSS a_6006_14# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X41 vbn bitb2 a_6006_4464# VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X42 a_6896_6633# bitb1 VSS VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X43 vg a_6006_856# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X44 a2 a1 VDD VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X45 VSS a_6006_14# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X46 a_6006_14# bitb4 VSS VSS nfet_03v3 ad=0.45p pd=2.9u as=0.45p ps=2.9u w=1u l=0.28u
+X47 VSS a_6006_4464# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X48 vg a_6006_4464# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X49 a1 a0 vg VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X50 VSS a_6006_14# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X51 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X52 vbn bitb3 a_6006_856# VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X53 vbn bit0 a_6156_6633# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X54 vg vbn VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X55 a3 a2 vg VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X56 VSS a_6006_4464# vg VSS nfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=5.335u
+X57 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X58 a4 a3 vg VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X59 vbn bit4 a_6006_14# VSS nfet_03v3 ad=0.9p pd=4.9u as=0.9p ps=4.9u w=2u l=0.28u
+X60 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=5.335u
+X61 VSS vg VSS VSS nfet_03v3 ad=8.5988p pd=31.27u as=0 ps=0 w=30.71u l=4u
+X62 VSS a_6006_856# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X63 vg vbn VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X64 a1 a0 VDD VDD pfet_03v3 ad=2.25p pd=10.9u as=2.25p ps=10.9u w=5u l=0.28u
+X65 vg vbn VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X66 VSS a_6896_6633# vg VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X67 vg a_6896_6633# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+X68 vg a_6006_14# VSS VSS nfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=5.335u
+C0 bitb0 a_6896_6633# 0
+C1 bitb1 a_6006_4464# 0
+C2 a_6006_14# bit3 0.00884f
+C3 bitb4 a_6006_14# 0.21396f
+C4 a_6156_6633# VDD 0.25281f
+C5 a2 a1 0.1528f
+C6 a_6006_856# bit2 0.00923f
+C7 bitb1 a_6896_6633# 0.21396f
+C8 vg a_6156_6633# 1.03266f
+C9 vg VDD 0.42199f
+C10 vbn a_6156_6633# 1.13411f
+C11 a1 a0 0.58969f
+C12 bit0 a_6156_6633# 0.04998f
+C13 vbn VDD 5.22278f
+C14 bit0 VDD 0.40675f
+C15 vg vbn 1.25347f
+C16 bitb0 bitb1 0.01415f
+C17 bitb3 a_6006_856# 0.21434f
+C18 bitb4 bit3 0.72283f
+C19 a3 VDD 1.30092f
+C20 a_6006_856# bit1 0
+C21 vg a3 0.52938f
+C22 bit0 vbn 0.19017f
+C23 bit2 VDD 0.39745f
+C24 a_6006_856# bit4 0
+C25 a_6006_856# bitb2 0
+C26 a4 a1 0.39821f
+C27 a_6006_856# a_6006_4464# 4.46439f
+C28 vbn bit2 0.1968f
+C29 bitb3 VDD 0.69433f
+C30 a_6006_856# a_6006_14# 8.77249f
+C31 a_6006_856# a_6896_6633# 0.58132f
+C32 vctrl a_6006_856# 0.29907f
+C33 bit1 VDD 0.39742f
+C34 a2 VDD 1.51352f
+C35 bitb3 vbn 0.17637f
+C36 a2 vg 0.41376f
+C37 VDD bit4 0.46603f
+C38 VDD bitb2 0.69427f
+C39 vbn bit1 0.1968f
+C40 bit0 bit1 0.02757f
+C41 a_6156_6633# a_6006_4464# 0.19611f
+C42 VDD a0 1.53853f
+C43 a_6006_856# bitb0 0
+C44 VDD a_6006_4464# 0.19338f
+C45 vg a0 0.401f
+C46 a_6006_856# bit3 0.05036f
+C47 vg a_6006_4464# 2.64584f
+C48 vbn bit4 0.71413f
+C49 a2 a3 0.37174f
+C50 vbn bitb2 0.17549f
+C51 a_6006_14# a_6156_6633# 0.20927f
+C52 bitb3 bit2 0.72283f
+C53 a_6156_6633# a_6896_6633# 0.51911f
+C54 bitb4 a_6006_856# 0.00159f
+C55 vctrl a_6156_6633# 3.22265f
+C56 a_6006_14# VDD 0.19338f
+C57 vbn a_6006_4464# 11.0108f
+C58 a_6006_856# bitb1 0
+C59 VDD a_6896_6633# 0.19338f
+C60 bit1 bit2 0.02757f
+C61 vg a_6006_14# 5.91786f
+C62 vg a_6896_6633# 4.24174f
+C63 vg vctrl 1.07415f
+C64 a4 VDD 1.3832f
+C65 vbn a_6006_14# 9.68657f
+C66 bit2 bitb2 0.3148f
+C67 vbn a_6896_6633# 4.64133f
+C68 bit0 a_6896_6633# 0.00884f
+C69 bitb0 a_6156_6633# 0.21396f
+C70 vctrl vbn 0.19288f
+C71 vg a4 0.45933f
+C72 bitb0 VDD 0.92049f
+C73 bit2 a_6006_4464# 0.04998f
+C74 bit3 VDD 0.39755f
+C75 a_6156_6633# bitb1 0.00121f
+C76 bitb4 VDD 0.69452f
+C77 vbn bitb0 0.07269f
+C78 bit0 bitb0 0.3148f
+C79 a4 a3 0.34397f
+C80 bitb3 bitb2 0.01415f
+C81 bitb1 VDD 0.69427f
+C82 vbn bit3 0.19804f
+C83 bit1 bitb2 0.72283f
+C84 bitb3 a_6006_4464# 0.00121f
+C85 bit1 a_6006_4464# 0.00884f
+C86 bitb4 vbn 0.17807f
+C87 a2 a0 0.00356f
+C88 vbn bitb1 0.17549f
+C89 bit0 bitb1 0.72283f
+C90 bitb3 a_6006_14# 0
+C91 bitb2 a_6006_4464# 0.21396f
+C92 bit3 bit2 0.02757f
+C93 bit1 a_6896_6633# 0.04998f
+C94 a1 VDD 1.2f
+C95 a_6006_14# bit4 0.04998f
+C96 vg a1 0.52711f
+C97 a_6896_6633# bitb2 0.00121f
+C98 a2 a4 0.37969f
+C99 a_6006_14# a_6006_4464# 7.64977f
+C100 bitb3 bit3 0.3148f
+C101 a_6896_6633# a_6006_4464# 4.00067f
+C102 vctrl a_6006_4464# 0.16631f
+C103 a1 a3 0.02066f
+C104 a4 a0 0.16016f
+C105 bitb3 bitb4 0.01415f
+C106 a_6006_856# a_6156_6633# 3.24984f
+C107 a_6006_14# a_6896_6633# 1.26042f
+C108 vctrl a_6006_14# 0.18496f
+C109 a_6006_856# VDD 0.19338f
+C110 bit3 bit4 0.02757f
+C111 bit1 bitb1 0.3148f
+C112 vctrl a_6896_6633# 0.04859f
+C113 vg a_6006_856# 3.0897f
+C114 bitb4 bit4 0.3148f
+C115 a_6006_856# vbn 7.98661f
+C116 bit0 a_6006_856# 0
+C117 bitb1 bitb2 0.01415f
+C118 vctrl VSS 5.2104f
+C119 vg VSS 32.3886f
+C120 bit4 VSS 0.43734f
+C121 bit3 VSS 0.30855f
+C122 bit2 VSS 0.30855f
+C123 bit1 VSS 0.30855f
+C124 bit0 VSS 0.32895f
+C125 vbn VSS 12.4583f
+C126 bitb4 VSS 0.36802f
+C127 bitb3 VSS 0.35171f
+C128 bitb2 VSS 0.35171f
+C129 bitb1 VSS 0.35171f
+C130 bitb0 VSS 0.54812f
+C131 a2 VSS 0.27347f
+C132 a3 VSS 0.42674f
+C133 a1 VSS 0.36628f
+C134 a4 VSS 0.28482f
+C135 a0 VSS 0.50847f
+C136 VDD VSS 70.2654f
+C137 a_6006_14# VSS 24.1452f
+C138 a_6006_856# VSS 15.1703f
+C139 a_6006_4464# VSS 7.90221f
+C140 a_6896_6633# VSS 3.82f
+C141 a_6156_6633# VSS 2.5536f
+.ends
