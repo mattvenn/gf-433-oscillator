@@ -13,6 +13,8 @@ Each entry says where it comes from: **[repo]** a file in a repo, **[sim]** our 
 | Power pins | Metal4 vertical stripes, VDPWR / VGND (+ VAPWR with the `_pgvaa` template) | [repo] `def/analog/magic_init_project.tcl` |
 | Std-cell rows | `GF018hv5v_mcu_sc7` (7-track), 3.92 µm row pitch | [repo] `tt_analog_1x2.def` |
 | Top metal | Metal5 (the 1.19 µm top metal) is not available to TT projects, so no inductors and **no MIM caps**. gf180mcuD's MIM is option B: M4 bottom plate, a thin top plate contacted only through Via4 to Metal5 (PDK analog layout specs, [section 3.43](https://gf180mcu-pdk.readthedocs.io/en/latest/analog/layout/inter_specs/inter_specs_3_43.html)). Large caps are MOS caps | Matt, 2026-11-08 |
+| Hi-res poly | **1 kΩ/sq** (`ppolyf_u_1k`, mask L63 included). The `_2k` / `_3k` models in `sm141064.ngspice` are other process options on the same layers, not available. Matches magic (extracts only `ppolyf_u_1k`) and the KLayout LVS (`poly_res=1K`) | tnt [TT], wafer.space Discord, 2026-11-06 |
+| MIM | 2.0 fF/µm², M4–M5 (option B); unusable for TT projects anyway (no Metal5) | same |
 
 ## Supplies and pins
 | Item | Value | Source |
