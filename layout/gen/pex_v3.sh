@@ -51,3 +51,10 @@ echo "magic $("$MAGIC" --version) $MODE extraction: $(( $(date +%s) - t0 )) s"
 python3 "$REPO/layout/gen/pexfix.py" ${B}_raw.spice $B.sch.spice "$REPO/layout/pex/${B}_${TAG}_$MODE.spice"
 sed -i "1a * extracted $(date -Iseconds) with magic $("$MAGIC" --version), mode $MODE, from $(basename $GDS)" \
   "$REPO/layout/pex/${B}_${TAG}_$MODE.spice"
+# rc: magic lumps each port's / split net's total C (coupling included) to VSS and also writes the coupling caps:
+# rcfix.py removes that double count (docs/rc_extraction_fix.md) -> <top>_<tag>_rcx.spice (use this one for sims)
+if [ "$MODE" = rc ]; then
+  CHK=$REPO/layout/pex/${B}_${TAG}_c.spice
+  python3 "$REPO/layout/gen/rcfix.py" "$REPO/layout/pex/${B}_${TAG}_rc.spice" "$REPO/layout/pex/${B}_${TAG}_rcx.spice" \
+    $( [ -f "$CHK" ] && echo --check "$CHK" )
+fi

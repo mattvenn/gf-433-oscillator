@@ -1,5 +1,9 @@
 # cfed v3 check: extracted range and DAC mismatch (2026-11-08)
 
+> **Correction (2026-11-08 evening):** the RC netlist used here double-counts the coupling C on the ring nodes, vg and
+> vbn (`docs/rc_extraction_fix.md`). The RC frequencies below are about 12–13 % low; the corrected core runs at about
+> 0.98× the schematic. The MC results (monotonicity, DNL, fine/step) are relative and stand.
+
 ## Task 1: v3 at w = 1.2, RC extraction
 - **Layout:** the generator at `wfu=0.30` gives the same magic script as `build/layout_v3_w30` (only the output path differs).
   DRC 0 (magic and KLayout), antenna 0, LVS matches uniquely (`build/check/ring_core_v3_w30_chk/`). Re-extracted as `layout/pex/ring_core_v3_w30chk_rc.spice`.

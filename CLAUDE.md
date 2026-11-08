@@ -53,8 +53,10 @@ machine, ask him to install his private claude-config repo.
 - The GF180 ngspice models give one mismatch draw per instance, ignoring `m`. Split devices into unit instances for MC.
 - Frequency in the current-fed ring must be measured at **mid-swing**: the ring swings vg…VDD, so it never crosses
   VDD/2.
-- The tuning map (`map.csv`) reads about 1.3 % high against a settled ring. The extracted layout runs at about 0.87×
-  the schematic.
+- The tuning map (`map.csv`) reads about 1.3 % high against a settled ring. The extracted layout runs at about 0.98×
+  the schematic (the old "0.87×" was an extraction artefact).
+- **magic `rc` extraction double-counts coupling C on ports and split nets** (their total C goes to VSS *and* the
+  coupling caps stay): always simulate the `_rcx.spice` from `layout/gen/rcfix.py` (`docs/rc_extraction_fix.md`).
 
 ## Public docs in this repo
 These rules come from Matt's global config; they're repeated here because they matter for anything in `docs/`.

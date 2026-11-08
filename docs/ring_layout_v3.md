@@ -23,7 +23,9 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.
 
 - **Effective cw:** 3.4 fF (C) and 6.2 fF (RC).
 - **The code sweep is monotonic.**
-- **Where the RC loss comes from:** the inverters' gate-poly feeds (63 and 102 Ω), as in v2.
+- **Where the RC loss comes from:** ~~the inverters' gate-poly feeds (63 and 102 Ω), as in v2~~. **Corrected:** the RC
+  netlist double-counted the coupling C (`docs/rc_extraction_fix.md`); with that removed the RC column is about 13 % higher,
+  close to the C column. The "RC" effective cw of 6.2 fF is the double count.
 
 ## Decap
 - **Device:** nfet_03v3, 6 × 30.71/4 µm (737 µm²), with the gate on vg and S/D/B on VSS.

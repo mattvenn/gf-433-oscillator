@@ -7,7 +7,7 @@
   python3 sim/lsdiv/lsdiv.py summary                   # tables from build/lsdiv/*.json -> sim/lsdiv/results/
 
 Ring: vco_bias.netlist(topo=cfed, winner reference, lnw 5.023, ka 16, wfu=wff=0.30, rf 1 MOhm, cf 20 pF) with the
-core elements replaced by the extracted layout/pex/ring_core_v3_w30chk_rc.spice (gate-net port vbn -> vbnf).
+core elements replaced by the extracted layout/pex/ring_core_v3_w30chk_rcx.spice (gate-net port vbn -> vbnf).
 Start: DC op with the ring nodes held at the alternating .ic (vbn/vbnf/vg at DC), then f etc. over the last 40 %.
 Block supplies are separate sources (vls: level shifter, vdv: divider + buffer, vff: the DFF) for the power split.
 Outputs: build/lsdiv/<run>/ (decks, logs, raw) and build/lsdiv/<runs>.json.
@@ -26,7 +26,7 @@ from rawread import read_raw  # noqa: E402
 
 OSIC = str(REPO / "tools/osic-mac")
 OUT = REPO / "build/lsdiv"
-PEX = REPO / "layout/pex/ring_core_v3_w30chk_rc.spice"
+PEX = REPO / "layout/pex/ring_core_v3_w30chk_rcx.spice"   # RC with the coupling double count removed (rcfix.py)
 STD = "/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/spice/gf180mcu_fd_sc_mcu7t5v0.spice"
 WINNER = dict(rideal=0, lnp=100.0, lnw=5.023, nsn=14, wpm=56.0, lpm=14.0, mr=4.0)
 CFED = dict(topo="cfed", kc=0.75, k=6, cvg=3e-12, cw=3e-15, ka=16.0, wfu=0.30, wff=0.30, rf=1e6, cf=20e-12)

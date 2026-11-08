@@ -107,7 +107,9 @@ It is to become an **FM radio toolkit**:
 
 ## Known issues and traps
 - **Map reads high:** `map.csv` frequencies read about 1.3 % high (a 100–200 ns window, before vg settles). The
-  extracted layout runs at about 0.87× the schematic.
+  extracted layout runs at about 0.98× the schematic.
+- **magic RC extraction double-counted the coupling C** on ports and split nets, which made the core look 13 % slow
+  (the old "0.87×"). Simulate the `_rcx.spice` files (`layout/gen/rcfix.py`, `docs/rc_extraction_fix.md`).
 - **Kvco is not linear:** the fine leg is flat below about 1 V and square-law above it, so measure Kvco at the
   operating point before setting the FSK step.
 - **xschem-viewer has no GF180 library:** the symbols are copied into `xschem/symbols/`. They render correctly

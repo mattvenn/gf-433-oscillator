@@ -3,8 +3,8 @@
 
 The tuning map (sim/results/2026-11-08/cfed/map.csv) is schematic: on the RC-extracted core its 433.92 codes give
 367-378 MHz (docs/lsdiv_design.md), and it reads ~1.3 % high anyway (100-200 ns window). This re-maps with the
-lsdiv deck: full reference + 1 MOhm / 20 pF filter, extracted core (layout/pex/ring_core_v3_w30chk_rc.spice),
-the drawn lsdiv block (real R1 / C1) on a0, DC op with the ring held, f over 0.72-1.2 us (settled; f_drift reported).
+lsdiv deck: full reference + 1 MOhm / 20 pF filter, extracted core (layout/pex/ring_core_v3_w30chk_rcx.spice:
+the RC netlist with magic's coupling double count removed), the extracted lsdiv block (lsdiv_c.spice) on a0, DC op with the ring held, f over 0.72-1.2 us (settled; f_drift reported).
 
   python3 sim/lsdiv/remap.py codes   [--jobs 8]   # 5 corners x codes 0..31 at vctrl 1.65, 27 C, 3.3 V
   python3 sim/lsdiv/remap.py fine    [--jobs 8]   # per corner, the 4 codes around 433.92 x vctrl 0 / 1.0 / 2.3 / 3.3
@@ -27,6 +27,7 @@ OUT = REPO / "build/remap"
 RES = HERE / "results"
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 F0 = 433.92e6
+BLOCK = "x"     # the extracted lsdiv (layout/pex/lsdiv_c.spice, R1 ppolyf_u_1k); "c" = the schematic block
 VFINE = (0.0, 1.0, 2.3, 3.3)
 # 433.92 codes of the schematic map (lsdiv.CODE433) and of the RC check without the LS (docs/cfed_v3_check.md)
 RC_V3 = dict(typical=12, ss=14, ff=10)
@@ -35,7 +36,7 @@ RC_V3 = dict(typical=12, ss=14, ff=10)
 def deck(c, code, vctrl, tstop):
     p = dict(LS.vb.P, **LS.WINNER, **LS.CFED)
     s = dict(LS.S, real=1)
-    d = LS.ring_deck(p, s, c, 27, code, 3.3, "c", tstop)
+    d = LS.ring_deck(p, s, c, 27, code, 3.3, BLOCK, tstop)
     old = "vctrl vctrl 0 1.65\n"
     assert old in d
     return d.replace(old, f"vctrl vctrl 0 {vctrl}\n")
@@ -49,7 +50,7 @@ def run(points, tag, jobs, tstop):
         dts = dict(ex.map(lambda j: LS.run1(j[0], j[1]), jl))
     rows = []
     for n, _, meta in jl:
-        r = LS.analyse(n, 3.3, "c")
+        r = LS.analyse(n, 3.3, BLOCK)
         r.update(meta, run_s=dts[n])
         rows.append(r)
         print(json.dumps({k: r.get(k) for k in ("corner", "code", "vctrl", "f_a0", "f_drift", "ls_duty", "div_ratio",

@@ -1,5 +1,9 @@
 # 433.92 MHz codes on the extracted core, with the level shifter on a0
 
+> **Superseded (2026-11-08 evening):** this run used the RC netlist with the coupling double count
+> (`docs/rc_extraction_fix.md`), so its core ran about 13 % slow and the codes below are 3–4 too high. Being re-run on
+> the corrected core with the extracted level shifter.
+
 **Problem.** The tuning map (`sim/results/2026-11-08/cfed/map.csv`) is schematic, and it reads about 1.3 % high
 because it measures f at 100–200 ns, before vg settles. On the RC-extracted v3 core its 433.92 MHz codes give only
 367–378 MHz (`docs/lsdiv_design.md`), and the level shifter on a0 pulls f down by another 1.0–1.8 %. Bring-up and

@@ -29,5 +29,6 @@ In use, the servo keeps running between packets to track temperature drift.
 
 **Limits of these figures:**
 - The map reads about 1.3 % high against a fully settled ring (`docs/cfed_startup_results.md`).
-- The extracted layout runs at about 0.87× the schematic frequency (`docs/cfed_v3_check.md`).
+- The extracted layout runs at about 0.98× the schematic frequency (`docs/rc_extraction_fix.md`; the earlier "0.87×"
+  was an extraction artefact).
 - The shapes and the way the two controls combine are unchanged.

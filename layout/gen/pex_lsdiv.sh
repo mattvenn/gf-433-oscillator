@@ -52,6 +52,11 @@ echo "magic $("$MAGIC" --version) $MODE extraction: $(( $(date +%s) - t0 )) s"
 DST=$REPO/layout/pex/${B}_$MODE.spice
 python3 "$REPO/layout/gen/pexfix.py" ${B}_raw.spice xsch/lsdiv.spice "$DST"
 sed -i "1a * extracted $(date -Iseconds) with magic $("$MAGIC" --version), mode $MODE, from $(basename $GDS)" "$DST"
+# rc: remove magic's coupling double count on ports / split nets (docs/rc_extraction_fix.md) -> lsdiv_rcx.spice
+if [ "$MODE" = rc ]; then
+  python3 "$REPO/layout/gen/rcfix.py" "$DST" "$REPO/layout/pex/lsdiv_rcx.spice" \
+    $( [ -f "$REPO/layout/pex/lsdiv_c.spice" ] && echo --check "$REPO/layout/pex/lsdiv_c.spice" )
+fi
 # ---- Cc report: coupling a0-lg, a0 to everything else, lg to everything else (node names grouped by prefix) ----
 python3 - "$DST" <<'PYEOF'
 import re, sys
