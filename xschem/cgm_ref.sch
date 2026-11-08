@@ -5,55 +5,195 @@ K {}
 V {}
 S {}
 E {}
-T {14 in series x m=14} 30 40 0 0 0.3 0.3 {}
-T {14 in series x m=56} 430 40 0 0 0.3 0.3 {}
-T {nwell 2 x 5.023 um} 470 200 0 0 0.3 0.3 {}
-T {nplus_u 2 x 100 um} 470 360 0 0 0.3 0.3 {}
-T {start-up: x high while vbn is low -> MS3 feeds n2 into vbn} 780 -440 0 0 0.3 0.3 {}
-T {ppolyf_u_3k 1 x 318.3 um = 1 MOhm} 1400 -120 0 0 0.3 0.3 {}
-T {20 pF (ideal here; MOS cap on silicon)} 1400 90 0 0 0.3 0.3 {}
-T {vbn RC filter -> vbnf} 1300 -220 0 0 0.35 0.35 {}
-T {cgm_ref: constant-gm reference + vbn RC filter} -400 -640 0 0 0.6 0.6 {}
-T {MN1/MN2 14x14 arrays of 2/1 um, K = 4; PMOS mirror 56/14 um} -400 -590 0 0 0.35 0.35 {}
-T {R = nwell 2 x 5.023 um + nplus_u 2 x 100 um; filter 1 MOhm / 20 pF} -400 -562 0 0 0.35 0.35 {}
-T {sizes from sim/vco/vco_bias.py netlist() (winner set, lnw 5.023)} -400 -534 0 0 0.35 0.35 {}
-C {devices/iopin.sym} -400 -300 0 0 {name=p40
+T {MN2: 14 in series,} 30 420 0 0 0.35 0.35 {}
+T {each 2/1 ×56} 30 450 0 0 0.35 0.35 {}
+T {MN1: 14 in series,} 270 420 0 0 0.35 0.35 {}
+T {each 2/1 ×14} 270 450 0 0 0.35 0.35 {}
+T {start-up} 200 20 0 0 0.35 0.35 {}
+T {RC filter} 740 180 0 0 0.35 0.35 {}
+T {cgm_ref: constant-gm (beta-multiplier) reference + vbn RC filter} -220 -340 0 0 0.7 0.7 {}
+T {K = 4: MN2 is 4x MN1; R = nwell + nplus_u in MN2's source} -220 -280 0 0 0.42 0.42 {}
+T {start-up: MS1 holds x high until vbn rises, MS3 then kicks n2 into vbn} -220 -246 0 0 0.42 0.42 {}
+N -20 -30 -20 -80 {}
+N -20 0 -40 0 {}
+N -40 0 -40 -80 {}
+N 500 -30 500 -80 {}
+N 500 0 520 0 {}
+N 520 0 520 -80 {}
+N 20 300 20 360 {}
+N 20 360 20 420 {}
+N 20 420 20 480 {}
+N 20 480 20 540 {}
+N 20 540 20 600 {}
+N 20 600 20 660 {}
+N 20 660 20 720 {}
+N 20 720 20 780 {}
+N 20 780 20 840 {}
+N 20 840 20 900 {}
+N 20 900 20 960 {}
+N 20 960 20 1020 {}
+N 20 1020 20 1080 {}
+N -20 300 -40 300 {}
+N -20 360 -40 360 {}
+N -20 420 -40 420 {}
+N -20 480 -40 480 {}
+N -20 540 -40 540 {}
+N -20 600 -40 600 {}
+N -20 660 -40 660 {}
+N -20 720 -40 720 {}
+N -20 780 -40 780 {}
+N -20 840 -40 840 {}
+N -20 900 -40 900 {}
+N -20 960 -40 960 {}
+N -20 1020 -40 1020 {}
+N -20 1080 -40 1080 {}
+N 460 300 460 360 {}
+N 460 360 460 420 {}
+N 460 420 460 480 {}
+N 460 480 460 540 {}
+N 460 540 460 600 {}
+N 460 600 460 660 {}
+N 460 660 460 720 {}
+N 460 720 460 780 {}
+N 460 780 460 840 {}
+N 460 840 460 900 {}
+N 460 900 460 960 {}
+N 460 960 460 1020 {}
+N 460 1020 460 1080 {}
+N 500 300 520 300 {}
+N 500 360 520 360 {}
+N 500 420 520 420 {}
+N 500 480 520 480 {}
+N 500 540 520 540 {}
+N 500 600 520 600 {}
+N 500 660 520 660 {}
+N 500 720 520 720 {}
+N 500 780 520 780 {}
+N 500 840 520 840 {}
+N 500 900 520 900 {}
+N 500 960 520 960 {}
+N 500 1020 520 1020 {}
+N 500 1080 520 1080 {}
+N 20 0 20 50 {}
+N 20 50 -20 50 {}
+N -20 30 -20 50 {}
+N -20 50 -20 270 {}
+N 20 0 320 0 {}
+N 320 0 460 0 {}
+N 320 240 320 0 {}
+N 460 300 460 250 {}
+N 460 250 500 250 {}
+N 500 30 500 250 {}
+N 500 250 500 270 {}
+N 20 300 100 300 {}
+N 100 300 320 300 {}
+N 320 300 460 300 {}
+N 120 210 100 210 {}
+N 100 210 100 300 {}
+N 160 140 160 160 {}
+N 160 160 160 180 {}
+N 160 160 280 160 {}
+N 280 160 280 270 {}
+N 120 110 100 110 {}
+N 160 110 180 110 {}
+N 180 110 180 80 {}
+N 180 80 160 80 {}
+N 160 210 180 210 {}
+N 180 210 180 240 {}
+N 180 240 160 240 {}
+N 320 270 340 270 {}
+N -20 1110 -20 1140 {}
+N -20 1200 -20 1230 {}
+N -20 1290 -20 1340 {}
+N -40 300 -40 360 {}
+N -40 360 -40 420 {}
+N -40 420 -40 480 {}
+N -40 480 -40 540 {}
+N -40 540 -40 600 {}
+N -40 600 -40 660 {}
+N -40 660 -40 720 {}
+N -40 720 -40 780 {}
+N -40 780 -40 840 {}
+N -40 840 -40 900 {}
+N -40 900 -40 960 {}
+N -40 960 -40 1020 {}
+N -40 1020 -40 1080 {}
+N -40 1080 -40 1170 {}
+N -40 1170 -40 1260 {}
+N -40 1260 -40 1340 {}
+N 520 300 520 360 {}
+N 520 360 520 420 {}
+N 520 420 520 480 {}
+N 520 480 520 540 {}
+N 520 540 520 600 {}
+N 520 600 520 660 {}
+N 520 660 520 720 {}
+N 520 720 520 780 {}
+N 520 780 520 840 {}
+N 520 840 520 900 {}
+N 520 900 520 960 {}
+N 520 960 520 1020 {}
+N 520 1020 520 1080 {}
+N 520 1080 520 1340 {}
+N 500 1110 500 1340 {}
+N -220 1340 -40 1340 {}
+N -40 1340 -20 1340 {}
+N -20 1340 500 1340 {}
+N 500 1340 520 1340 {}
+N -220 -80 -40 -80 {}
+N -40 -80 -20 -80 {}
+N -20 -80 500 -80 {}
+N 500 -80 520 -80 {}
+N 500 250 780 250 {}
+N 780 250 1000 250 {}
+N 780 250 780 310 {}
+N 780 370 780 420 {}
+N 780 420 780 450 {}
+N 780 420 1000 420 {}
+N 760 340 740 340 {}
+C {devices/iopin.sym} -220 -80 0 1 {name=p2
 lab=VDD}
-C {devices/iopin.sym} -400 -270 0 0 {name=p41
+C {devices/iopin.sym} -220 1340 0 1 {name=p1
 lab=VSS}
-C {devices/iopin.sym} -400 -240 0 0 {name=p42
+C {devices/opin.sym} 1000 250 0 0 {name=p3
 lab=vbn}
-C {devices/iopin.sym} -400 -210 0 0 {name=p43
+C {devices/opin.sym} 1000 420 0 0 {name=p4
 lab=vbnf}
-C {symbols/nfet_03v3.sym} 0 0 0 0 {name=MN1[1:14]
-L=1.0u
-W=2.0u
+C {symbols/pfet_03v3.sym} 0 0 0 1 {name=MP2
+L=14.0u
+W=56.0u
 nf=1
-m=14
-ad=1.0p
-as=1.0p
-pd=5.0u
-ps=5.0u
+m=1
+ad=28.0p
+as=28.0p
+pd=113.0u
+ps=113.0u
 nrd=0
 nrs=0
 sa=0
 sb=0
 sd=0
-model=nfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 20 -30 0 1 {name=p1
-sig_type=std_logic
-lab=vbn,mn1s[1:13]}
-C {devices/lab_pin.sym} -20 0 0 0 {name=p2
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 20 30 0 1 {name=p3
-sig_type=std_logic
-lab=mn1s[1:13],VSS}
-C {devices/lab_pin.sym} 20 0 0 1 {name=p4
-sig_type=std_logic
-lab=VSS}
-C {symbols/nfet_03v3.sym} 400 0 0 0 {name=MN2[1:14]
+model=pfet_03v3
+spiceprefix=X
+val="56/14"}
+C {symbols/pfet_03v3.sym} 480 0 0 0 {name=MP1
+L=14.0u
+W=56.0u
+nf=1
+m=1
+ad=28.0p
+as=28.0p
+pd=113.0u
+ps=113.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=pfet_03v3
+spiceprefix=X
+val="56/14"}
+C {symbols/nfet_03v3.sym} 0 300 0 1 {name=MN2
 L=1.0u
 W=2.0u
 nf=1
@@ -68,106 +208,496 @@ sa=0
 sb=0
 sd=0
 model=nfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 420 -30 0 1 {name=p5
-sig_type=std_logic
-lab=n2,mn2s[1:13]}
-C {devices/lab_pin.sym} 380 0 0 0 {name=p6
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 420 30 0 1 {name=p7
-sig_type=std_logic
-lab=mn2s[1:13],nr}
-C {devices/lab_pin.sym} 420 0 0 1 {name=p8
-sig_type=std_logic
-lab=VSS}
-C {symbols/pfet_03v3.sym} 0 -300 0 0 {name=MP1
-L=14.0u
-W=56.0u
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 360 0 1 {name=MN2s1
+L=1.0u
+W=2.0u
 nf=1
-m=1
-ad=28.0p
-as=28.0p
-pd=113.0u
-ps=113.0u
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
 nrd=0
 nrs=0
 sa=0
 sb=0
 sd=0
-model=pfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 20 -270 0 1 {name=p9
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} -20 -300 0 0 {name=p10
-sig_type=std_logic
-lab=n2}
-C {devices/lab_pin.sym} 20 -330 0 1 {name=p11
-sig_type=std_logic
-lab=VDD}
-C {devices/lab_pin.sym} 20 -300 0 1 {name=p12
-sig_type=std_logic
-lab=VDD}
-C {symbols/pfet_03v3.sym} 400 -300 0 0 {name=MP2
-L=14.0u
-W=56.0u
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 420 0 1 {name=MN2s2
+L=1.0u
+W=2.0u
 nf=1
-m=1
-ad=28.0p
-as=28.0p
-pd=113.0u
-ps=113.0u
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
 nrd=0
 nrs=0
 sa=0
 sb=0
 sd=0
-model=pfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 420 -270 0 1 {name=p13
-sig_type=std_logic
-lab=n2}
-C {devices/lab_pin.sym} 380 -300 0 0 {name=p14
-sig_type=std_logic
-lab=n2}
-C {devices/lab_pin.sym} 420 -330 0 1 {name=p15
-sig_type=std_logic
-lab=VDD}
-C {devices/lab_pin.sym} 420 -300 0 1 {name=p16
-sig_type=std_logic
-lab=VDD}
-C {symbols/nwell.sym} 420 220 0 0 {name=RBW
-W=2.0e-6
-L=5.023e-6
-model=nwell
+model=nfet_03v3
 spiceprefix=X
-m=1}
-C {devices/lab_pin.sym} 420 250 0 1 {name=p17
-sig_type=std_logic
-lab=nr}
-C {devices/lab_pin.sym} 420 190 0 1 {name=p18
-sig_type=std_logic
-lab=nrm}
-C {devices/lab_pin.sym} 400 220 0 0 {name=p19
-sig_type=std_logic
-lab=VSS}
-C {symbols/nplus_u.sym} 420 380 0 0 {name=RBN
-W=2.0e-6
-L=100.0e-6
-model=nplus_u
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 480 0 1 {name=MN2s3
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
 spiceprefix=X
-m=1}
-C {devices/lab_pin.sym} 420 410 0 1 {name=p20
-sig_type=std_logic
-lab=nrm}
-C {devices/lab_pin.sym} 420 350 0 1 {name=p21
-sig_type=std_logic
-lab=VSS}
-C {devices/lab_pin.sym} 400 380 0 0 {name=p22
-sig_type=std_logic
-lab=VSS}
-C {symbols/pfet_03v3.sym} 800 -300 0 0 {name=MS1
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 540 0 1 {name=MN2s4
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 600 0 1 {name=MN2s5
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 660 0 1 {name=MN2s6
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 720 0 1 {name=MN2s7
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 780 0 1 {name=MN2s8
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 840 0 1 {name=MN2s9
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 900 0 1 {name=MN2s10
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 960 0 1 {name=MN2s11
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 1020 0 1 {name=MN2s12
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 0 1080 0 1 {name=MN2s13
+L=1.0u
+W=2.0u
+nf=1
+m=56
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×56"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 300 0 0 {name=MN1
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 360 0 0 {name=MN1s1
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 420 0 0 {name=MN1s2
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 480 0 0 {name=MN1s3
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 540 0 0 {name=MN1s4
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 600 0 0 {name=MN1s5
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 660 0 0 {name=MN1s6
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 720 0 0 {name=MN1s7
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 780 0 0 {name=MN1s8
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 840 0 0 {name=MN1s9
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 900 0 0 {name=MN1s10
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 960 0 0 {name=MN1s11
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 1020 0 0 {name=MN1s12
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/nfet_03v3.sym} 480 1080 0 0 {name=MN1s13
+L=1.0u
+W=2.0u
+nf=1
+m=14
+ad=1.0p
+as=1.0p
+pd=5.0u
+ps=5.0u
+nrd=0
+nrs=0
+sa=0
+sb=0
+sd=0
+model=nfet_03v3
+spiceprefix=X
+val="2/1 ×14"
+hide_texts=true}
+C {symbols/pfet_03v3.sym} 140 110 0 0 {name=MS1
 L=10.0u
 W=0.5u
 nf=1
@@ -182,20 +712,9 @@ sa=0
 sb=0
 sd=0
 model=pfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 820 -270 0 1 {name=p23
-sig_type=std_logic
-lab=x}
-C {devices/lab_pin.sym} 780 -300 0 0 {name=p24
-sig_type=std_logic
-lab=VSS}
-C {devices/lab_pin.sym} 820 -330 0 1 {name=p25
-sig_type=std_logic
-lab=VDD}
-C {devices/lab_pin.sym} 820 -300 0 1 {name=p26
-sig_type=std_logic
-lab=VDD}
-C {symbols/nfet_03v3.sym} 800 -60 0 0 {name=MS2
+spiceprefix=X
+val="0.5/10"}
+C {symbols/nfet_03v3.sym} 140 210 0 0 {name=MS2
 L=0.28u
 W=2.0u
 nf=1
@@ -210,20 +729,9 @@ sa=0
 sb=0
 sd=0
 model=nfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 820 -90 0 1 {name=p27
-sig_type=std_logic
-lab=x}
-C {devices/lab_pin.sym} 780 -60 0 0 {name=p28
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 820 -30 0 1 {name=p29
-sig_type=std_logic
-lab=VSS}
-C {devices/lab_pin.sym} 820 -60 0 1 {name=p30
-sig_type=std_logic
-lab=VSS}
-C {symbols/nfet_03v3.sym} 1050 -180 0 0 {name=MS3
+spiceprefix=X
+val="2/0.28"}
+C {symbols/nfet_03v3.sym} 300 270 0 0 {name=MS3
 L=0.28u
 W=1.0u
 nf=1
@@ -238,40 +746,42 @@ sa=0
 sb=0
 sd=0
 model=nfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 1070 -210 0 1 {name=p31
-sig_type=std_logic
-lab=n2}
-C {devices/lab_pin.sym} 1030 -180 0 0 {name=p32
-sig_type=std_logic
-lab=x}
-C {devices/lab_pin.sym} 1070 -150 0 1 {name=p33
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 1070 -180 0 1 {name=p34
-sig_type=std_logic
+spiceprefix=X
+val="1/0.28"}
+C {symbols/gnd.sym} 100 110 0 0 {name=l1
 lab=VSS}
-C {symbols/ppolyf_u_3k.sym} 1350 -100 0 0 {name=RF
+C {symbols/vdd.sym} 160 80 0 0 {name=l2
+lab=VDD}
+C {symbols/gnd.sym} 160 240 0 0 {name=l3
+lab=VSS}
+C {symbols/gnd.sym} 340 270 0 0 {name=l4
+lab=VSS}
+C {symbols/nwell.sym} -20 1170 2 1 {name=RBW
+W=2.0e-6
+L=5.023e-6
+model=nwell
+spiceprefix=X
+m=1
+val="nwell 2/5.02"}
+C {symbols/nplus_u.sym} -20 1260 2 1 {name=RBN
+W=2.0e-6
+L=100.0e-6
+model=nplus_u
+spiceprefix=X
+m=1
+val="nplus_u 2/100"}
+C {symbols/ppolyf_u_3k.sym} 780 340 2 1 {name=RF
 W=1.0e-6
 L=318.271e-6
 model=ppolyf_u_3k
 spiceprefix=X
-m=1}
-C {devices/lab_pin.sym} 1350 -70 0 1 {name=p35
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 1350 -130 0 1 {name=p36
-sig_type=std_logic
-lab=vbnf}
-C {devices/lab_pin.sym} 1330 -100 0 0 {name=p37
-sig_type=std_logic
-lab=VSS}
-C {devices/capa.sym} 1350 100 0 0 {name=CF
+m=1
+val="1 MΩ (ppolyf 1/318)"}
+C {symbols/cap.sym} 780 480 0 0 {name=CF
 value=2e-11
-m=1}
-C {devices/lab_pin.sym} 1350 70 0 1 {name=p38
-sig_type=std_logic
-lab=vbnf}
-C {devices/lab_pin.sym} 1350 130 0 1 {name=p39
-sig_type=std_logic
+m=1
+val="20 pF"}
+C {symbols/gnd.sym} 740 340 0 0 {name=l5
+lab=VSS}
+C {symbols/gnd.sym} 780 510 0 0 {name=l6
 lab=VSS}

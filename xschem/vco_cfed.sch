@@ -5,124 +5,89 @@ K {}
 V {}
 S {}
 E {}
-T {vbnf: the filtered bias drives the DAC gates} -120 80 0 0 0.3 0.3 {}
-T {vco_cfed: current-fed ring VCO, GF180MCU} -450 -560 0 0 0.6 0.6 {}
-T {cgm_ref -> vbnf -> ring_core_v3 (ring + DAC + vg decap)} -450 -510 0 0 0.35 0.35 {}
-T {code = bit[4:0] (coarse), vctrl (fine); out a0..a4} -450 -482 0 0 0.35 0.35 {}
-T {source of truth: sim/vco/vco_bias.py netlist(), chosen design (xschem/gen/common.py)} -450 -454 0 0 0.35 0.35 {}
-C {devices/iopin.sym} -450 -250 0 0 {name=p25
+T {vco_cfed: current-fed ring VCO, GF180MCU} -100 -520 0 0 0.7 0.7 {}
+T {cgm_ref -> vbnf -> ring_core_v3; code = bit[4:0] (coarse) + vctrl (fine); out a0..a4} -100 -460 0 0 0.42 0.42 {}
+T {source of truth: sim/vco/vco_bias.py netlist(), chosen design (xschem/gen/common.py)} -100 -426 0 0 0.42 0.42 {}
+N -100 -220 480 -220 {}
+N -100 -180 480 -180 {}
+N -100 -140 480 -140 {}
+N -100 -100 480 -100 {}
+N -100 -60 480 -60 {}
+N -100 -20 480 -20 {}
+N -100 20 480 20 {}
+N -100 60 480 60 {}
+N -100 100 480 100 {}
+N -100 140 480 140 {}
+N -100 180 480 180 {}
+N 720 -220 900 -220 {}
+N 720 -180 900 -180 {}
+N 720 -140 900 -140 {}
+N 720 -100 900 -100 {}
+N 720 -60 900 -60 {}
+N 720 -20 900 -20 {}
+N 300 380 380 380 {}
+N 380 380 380 220 {}
+N 380 220 480 220 {}
+N 380 380 380 540 {}
+N 380 540 900 540 {}
+N 300 420 320 420 {}
+N 320 420 320 580 {}
+N 320 580 900 580 {}
+N -100 640 -40 640 {}
+N -100 700 -40 700 {}
+C {devices/iopin.sym} -100 640 0 1 {name=p20
 lab=VDD}
-C {devices/iopin.sym} -450 -220 0 0 {name=p26
+C {devices/iopin.sym} -100 700 0 1 {name=p21
 lab=VSS}
-C {devices/iopin.sym} -450 -190 0 0 {name=p27
+C {devices/ipin.sym} -100 180 0 0 {name=p11
 lab=vctrl}
-C {devices/iopin.sym} -450 -160 0 0 {name=p28
+C {devices/ipin.sym} -100 100 0 0 {name=p9
 lab=bit0}
-C {devices/iopin.sym} -450 -130 0 0 {name=p29
+C {devices/ipin.sym} -100 20 0 0 {name=p7
 lab=bit1}
-C {devices/iopin.sym} -450 -100 0 0 {name=p30
+C {devices/ipin.sym} -100 -60 0 0 {name=p5
 lab=bit2}
-C {devices/iopin.sym} -450 -70 0 0 {name=p31
+C {devices/ipin.sym} -100 -140 0 0 {name=p3
 lab=bit3}
-C {devices/iopin.sym} -450 -40 0 0 {name=p32
+C {devices/ipin.sym} -100 -220 0 0 {name=p1
 lab=bit4}
-C {devices/iopin.sym} -450 -10 0 0 {name=p33
+C {devices/ipin.sym} -100 140 0 0 {name=p10
 lab=bitb0}
-C {devices/iopin.sym} -450 20 0 0 {name=p34
+C {devices/ipin.sym} -100 60 0 0 {name=p8
 lab=bitb1}
-C {devices/iopin.sym} -450 50 0 0 {name=p35
+C {devices/ipin.sym} -100 -20 0 0 {name=p6
 lab=bitb2}
-C {devices/iopin.sym} -450 80 0 0 {name=p36
+C {devices/ipin.sym} -100 -100 0 0 {name=p4
 lab=bitb3}
-C {devices/iopin.sym} -450 110 0 0 {name=p37
+C {devices/ipin.sym} -100 -180 0 0 {name=p2
 lab=bitb4}
-C {devices/iopin.sym} -450 140 0 0 {name=p38
+C {devices/opin.sym} 900 -220 0 0 {name=p12
 lab=a0}
-C {devices/iopin.sym} -450 170 0 0 {name=p39
+C {devices/opin.sym} 900 -180 0 0 {name=p13
 lab=a1}
-C {devices/iopin.sym} -450 200 0 0 {name=p40
+C {devices/opin.sym} 900 -140 0 0 {name=p14
 lab=a2}
-C {devices/iopin.sym} -450 230 0 0 {name=p41
+C {devices/opin.sym} 900 -100 0 0 {name=p15
 lab=a3}
-C {devices/iopin.sym} -450 260 0 0 {name=p42
+C {devices/opin.sym} 900 -60 0 0 {name=p16
 lab=a4}
-C {devices/iopin.sym} -450 290 0 0 {name=p43
+C {devices/iopin.sym} 900 -20 0 0 {name=p17
 lab=vg}
-C {devices/iopin.sym} -450 320 0 0 {name=p44
+C {devices/opin.sym} 900 580 0 0 {name=p19
 lab=vbn}
-C {devices/iopin.sym} -450 350 0 0 {name=p45
+C {devices/opin.sym} 900 540 0 0 {name=p18
 lab=vbnf}
-C {cgm_ref.sym} 0 0 0 0 {name=xref}
-C {devices/lab_pin.sym} -100 -20 0 0 {name=p1
-sig_type=std_logic
+C {ring_core_v3.sym} 600 0 0 0 {name=xcore}
+C {cgm_ref.sym} 200 400 0 0 {name=xref}
+C {symbols/vdd.sym} 530 -270 0 0 {name=l1
 lab=VDD}
-C {devices/lab_pin.sym} -100 20 0 0 {name=p2
-sig_type=std_logic
+C {symbols/gnd.sym} 530 270 0 0 {name=l2
 lab=VSS}
-C {devices/lab_pin.sym} 100 -20 0 1 {name=p3
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 100 20 0 1 {name=p4
-sig_type=std_logic
-lab=vbnf}
-C {ring_core_v3.sym} 500 0 0 0 {name=xcore}
-C {devices/lab_pin.sym} 380 -260 0 0 {name=p5
-sig_type=std_logic
+C {symbols/vdd.sym} 150 330 0 0 {name=l3
 lab=VDD}
-C {devices/lab_pin.sym} 380 -220 0 0 {name=p6
-sig_type=std_logic
+C {symbols/gnd.sym} 150 470 0 0 {name=l4
 lab=VSS}
-C {devices/lab_pin.sym} 380 -180 0 0 {name=p7
-sig_type=std_logic
-lab=vbnf}
-C {devices/lab_pin.sym} 380 -140 0 0 {name=p8
-sig_type=std_logic
-lab=vctrl}
-C {devices/lab_pin.sym} 620 -260 0 1 {name=p9
-sig_type=std_logic
-lab=vg}
-C {devices/lab_pin.sym} 380 -100 0 0 {name=p10
-sig_type=std_logic
-lab=bit0}
-C {devices/lab_pin.sym} 380 -60 0 0 {name=p11
-sig_type=std_logic
-lab=bit1}
-C {devices/lab_pin.sym} 380 -20 0 0 {name=p12
-sig_type=std_logic
-lab=bit2}
-C {devices/lab_pin.sym} 380 20 0 0 {name=p13
-sig_type=std_logic
-lab=bit3}
-C {devices/lab_pin.sym} 380 60 0 0 {name=p14
-sig_type=std_logic
-lab=bit4}
-C {devices/lab_pin.sym} 380 100 0 0 {name=p15
-sig_type=std_logic
-lab=bitb0}
-C {devices/lab_pin.sym} 380 140 0 0 {name=p16
-sig_type=std_logic
-lab=bitb1}
-C {devices/lab_pin.sym} 380 180 0 0 {name=p17
-sig_type=std_logic
-lab=bitb2}
-C {devices/lab_pin.sym} 380 220 0 0 {name=p18
-sig_type=std_logic
-lab=bitb3}
-C {devices/lab_pin.sym} 380 260 0 0 {name=p19
-sig_type=std_logic
-lab=bitb4}
-C {devices/lab_pin.sym} 620 -220 0 1 {name=p20
-sig_type=std_logic
-lab=a0}
-C {devices/lab_pin.sym} 620 -180 0 1 {name=p21
-sig_type=std_logic
-lab=a1}
-C {devices/lab_pin.sym} 620 -140 0 1 {name=p22
-sig_type=std_logic
-lab=a2}
-C {devices/lab_pin.sym} 620 -100 0 1 {name=p23
-sig_type=std_logic
-lab=a3}
-C {devices/lab_pin.sym} 620 -60 0 1 {name=p24
-sig_type=std_logic
-lab=a4}
+C {symbols/vdd.sym} -40 640 0 0 {name=l5
+lab=VDD}
+C {symbols/gnd.sym} -40 700 0 0 {name=l6
+lab=VSS}

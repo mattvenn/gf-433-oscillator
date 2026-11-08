@@ -25,6 +25,10 @@ LIB_PINS = {
     'devices/ind.sym': {'p': (0, -30), 'm': (0, 30)},
     'devices/vcvs.sym': {'p': (0, -30), 'm': (0, 30), 'cp': (-40, -20), 'cm': (-40, 20)},
     'devices/gnd.sym': {'p': (0, 0)},
+    'devices/vdd.sym': {'p': (0, 0)},
+    'symbols/vdd.sym': {'p': (0, 0)},
+    'symbols/gnd.sym': {'p': (0, 0)},
+    'symbols/cap.sym': {'p': (0, -30), 'm': (0, 30)},
     'devices/lab_pin.sym': {'p': (0, 0)},
     'devices/ipin.sym': {'p': (0, 0)},
     'devices/opin.sym': {'p': (0, 0)},
@@ -219,9 +223,10 @@ class Sch:
         if self.pin_order:
             # ports first, in pin_order: keeps the netlist's *.PININFO order
             # independent of where the ports are drawn
-            ports_ = sorted((i for i in items if i.sym == 'devices/iopin.sym'),
+            pin_syms = ('devices/iopin.sym', 'devices/ipin.sym', 'devices/opin.sym')
+            ports_ = sorted((i for i in items if i.sym in pin_syms),
                             key=lambda i: self.pin_order.index(i.props['lab']))
-            items = ports_ + [i for i in items if i.sym != 'devices/iopin.sym']
+            items = ports_ + [i for i in items if i.sym not in pin_syms]
         lines += [i.text() for i in items]
         with open(path, 'w') as fh:
             fh.write('\n'.join(lines) + '\n')
@@ -265,11 +270,13 @@ def inv(sch, x, y, pkw, nkw, h=75):
     return p, n, g, d
 
 
-def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=None):
+def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=None, order=None, label=None, dirs=None):
     """Box symbol for a subcircuit: pins listed per side, 40 units apart.
     Pin order in the netlist = order given (left, right, top, bottom).
     params = {name: default}: passed per instance; xschem puts the defaults on
-    the .subckt line, so the schematic can use them as 'name'."""
+    the .subckt line, so the schematic can use them as 'name'.
+    order: the netlist pin order (sim_pinnumber) when it differs from the drawing order;
+    label: the text inside the box (default @symname)."""
     nl, nr = len(left), len(right)
     h = max(nl, nr, 1) * 40 + 20
     w2, h2 = width // 2, h // 2
@@ -284,9 +291,9 @@ def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=N
     n = 0
     def pin(name, x, y, tx, ty, flip):
         nonlocal n
-        n += 1
-        out.append(f'B 5 {x-2.5} {y-2.5} {x+2.5} {y+2.5} {{name={name} dir=inout sim_pinnumber={n}}}')
-        out.append(f'T {{{name}}} {tx} {ty} 0 {flip} 0.2 0.2 {{}}')
+        n = order.index(name) + 1 if order else n + 1
+        out.append(f'B 5 {x-2.5} {y-2.5} {x+2.5} {y+2.5} {{name={name} dir={(dirs or {}).get(name, "inout")} sim_pinnumber={n}}}')
+        out.append(f'T {{{name}}} {tx} {ty} 0 {flip} 0.25 0.25 {{}}')
     for i, nm in enumerate(left):
         y = -h2 + 30 + i * 40
         out.append(f'L 7 -{w2+20} {y} -{w2} {y} {{}}'); pin(nm, -w2 - 20, y, -w2 + 5, y - 6, 0)
@@ -299,7 +306,7 @@ def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=N
     for i, nm in enumerate(bottom):
         x = -w2 + 30 + i * 40
         out.append(f'L 7 {x} {h2} {x} {h2+20} {{}}'); pin(nm, x, h2 + 20, x - 6, h2 - 20, 0)
-    out.append('T {@symname} -40 -6 0 0 0.3 0.3 {}')
+    out.append(f'T {{{label or "@symname"}}} 0 -10 0 0 0.35 0.35 {{hcenter=true}}')
     out.append(f'T {{@name}} {w2-30} -{h2+20} 0 0 0.2 0.2 {{}}')
     with open(path, 'w') as fh:
         fh.write('\n'.join(out) + '\n')

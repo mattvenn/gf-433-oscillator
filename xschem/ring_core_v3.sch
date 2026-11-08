@@ -5,123 +5,83 @@ K {}
 V {}
 S {}
 E {}
-T {vg decap ~3 pF: 6 x 30.71/4 um} 560 330 0 0 0.3 0.3 {}
-T {as the v3 layout (gate on vg, S/D/B on VSS)} 560 355 0 0 0.3 0.3 {}
-T {ring_core_v3: cfed ring + DAC + vg decap} -250 -560 0 0 0.6 0.6 {}
-T {the LVS source of layout/ring_core_v3.gds} -250 -510 0 0 0.35 0.35 {}
-T {vbn here = the DAC gate; vco_cfed drives it from the filtered vbnf} -250 -482 0 0 0.35 0.35 {}
-C {devices/iopin.sym} -250 -300 0 0 {name=p28
+T {vg decap ~3 pF} 150 -40 0 0 0.35 0.35 {}
+T {ring_core_v3: cfed ring + DAC + vg decap} -300 -520 0 0 0.7 0.7 {}
+T {the LVS source of layout/ring_core_v3.gds} -300 -460 0 0 0.42 0.42 {}
+T {vbn here is the DAC gate bias; vco_cfed drives it from the filtered vbnf} -300 -426 0 0 0.42 0.42 {}
+N -300 -220 -100 -220 {}
+N -300 -180 -100 -180 {}
+N -300 -140 -100 -140 {}
+N -300 -100 -100 -100 {}
+N -300 -60 -100 -60 {}
+N -300 -20 -100 -20 {}
+N -300 20 -100 20 {}
+N -300 60 -100 60 {}
+N -300 100 -100 100 {}
+N -300 140 -100 140 {}
+N -300 180 -100 180 {}
+N -300 220 -100 220 {}
+N 100 -220 180 -220 {}
+N 180 -220 370 -220 {}
+N 370 -220 400 -220 {}
+N 180 -220 180 -120 {}
+N 220 -150 240 -150 {}
+N 220 -120 240 -120 {}
+N 240 -150 240 -120 {}
+N 240 -120 240 -90 {}
+N 220 -90 240 -90 {}
+N 370 -220 370 60 {}
+N 370 60 800 60 {}
+N 600 -220 800 -220 {}
+N 600 -180 800 -180 {}
+N 600 -140 800 -140 {}
+N 600 -100 800 -100 {}
+N 600 -60 800 -60 {}
+N -300 360 -240 360 {}
+N -300 420 -240 420 {}
+C {devices/iopin.sym} -300 360 0 1 {name=p19
 lab=VDD}
-C {devices/iopin.sym} -250 -270 0 0 {name=p29
+C {devices/iopin.sym} -300 420 0 1 {name=p20
 lab=VSS}
-C {devices/iopin.sym} -250 -240 0 0 {name=p30
+C {devices/ipin.sym} -300 220 0 0 {name=p12
 lab=vbn}
-C {devices/iopin.sym} -250 -210 0 0 {name=p31
+C {devices/ipin.sym} -300 180 0 0 {name=p11
 lab=vctrl}
-C {devices/iopin.sym} -250 -180 0 0 {name=p32
+C {devices/ipin.sym} -300 100 0 0 {name=p9
 lab=bit0}
-C {devices/iopin.sym} -250 -150 0 0 {name=p33
+C {devices/ipin.sym} -300 20 0 0 {name=p7
 lab=bit1}
-C {devices/iopin.sym} -250 -120 0 0 {name=p34
+C {devices/ipin.sym} -300 -60 0 0 {name=p5
 lab=bit2}
-C {devices/iopin.sym} -250 -90 0 0 {name=p35
+C {devices/ipin.sym} -300 -140 0 0 {name=p3
 lab=bit3}
-C {devices/iopin.sym} -250 -60 0 0 {name=p36
+C {devices/ipin.sym} -300 -220 0 0 {name=p1
 lab=bit4}
-C {devices/iopin.sym} -250 -30 0 0 {name=p37
+C {devices/ipin.sym} -300 140 0 0 {name=p10
 lab=bitb0}
-C {devices/iopin.sym} -250 0 0 0 {name=p38
+C {devices/ipin.sym} -300 60 0 0 {name=p8
 lab=bitb1}
-C {devices/iopin.sym} -250 30 0 0 {name=p39
+C {devices/ipin.sym} -300 -20 0 0 {name=p6
 lab=bitb2}
-C {devices/iopin.sym} -250 60 0 0 {name=p40
+C {devices/ipin.sym} -300 -100 0 0 {name=p4
 lab=bitb3}
-C {devices/iopin.sym} -250 90 0 0 {name=p41
+C {devices/ipin.sym} -300 -180 0 0 {name=p2
 lab=bitb4}
-C {devices/iopin.sym} -250 120 0 0 {name=p42
+C {devices/iopin.sym} 800 60 0 0 {name=p13
 lab=vg}
-C {devices/iopin.sym} -250 150 0 0 {name=p43
+C {devices/opin.sym} 800 -220 0 0 {name=p14
 lab=a0}
-C {devices/iopin.sym} -250 180 0 0 {name=p44
+C {devices/opin.sym} 800 -180 0 0 {name=p15
 lab=a1}
-C {devices/iopin.sym} -250 210 0 0 {name=p45
+C {devices/opin.sym} 800 -140 0 0 {name=p16
 lab=a2}
-C {devices/iopin.sym} -250 240 0 0 {name=p46
+C {devices/opin.sym} 800 -100 0 0 {name=p17
 lab=a3}
-C {devices/iopin.sym} -250 270 0 0 {name=p47
+C {devices/opin.sym} 800 -60 0 0 {name=p18
 lab=a4}
-C {cfed_ring.sym} 700 -60 0 0 {name=xring}
-C {devices/lab_pin.sym} 600 -140 0 0 {name=p1
-sig_type=std_logic
-lab=VDD}
-C {devices/lab_pin.sym} 600 -100 0 0 {name=p2
-sig_type=std_logic
-lab=vg}
-C {devices/lab_pin.sym} 600 -60 0 0 {name=p3
-sig_type=std_logic
-lab=VSS}
-C {devices/lab_pin.sym} 800 -140 0 1 {name=p4
-sig_type=std_logic
-lab=a0}
-C {devices/lab_pin.sym} 800 -100 0 1 {name=p5
-sig_type=std_logic
-lab=a1}
-C {devices/lab_pin.sym} 800 -60 0 1 {name=p6
-sig_type=std_logic
-lab=a2}
-C {devices/lab_pin.sym} 800 -20 0 1 {name=p7
-sig_type=std_logic
-lab=a3}
-C {devices/lab_pin.sym} 800 20 0 1 {name=p8
-sig_type=std_logic
-lab=a4}
-C {cfed_dac.sym} 200 0 0 0 {name=xdac}
-C {devices/lab_pin.sym} 90 -240 0 0 {name=p9
-sig_type=std_logic
-lab=vg}
-C {devices/lab_pin.sym} 90 -200 0 0 {name=p10
-sig_type=std_logic
-lab=vbn}
-C {devices/lab_pin.sym} 90 -160 0 0 {name=p11
-sig_type=std_logic
-lab=vctrl}
-C {devices/lab_pin.sym} 310 -240 0 1 {name=p12
-sig_type=std_logic
-lab=VDD}
-C {devices/lab_pin.sym} 310 -200 0 1 {name=p13
-sig_type=std_logic
-lab=VSS}
-C {devices/lab_pin.sym} 90 -120 0 0 {name=p14
-sig_type=std_logic
-lab=bit0}
-C {devices/lab_pin.sym} 90 -80 0 0 {name=p15
-sig_type=std_logic
-lab=bit1}
-C {devices/lab_pin.sym} 90 -40 0 0 {name=p16
-sig_type=std_logic
-lab=bit2}
-C {devices/lab_pin.sym} 90 0 0 0 {name=p17
-sig_type=std_logic
-lab=bit3}
-C {devices/lab_pin.sym} 90 40 0 0 {name=p18
-sig_type=std_logic
-lab=bit4}
-C {devices/lab_pin.sym} 90 80 0 0 {name=p19
-sig_type=std_logic
-lab=bitb0}
-C {devices/lab_pin.sym} 90 120 0 0 {name=p20
-sig_type=std_logic
-lab=bitb1}
-C {devices/lab_pin.sym} 90 160 0 0 {name=p21
-sig_type=std_logic
-lab=bitb2}
-C {devices/lab_pin.sym} 90 200 0 0 {name=p22
-sig_type=std_logic
-lab=bitb3}
-C {devices/lab_pin.sym} 90 240 0 0 {name=p23
-sig_type=std_logic
-lab=bitb4}
-C {symbols/nfet_03v3.sym} 520 260 0 0 {name=DC
+C {cfed_dac.sym} 0 0 0 0 {name=xdac}
+C {cfed_ring.sym} 500 -140 0 0 {name=xring}
+C {symbols/nfet_03v3.sym} 200 -120 0 0 {name=DC
 L=4.0u
 W=30.71u
 nf=1
@@ -136,16 +96,19 @@ sa=0
 sb=0
 sd=0
 model=nfet_03v3
-spiceprefix=X}
-C {devices/lab_pin.sym} 540 230 0 1 {name=p24
-sig_type=std_logic
+spiceprefix=X
+val="30.71/4 ×6"}
+C {symbols/gnd.sym} 240 -90 0 0 {name=l1
 lab=VSS}
-C {devices/lab_pin.sym} 500 260 0 0 {name=p25
-sig_type=std_logic
-lab=vg}
-C {devices/lab_pin.sym} 540 290 0 1 {name=p26
-sig_type=std_logic
+C {symbols/vdd.sym} -50 -270 0 0 {name=l2
+lab=VDD}
+C {symbols/gnd.sym} -50 270 0 0 {name=l3
 lab=VSS}
-C {devices/lab_pin.sym} 540 260 0 1 {name=p27
-sig_type=std_logic
+C {symbols/vdd.sym} 450 -270 0 0 {name=l4
+lab=VDD}
+C {symbols/gnd.sym} 450 -10 0 0 {name=l5
+lab=VSS}
+C {symbols/vdd.sym} -240 360 0 0 {name=l6
+lab=VDD}
+C {symbols/gnd.sym} -240 420 0 0 {name=l7
 lab=VSS}

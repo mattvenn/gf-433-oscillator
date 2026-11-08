@@ -1,75 +1,131 @@
 """
 cgm_ref: the constant-gm (beta-multiplier) reference and the vbn RC filter, as
-sim/vco/vco_bias.py netlist() with the chosen sizing (common.CHOSEN):
+sim/vco/vco_bias.py netlist() with the chosen sizing (common.WINNER):
 
-  MN1 (diode, vbn) and MN2 (K = kb x MN1, source on R): each a series-parallel array of
-      nsn units in series x nsn (MN2: nsn x kb) in parallel, unit w1/l1. Drawn as one
-      vector instance per array (MN1[1:nsn]): xschem netlists it as nsn devices, the
-      i-th from node i to node i+1 of the series chain.
+  MN1 (diode, vbn) and MN2 (K = kb x MN1, source on R): each nsn units in series, unit w1/l1 x m
+      (MN1 m = nsn, MN2 m = nsn x kb). Drawn as the real stacks, unit on unit, gates on one wire.
   R = nwell (rw x lnw) in series with nplus_u (rw x lnp), MN2 source to VSS.
   PMOS mirror MP1/MP2 (wpm/lpm), MP2 the diode.
   Start-up: MS1 (weak, long PMOS, always on) pulls x high while vbn is low, MS3 then feeds
       n2 -> vbn; once vbn is up MS2 pulls x low and MS3 turns off.
-  Filter: XRF ppolyf_u_3k rf ohm, CF cf to VSS -> vbnf (CF ideal here, as in vco_bias:
+  Filter: RF ppolyf_u_3k rf ohm, CF cf to VSS -> vbnf (CF ideal here, as in vco_bias:
       a MOS cap in layout).
 vco_bias's Rvbn (1 ohm, naming n1 as vbn) is a plain net here: n1 = vbn.
 
+Textbook layout: VDD rail on top, PMOS mirror (gates joined), the two NMOS stacks under them (gates
+joined), R under MN2, VSS rail at the bottom; the start-up sits between the two branches, where it
+reaches n2 (the PMOS gate wire) and vbn (the NMOS gate wire) without crossing anything.
+
     python3 xschem/gen/cgm_ref.py
 """
-from common import DEV, P, Sch, place, ports, finish, title, gmos
+from common import DEV, P, Sch, place, vmirror, finish, title, bulk, port, supply
 
 PINS = ['VDD', 'VSS', 'vbn', 'vbnf']
+NS = int(P['nsn'])
 
 
-def array(s, nm, x, y, top, bot):
-    """nsn-unit series chain as one vector instance; check it against vco_bias's devices."""
-    ns = int(P['nsn'])
-    units = [DEV[nm]] + [DEV[f'{nm}s{i}'] for i in range(1, ns)]
-    chain = [top] + [f'{nm.lower()}s{i}' for i in range(1, ns)] + [bot]
-    for i, u in enumerate(units):
-        assert u['nets'][0] == chain[i] and u['nets'][2] == chain[i + 1] and u['nets'][1] == 'vbn'
+def stack(s, nm, x, y0, flip, top, bot):
+    """The nsn-unit series stack of vco_bias device nm, unit k at y0 + 60 k, pin on pin.
+    Returns (units, gate x, bulk x)."""
+    units = [DEV[nm]] + [DEV[f'{nm}s{i}'] for i in range(1, NS)]
+    chain = [top] + [f'{nm.lower()}s{i}' for i in range(1, NS)] + [bot]
+    insts = []
+    for k, u in enumerate(units):
+        assert u['nets'] == [chain[k], 'vbn', chain[k + 1], 'VSS']
         assert (u['w'], u['l'], u['m']) == (units[0]['w'], units[0]['l'], units[0]['m'])
-    u = units[0]
-    inst = gmos(s, 'n', x, y, W=u['w'], L=u['l'], m=u['m'], name=f'{nm}[1:{ns}]')
-    # vector pins: unit i's D is chain[i], its S chain[i+1] (xschem bus shorthand; the internal
-    # nodes netlist as mn1s[1]..: names only, netgen matches them to vco_bias's mn1s1..)
-    mid = f'{nm.lower()}s[1:{ns - 1}]'
-    s.connect(inst, D=f'{top},{mid}', G='vbn', S=f'{mid},{bot}', B='VSS')
-    s.text(x + 30, y + 40, f'{ns} in series x m={u["m"]}', 0.3)
-    return inst
+        insts.append(place(s, nm if k == 0 else f'{nm}s{k}', x, y0 + 60 * k, flip=flip, hide=True, dev=u))
+    gx, bx = insts[0].pin('G')[0], insts[0].pin('B')[0] + 20 * (1 if not flip else -1)
+    s.bus((gx, y0), (gx, y0 + 60 * (NS - 1)), [i.pin('G') for i in insts])
+    for i in insts:
+        s.wire(i.pin('B'), (bx, i.pin('B')[1]))
+    return insts, gx, bx
 
 
 def build():
     s = Sch()
-    array(s, 'MN1', 0, 0, 'vbn', 'VSS')
-    array(s, 'MN2', 400, 0, 'n2', 'nr')
-    place(s, 'MP1', 0, -300)
-    place(s, 'MP2', 400, -300)
-    place(s, 'RBW', 420, 220)
-    place(s, 'RBN', 420, 380)
-    s.text(470, 200, f"nwell {DEV['RBW']['w']:g} x {DEV['RBW']['l']:g} um", 0.3)
-    s.text(470, 360, f"nplus_u {DEV['RBN']['w']:g} x {DEV['RBN']['l']:g} um", 0.3)
-    # start-up
-    place(s, 'MS1', 800, -300)
-    place(s, 'MS2', 800, -60)
-    place(s, 'MS3', 1050, -180)
-    s.text(780, -440, 'start-up: x high while vbn is low -> MS3 feeds n2 into vbn', 0.3)
-    # filter
-    rf = place(s, 'RF', 1350, -100)
-    cf = DEV['CF']
-    c = s.place('devices/capa.sym', 1350, 100, name='CF', value=cf['value'], m='1')
-    s.connect(c, p=cf['nets'][0], m=cf['nets'][1])
-    s.text(1400, -120, f"ppolyf_u_3k {DEV['RF']['w']:g} x {DEV['RF']['l']:.4g} um = {P['rf'] / 1e6:g} MOhm", 0.3)
-    s.text(1400, 90, f"{P['cf'] * 1e12:g} pF (ideal here; MOS cap on silicon)", 0.3)
-    s.text(1300, -220, 'vbn RC filter -> vbnf', 0.35)
-    ports(s, -400, -300, PINS)
-    title(s, -400, -640, ['cgm_ref: constant-gm reference + vbn RC filter',
-                          f"MN1/MN2 {P['nsn']:g}x{P['nsn']:g} arrays of {P['w1']:g}/{P['l1']:g} um, K = {P['kb']}; "
-                          f"PMOS mirror {P['wpm']:g}/{P['lpm']:g} um",
-                          f"R = nwell {P['rw']:g} x {P['lnw']:g} um + nplus_u {P['rw']:g} x {P['lnp']:g} um; "
-                          f"filter {P['rf'] / 1e6:g} MOhm / {P['cf'] * 1e12:g} pF",
-                          'sizes from sim/vco/vco_bias.py netlist() (winner set, lnw 5.023)'])
-    finish(s, 'cgm_ref', PINS, left=['VDD', 'VSS'], right=['vbn', 'vbnf'], width=160)
+    xl, xr = -220, 1000
+    yvdd, yss, yn0 = -80, 1340, 300
+    XL, XR = 0, 480                     # left branch (n2: MP2, MN2, R) flipped; right branch (vbn: MP1, MN1)
+    # ---- PMOS mirror
+    mp2 = place(s, 'MP2', XL, 0, flip=1)
+    mp1 = place(s, 'MP1', XR, 0)
+    assert mp2.nets == dict(D='n2', G='n2', S='VDD', B='VDD') and mp1.nets == dict(D='vbn', G='n2', S='VDD', B='VDD')
+    vtaps = []
+    for m in (mp2, mp1):
+        s.wire(m.pin('S'), (m.pin('S')[0], yvdd)); vtaps.append((m.pin('S')[0], yvdd))
+        vtaps.append(bulk(s, m, y=yvdd))
+    # ---- NMOS stacks, MN2 under MP2, MN1 under MP1
+    mn2, g2x, b2x = stack(s, 'MN2', XL, yn0, 1, 'n2', 'nr')
+    mn1, g1x, b1x = stack(s, 'MN1', XR, yn0, 0, 'vbn', 'VSS')
+    # ---- start-up, between the branches
+    ms1 = place(s, 'MS1', 140, 110)
+    ms2 = place(s, 'MS2', 140, 210)
+    ms3 = place(s, 'MS3', 300, 270)
+    assert ms1.nets == dict(D='x', G='VSS', S='VDD', B='VDD') and ms2.nets == dict(D='x', G='vbn', S='VSS', B='VSS')
+    assert ms3.nets == dict(D='n2', G='x', S='vbn', B='VSS')
+    # n2: MP2 diode, the PMOS gate wire (tapped by MS3's drain), MP2 drain down to MN2
+    n2d = (mp2.pin('D')[0], 50)
+    s.route(mp2.pin('G'), (mp2.pin('G')[0], 50), n2d, vfirst=True)
+    s.bus(mp2.pin('D'), mn2[0].pin('D'), [n2d])
+    ms3d = (ms3.pin('D')[0], 0)
+    s.bus(mp2.pin('G'), mp1.pin('G'), [ms3d])
+    s.wire(ms3.pin('D'), ms3d)
+    # vbn: MN1 diode, the NMOS gate wire (tapped by MS3's source and MS2's gate), MP1 drain to MN1
+    vbd = (mp1.pin('D')[0], 250)
+    s.route(mn1[0].pin('G'), (mn1[0].pin('G')[0], 250), vbd, vfirst=True)
+    s.bus(mp1.pin('D'), mn1[0].pin('D'), [vbd])
+    s.bus(mn2[0].pin('G'), mn1[0].pin('G'), [ms3.pin('S'), (100, yn0)])
+    s.route(ms2.pin('G'), (100, ms2.pin('G')[1]), (100, yn0))
+    # x: MS1 / MS2 drains -> MS3 gate
+    xj = (ms1.pin('D')[0], 160)
+    s.bus(ms1.pin('D'), ms2.pin('D'), [xj])
+    s.route(xj, (ms3.pin('G')[0], 160), ms3.pin('G'), vfirst=False)
+    s.wire(ms1.pin('G'), (100, ms1.pin('G')[1])); supply(s, (100, ms1.pin('G')[1]), 'VSS')
+    bulk(s, ms1, to='S'); supply(s, ms1.pin('S'), 'VDD')
+    bulk(s, ms2, to='S'); supply(s, ms2.pin('S'), 'VSS')
+    bulk(s, ms3, to='VSS')
+    # ---- R in MN2's source: nwell then nplus_u
+    # resistors drawn mirrored top-to-bottom (vmirror): M, vco_bias's first terminal, on top
+    rbw = vmirror(s, 'RBW', XL - 20, 1170, val=f"nwell {DEV['RBW']['w']:g}/{DEV['RBW']['l']:.3g}")
+    rbn = vmirror(s, 'RBN', XL - 20, 1260, val=f"nplus_u {DEV['RBN']['w']:g}/{DEV['RBN']['l']:g}")
+    assert rbw.nets == dict(M='nr', P='nrm', B='VSS') and rbn.nets == dict(M='nrm', P='VSS', B='VSS')
+    s.wire(mn2[-1].pin('S'), rbw.pin('M'))
+    s.wire(rbw.pin('P'), rbn.pin('M'))
+    s.wire(rbn.pin('P'), (rbn.pin('P')[0], yss))
+    # bulk wires down to the VSS rail (the resistor wells tap the left one)
+    s.bus((b2x, yn0), (b2x, yss), [(b2x, yn0 + 60 * k) for k in range(NS)] + [rbw.pin('B'), rbn.pin('B')])
+    s.bus((b1x, yn0), (b1x, yss), [(b1x, yn0 + 60 * k) for k in range(NS)])
+    s.wire(mn1[-1].pin('S'), (mn1[-1].pin('S')[0], yss))
+    s.bus((xl, yss), (b1x, yss), [(b2x, yss), (rbn.pin('P')[0], yss), (mn1[-1].pin('S')[0], yss)])
+    port(s, (xl, yss), 'VSS', 'io')
+    s.bus((xl, yvdd), (max(x for x, _ in vtaps), yvdd), vtaps)
+    port(s, (xl, yvdd), 'VDD', 'io')
+    # ---- RC filter vbn -> vbnf, and the outputs
+    xf = 780
+    rf = vmirror(s, 'RF', xf, 340, val=f"{P['rf'] / 1e6:g} MΩ (ppolyf {DEV['RF']['w']:g}/{DEV['RF']['l']:.3g})")
+    assert rf.nets == dict(M='vbn', P='vbnf', B='VSS')
+    cfd = DEV['CF']
+    assert cfd['nets'] == ['vbnf', 'VSS']
+    cf = s.place('symbols/cap.sym', xf, 480, name='CF', value=cfd['value'], m='1', val=f'"{P["cf"] * 1e12:g} pF"')
+    s.bus(vbd, (xr, 250), [(xf, 250)])
+    s.wire((xf, 250), rf.pin('M'))
+    port(s, (xr, 250), 'vbn', 'out')
+    s.bus(rf.pin('P'), cf.pin('p'), [(xf, 420)])
+    s.wire((xf, 420), (xr, 420))
+    port(s, (xr, 420), 'vbnf', 'out')
+    s.wire(rf.pin('B'), (xf - 40, 340)); supply(s, (xf - 40, 340), 'VSS')
+    supply(s, cf.pin('m'), 'VSS')
+    # ---- notes
+    s.text(30, 420, f'MN2: {NS} in series,', 0.35)
+    s.text(30, 450, f"each {DEV['MN2']['w']:g}/{DEV['MN2']['l']:g} ×{DEV['MN2']['m']}", 0.35)
+    s.text(270, 420, f'MN1: {NS} in series,', 0.35)
+    s.text(270, 450, f"each {DEV['MN1']['w']:g}/{DEV['MN1']['l']:g} ×{DEV['MN1']['m']}", 0.35)
+    s.text(200, 20, 'start-up', 0.35)
+    s.text(xf - 40, 180, 'RC filter', 0.35)
+    title(s, xl, -340, ['cgm_ref: constant-gm (beta-multiplier) reference + vbn RC filter',
+                        f"K = {P['kb']}: MN2 is {P['kb']}x MN1; R = nwell + nplus_u in MN2's source",
+                        'start-up: MS1 holds x high until vbn rises, MS3 then kicks n2 into vbn'])
+    finish(s, 'cgm_ref', PINS, right=['vbnf', 'vbn'], top=['VDD'], bottom=['VSS'], width=160, label='cgm_ref')
 
 
 if __name__ == '__main__':

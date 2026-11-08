@@ -1,0 +1,16 @@
+v {xschem version=3.4.5 file_version=1.2
+* devices/gnd.sym (xschem library) without global=ground: a plain label, so lab=VSS names the
+* subcircuit's VSS port net (no .GLOBAL in the netlist)
+}
+G {}
+K {type=label
+format="*.alias @lab"
+template="name=l1 lab=VSS"}
+V {}
+S {}
+E {}
+L 4 0 0 0 12.5 {}
+L 4 -5 12.5 5 12.5 {}
+L 4 0 17.5 5 12.5 {}
+L 4 -5 12.5 0 17.5 {}
+B 5 -2.5 -2.5 2.5 2.5 {name=p dir=inout}

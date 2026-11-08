@@ -85,34 +85,131 @@ def decap_size(p=P):
     return lay.decap_size(dict(p, **lay.DECAP))
 
 
-def place(sch, name, x, y, flip=0, label=True, skip=(), dev=None, **nets):
-    """Place vco_bias device `name` (MOS or resistor) at (x, y) with its W/L/m, and label each
-    pin with its vco_bias net (nets=... overrides; skip=pins left unlabelled for drawn wires)."""
+# ---- drawing helpers: textbook sheets, every connection inside a sheet a drawn wire --------------
+from xsch import Inst  # noqa: E402
+
+
+def wl(d):
+    """'1.2/5.33 ×6': W/L in um (3 significant figures), x multiplicity when m > 1."""
+    return f"{d['w']:.3g}/{d['l']:.3g}" + (f" ×{d['m']}" if d.get('m', 1) > 1 else '')
+
+
+def place(sch, name, x, y, flip=0, rot=0, val=None, hide=False, dev=None, inst_name=None):
+    """Place vco_bias device `name` (MOS or resistor) at (x, y) with its W/L/m, no labels: the
+    caller draws the wires. val: the readable value text (default W/L ×m)."""
     d = dev or DEV[name]
+    nm = inst_name or name
     if 'fet' in d['model']:
-        inst = gmos(sch, d['model'][0], x, y, W=d['w'], L=d['l'], m=d['m'], name=name, flip=flip)
-        pins = 'DGSB'
+        inst = gmos(sch, d['model'][0], x, y, W=d['w'], L=d['l'], m=d['m'], name=nm, flip=flip, rot=rot)
+        inst.nets = dict(zip('DGSB', d['nets']))
     else:
-        inst = gres(sch, d['model'], x, y, W=d['w'], L=d['l'], name=name, flip=flip)
-        pins = 'MPB'    # the PDK symbol's netlist pin order: M first, so the line reads as vco_bias's
-    if label:
-        for pin, net in zip(pins, d['nets']):
-            if pin not in skip:
-                net = nets.get(pin, net)
-                if net:
-                    sch.connect(inst, **{pin: net})
+        inst = gres(sch, d['model'], x, y, W=d['w'], L=d['l'], name=nm, flip=flip, rot=rot)
+        inst.nets = dict(zip('MPB', d['nets']))    # the PDK symbol's netlist pin order is M P B
+    inst.props['val'] = '"' + (val if val is not None else wl(d)) + '"'
+    if hide:
+        inst.props['hide_texts'] = 'true'
     return inst
 
 
-def finish(sch, name, pins, left, right=(), top=(), bottom=(), width=200):
-    """Ports (iopins, in symbol order), symbol, schematic."""
+def vmirror(sch, name, x, y, **kw):
+    """A MOS mirrored top-to-bottom (rot 2 + flip): gate still on the left, D and S swapped in
+    position (an NMOS with its source on top), so a pass device reads source-up."""
+    return place(sch, name, x, y, rot=2, flip=1, **kw)
+
+
+def supply(sch, pt, net):
+    """VDD (devices/vdd.sym) or VSS (devices/gnd.sym, lab=VSS) symbol on a wire end / pin."""
+    sym = 'symbols/vdd.sym' if net == 'VDD' else 'symbols/gnd.sym'
+    sch.items.append(Inst(sym, pt[0], pt[1], 0, 0, {'name': sch._name('l'), 'lab': net}))
+
+
+def outward(inst):
+    """+1 if the MOS bulk points right (gate on the left), else -1."""
+    return 1 if inst.pin('B')[0] > inst.pin('G')[0] else -1
+
+
+def bulk(sch, inst, to=None, y=None, dx=20):
+    """Bulk wire: a short stub away from the gate, then
+       to='S'          : down/up to the source and into it (bulk tied to source)
+       to='VSS'/'VDD'  : a supply symbol on the stub
+       y=<rail y>      : on down/up to a horizontal rail at y; returns the tap point on the rail."""
+    b = inst.pin('B')
+    e = (b[0] + dx * outward(inst), b[1])
+    sch.wire(b, e)
+    if to == 'S':
+        s = inst.pin('S')
+        sch.route(e, (e[0], s[1]), s)
+    elif to in ('VSS', 'VDD'):
+        supply(sch, e, to)
+    elif y is not None:
+        sch.wire(e, (e[0], y))
+        return (e[0], y)
+    return e
+
+
+def port(sch, pt, net, kind):
+    """Sheet port at a wire end: kind 'in' (ipin, left edge), 'out' (opin, right edge),
+    'io' / 'io_r' (iopin, text left / right)."""
+    sym = {'in': 'ipin', 'out': 'opin', 'io': 'iopin', 'io_r': 'iopin'}[kind]
+    flip = 1 if kind == 'io' else 0
+    sch.items.append(Inst(f'devices/{sym}.sym', pt[0], pt[1], 0, flip, {'name': sch._name('p'), 'lab': net}))
+    if not hasattr(sch, 'dirs'):
+        sch.dirs = {}
+    sch.dirs[net] = {'ipin': 'in', 'opin': 'out', 'iopin': 'inout'}[sym]
+
+
+def lint(sch):
+    """Geometry check of the drawing: every wire end on a pin or another wire end, no pin or wire
+    end in the middle of a wire (xschem would join it there without a T split), no overlaps."""
+    pins = []
+    for it in sch.items:
+        for nm in it.pins:
+            pins.append((it.pin(nm), f"{it.props.get('name')}.{nm}"))
+    ends = {}
+    for (a, b, _) in sch.wires:
+        for p in (a, b):
+            ends[p] = ends.get(p, 0) + 1
+    pinpts = {p for p, _ in pins}
+    errs = []
+
+    def inside(p, a, b):
+        if a[0] == b[0] == p[0]:
+            return min(a[1], b[1]) < p[1] < max(a[1], b[1])
+        if a[1] == b[1] == p[1]:
+            return min(a[0], b[0]) < p[0] < max(a[0], b[0])
+        return False
+    for (a, b, _) in sch.wires:
+        if a[0] != b[0] and a[1] != b[1]:
+            errs.append(f'diagonal wire {a} {b}')
+        for p, nm in pins:
+            if inside(p, a, b):
+                errs.append(f'pin {nm} at {p} inside wire {a}-{b}')
+        for p in ends:
+            if inside(p, a, b):
+                errs.append(f'wire end {p} inside wire {a}-{b}')
+        for p in (a, b):
+            if p not in pinpts and ends[p] < 2:
+                errs.append(f'dangling wire end {p}')
+    segs = [(min(a, b), max(a, b)) for a, b, _ in sch.wires]
+    if len(segs) != len(set(segs)):
+        errs.append('duplicate wires')
+    return errs
+
+
+def finish(sch, name, pins, left=(), right=(), top=(), bottom=(), width=200, label=None):
+    """Symbol (pins per side, netlist order = pins), schematic, lint and the wire / label count."""
     sch.pin_order = pins
-    write_symbol(os.path.join(XDIR, f'{name}.sym'), left=left, right=right, top=top, bottom=bottom, width=width)
+    write_symbol(os.path.join(XDIR, f'{name}.sym'), left=left, right=right, top=top, bottom=bottom, width=width,
+                 order=list(pins), label=label or name, dirs=getattr(sch, 'dirs', None))
+    errs = lint(sch)
+    for e in errs:
+        print(f'  LINT {name}: {e}')
     sch.write(os.path.join(XDIR, f'{name}.sch'))
-    print(f'wrote xschem/{name}.sch, .sym')
+    nlab = sum(1 for i in sch.items if i.sym == 'devices/lab_pin.sym')
+    print(f'wrote xschem/{name}.sch, .sym: {len(sch.wires)} wires, {nlab} lab_pin, {len(errs)} lint errors')
 
 
 def title(sch, x, y, lines):
-    sch.text(x, y, lines[0], 0.6)
+    sch.text(x, y, lines[0], 0.7)
     for i, s in enumerate(lines[1:]):
-        sch.text(x, y + 50 + i * 28, s, 0.35)
+        sch.text(x, y + 60 + i * 34, s, 0.42)
