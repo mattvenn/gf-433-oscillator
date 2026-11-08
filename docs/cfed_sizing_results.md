@@ -203,7 +203,7 @@ every analysis step, a real ki/dacn run at ss 70 °C, and the failure test.
 | Heartbeat | partly | ScheduleWakeup works, but it caps a delay at 60 min, below the 1.5 × 100 min asked for. It was armed for 12:35, fired on time, and was re-armed for 13:21. |
 | Status pushes | yes | The driver committed and pushed the Running line at every step change: 11:35, 12:27, 12:41, 12:46 and the sims-done line. All reached GitHub, interleaved with 4 laptop commits, using `pull --rebase --autostash`, with no push failures. |
 | Wake on finish | yes | The driver exited at 12:46:24, and the task notification woke the session at 12:46:29, with no human ping. |
-| Finish in one go | yes | The write-up, commit and push followed directly. The time from the last sim ending (12:46:22) to the results push is in the commit message of the Done line. |
+| Finish in one go | yes | The write-up, commit and push followed directly. The last sim ended at 12:46:22 and the results were pushed at 12:48:13 (e1f0a4f), **1 min 51 s** later. The target was under 30 min. |
 | CPU budget | yes | At most 20 one-thread ngspice processes at a time, via `--jobs 20`, and 5 × 4 for Job 3. The null search averaged about 17 CPUs. |
 
 **What to change:**

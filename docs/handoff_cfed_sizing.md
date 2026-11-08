@@ -1,4 +1,4 @@
-> Running: sims done 12:46, write-up in progress
+> Done (2026-11-08): see docs/cfed_sizing_results.md
 
 # Handoff: current-fed ring final sizing, PVT tuning map and PVT noise (sim pod)
 
