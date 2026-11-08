@@ -47,3 +47,14 @@ on the next handoff, and anything that doesn't work gets cut.
 - [ ] Did a deliberately failing step (for example a missing file in a dry run) produce `FAILED` and a stop?
 - [ ] Did the `Running` / `Done` lines reach GitHub, and did the laptop session pick up `Done` without a ping?
 - [ ] Time from the last simulation ending to the push: target under 30 minutes, no human ping.
+
+## Corner policy (added 2026-11-08)
+Simulation time goes into dimensions that matter. In each handoff, list which corners each job uses, and why.
+1. **The full set once per circuit change** (5 process corners × 0/70 °C, plus tt 27 °C): find which corner sets each
+   limit (top of range, bottom of range, worst noise, worst fine/step).
+2. **Iterate on those 3–4 bounding corners only.**
+3. **The full set again only for sign-off.**
+
+**VDD:** the current-fed ring moves −0.008 %/10 mV, so ±4.5 % VDD is about 0.1 % of f and stays out of maps and
+sweeps. Keep one low-VDD spot check (3.15 V) at the worst corner, for headroom: is the DAC still saturated under vg,
+and what is the swing? Revisit this if the topology changes.
