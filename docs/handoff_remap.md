@@ -1,3 +1,4 @@
+> Running (laptop session gf433-dev on sim0, no pod agent): step 1/3 since 16:46, ETA about 17:26
 # Handoff: re-map the 433.92 MHz codes on the extracted core, with the level shifter on a0 (sim pod)
 
 **Goal: find each corner's 433.92 MHz code (and the codes whose vctrl range covers it) on the RC-extracted v3
