@@ -35,7 +35,9 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          rw=2.0, lnw=12.0, lnp=0.0,              # real R: width, nwell length, n+ diff length (um)
          rf=0.0, cf=0.0, rfw=1.0,                # vbn RC filter: ppolyf_u_3k rf ohm (width rfw um), ideal cf (F); 0 = off
          nsn=1,                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
-         cfn=0.0)                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
+         cfn=0.0,                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
+         topo="starved",                         # ring stage: starved | stack | cfed (see netlist())
+         kc=2.5, cvg=3e-12)                      # cfed: shared DAC scale (x one stage's foot W/L), vg decap (F)
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 
 
@@ -58,16 +60,24 @@ def gnet(p):
     return "vbnf" if p.get("rf", 0) > 0 and p.get("cf", 0) > 0 else "vbn"
 
 
-def foot(tag, p, out, g="vbn"):
-    """Foot network from `out` to ground: base + coarse legs + fine leg (base gate on `g`)."""
-    s = fet(f"F{tag}", out, g, "0", "0", "nfet_03v3", p["wfu"], p["ls"], p["k"])
+def foot(tag, p, out, g="vbn", src="0"):
+    """Foot network from `out` to `src` (ground): base + coarse legs + fine leg (base gate on `g`)."""
+    s = fet(f"F{tag}", out, g, src, "0", "nfet_03v3", p["wfu"], p["ls"], p["k"])
     for b in range(p["bits"]):
-        s += fet(f"F{tag}_{b}", out, f"g{b}", "0", "0", "nfet_03v3", p["wfu"], p["ls"], 2 ** b)
-    s += fet(f"FF{tag}", out, "vctrl", "0", "0", "nfet_03v3", p["wff"], p["lff"])
+        s += fet(f"F{tag}_{b}", out, f"g{b}", src, "0", "nfet_03v3", p["wfu"], p["ls"], 2 ** b)
+    s += fet(f"FF{tag}", out, "vctrl", src, "0", "nfet_03v3", p["wff"], p["lff"])
     return s
 
 
 def netlist(p):
+    """Ring stage topology p["topo"]:
+      starved (default): VDD -> head (vbp) -> P (a) -> out -> N (a) -> f -> foot -> GND
+      stack:   VDD -> P switch (a) -> h -> head (vbp) -> out -> foot -> f -> N switch (a) -> GND
+               (current sources next to the output, switches at the rails; master leg unchanged)
+      cfed:    current-fed ring: plain inverters (P source at VDD), every N source on one shared node vg with a decap
+               cvg to GND, and one shared foot DAC (W x kc) from vg to GND; no heads, no master leg.
+               The ring swings about vg..VDD."""
+    topo = p.get("topo", "starved")
     s = ""
     # beta multiplier (constant gm)
     ns = p.get("nsn", 1)
@@ -102,12 +112,33 @@ def netlist(p):
     if g != "vbn":            # RC low-pass vbn -> vbnf: real hi-R poly, ideal C (a MOS cap on silicon)
         s += f"XRF vbn vbnf 0 ppolyf_u_3k r_width={p['rfw']}e-6 r_length={rf_length(p):.3f}e-6\n"
         s += f"CF vbnf 0 {p['cf']}\n"
+    n = p["n"]
+    if topo == "cfed":   # shared DAC from vg to GND + decap; plain inverters between VDD and vg
+        kw, kl = max(p["kc"], 1.0), 1.0 / min(p["kc"], 1.0)   # kc > 1: wider; kc < 1: longer (keeps W >= min)
+        s += foot("C", dict(p, wfu=p["wfu"] * kw, wff=p["wff"] * kw, ls=p["ls"] * kl, lff=p["lff"] * kl), "vg", g)
+        s += f"Cvg vg 0 {p['cvg']}\n"
+        for i in range(n):
+            a, y = f"a{i}", f"a{(i + 1) % n}"
+            s += fet(f"P{i}", y, a, "vdd", "vdd", "pfet_03v3", p["wp"], p["L"])
+            s += fet(f"N{i}", y, a, "vg", "0", "nfet_03v3", p["wn"], p["L"])
+            s += f"Cw{i} {y} 0 {p['cw']}\n"
+        return s, " ".join(f"v(a{i})={0 if i % 2 == 0 else 3.3}" for i in range(n))
     # master: copy of one stage's foot (x mr) into a PMOS diode -> vbp
     total = p["k"] + 2 ** p["bits"] - 1
     s += fet("MPB", "vbp", "vbp", "vdd", "vdd", "pfet_03v3", p["wpb"], p["ls"], max(1, round(p["mr"] * total / 4)))
     s += foot("M", dict(p, wfu=p["wfu"] * p["mr"], wff=p["wff"] * p["mr"]), "vbp", g)
     # ring
-    n = p["n"]
+    if topo == "stack":  # switches at the rails, current sources next to the output
+        for i in range(n):
+            a, y = f"a{i}", f"a{(i + 1) % n}"
+            s += fet(f"P{i}", f"h{i}", a, "vdd", "vdd", "pfet_03v3", p["wp"], p["L"])
+            s += fet(f"H{i}", y, "vbp", f"h{i}", "vdd", "pfet_03v3", p["whead"], p["ls"])
+            s += foot(f"s{i}", p, y, g, src=f"f{i}")
+            s += fet(f"N{i}", f"f{i}", a, "0", "0", "nfet_03v3", p["wn"], p["L"])
+            s += f"Cw{i} {y} 0 {p['cw']}\n"
+            if p.get("cfn", 0) > 0:
+                s += f"Cfn{i} f{i} 0 {p['cfn']}\n"
+        return s, " ".join(f"v(a{i})={0 if i % 2 == 0 else 3.3}" for i in range(n))
     for i in range(n):
         a, y = f"a{i}", f"a{(i + 1) % n}"
         s += fet(f"H{i}", f"h{i}", "vbp", "vdd", "vdd", "pfet_03v3", p["whead"], p["ls"])
@@ -302,7 +333,7 @@ def main():
     a = ap.parse_args()
     p = dict(P)
     for kv in a.set:
-        k, v = kv.split("="); p[k] = type(P[k])(float(v))
+        k, v = kv.split("="); p[k] = v if isinstance(P[k], str) else type(P[k])(float(v))
     outdir = REPO / f"build/vco/bias_{a.tag}"
     maxc = 2 ** p["bits"] - 1
     if a.mode == "sweep":
