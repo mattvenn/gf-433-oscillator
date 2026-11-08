@@ -58,3 +58,10 @@ Simulation time goes into dimensions that matter. In each handoff, list which co
 **VDD:** the current-fed ring moves −0.008 %/10 mV, so ±4.5 % VDD is about 0.1 % of f and stays out of maps and
 sweeps. Keep one low-VDD spot check (3.15 V) at the worst corner, for headroom: is the DAC still saturated under vg,
 and what is the swing? Revisit this if the topology changes.
+
+**Temperature (Matt, 2026-11-08): only room-temperature operation matters.**
+- Use 27 °C for maps and noise. Use a small 20 / 27 / 35 °C set only where drift matters: the tempco during a
+  transmission, or between recalibrations.
+- Drop 0 / 70 °C unless a check is specifically about robustness, for example start-up.
+- Temperature compensation becomes "keep the drift small around 27 °C", not a strict null over 0–70 °C. This loosens
+  the coupled DAC-width / lnw / range sizing.
