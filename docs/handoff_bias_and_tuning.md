@@ -1,3 +1,5 @@
+> Done (2026-11-08): results in docs/bias_tuning_results.md
+
 # Handoff: quiet const-gm reference, phase noise at PVT, tuning map (sim pod, overnight)
 
 **Goal: find the smallest constant-gm reference whose flicker noise no longer dominates the ring's frequency noise,
