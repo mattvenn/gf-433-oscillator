@@ -1,10 +1,16 @@
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg)
+![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/lvs/badge.svg)
 
 [![Made with Claude](https://img.shields.io/badge/Made%20with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
 
-# Tiny Tapeout Analog Project Template
+# 433 MHz VCO for an FM radio toolkit (GF180MCU, Tiny Tapeout)
 
-- [Read the documentation for project](docs/info.md)
+A tunable 433.92 MHz current-fed ring oscillator with a 5-bit DAC, a fine-tune input and a divide-by-4 clock
+output, with no inductors and no external components. It is the first part of an FM radio toolkit for the Zero to
+ASIC Course.
+
+- [Project datasheet page](docs/info.md)
+- [Where the design is at, and what's next](STATUS.md)
+- [Schematics](docs/schematics.md) and [top-level layout](docs/top_layout.md)
 
 ## What is Tiny Tapeout?
 
