@@ -1,4 +1,4 @@
-> Running: step 2/3 (36 power-on runs) since 13:51, ETA 14:37
+> Running: step 3/3 (summary) since 14:39, ETA 14:41
 
 # Handoff: power-on start-up of the current-fed ring (sim pod)
 
