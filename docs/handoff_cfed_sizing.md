@@ -1,4 +1,4 @@
-> Running: step 4/4 (summary) since 12:46, ETA 12:47
+> Running: sims done 12:46, write-up in progress
 
 # Handoff: current-fed ring final sizing, PVT tuning map and PVT noise (sim pod)
 
