@@ -73,6 +73,9 @@ It is to become an **FM radio toolkit**:
 - The xschem schematics are redrawn as wired, textbook-style sheets (no net labels). Checks pass, and they render in
   xschem-viewer.
 - The level shifter and ÷4 prescaler (above).
+- **The xschem netlist is now the LVS source of the v3 core** (`layout/gen/check_v3.sh`). It caught that the committed
+  `layout/ring_core_v3.gds` was the wfu 0.25 layout, not the chosen 0.30. The GDS, `layout/ref/ring_core_v3.spice` and
+  the floorplan PNG are now 0.30, the layout the extracted netlists (`*_w30chk_rc.spice`) were made from. All checks pass.
 
 ## How things run
 - **Tools:** `tools/osic-mac <cmd>` runs IIC-OSIC-TOOLS (laptop image 2026.05; sim pod 2026.09). **It doesn't pass
@@ -88,7 +91,7 @@ It is to become an **FM radio toolkit**:
   - `sim/vco/vco_bias.py` (the circuit; `topo=cfed`), `sim/vco/topo_cmp.py`;
   - `sim/pn/cfed_noise.py`, `sim/pn/cfed_sizing.py`, `sim/pn/cfed_startup.py`;
   - `sim/mc/dac_mc.py`;
-  - `layout/gen/ring_core_v3.py` + `check_v3`/`pex_v3`/`pex_sim_v3`;
+  - `layout/gen/ring_core_v3.py` (pass `--set wfu=0.30`) + `check_v3.sh`/`pex_v3`/`pex_sim_v3`;
   - `xschem/gen/` + `check.py`.
 - **Chosen design settings:** `sim/results/2026-11-08/winner_sets.txt`, plus `lnw=5.023 topo=cfed kc=0.75 k=6
   cvg=3e-12 ka=16 wfu=0.30 wff=0.30 rf=1e6 cf=20e-12`.

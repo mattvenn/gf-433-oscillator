@@ -23,7 +23,8 @@ Click a link to open it in the online viewer. Previews (SVG and PNG, rendered he
 
 ## Checks (`python3 xschem/gen/check.py`, results in `build/xsch/check.txt`)
 Every `.sch` is netlisted headless with xschem (`xschem/gen/netlist.sh`) and compared with netgen, using the gf180mcuD setup:
-- **ring_core_v3 against the layout's LVS source:** it matches uniquely with no property errors. I checked it twice - at wfu 0.30 against `layout/gen/export_core_v3.py`, and regenerated at wfu 0.25 against the committed `layout/ref/ring_core_v3.spice`.
+- **ring_core_v3 against the layout's LVS source:** it matches uniquely with no property errors. I checked it at wfu 0.30 against `layout/gen/export_core_v3.py` and against the committed `layout/ref/ring_core_v3.spice`.
+- **The layout against ring_core_v3:** this netlist is the LVS source of `layout/ring_core_v3.gds` (`layout/gen/check_v3.sh`). It matches uniquely with no property errors, and two deliberately broken copies (one DAC leg's m, one switch gate) both fail.
 - **vco_cfed against `vco_bias.netlist()`:** it matches uniquely with no property errors (70 devices). netgen treats the PDK resistors as black boxes and doesn't compare their sizes, so a device-by-device size diff covers every W/L/m, resistor W/L and C value. It finds no differences.
 - **Mutation test:** in a copy of cfed_dac.sch I changed the bit-3 leg from m = 8 to m = 7. All 3 comparisons fail on it, as they should.
 - **Simulation:** I simulated vco_cfed from the xschem netlist at tt, 27 °C, code 9 and vctrl 1.65 V, with the same deck as vco_bias. It runs at 503.98 MHz, against 504.16 MHz for vco_bias (-0.036 %). Both draw 0.451 mW and both have vbn = 1.232 V. vco_bias here has its wiring caps off, so like for like.

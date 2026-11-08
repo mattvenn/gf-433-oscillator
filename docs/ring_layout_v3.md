@@ -1,7 +1,8 @@
 # Ring-core layout v3: current-fed ring (cfed)
 
-`vco_bias.netlist()` with `topo=cfed kc=0.75 k=6 cvg=3e-12 ka=16`, without the reference or the vbn filter. Set the DAC width with `--set wfu=0.30`.
-Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v2.sh`, `pex_v3.sh`, `pex_sim_v3.py` and `vg_res_v3.py`.
+`vco_bias.netlist()` with `topo=cfed kc=0.75 k=6 cvg=3e-12 ka=16`, without the reference or the vbn filter. Set the DAC width with `--set wfu=0.30`: the generator's default is still 0.25.
+**The committed `layout/ring_core_v3.gds` is the wfu 0.30 layout** (the chosen design; the 0.25 one was committed until 2026-11-08).
+Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.sh`, `check_v2.sh`, `pex_v3.sh`, `pex_sim_v3.py` and `vg_res_v3.py`.
 
 ## Floorplan (`docs/img/ring_core_v3.png`)
 - **Left:** the decap, with the vg strap (M1+M2) on it. The v2 cluster sits on the strap without heads, and each N source drops 0.3 µm into it.
@@ -34,7 +35,8 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v2.
 - Between two sources: 6 Ω or less.
 
 ## Checks (`build/check/ring_core_v3*/summary.txt`)
-- **Results:** DRC 0 in magic and in KLayout (FEOL+BEOL), antenna 0, LVS "match uniquely" with no property errors.
+- **Script:** `bash layout/gen/check_v3.sh [gds] [outdir]`. The LVS source is the xschem netlist of `xschem/ring_core_v3.sch`; `layout/ref/ring_core_v3.spice` is only a cross-check. Two broken copies of the schematic must fail LVS. `XSCH_SET=wfu=0.25,wff=0.25` checks a GDS made at another width.
+- **Results:** DRC 0 in magic and in KLayout (FEOL+BEOL), antenna 0, LVS "match uniquely" with no property errors. Magic's feedback log has 6 entries, which are not violations: they are the decap fingers (S = D = VSS, "device missing 1 terminal").
 - **Widths covered:** wfu 0.25, 0.30 and 0.35.
 
 ## For the level shifter

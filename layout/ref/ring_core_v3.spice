@@ -1,5 +1,5 @@
 * cfed ring core exported from sim/vco/vco_bias.py netlist() by layout/gen/export_core_v3.py
-* wfu=0.25 wff=0.25 k=6 kc=0.75 ka=16.0 cvg=3e-12
+* wfu=0.3 wff=0.3 k=6 kc=0.75 ka=16.0 cvg=3e-12
 * dropped: XMN1 XMN1s1 XMN1s2 XMN1s3 XMN1s4 XMN1s5 XMN1s6 XMN1s7 XMN1s8 XMN1s9 XMN1s10 XMN1s11 XMN1s12 XMN1s13 XMN2 XMN2s1 XMN2s2 XMN2s3 XMN2s4 XMN2s5 XMN2s6 XMN2s7 XMN2s8 XMN2s9 XMN2s10 XMN2s11 XMN2s12 XMN2s13 XRBW XRBN XMP1 XMP2 XMS1 XMS2 XMS3 Rvbn Cvg Cw0 Cw1 Cw2 Cw3 Cw4
 .subckt ring_core VDD VSS vbn vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 vg a0 a1 a2 a3 a4
 XTN0 g0 bit0 vbn VSS nfet_03v3 w=2u l=0.28u ad=1.0p as=1.0p pd=5.0u ps=5.0u m=1
@@ -17,13 +17,13 @@ XTD3 g3 bitb3 VSS VSS nfet_03v3 w=1u l=0.28u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=1
 XTN4 g4 bit4 vbn VSS nfet_03v3 w=2u l=0.28u ad=1.0p as=1.0p pd=5.0u ps=5.0u m=1
 XTP4 g4 bitb4 vbn VDD pfet_03v3 w=5u l=0.28u ad=2.5p as=2.5p pd=11.0u ps=11.0u m=1
 XTD4 g4 bitb4 VSS VSS nfet_03v3 w=1u l=0.28u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=1
-XFC vg vbn VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=6
-XFC_0 vg g0 VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=1
-XFC_1 vg g1 VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=2
-XFC_2 vg g2 VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=4
-XFC_3 vg g3 VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=8
-XFC_4 vg g4 VSS VSS nfet_03v3 w=1.0u l=5.333333333333333u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=16
-XFFC vg vctrl VSS VSS nfet_03v3 w=1.0u l=21.333333333333332u ad=0.5p as=0.5p pd=3.0u ps=3.0u m=1
+XFC vg vbn VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=6
+XFC_0 vg g0 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=1
+XFC_1 vg g1 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=2
+XFC_2 vg g2 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=4
+XFC_3 vg g3 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=8
+XFC_4 vg g4 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=16
+XFFC vg vctrl VSS VSS nfet_03v3 w=1.2u l=21.333333333333332u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=1
 XDC VSS vg VSS VSS nfet_03v3 w=30.71u l=4.0u m=6
 XP0 a1 a0 VDD VDD pfet_03v3 w=5.0u l=0.28u ad=2.5p as=2.5p pd=11.0u ps=11.0u m=1
 XN0 a1 a0 vg VSS nfet_03v3 w=2.0u l=0.28u ad=1.0p as=1.0p pd=5.0u ps=5.0u m=1

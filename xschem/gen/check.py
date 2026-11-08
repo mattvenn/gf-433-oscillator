@@ -4,7 +4,7 @@ Check the generated schematics are the simulated circuit (run from the repo root
 
   1. netlist every xschem/*.sch headless (xschem/gen/netlist.sh)
   2. netgen ring_core_v3 vs layout/gen/export_core_v3.py at the chosen wfu (the LVS source of the v3 layout)
-     and, regenerated at wfu = wff = 0.25, vs the committed layout/ref/ring_core_v3.spice
+     and vs the committed layout/ref/ring_core_v3.spice (both wfu 0.30; the layout-side LVS is layout/gen/check_v3.sh)
   3. netgen vco_cfed vs sim/vco/vco_bias.py netlist() at the chosen design (Cw* dropped, Rvbn merged,
      Cvg -> the v3 MOS decap, as the schematic)
   4. mutation: one DAC leg's m changed in a copy of cfed_dac.sch -> both comparisons must fail
@@ -156,12 +156,9 @@ def main():
                     '--set', f'wff={P["wff"]}', '-o', str(OUT / 'ref_ring_core_v3.spice')], check=True, capture_output=True)
     ok1, r1 = netgen('ring_core_v3.spice', 'ring_core_v3', 'ref_ring_core_v3.spice', 'ring_core', 'lvs_core')
     log(f'ring_core_v3 (wfu {P["wfu"]}) vs export_core_v3.py: {"PASS" if ok1 else "FAIL"}  [{r1}]')
-    v25 = OUT / 'v025'
-    gen(v25, 'wfu=0.25,wff=0.25')
-    sh(f'xschem/gen/netlist.sh {v25.relative_to(REPO)} {v25.relative_to(REPO)} cfed_ring cfed_dac ring_core_v3')
-    shutil.copy(Path(REPO) / 'layout/ref/ring_core_v3.spice', v25 / 'layout_ref.spice')
-    ok2, r2 = netgen('v025/ring_core_v3.spice', 'ring_core_v3', 'v025/layout_ref.spice', 'ring_core', 'lvs_core_v025')
-    log(f'ring_core_v3 (wfu 0.25) vs layout/ref/ring_core_v3.spice: {"PASS" if ok2 else "FAIL"}  [{r2}]')
+    shutil.copy(Path(REPO) / 'layout/ref/ring_core_v3.spice', OUT / 'layout_ref.spice')
+    ok2, r2 = netgen('ring_core_v3.spice', 'ring_core_v3', 'layout_ref.spice', 'ring_core', 'lvs_core_ref')
+    log(f'ring_core_v3 vs layout/ref/ring_core_v3.spice: {"PASS" if ok2 else "FAIL"}  [{r2}]')
     # 3. vco_cfed vs vco_bias.netlist()
     vco_ref(P, OUT / 'ref_vco_cfed.spice')
     ok3, r3 = netgen('vco_cfed.spice', 'vco_cfed', 'ref_vco_cfed.spice', 'vco_ref', 'lvs_vco')

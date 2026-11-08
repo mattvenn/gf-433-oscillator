@@ -13,12 +13,13 @@ B=${2:-ring_core}
 SRC=$(realpath "${3:-layout/ref/ring_core.spice}")
 OUT=${4:-build/check/$B}
 SKIP=${SKIP:-}          # e.g. SKIP=klayout,antenna
+SRC_CELL=${SRC_CELL:-$B} # source .subckt name, if it differs from the layout top (check_v3.sh: ring_core_v3)
 mkdir -p "$OUT"; OUT=$(realpath "$OUT"); cd "$OUT"
 export PDK_ROOT=${PDK_ROOT:-/foss/pdks} PDK=gf180mcuD
 RC=$PDK_ROOT/$PDK/libs.tech/magic/$PDK.magicrc
 : > summary.txt
 log() { echo "$*" | tee -a summary.txt; }
-log "gds $GDS  top $B  source $SRC  magic $(magic --version)  netgen $(netgen -batch quit 2>/dev/null | grep -o 'Netgen [0-9.]*' | head -1)  klayout $(klayout -v)"
+log "gds $GDS  top $B  source $SRC ($SRC_CELL)  magic $(magic --version)  netgen $(netgen -batch quit 2>/dev/null | grep -o 'Netgen [0-9.]*' | head -1)  klayout $(klayout -v)"
 
 # ---- magic DRC + LVS extraction (from the GDS) ----
 cat > magic.tcl <<EOF
@@ -96,7 +97,7 @@ fi
 
 # ---- netgen LVS ----
 t0=$(date +%s)
-netgen -batch lvs "${B}_lay.spice $B" "$SRC $B" $PDK_ROOT/$PDK/libs.tech/netgen/${PDK}_setup.tcl lvs.report > netgen.log 2>&1
+netgen -batch lvs "${B}_lay.spice $B" "$SRC $SRC_CELL" $PDK_ROOT/$PDK/libs.tech/netgen/${PDK}_setup.tcl lvs.report > netgen.log 2>&1
 log "== LVS ($(( $(date +%s) - t0 )) s):"
 grep -E "Circuits match|do not match|Netlists match|Final result|roperty errors|failed pin" lvs.report | tail -6 | tee -a summary.txt
 if grep -q "Final result: Circuits match uniquely" lvs.report && ! grep -qi "property errors" lvs.report \
