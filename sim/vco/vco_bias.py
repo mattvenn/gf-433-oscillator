@@ -37,7 +37,8 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          nsn=1,                                  # MN1/MN2 as nsn in series x nsn in parallel units of w1/l1 (1 = one device)
          cfn=0.0,                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
          topo="starved",                         # ring stage: starved | stack | cfed (see netlist())
-         kc=2.5, cvg=3e-12)                      # cfed: shared DAC scale (x one stage's foot W/L), vg decap (F)
+         kc=2.5, cvg=3e-12,                      # cfed: shared DAC scale (x one stage's foot W/L), vg decap (F)
+         ka=1.0)                                 # cfed: DAC area scale (W and L of every DAC device x sqrt(ka), W/L kept)
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 
 
@@ -115,6 +116,7 @@ def netlist(p):
     n = p["n"]
     if topo == "cfed":   # shared DAC from vg to GND + decap; plain inverters between VDD and vg
         kw, kl = max(p["kc"], 1.0), 1.0 / min(p["kc"], 1.0)   # kc > 1: wider; kc < 1: longer (keeps W >= min)
+        kw, kl = kw * p.get("ka", 1.0) ** 0.5, kl * p.get("ka", 1.0) ** 0.5   # ka: area x ka at the same W/L
         s += foot("C", dict(p, wfu=p["wfu"] * kw, wff=p["wff"] * kw, ls=p["ls"] * kl, lff=p["lff"] * kl), "vg", g)
         s += f"Cvg vg 0 {p['cvg']}\n"
         for i in range(n):
