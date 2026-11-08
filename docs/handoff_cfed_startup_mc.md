@@ -1,3 +1,5 @@
+> Running: step 1/3 (calibration) since 13:12, ETA 13:52
+
 # Handoff: power-on start-up of the current-fed ring (sim pod)
 
 **Goal: show that the current-fed ring, with its reference, RC filter and 3 pF vg decap, comes up from VDD = 0 into a
