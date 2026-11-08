@@ -1,4 +1,4 @@
-> Done (2026-11-08, run on sim0 from the gf433-dev session): results in docs/remap_results.md
+> Done (2026-11-08, run on sim0 from the gf433-dev session; re-run on the corrected core at 18:00): results in docs/remap_results.md
 # Handoff: re-map the 433.92 MHz codes on the extracted core, with the level shifter on a0 (sim pod)
 
 **Goal: find each corner's 433.92 MHz code (and the codes whose vctrl range covers it) on the RC-extracted v3

@@ -22,8 +22,8 @@ It is to become an **FM radio toolkit**:
 |---|---|---|
 | Topology | Five inverters between VDD and a shared node vg (3 pF decap); one binary-weighted current DAC (base 6 + 5 bits, unit 1.2/5.33 µm) plus a fine leg on vctrl; const-gm reference with a 1 MΩ / 20 pF RC filter | `docs/cfed_results.md`, `docs/schematics.md` |
 | Range, full PVT (schematic) | 228–750 MHz (target ≤ 310 / ≥ 700); 433.92 at codes 7–11 | `docs/cfed_sizing_results.md` |
-| Range, extracted v3 RC | 194–677 MHz worst case (target ≤ 310 / ≥ 620); 433.92 at codes about 10–15 | `docs/cfed_v3_check.md` |
-| 433.92 codes, extracted core + level shifter | tt 12, ss 14, ff 10, sf 12, fs 13 at vctrl 1.7–2.3 V | `docs/remap_results.md` |
+| Range, extracted v3 RC (corrected) | 193–851 MHz at vctrl 1.65 V with the level shifter (old 194–677 had the RC double count) | `docs/remap_results.md`, `docs/rc_extraction_fix.md` |
+| 433.92 codes, extracted core + level shifter | tt 9, ss 11, ff 7, sf 9, fs 10 at vctrl 1.75–2.25 V (3 codes reach it at every corner) | `docs/remap_results.md` |
 | Monotonic / no gaps | yes at all PVT; fine/step ≥ 2.1 (needs 1.3) | `docs/cfed_sizing_results.md` |
 | DAC mismatch (MC, N = 900) | 0 % non-monotonic, worst DNL ±0.13, fine/step ≥ 3.1 | `docs/cfed_v3_check.md` |
 | rms FM, 1–10 kHz | 7.3–8.3 kHz over PVT (limit 15); the reference path dominates | `docs/cfed_sizing_results.md` |
@@ -58,8 +58,9 @@ It is to become an **FM radio toolkit**:
        the same effect;
      - sf/fs, 0/70 °C, VDD ±4.5 %, MC on the extracted block; the ~10 pF supply decap (top level);
      - don't clock the ÷4 below about 150 MHz (sf fails below that; the ring never goes there).
-   - **433.92 MHz codes re-mapped** (`docs/remap_results.md`): recommended tt 12, ss 14, ff 10, sf 12, fs 13 (vctrl
-     1.7–2.3 V), 3–4 codes above the schematic map; every corner has two or more codes that reach 433.92.
+   - **433.92 MHz codes re-mapped** on the corrected extracted core + extracted level shifter (`docs/remap_results.md`):
+     tt 9, ss 11, ff 7, sf 9, fs 10 (the schematic map's codes, fs +1), vctrl 1.75–2.25 V; 3 codes reach 433.92
+     at every corner.
    - **Hi-res poly is 1 kΩ/sq (confirmed, `docs/platform.md`); the design now uses ppolyf_u_1k.** `vco_bias.py`
      sizes RF for 1 MΩ at 1k (970 µm at 1 µm wide; `rfm=3k` reproduces older results). tt 27 °C code 9 noise is
      unchanged (7.87 kHz rms 1–10 kHz). lsdiv's R1 stays as drawn (about 164 kΩ); extracted corners unchanged.
