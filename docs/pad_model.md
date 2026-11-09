@@ -30,7 +30,7 @@ bus -- n_off x tt_asw_5v0 (off; their project side is tied to VGND by the switch
 | Rroute | 15–60 Ω, default 40 Ω | tnt: pad-to-switch routing, depends on where the project is placed |
 | Croute | 0.2 pF | **assumed**, not extracted |
 | Switch | `tt_asw_5v0`: nfet_05v0 217/0.6 µm, pfet_05v0 592/0.5 µm, 3.3 V → 5 V level shifter | tt-multiplexer `asw/gf180mcuD` schematic (Sylvain Munaut) |
-| n_off | 0–3, default 3 | other projects' switches on the same chip pin. TT spreads the analog projects over the chip's pins and places a switch only where a project uses the pin. ttgf0p3, the only GF shuttle with analog projects so far (TT index API), has 16 analog projects on 22 chip pins, 1–4 per pin. Sky130 shuttles have 3–11 per pin |
+| n_off | 0–3, default 3 | other projects' switches on the same chip pin. TT spreads the analog projects over the chip's pins and places a switch only where a project uses the pin. ttgf0p3, the only GF shuttle with analog projects so far (TT index API), has 16 analog projects on 22 chip pins, 1–4 per pin. Sky130 shuttles have 3–11 per pin. Open shuttles on 2026-11-09 (project `info.yaml` files in the TinyTapeout shuttle repos): ttgf26c (ours, closes 2026-12-07) has 4 analog projects out of 10 using 10 `ua` pins, 12 with ours; ttgf26d has none of 36; ttsky26d has 8 of 168 using 25 pins over sky130's 12. So 3 is a conservative bound for ttgf26c and 0–1 is likely |
 | Cmod | 250 fF | kept from the sky130 model (project-side route) |
 
 Parameters: `rroute`, `croute`, `n_off`, `vsup` (DVDD, VAPWR and VDPWR inside the subcircuit, 3.3 V).
