@@ -48,6 +48,14 @@ at tt, a 50 Ω generator into a high-impedance project input is −2.7 dB at 433
 driving a 50 Ω instrument is −0.5 dB relative to DC (−3 dB at 1.46 GHz). The bump near 4 GHz is the 1 nH bond wire
 resonating with the pad C, well above anything we use.
 
+![pad model vs tnt](img/pad_model_vs_tnt.png)
+
+**Fig. 2.** Left: tnt's `tb_rdson` sweep run on the xschem netlist (`xschem/tt_asw_5v0.sch`), drawn on his plot's
+axes. The circles are read by eye off his ngspice screenshot (about ±0.2 Ω); the curve passes through all 21, with the
+same 36.9 Ω peak at 2.03 V and 11.3 Ω at 0 V. Right: the same sweep from the board pin to mod through the whole xschem
+`pad_model_gf180` (n_off = 3): it adds the 1 Ω package resistor and the routing, peaking at 52.9 Ω (15 Ω routing) and
+97.9 Ω (60 Ω routing). Script: `sim/pad/plot_tnt.py`, testbench `sim/pad/tb_pad_rdc.spice`.
+
 | 1.65 V, n_off = 3 | tt, Rroute 15 Ω | tt, Rroute 60 Ω | ss, 60 Ω, 2.03 V | tt, 15 Ω, n_off = 0 |
 |---|---|---|---|---|
 | DC resistance pin → mod | 47.8 Ω | 92.8 Ω | 120.7 Ω | 47.8 Ω |

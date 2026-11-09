@@ -1,0 +1,17 @@
+* DC resistance pin -> mod through the whole pad model, as tnt's tb_rdson: 100 uA, mod swept 0..3.3 V.
+.include {PDK}/design.ngspice
+.lib {PDK}/sm141064.ngspice {CORNER}
+.lib {PDK}/sm141064.ngspice diode_typical
+.include tt_asw_5v0.spice
+.include pad_model_gf180.spice
+.temp 27
+X1 0 pin mod pad_model_gf180 rroute={RROUTE} n_off=3
+I0 0 pin 100u
+Vcm mod 0 1
+.control
+dc Vcm 0 3.3 0.01
+let r = (v(pin) - v(mod)) / 100u
+wrdata {OUT} r
+meas dc rmax max r
+.endc
+.end
