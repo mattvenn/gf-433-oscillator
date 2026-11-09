@@ -27,6 +27,14 @@ Floorplan (um, tile coordinates):
     antenna deck flags the ~280 um bit lines otherwise); the bit M3 risers go on up to M2 tracks (y 100 ... 108)
     and over to ui_in[0..4].
   - ck: the macro's M3 riser up to an M2 track (y 112) and over to uo_out[0] (x 200.2).
+  - tx_drv (layout/tx_drv.gds, the dipole TX driver) mirrored in y above lsdiv: origin (597.15, 158.915), bbox
+    x 597.15 ... 670.12, y 120.0 ... 225.9; its pin edge (ls, en_p, en_n) faces down. ls: vco_top's ls M3 riser
+    (tile x 624.35) straight up into it. out_n / out_p: the out bars (M2 + M3) out of both edges, up beside the block,
+    left over it (M2, y 232...240 / 244...252, 8 um wide) and down (M3) to ua[2] (out_n) / ua[3] (out_p), about
+    750 um each, clear of the ring and the reference. en_p <- ui_in[5], en_n <- ui_in[6]: Metal4 drop, M3 down, M2
+    under tx_drv (y 115...116) to the pins, with one antenna cell each in a 4-cell row at y 113.68 (x 652).
+    Its own stripes: VGND at x 659.65 (via3s on its VSS rail and the macro's VSS strap) and VDPWR at x 663.65 (via3s
+    on its VDD rail), joined to the other VDPWR stripes only by the star bar at the top.
   - 23 tiel cells in one row (y 317.52) under uo_out[1..7], uio_out[0..7], uio_oe[0..7], each with a filltie and
     fill; ZN -> via1/2/3 stack -> Metal4 up to its pin.
   - Metal4 power stripes (2 um, y 5 ... 320.36, the template's span): VDPWR at x 420 and 540, VGND at x 426 and
@@ -68,11 +76,21 @@ BITS = {  # name: M3 riser (x0, x1) at the top edge
     "bitb2": (37850, 38230), "bit2": (40490, 40870), "bitb3": (41550, 41930), "bit3": (44190, 44570),
     "bitb4": (45250, 45630), "bit4": (47890, 48270)}
 CK = (-44390, -44010)            # ck M3 riser at the top edge
+LS_PIN = (-21600, -21220)        # ls M3 riser at the top edge (lsdiv's ls port, layout/gen/vco_top.py)
 VDDLS = (-47800, -46600, 64395, 66795)   # VDD_LS M3 pad
 VDD_STRAP = (56500, 305940, 62880, 66795)  # VDD M3 strap
 VSS_STRAP = [(-100740, 28400), (29980, 305940)]  # VSS M3 strap x ranges, y -2400 ... 0
 VCTRL_M2 = (300000, 305940, 12745, 13125)
 VBN_M2 = (302880, 305940, 44190, 47085)
+
+# tx_drv (layout/tx_drv.gds), mirrored in y (pins ls / en_p / en_n face down), placed above lsdiv
+TXD = dict(w=72970, yb=-67000, yt=38915, ls=27200, en_n=22940, en_p=45460,   # own coordinates (layout/gen/tx_drv.py)
+           out_b=12970, out_t=14970, vdd=(36515, 38915), vss=(-2400, 0))
+TX_PIN_Y = 120000                # tile y of tx_drv's pin edge (its VDD rail): above the ck track (y 112)
+TX_X = 624350 - 27200            # its ls pin over vco_top's ls riser (tile x 624.35)
+TX_Y = TX_PIN_Y + 38915          # instance origin: tile y = TX_Y - y
+OUT_W = 8000                     # out_p / out_n route width (M2 horizontals, M3 verticals): 7.3 mA |avg| (ff) at 2.09 mA/um
+ANT_ROW_Y = 113680               # DEF row 29: the two enable antenna diodes, under tx_drv
 
 # std-cell rows
 ROW_H = 3920
@@ -83,7 +101,8 @@ STRIPES = [  # (net, x0, width)
     ("VGND", 85000, 1600), ("VDPWR", 87600, 1600),
     ("VDPWR", 420000, 2000), ("VGND", 426000, 2000),
     ("VDPWR", 540000, 2000), ("VGND", 590000, 2000),
-    ("VDPWR", 649140, 2000)]
+    ("VDPWR", 649140, 2000),
+    ("VGND", 659650, 2000), ("VDPWR", 663650, 2000)]          # tx_drv: its VSS rail / its own VDPWR branch
 STAR_Y = (319400, 320360)        # M2 bar joining the VDPWR stripes at the top of the tile
 
 
@@ -116,6 +135,8 @@ def build(defpath, gds_out, lef_out):
     ly.dbu = 0.001
     ly.read(str(REPO / "layout/vco_top.gds"))
     assert ly.cell("vco_top") is not None
+    ly.read(str(REPO / "layout/tx_drv.gds"))
+    assert ly.cell("tx_drv") is not None
     sc = db.Layout()
     sc.read(str(scgds))
     cells = {}
@@ -245,7 +266,7 @@ def build(defpath, gds_out, lef_out):
     nv[("VDPWR", 649140)] = via_array(3, lsx0, lsx1, Y0 + VDDLS[2], Y0 + VDDLS[3], margin=150)
     # VDPWR bar at the top of the tile: M2 (under the VGND stripes and the M3 signal risers) from the tiel row's
     # stripe to the VDD_LS stripe, via2 + via3 at every VDPWR stripe; a star point at the pin edge
-    r("m2", 87600, STAR_Y[0], 651140, STAR_Y[1])
+    r("m2", 87600, STAR_Y[0], 665650, STAR_Y[1])
     for n, x0, w in STRIPES:
         if n == "VDPWR":
             r("m3", x0, STAR_Y[0], x0 + w, STAR_Y[1])
@@ -334,6 +355,88 @@ def build(defpath, gds_out, lef_out):
     r("m2", xp - PAD // 2, yck - PAD // 2, ckx + PAD // 2, yck + PAD // 2)
     via(2, xp, yck)
     r("m3", xp - PAD // 2, yck - PAD // 2, xp + PAD // 2, yv + PAD // 2)
+
+    # ---- tx_drv: the dipole driver, mirrored in y above lsdiv; tile (x, y) = (TX_X + x, TX_Y - y) ----
+    top.insert(db.CellInstArray(ly.cell("tx_drv").cell_index(), db.Trans(db.Trans.M0, db.Vector(TX_X, TX_Y))))
+    tx = lambda x: TX_X + x
+    ty = lambda y: TX_Y - y
+    # ls: vco_top's ls M3 riser (macro top edge) on up into tx_drv's ls pin (its bottom edge here)
+    lsx = mx((LS_PIN[0] + LS_PIN[1]) // 2)
+    assert lsx == tx(TXD["ls"]), (lsx, tx(TXD["ls"]))
+    r("m3", lsx - PAD // 2, ytop - 400, lsx + PAD // 2, TX_PIN_Y + 400)
+    # outputs: the out bars (M2 + M3, tx_drv's channel) out of both edges, up beside the block, left over its top
+    # and down to the pads, out_n -> ua[2], out_p -> ua[3]; about the same length each (~ 750 um), away from the
+    # ring and the reference. Horizontals on M2 (they cross the ui_in / ck M3 risers), verticals on M3 (they cross
+    # the ck M2 track); M2 + M3 together where nothing crosses (beside tx_drv), via2 arrays at every layer change.
+    yo0, yo1 = sorted((ty(TXD["out_b"]), ty(TXD["out_t"])))
+    w = OUT_W
+
+    def m23(xa, xb, ya, yb):
+        r("m2", xa, ya, xb, yb)
+        r("m3", xa, ya, xb, yb)
+    ua2, ua3 = PINS["ua[2]"]["rect"], PINS["ua[3]"]["rect"]
+    # Each overlap of two segments gets exactly one via2 array (two arrays on one area put cuts on top of each
+    # other: V2.1 / V2.2a), and the bar extensions stop their arrays short of tx_drv's own via2s (from 0.4 um in).
+    # out_n: left edge -> x 578...586 -> up to y 232...240 -> left (M2) to x 236...244 -> down (M3) to ua[2]
+    xn = (578000, 586000)
+    yn = (232000, 240000)
+    xc = (ua2[0] + ua2[2]) // 2
+    xnd = (xc - w // 2 - (xc - w // 2) % 5, xc + w // 2 - (xc + w // 2) % 5)
+    m23(xn[0], tx(0) + 400, yo0, yo1)                               # bar extension, overlaps the block's bar
+    via_array(2, xn[1], tx(0) - 300, yo0, yo1)
+    m23(xn[0], xn[1], yo0, yn[1])                                   # up (M2 + M3)
+    via_array(2, xn[0], xn[1], yo0, yn[1])
+    r("m2", xnd[0], yn[0], xn[1], yn[1])                            # left (M2)
+    r("m3", xnd[0], 2000, xnd[1], yn[1])                            # down (M3)
+    via_array(2, xnd[0], xnd[1], yn[0], yn[1])
+    r("m4", ua2[0], ua2[1], ua2[2], 4500)                           # Metal4 pad drop
+    via_array(3, ua2[0], ua2[2], 2000, 4500, margin=120)
+    # out_p: right edge -> x 674...682 -> up to y 244...252 -> left (M2) to x 181...189 -> down (M3) -> ua[3]
+    xp_ = (tx(TXD["w"]) + 4000, tx(TXD["w"]) + 4000 + w)
+    yp = (244000, 252000)
+    xpd = (181000, 189000)
+    m23(tx(TXD["w"]) - 400, xp_[1], yo0, yo1)
+    via_array(2, tx(TXD["w"]) + 300, xp_[0], yo0, yo1)
+    m23(xp_[0], xp_[1], yo0, yp[1])
+    via_array(2, xp_[0], xp_[1], yo0, yp[1])
+    r("m2", xpd[0], yp[0], xp_[1], yp[1])
+    r("m3", xpd[0], 1500, xpd[1], yp[1])
+    via_array(2, xpd[0], xpd[1], yp[0], yp[1])
+    r("m3", xpd[0], 1500, ua3[2], 4500)                             # right to the pad, below the ck riser's end
+    r("m4", ua3[0], ua3[1], ua3[2], 4500)
+    via_array(3, ua3[0], ua3[2], 1500, 4500, margin=120)
+    # enables: ui_in[5] -> en_p, ui_in[6] -> en_n: Metal4 drop, M3 down to an M2 line under tx_drv, M3 up into
+    # the pin; each line runs on to its antenna diode (KLayout ANT.4 / ANT.16, as the bit lines)
+    xr0 = 652000                                                    # antenna row: filltie, antenna x 2, filltie
+    yR = ANT_ROW_Y
+    place("filltie", xr0, yR)
+    for k in range(2):
+        place("antenna", xr0 + 1120 * (k + 1), yR)
+    place("filltie", xr0 + 3360, yR)
+    for k, (net, pin) in enumerate((("en_n", "ui_in[6]"), ("en_p", "ui_in[5]"))):
+        yl = yR + 1300 + 1000 * k                                   # the antenna I pin (N): y 0.81 ... 2.71
+        xa = xr0 + 1120 * (k + 1) + 305
+        xp, yv = top_pin_drop(pin, 322500)
+        r("m3", xp - PAD // 2, yl - PAD // 2, xp + PAD // 2, yv + PAD // 2)
+        via(2, xp, yl)
+        r("m2", xp - PAD // 2, yl - PAD // 2, xa + PAD // 2, yl + PAD // 2)
+        xe = tx(TXD[net])
+        via(2, xe, yl)
+        r("m3", xe - PAD // 2, yl - PAD // 2, xe + PAD // 2, TX_PIN_Y + 400)
+        cut("v1", xa, yl); pad("m2", xa, yl)
+    # antenna row rails: VDD (top) up into tx_drv's VDD rail (M1), VSS (bottom) right to the tx_drv VGND stripe
+    r("m1", xr0 + 400, yR + ROW_H - 300, xr0 + 1000, TX_PIN_Y + 300)
+    r("m1", xr0 + 4480 - 10, yR - 300, 661200, yR + 300)
+    via(1, 660650, yR); via(2, 660650, yR); via(3, 660650, yR)
+    # supplies: the driver's VDPWR stripe on its VDD rail, VGND on its VSS rail (both carry M3 there)
+    for net, (y0, y1) in (("VDPWR", TXD["vdd"]), ("VGND", TXD["vss"])):
+        x0 = {"VDPWR": 663650, "VGND": 659650}[net]
+        a_, b_ = sorted((ty(y0), ty(y1)))
+        nv[(net + "_tx", x0)] = via_array(3, x0, x0 + 2000, a_, b_, margin=150)
+    log["via3"] = {f"{n}@{x / 1000:.2f}": v for (n, x), v in nv.items()}
+    log["tx_drv"] = dict(origin=(TX_X / 1000, TX_Y / 1000), mirror="y -> -y",
+                         bbox=[tx(0) / 1000, ty(TXD["yt"]) / 1000, tx(TXD["w"]) / 1000, ty(TXD["yb"]) / 1000],
+                         out_n="ua[2]", out_p="ua[3]", en_p="ui_in[5]", en_n="ui_in[6]")
 
     # ---- tie-low row ----
     tied = [f"uo_out[{i}]" for i in range(1, 8)] + [f"uio_out[{i}]" for i in range(8)] + \

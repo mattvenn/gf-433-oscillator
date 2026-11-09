@@ -11,7 +11,8 @@
 #   3. resistor sizes (netgen black-boxes the PDK resistors): each nwell / nplus_u / ppolyf_u_1k in the source
 #      matched to one in the layout by model and size (W 0.1 %, L 1 %).
 #   4. mutations, each must FAIL: (a) ui_in[0] and ui_in[1] swapped at the inverters, (b) ck moved from uo_out[0]
-#      to uo_out[1] (and its tiel to uo_out[0]), (c) the VDD_LS decap m 5 -> 4 (property error).
+#      to uo_out[1] (and its tiel to uo_out[0]), (c) the VDD_LS decap m 5 -> 4 (property error), (d) the TX
+#      driver's outputs swapped (ua[2] <-> ua[3]), (e) its enables swapped (ui_in[5] <-> ui_in[6]).
 # Usage: bash layout/gen/check_tt.sh [gds] [source] [outdir]
 #   defaults gds/tt_um_mattvenn_gf433_vco.gds lvs/tt_um_mattvenn_gf433_vco.spice build/check/tt
 #   env: PDK_ROOT (default /foss/pdks), MAGIC (default: magic; use 8.3.642, see CLAUDE.md), NETGEN (default netgen)
@@ -139,6 +140,8 @@ mutate swap "ui_in[0] <-> ui_in[1] at the inverters" \
 mutate ck "ck on uo_out[1], its tiel on uo_out[0]" \
   '/^xvco /s/ uo_out\[0\] / uo_out[1] /' '/^xtie_uo_out_1 /s/ uo_out\[1\] / uo_out[0] /'
 mutate dcls "VDD_LS decap m 5 -> 4" '/^XDCLS /s/m=5$/m=4/'
+mutate txout "tx_drv out_p <-> out_n (ua[3] <-> ua[2])" '/^xtx /s/ ua\[3\] ua\[2\] / ua[2] ua[3] /'
+mutate txen "tx_drv en_p <-> en_n (ui_in[5] <-> ui_in[6])" '/^xtx /s/ ui_in\[5\] ui_in\[6\] / ui_in[6] ui_in[5] /'
 
 ok=0; [[ $r == PASS && $rs == PASS* && $mut_ok == 1 ]] && ok=1
 log "CHECK $([ $ok = 1 ] && echo OK || echo FAIL)  (LVS $r, resistor sizes ${rs%% *}, mutations caught $mut_ok)"
