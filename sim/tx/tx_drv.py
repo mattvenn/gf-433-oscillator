@@ -41,20 +41,23 @@ S = dict(
 )
 
 
-WF = 10.0           # widest single device (um): wider ones are m equal fingers (the models stop at W 100 um,
-                    # and the layout draws fingers anyway)
+WFP = 20.0          # widest P finger (um): an inverter wider than that is nf fingers, the same nf for its N and P,
+                    # so each finger is one vertical poly gate shared by the N and P rows (the layout's columns).
+                    # The models stop at W 100 um anyway.
 
 
 def fet(name, d, g, s, b, typ, w, l=L, m=1):
-    if m == 1 and w > WF:
-        m = math.ceil(w / WF - 1e-9)
-        w = w / m
     return vb.fet(name, d, g, s, b, typ, round(w, 4), l, int(m))
 
 
+def nfing(wn, s):
+    return max(1, math.ceil(wn * s['kp'] / WFP - 1e-9))
+
+
 def inv(name, i, o, wn, s):
-    return (fet(f'{name}p', o, i, 'VDD', 'VDD', 'pfet_03v3', wn * s['kp'])
-            + fet(f'{name}n', o, i, 'VSS', 'VSS', 'nfet_03v3', wn))
+    nf = nfing(wn, s)
+    return (fet(f'{name}p', o, i, 'VDD', 'VDD', 'pfet_03v3', wn * s['kp'] / nf, m=nf)
+            + fet(f'{name}n', o, i, 'VSS', 'VSS', 'nfet_03v3', wn / nf, m=nf))
 
 
 def arm_widths(s=S):

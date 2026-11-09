@@ -60,13 +60,17 @@ def probe(netlist):
     return '\n'.join(out) + '\n'
 
 
-def deck(corner, sizes, rroute, noff, off, edge, rsup, lsup, temp=27, vdd=3.3):
+def deck(corner, sizes, rroute, noff, off, edge, rsup, lsup, temp=27, vdd=3.3, pex=None):
     hp = T / 2
     en = 0 if off else vdd
-    sub = probe(tx_drv.block(sizes))
-    probes = [f'v.xdut.xap.v{a}{st}{k}' for st in '45' for k in 'pn' for a in 'ds']
+    if pex:     # the extracted layout (layout/pex/tx_drv_<c|rcx>.spice): no EM probes, the a / b nodes keep their names
+        sub = f'.include {REPO}/layout/pex/tx_drv_{pex}.spice\n'
+        assert not sizes, '--set has no effect on the extracted layout'
+    else:
+        sub = probe(tx_drv.block(sizes))
+    probes = [] if pex else [f'v.xdut.xap.v{a}{st}{k}' for st in '45' for k in 'pn' for a in 'ds']
     em = ''
-    for st in '45':
+    for st in ('' if pex else '45'):
         for k in 'pn':
             for a in 'ds':
                 v = f'{a}{st}{k}'
@@ -188,7 +192,7 @@ def parse(log, off):
 
 def run(job):
     corner, sizes, kw = job
-    tag = '_'.join([corner] + [f'{k}{v:g}' for k, v in sorted(sizes.items())]
+    tag = '_'.join([corner] + ([f'pex{kw["pex"]}'] if kw.get('pex') else []) + [f'{k}{v:g}' for k, v in sorted(sizes.items())]
                    + [f'r{kw["rroute"]:g}', f'n{kw["noff"]:g}', 'off' if kw['off'] else 'on'])
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / '.spiceinit').write_text('set ng_nomodcheck\nset num_threads=1\noption noinit\n')
@@ -237,6 +241,7 @@ def main():
     ap.add_argument('--lsup', type=float, default=1e-9)
     ap.add_argument('--jobs', type=int, default=8)
     ap.add_argument('--em', action='store_true', help='print the stage 4/5 EM currents')
+    ap.add_argument('--pex', choices=['c', 'rcx'], help='the extracted layout instead of block()')
     a = ap.parse_args()
     base = {k: float(v) for k, v in (kv.split('=') for kv in a.set)}
     sweeps = [[(k, float(v)) for v in vs.split(',')] for k, vs in (s.split('=') for s in a.sweep)]
@@ -247,7 +252,7 @@ def main():
                 for no in a.noff.split(','):
                     jobs.append((c, dict(base, **dict(combo)),
                                  dict(rroute=float(rr), noff=float(no), off=a.off, edge=a.edge, rsup=a.rsup,
-                                      lsup=a.lsup)))
+                                      lsup=a.lsup, pex=a.pex)))
     with ThreadPoolExecutor(a.jobs) as ex:
         for rec in ex.map(run, jobs):
             print(line(rec), flush=True)
