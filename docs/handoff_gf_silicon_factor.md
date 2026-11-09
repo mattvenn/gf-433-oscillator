@@ -1,4 +1,4 @@
-> Running: step 4/5 since 20:59, ETA 21:40 (sim-0; magic 8.3.642 built into ~/.local/magic642)
+> Done (2026-11-09): results in docs/gf_silicon_factor.md
 # Handoff: GF silicon factor from a measured ttgf0p2 ring (sim pod)
 
 **Goal: simulate the ring configurations of `tt_um_algofoogle_vgaringosc` (ttgf0p2, mux address 614) from its
