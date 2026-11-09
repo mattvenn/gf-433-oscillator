@@ -90,7 +90,8 @@ It is to become an **FM radio toolkit**:
    - On the extracted vco_top: the tap does not disturb the ring; sharing a supply path with it would pull f up to
      -0.29 %, so it has its own VDPWR stripe. LS duty passes through (out_p 54.0 % at ff).
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
-   - **Open:** the CI precheck on 6503f1c; ask tnt the VDPWR grid impedance (sets the driver's supply ripple), the ua
+   - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
+   - **Open:** ask tnt the VDPWR grid impedance (sets the driver's supply ripple), the ua
      current limit (~10 mA rms per arm) and the ttgf26c pin plan; re-floorplan with the receiver.
 6. **Receiver blocks:**
    - port the OOK LNA (linear, not limiting) to GF180;

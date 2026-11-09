@@ -162,7 +162,8 @@ ua[3].
 
 The tile LVS matches (1253 devices, 14 diodes, 53 pins) and catches 5 mutations, including the TX outputs swapped
 and the TX enables swapped. KLayout DRC on the tile flags only the density and fill rules that the precheck
-excludes. At the time of writing the Tiny Tapeout continuous integration (CI) precheck result is pending.
+excludes. The Tiny Tapeout precheck in continuous integration (CI) passes on this tile (commit 6503f1c, the `gds`
+workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
 
 ## Limits and open items
 - **VDPWR grid impedance is unknown.** Every ripple number here assumes 1 Ω + 1 nH between the driver and an ideal
