@@ -32,7 +32,7 @@ L = 0.28            # all gates
 S = dict(
     kp=2.5,                                # P/N width ratio of every inverter
     wt=0.42,                               # tap inverter N (on lsdiv's ls node: keep it small)
-    wa1=0.5, wa2=1.0, wb1=1.5,             # splitter inverters N (wb1 tuned: fundamental phase error -0.03 deg, tt)
+    wa1=0.5, wa2=1.0, wb1=1.5,             # splitter inverters N (wb1 tuned: fundamental phase error +0.05 deg, tt)
     wtgn=1.0, wtgp=2.5,                    # transmission gate N / P
     wx=0.42,                               # cross-coupled keeper inverters N
     wnand_n=1.0, wnand_p=1.25,             # arm NAND2: series NMOS (each), parallel PMOS (each)

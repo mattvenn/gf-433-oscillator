@@ -79,8 +79,9 @@ same 36.9 Ω peak at 2.03 V and 11.3 Ω at 0 V. Right: the same sweep from the b
 - Schematic switch only; tnt's layout extraction of the switch is not in the repo (`mag/` is git-ignored).
 - Croute is an assumption. Cpcb, R1, L1 and Cmod are the sky130 values. n_off depends on the shuttle's pin plan,
   which isn't known for ttgf26c yet; 0–3 is from ttgf0p3.
-- VAPWR is 3.3 V here, as in tnt's testbench. The ttgf multiplexer config lists a 5 V power gate for VAPWR; a 5 V
-  VAPWR would lower the switch R.
+- VAPWR is 3.3 V here, as in tnt's testbench. tnt (2026-11-09, `docs/platform.md`): VAPWR and VIO are independent of
+  VDPWR, each 3.3–5 V, with VAPWR ≤ VIO (the pad ESD diodes). A 5 V VAPWR would lower the switch R, so 3.3 V is the
+  conservative case for the TX driver's output power (`docs/tx_driver.md`).
 - tt process corner only for the AC table, plus one worst case; temperature 27 °C only.
 
 ## Rerun

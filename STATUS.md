@@ -1,8 +1,9 @@
-# Where we are (end of 2026-11-08, evening)
+# Where we are (2026-11-09, late evening)
 
 This is the "pick up from here" note: a summary, the next steps, and where everything lives. The detail and evidence
 for each result are in the docs it links.
-Repo: github.com/mattvenn/gf-433-oscillator (`main`). Plan: `~/.claude/plans/in-a-recent-radio-majestic-lovelace.md`.
+Repo: github.com/mattvenn/gf-433-oscillator (`main`). Plans: `~/.claude/plans/in-a-recent-radio-majestic-lovelace.md` (VCO),
+`~/.claude/plans/i-want-you-to-frolicking-sparkle.md` (TX driver).
 Flow and rules: the project skill `.claude/skills/mixed-signal-asic/`.
 
 ## Goal
@@ -80,21 +81,39 @@ It is to become an **FM radio toolkit**:
    - **Tempco at room temperature is +100…+140 ppm/°C (about 45–60 kHz/°C)**, schematic and layout alike. The sizing
      nulled the 0–70 °C least-squares slope (+1.6 ppm/°C), but f(T) is a parabola peaking near 35 °C. For
      room-temperature operation, re-tune the n-well length lnw to put the peak at 27 °C (only RBW's length changes).
-5. **Receiver blocks:**
-   - port the OOK LNA (linear, not limiting) and TX driver to GF180;
+5. **TX driver: done through the tile** (`docs/tx_driver.md`, 2026-11-09). lsdiv's `ls` -> tap -> phase splitter ->
+   two arms (NAND2 enable + x4 taper, final N 40 / P 100 um, 3.3 V devices on VDPWR) -> ua[3] (out_p) / ua[2] (out_n)
+   into a two-wire dipole; enables on ui_in[5] / ui_in[6].
+   - Schematic: +3.7…+9.3 dBm fundamental into 73 ohm over 5 corners x routing 15–60 ohm x n_off 0–3 (+6.3 dBm tt),
+     12.6 mA from VDPWR at tt, duty 48.8–52.1 %, phase error <= 0.5 deg, off state 0 V (`sim/tx/results/`).
+   - Layout `layout/tx_drv.gds` 73 x 106 um: DRC / antenna / LVS clean; extracted -0.2…-0.3 dB vs schematic.
+   - On the extracted vco_top: the tap does not disturb the ring; sharing a supply path with it would pull f up to
+     -0.29 %, so it has its own VDPWR stripe. LS duty passes through (out_p 54.0 % at ff).
+   - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
+   - **Open:** the CI precheck on 6503f1c; ask tnt the VDPWR grid impedance (sets the driver's supply ripple), the ua
+     current limit (~10 mA rms per arm) and the ttgf26c pin plan; re-floorplan with the receiver.
+6. **Receiver blocks:**
+   - port the OOK LNA (linear, not limiting) to GF180;
    - new: mixer, IF preamp, filter, limiter and comparator.
 
    **Pin budget: GF analog pin model done** (`docs/pad_model.md`, `sim/pad/pad_model_gf180.spice`,
    `xschem/pad_model_gf180.sch`, checked by `sim/pad/check_xsch.py`). tnt's `tt_asw_5v0` switch is 11–37 Ω tt
    (ss peak 72 Ω), plus 15–60 Ω of routing; a project node sees about 7.7 pF with the pin open; 433.92 MHz out into
-   50 Ω loses −0.5…−0.9 dB vs DC (6–12 dB absolute, the R divider). **Open, ask tnt:** VAPWR on ttgf26c (3.3 or 5 V;
-   simulated at 3.3), and the ttgf26c pin plan (n_off assumed 3; 0–1 likely, 12 `ua` pins requested so far).
+   50 Ω loses −0.5…−0.9 dB vs DC (6–12 dB absolute, the R divider). VAPWR is 3.3–5 V, set independently of VDPWR
+   (tnt, `docs/platform.md`; simulated at 3.3 V, the conservative case). **Open, ask tnt:** the ttgf26c pin plan
+   (n_off assumed 3; 0–1 likely; 12 `ua` pins requested so far, 4 used now: vctrl, vbn, TX out_n, TX out_p).
    **Our project is not in `TinyTapeout/tinytapeout-gf-26c` yet: submit before 2026-12-07.**
-6. **Later:** a PLL (on-chip PFD, charge pump and loop filter, reference from the RP2350), and I/Q for the receiver.
-7. **Sign-off:** full PVT (5 corners × 0/27/70 °C × VDD ±4.5 %) plus MC on the extracted tile.
-8. **Estimated tile:** 2x2.
+7. **Later:** a PLL (on-chip PFD, charge pump and loop filter, reference from the RP2350), and I/Q for the receiver.
+8. **Sign-off:** full PVT (5 corners × 0/27/70 °C × VDD ±4.5 %) plus MC on the extracted tile.
+9. **Estimated tile:** 2x2.
 
-## Done since the morning
+## Done 2026-11-09 (TX driver)
+- Plan steps 1–5: circuit + xschem sheets (`sim/tx/tx_drv.py`, `xschem/gen/tx_drv.py`), block and top-level benches
+  (`sim/tx/tb_tx_drv.py`, `sim/tx/tb_tx_top.py`), layout + checks + extraction (`layout/gen/tx_drv.py`,
+  `check_tx.sh`, `pex_tx.sh`), the `ls` port on lsdiv / vco_top, and the tile (`layout/gen/tt_wrapper.py`).
+- `xschem/gen/check.py`'s size diff now joins SPICE continuation lines (a wrapped `m=3` was missed before).
+
+## Done 2026-11-08
 - The xschem schematics are redrawn as wired, textbook-style sheets (no net labels). Checks pass, and they render in
   xschem-viewer.
 - The level shifter and ÷4 prescaler: schematic, layout, extracted sims (above), and the 433.92 code re-map.
