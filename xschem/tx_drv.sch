@@ -5,7 +5,7 @@ K {}
 V {}
 S {}
 E {}
-T {DC supply decap ~4.9 pF} -160 660 0 0 0.3 0.3 {}
+T {DC supply decap ~9.8 pF} -160 660 0 0 0.3 0.3 {}
 T {tx_drv: dipole TX driver (out_p, out_n in antiphase)} -400 -560 0 0 0.7 0.7 {}
 T {ls (lsdiv's level-shifter output, 0-3.3 V) -> splitter -> two arms; en_p / en_n gate each arm (both low: both outputs low); one arm alone is the monopole fallback} -400 -500 0 0 0.42 0.42 {}
 T {VDD is the driver's own supply (VDPWR stripe and decap), separate from the ring's; source: sim/tx/tx_drv.py block()} -400 -466 0 0 0.42 0.42 {}
@@ -65,7 +65,7 @@ C {symbols/nfet_03v3.sym} -200 600 0 0 {name=DC
 L=10.0u
 W=10.0u
 nf=1
-m=12
+m=24
 ad=5.0p
 as=5.0p
 pd=21.0u
@@ -77,7 +77,7 @@ sb=0
 sd=0
 model=nfet_03v3
 spiceprefix=X
-val="10/10 ×12"}
+val="10/10 ×24"}
 C {symbols/gnd.sym} -160 630 0 0 {name=l7
 lab=VSS}
 C {symbols/vdd.sym} -260 600 0 0 {name=l8

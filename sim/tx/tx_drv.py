@@ -19,6 +19,7 @@ hierarchy as the xschem sheets (xschem/gen/tx_drv.py), which xschem/gen/check.py
 
     python3 sim/tx/tx_drv.py          # print the netlist
 """
+import math
 import os
 import sys
 from pathlib import Path
@@ -31,17 +32,24 @@ L = 0.28            # all gates
 S = dict(
     kp=2.5,                                # P/N width ratio of every inverter
     wt=0.42,                               # tap inverter N (on lsdiv's ls node: keep it small)
-    wa1=0.5, wa2=1.0, wb1=1.0,             # splitter inverters N
+    wa1=0.5, wa2=1.0, wb1=1.5,             # splitter inverters N (wb1 tuned: fundamental phase error -0.03 deg, tt)
     wtgn=1.0, wtgp=2.5,                    # transmission gate N / P
     wx=0.42,                               # cross-coupled keeper inverters N
     wnand_n=1.0, wnand_p=1.25,             # arm NAND2: series NMOS (each), parallel PMOS (each)
     wn5=40.0, taper=4.0, wmin=0.42,        # arm inverters: final N wn5, N_i = wn5 / taper^(5-i), at least wmin
-    dcw=10.0, dcl=10.0, dcm=12,            # supply decap: m x W/L nfet_03v3 gate cap (12 x 100 um2 ~ 4.9 pF)
+    dcw=10.0, dcl=10.0, dcm=24,            # supply decap: m x W/L nfet_03v3 gate cap (24 x 100 um2 ~ 9.8 pF)
 )
 
 
+WF = 10.0           # widest single device (um): wider ones are m equal fingers (the models stop at W 100 um,
+                    # and the layout draws fingers anyway)
+
+
 def fet(name, d, g, s, b, typ, w, l=L, m=1):
-    return vb.fet(name, d, g, s, b, typ, round(w, 4), l, m)
+    if m == 1 and w > WF:
+        m = math.ceil(w / WF - 1e-9)
+        w = w / m
+    return vb.fet(name, d, g, s, b, typ, round(w, 4), l, int(m))
 
 
 def inv(name, i, o, wn, s):
@@ -81,7 +89,7 @@ def top(s=S):
             'xsp VDD VSS ls a b tx_split\n'
             'xap VDD VSS a en_p out_p tx_arm\n'
             'xan VDD VSS b en_n out_n tx_arm\n'
-            + fet('DC', 'VSS', 'VDD', 'VSS', 'VSS', 'nfet_03v3', s['dcw'], s['dcl'], s['dcm'])
+            + fet('DC', 'VSS', 'VDD', 'VSS', 'VSS', 'nfet_03v3', s['dcw'], s['dcl'], int(s['dcm']))
             + '.ends\n')
 
 

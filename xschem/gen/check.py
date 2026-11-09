@@ -93,7 +93,7 @@ def devices(path):
     device lines is the flat circuit. Catches what netgen can't: the PDK resistors are black boxes to it."""
     from collections import Counter
     out = Counter()
-    text = Path(path).read_text()
+    text = re.sub(r'\n\+', ' ', Path(path).read_text())     # join SPICE continuation lines (xschem wraps long ones)
     subs = set(SUBCKTS) | set(re.findall(r'(?im)^\.subckt\s+(\S+)', text))
     for ln in text.splitlines():
         t = ln.split()

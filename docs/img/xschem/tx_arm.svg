@@ -511,16 +511,16 @@ text {font-family: Sans-Serif;}
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(754.181, 473.188)" >2.5/0.28</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(740.626, 349.545)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(730.396, 334.2)" >VDD</text>
-<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(882.059, 370.886)" >25/0.28</text>
+<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(882.059, 370.886)" >8.3333/0.28 ×3</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(839.483, 352.472)" >M4p</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(839.483, 454.774)" >M4n</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(882.059, 473.188)" >10/0.28</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(868.504, 349.545)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(858.274, 334.2)" >VDD</text>
-<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(1009.94, 370.886)" >100/0.28</text>
+<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(1009.94, 370.886)" >10/0.28 ×10</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(967.361, 352.472)" >M5p</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(967.361, 454.774)" >M5n</text>
-<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(1009.94, 473.188)" >40/0.28</text>
+<text fill="#000000"  xml:space="preserve" font-size="7.97954" transform="translate(1009.94, 473.188)" >10/0.28 ×4</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(996.381, 349.545)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(986.151, 334.2)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="5.3197" transform="translate(70.5493, 630.875)" >VDD</text>

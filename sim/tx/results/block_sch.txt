@@ -1,0 +1,80 @@
+# tx_drv block sims, schematic (sim/tx/tb_tx_drv.py), 2026-11-09. 27 C, VDD 3.3 V via 1 ohm + 1 nH (assumed), ls ideal 433.92 MHz 100 ps edges.
+# Load per arm: sim/pad/pad_model_gf180.spice (rroute r, n_off n) -> dipole 73 ohm + 100 pF. fund = P of the 433.92 MHz component.
+
+## 1. Final-stage sweep, tt (wn5 = final N um, P = 2.5 N; before the wb1 / decap tuning: wb1 1.0, 4.9 pF)
+tt_dcm12_wb11_wn510_r40_n3_on            P_dip  -1.39 dBm (fund  -1.52)  I avg/rms/pk   4.73/  4.77/   5.9 mA  VDD ripple    28 mV  
+tt_dcm12_wb11_wn520_r40_n3_on            P_dip  +3.35 dBm (fund  +3.20)  I avg/rms/pk   8.25/  8.38/  12.1 mA  VDD ripple    66 mV  
+tt_dcm12_wb11_wn530_r40_n3_on            P_dip  +5.36 dBm (fund  +5.19)  I avg/rms/pk  10.73/ 11.14/  18.0 mA  VDD ripple   123 mV  
+tt_dcm12_wb11_wn540_r40_n3_on            P_dip  +6.45 dBm (fund  +6.26)  I avg/rms/pk  12.61/ 13.41/  23.4 mA  VDD ripple   183 mV  
+tt_dcm12_wb11_wn550_r40_n3_on            P_dip  +7.11 dBm (fund  +6.91)  I avg/rms/pk  14.07/ 15.43/  28.8 mA  VDD ripple   257 mV  
+tt_dcm12_wb11_wn560_r40_n3_on            P_dip  +7.56 dBm (fund  +7.34)  I avg/rms/pk  15.26/ 17.26/  33.8 mA  VDD ripple   326 mV  
+tt_dcm12_wb11_wn580_r40_n3_on            P_dip  +8.10 dBm (fund  +7.86)  I avg/rms/pk  17.16/ 20.60/  42.8 mA  VDD ripple   453 mV  
+tt_dcm12_wb11_wn5100_r40_n3_on           P_dip  +8.36 dBm (fund  +8.11)  I avg/rms/pk  18.55/ 23.74/  51.5 mA  VDD ripple   583 mV  
+
+## 2. Splitter tuning, tt (wb1 x wtgn; phase err = fundamental phase out_p - out_n - 180 deg)
+tt_wb11_wtgn1_r40_n3_on                  P_dip  +6.44 dBm (fund  +6.25)  duty 50.5/49.1 %  phase err +2.31 deg  skew out -30.3 ab -10.0/ -7.9 ps  delay  755 ps
+tt_wb11.5_wtgn1_r40_n3_on                P_dip  +6.44 dBm (fund  +6.26)  duty 50.5/49.2 %  phase err +0.05 deg  skew out -14.8 ab  +5.9/ +8.2 ps  delay  773 ps
+tt_wb12_wtgn1_r40_n3_on                  P_dip  +6.44 dBm (fund  +6.26)  duty 50.5/49.2 %  phase err -1.26 deg  skew out  -6.4 ab +16.1/+18.7 ps  delay  793 ps
+tt_wb11_wtgn1.5_r40_n3_on                P_dip  +6.44 dBm (fund  +6.25)  duty 50.4/49.1 %  phase err +2.48 deg  skew out -31.2 ab  -9.9/ -8.5 ps  delay  755 ps
+tt_wb11.5_wtgn1.5_r40_n3_on              P_dip  +6.45 dBm (fund  +6.26)  duty 50.4/49.3 %  phase err -0.11 deg  skew out -12.8 ab  +8.3/ +9.0 ps  delay  772 ps
+tt_wb12_wtgn1.5_r40_n3_on                P_dip  +6.45 dBm (fund  +6.26)  duty 50.5/49.4 %  phase err -1.60 deg  skew out  -2.3 ab +19.9/+20.3 ps  delay  792 ps
+tt_wb11_wtgn2_r40_n3_on                  P_dip  +6.44 dBm (fund  +6.25)  duty 50.4/49.0 %  phase err +2.83 deg  skew out -33.9 ab -11.1/-10.0 ps  delay  755 ps
+tt_wb11.5_wtgn2_r40_n3_on                P_dip  +6.45 dBm (fund  +6.26)  duty 50.4/49.2 %  phase err -0.01 deg  skew out -13.2 ab  +8.6/ +9.1 ps  delay  772 ps
+tt_wb12_wtgn2_r40_n3_on                  P_dip  +6.45 dBm (fund  +6.26)  duty 50.4/49.4 %  phase err -1.65 deg  skew out  -1.5 ab +21.0/+21.0 ps  delay  791 ps
+
+## 3. Decap (dcm x 100 um2 nfet gate cap) vs assumed supply R / L: the ripple is an LC resonance of the assumed L, P_dip unchanged
+Rsup 0.5 Lsup 0.5e-9  tt_dcm12_r40_n3_on                       P_dip  +6.46 dBm (fund  +6.27)  I avg/rms/pk  12.68/ 13.26/  21.5 mA  VDD ripple    93 mV  
+Rsup 0.5 Lsup 0.5e-9  tt_dcm24_r40_n3_on                       P_dip  +6.46 dBm (fund  +6.27)  I avg/rms/pk  12.67/ 13.47/  21.4 mA  VDD ripple    84 mV  
+Rsup 0.5 Lsup 0.5e-9  tt_dcm48_r40_n3_on                       P_dip  +6.45 dBm (fund  +6.26)  I avg/rms/pk  12.70/ 14.35/  24.4 mA  VDD ripple   110 mV  
+Rsup 0.5 Lsup 0.5e-9  tt_dcm96_r40_n3_on                       P_dip  +6.46 dBm (fund  +6.27)  I avg/rms/pk  12.68/ 13.75/  20.2 mA  VDD ripple    46 mV  
+Rsup 1 Lsup 1e-9  tt_dcm12_r40_n3_on                       P_dip  +6.45 dBm (fund  +6.26)  I avg/rms/pk  12.63/ 13.39/  21.7 mA  VDD ripple   151 mV  
+Rsup 1 Lsup 1e-9  tt_dcm24_r40_n3_on                       P_dip  +6.44 dBm (fund  +6.26)  I avg/rms/pk  12.67/ 13.86/  22.8 mA  VDD ripple   181 mV  
+Rsup 1 Lsup 1e-9  tt_dcm48_r40_n3_on                       P_dip  +6.45 dBm (fund  +6.27)  I avg/rms/pk  12.63/ 13.68/  20.3 mA  VDD ripple    87 mV  
+Rsup 1 Lsup 1e-9  tt_dcm96_r40_n3_on                       P_dip  +6.45 dBm (fund  +6.27)  I avg/rms/pk  12.68/ 14.80/  23.6 mA  VDD ripple   121 mV  
+Rsup 2 Lsup 2e-9  tt_dcm12_r40_n3_on                       P_dip  +6.43 dBm (fund  +6.25)  I avg/rms/pk  12.60/ 13.40/  21.1 mA  VDD ripple   276 mV  
+Rsup 2 Lsup 2e-9  tt_dcm24_r40_n3_on                       P_dip  +6.44 dBm (fund  +6.28)  I avg/rms/pk  12.55/ 13.54/  20.3 mA  VDD ripple   171 mV  
+Rsup 2 Lsup 2e-9  tt_dcm48_r40_n3_on                       P_dip  +6.43 dBm (fund  +6.26)  I avg/rms/pk  12.63/ 14.18/  21.9 mA  VDD ripple   206 mV  
+Rsup 2 Lsup 2e-9  tt_dcm96_r40_n3_on                       P_dip  +6.41 dBm (fund  +6.22)  I avg/rms/pk  12.63/ 12.74/  14.9 mA  VDD ripple    54 mV  
+
+## 4. Chosen sizes (wn5 40, wb1 1.5, dcm 24 ~ 9.8 pF), bounding corners x rroute 15/40/60 x n_off 0/3
+ff_r15_n0_on                             P_dip  +9.55 dBm (fund  +9.25)  I avg/rms/pk  15.80/ 16.53/  24.7 mA  VDD ripple   156 mV  tr/tf  136/ 120 ps  duty 50.1/49.0 %  phase err -0.02 deg  skew out -12.0 ab  +4.8/ +7.8 ps  delay  642 ps
+ff_r15_n3_on                             P_dip  +9.28 dBm (fund  +9.03)  I avg/rms/pk  16.15/ 16.92/  25.5 mA  VDD ripple   159 mV  tr/tf  169/ 147 ps  duty 50.2/49.0 %  phase err -0.02 deg  skew out -13.5 ab  +4.8/ +7.7 ps  delay  651 ps
+ff_r40_n0_on                             P_dip  +7.94 dBm (fund  +7.64)  I avg/rms/pk  14.29/ 15.42/  24.9 mA  VDD ripple   190 mV  tr/tf  122/ 108 ps  duty 50.1/49.0 %  phase err -0.01 deg  skew out -12.3 ab  +5.1/ +7.4 ps  delay  646 ps
+ff_r40_n3_on                             P_dip  +7.64 dBm (fund  +7.42)  I avg/rms/pk  14.83/ 16.08/  26.3 mA  VDD ripple   197 mV  tr/tf  165/ 142 ps  duty 50.2/49.0 %  phase err +0.01 deg  skew out -13.6 ab  +5.2/ +7.2 ps  delay  660 ps
+ff_r60_n0_on                             P_dip  +6.81 dBm (fund  +6.52)  I avg/rms/pk  13.41/ 14.88/  25.1 mA  VDD ripple   213 mV  tr/tf  119/ 106 ps  duty 50.1/49.0 %  phase err -0.01 deg  skew out -12.7 ab  +5.3/ +7.1 ps  delay  649 ps
+ff_r60_n3_on                             P_dip  +6.49 dBm (fund  +6.29)  I avg/rms/pk  14.09/ 15.73/  26.9 mA  VDD ripple   221 mV  tr/tf  168/ 144 ps  duty 50.1/49.0 %  phase err -0.00 deg  skew out -13.4 ab  +5.5/ +6.9 ps  delay  666 ps
+fs_r15_n0_on                             P_dip  +8.58 dBm (fund  +8.30)  I avg/rms/pk  13.89/ 14.37/  20.9 mA  VDD ripple   123 mV  tr/tf  157/ 116 ps  duty 49.2/48.9 %  phase err -0.43 deg  skew out  -2.8 ab +14.9/ -1.0 ps  delay  768 ps
+fs_r15_n3_on                             P_dip  +8.27 dBm (fund  +8.05)  I avg/rms/pk  14.18/ 14.66/  21.4 mA  VDD ripple   123 mV  tr/tf  186/ 134 ps  duty 49.1/49.1 %  phase err -0.49 deg  skew out  +0.3 ab +14.7/ -0.7 ps  delay  779 ps
+fs_r40_n0_on                             P_dip  +7.16 dBm (fund  +6.90)  I avg/rms/pk  12.65/ 13.48/  21.4 mA  VDD ripple   157 mV  tr/tf  142/ 111 ps  duty 49.4/48.8 %  phase err -0.25 deg  skew out  -5.9 ab +15.3/ -1.4 ps  delay  772 ps
+fs_r40_n3_on                             P_dip  +6.82 dBm (fund  +6.63)  I avg/rms/pk  13.13/ 13.98/  22.3 mA  VDD ripple   159 mV  tr/tf  183/ 137 ps  duty 49.2/49.1 %  phase err -0.35 deg  skew out  -0.2 ab +15.1/ -1.1 ps  delay  789 ps
+fs_r60_n0_on                             P_dip  +6.13 dBm (fund  +5.87)  I avg/rms/pk  11.90/ 13.02/  21.7 mA  VDD ripple   178 mV  tr/tf  138/ 110 ps  duty 49.5/48.8 %  phase err -0.17 deg  skew out  -7.3 ab +15.6/ -1.7 ps  delay  775 ps
+fs_r60_n3_on                             P_dip  +5.76 dBm (fund  +5.59)  I avg/rms/pk  12.51/ 13.67/  22.9 mA  VDD ripple   181 mV  tr/tf  186/ 141 ps  duty 49.2/49.1 %  phase err -0.28 deg  skew out  +0.1 ab +15.3/ -1.3 ps  delay  796 ps
+sf_r15_n0_on                             P_dip  +8.10 dBm (fund  +7.83)  I avg/rms/pk  13.24/ 14.05/  21.9 mA  VDD ripple   156 mV  tr/tf  130/ 147 ps  duty 51.6/49.2 %  phase err -0.16 deg  skew out -26.4 ab  -3.1/+19.5 ps  delay  754 ps
+sf_r15_n3_on                             P_dip  +7.80 dBm (fund  +7.59)  I avg/rms/pk  13.55/ 14.36/  22.5 mA  VDD ripple   156 mV  tr/tf  149/ 171 ps  duty 51.8/49.1 %  phase err -0.24 deg  skew out -29.8 ab  -3.1/+19.7 ps  delay  760 ps
+sf_r40_n0_on                             P_dip  +6.64 dBm (fund  +6.38)  I avg/rms/pk  11.94/ 13.29/  22.6 mA  VDD ripple   195 mV  tr/tf  124/ 135 ps  duty 51.6/49.3 %  phase err -0.17 deg  skew out -25.5 ab  -2.6/+19.0 ps  delay  759 ps
+sf_r40_n3_on                             P_dip  +6.32 dBm (fund  +6.13)  I avg/rms/pk  12.44/ 13.80/  23.6 mA  VDD ripple   197 mV  tr/tf  152/ 167 ps  duty 51.9/49.1 %  phase err -0.30 deg  skew out -31.8 ab  -2.8/+19.3 ps  delay  768 ps
+sf_r60_n0_on                             P_dip  +5.61 dBm (fund  +5.35)  I avg/rms/pk  11.21/ 12.99/  23.1 mA  VDD ripple   221 mV  tr/tf  124/ 132 ps  duty 51.6/49.3 %  phase err -0.18 deg  skew out -25.4 ab  -2.3/+18.6 ps  delay  763 ps
+sf_r60_n3_on                             P_dip  +5.27 dBm (fund  +5.10)  I avg/rms/pk  11.84/ 13.62/  24.4 mA  VDD ripple   221 mV  tr/tf  157/ 170 ps  duty 52.1/49.0 %  phase err -0.36 deg  skew out -33.5 ab  -2.7/+19.0 ps  delay  773 ps
+ss_r15_n0_on                             P_dip  +6.26 dBm (fund  +6.03)  I avg/rms/pk  11.01/ 11.74/  18.5 mA  VDD ripple   137 mV  tr/tf  145/ 130 ps  duty 50.8/49.4 %  phase err +0.15 deg  skew out -17.0 ab  +4.9/+10.8 ps  delay  910 ps
+ss_r15_n3_on                             P_dip  +5.94 dBm (fund  +5.76)  I avg/rms/pk  11.22/ 11.92/  18.7 mA  VDD ripple   135 mV  tr/tf  154/ 138 ps  duty 50.9/49.4 %  phase err +0.11 deg  skew out -17.7 ab  +4.7/+11.1 ps  delay  915 ps
+ss_r40_n0_on                             P_dip  +5.14 dBm (fund  +4.93)  I avg/rms/pk  10.20/ 11.36/  19.4 mA  VDD ripple   169 mV  tr/tf  143/ 126 ps  duty 50.9/49.5 %  phase err +0.27 deg  skew out -16.7 ab  +5.0/+10.7 ps  delay  915 ps
+ss_r40_n3_on                             P_dip  +4.73 dBm (fund  +4.58)  I avg/rms/pk  10.53/ 11.64/  19.8 mA  VDD ripple   167 mV  tr/tf  159/ 138 ps  duty 50.9/49.5 %  phase err +0.24 deg  skew out -17.3 ab  +4.6/+11.1 ps  delay  923 ps
+ss_r60_n0_on                             P_dip  +4.34 dBm (fund  +4.13)  I avg/rms/pk   9.72/ 11.21/  19.9 mA  VDD ripple   188 mV  tr/tf  142/ 126 ps  duty 50.9/49.5 %  phase err +0.29 deg  skew out -17.0 ab  +4.9/+10.5 ps  delay  918 ps
+ss_r60_n3_on                             P_dip  +3.87 dBm (fund  +3.73)  I avg/rms/pk  10.15/ 11.56/  20.5 mA  VDD ripple   185 mV  tr/tf  163/ 141 ps  duty 50.9/49.5 %  phase err +0.29 deg  skew out -17.2 ab  +4.4/+11.3 ps  delay  929 ps
+tt_r15_n0_on                             P_dip  +8.19 dBm (fund  +7.92)  I avg/rms/pk  13.40/ 14.13/  21.4 mA  VDD ripple   145 mV  tr/tf  138/ 121 ps  duty 50.4/49.1 %  phase err +0.03 deg  skew out -14.1 ab  +5.6/ +8.4 ps  delay  757 ps
+tt_r15_n3_on                             P_dip  +7.89 dBm (fund  +7.68)  I avg/rms/pk  13.69/ 14.41/  21.9 mA  VDD ripple   145 mV  tr/tf  158/ 136 ps  duty 50.4/49.1 %  phase err +0.03 deg  skew out -15.5 ab  +5.5/ +8.5 ps  delay  764 ps
+tt_r40_n0_on                             P_dip  +6.79 dBm (fund  +6.53)  I avg/rms/pk  12.23/ 13.39/  21.9 mA  VDD ripple   179 mV  tr/tf  130/ 113 ps  duty 50.4/49.2 %  phase err +0.04 deg  skew out -14.2 ab  +6.0/ +7.9 ps  delay  762 ps
+tt_r40_n3_on                             P_dip  +6.44 dBm (fund  +6.26)  I avg/rms/pk  12.67/ 13.86/  22.8 mA  VDD ripple   181 mV  tr/tf  160/ 135 ps  duty 50.5/49.2 %  phase err +0.05 deg  skew out -14.8 ab  +5.9/ +8.2 ps  delay  773 ps
+tt_r60_n0_on                             P_dip  +5.82 dBm (fund  +5.57)  I avg/rms/pk  11.55/ 13.06/  22.3 mA  VDD ripple   201 mV  tr/tf  128/ 112 ps  duty 50.4/49.2 %  phase err +0.05 deg  skew out -14.7 ab  +6.3/ +7.5 ps  delay  765 ps
+tt_r60_n3_on                             P_dip  +5.43 dBm (fund  +5.26)  I avg/rms/pk  12.12/ 13.66/  23.5 mA  VDD ripple   202 mV  tr/tf  165/ 138 ps  duty 50.5/49.2 %  phase err +0.06 deg  skew out -14.4 ab  +6.1/ +7.9 ps  delay  779 ps
+
+## 5. Off (en_p = en_n = 0)
+tt_r40_n3_off                            P_dip -120.00 dBm (fund -206.26)  I avg/rms/pk   0.11/  0.55/   1.0 mA  VDD ripple    18 mV  out_p -0.000..0.000 V  pin_p -0.000..0.000 V
+ss_r40_n3_off                            P_dip -120.00 dBm (fund -205.67)  I avg/rms/pk   0.10/  0.57/   1.0 mA  VDD ripple    19 mV  out_p -0.000..0.000 V  pin_p -0.000..0.000 V
+ff_r40_n3_off                            P_dip -120.00 dBm (fund -206.53)  I avg/rms/pk   0.11/  0.53/   0.9 mA  VDD ripple    17 mV  out_p -0.000..0.000 V  pin_p -0.000..0.000 V
+sf_r40_n3_off                            P_dip -120.00 dBm (fund -205.34)  I avg/rms/pk   0.11/  0.60/   1.1 mA  VDD ripple    20 mV  out_p -0.000..0.000 V  pin_p -0.000..0.000 V
+fs_r40_n3_off                            P_dip -120.00 dBm (fund -207.03)  I avg/rms/pk   0.11/  0.51/   0.9 mA  VDD ripple    17 mV  out_p -0.000..0.000 V  pin_p -0.000..0.000 V
+
+## 6. EM: arm p stage 4 / 5 drain (d) and source (s) currents, mA (rms, |avg|, peak)
+tt r40 n3:    EM (rms, |avg|, pk mA): d4p [0.985, 0.395, 4.29]  s4p [1.166, 0.434, 4.92]  d4n [0.983, 0.396, 4.01]  s4n [1.067, 0.41, 4.29]  d5p [7.989, 5.754, 16.12]  s5p [8.199, 5.751, 17.9]  d5n [7.955, 5.682, 15.77]  s5n [8.047, 5.684, 16.53]
+ff r15 n0 (max):    EM (rms, |avg|, pk mA): d4p [1.046, 0.387, 4.88]  s4p [1.239, 0.423, 5.64]  d4n [1.043, 0.389, 4.59]  s4n [1.13, 0.401, 4.91]  d5p [10.186, 7.328, 18.16]  s5p [10.341, 7.325, 20.19]  d5n [9.992, 7.172, 18.1]  s5n [10.059, 7.173, 18.87]

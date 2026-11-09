@@ -305,7 +305,7 @@ text {font-family: Sans-Serif;}
 <text fill="#000000"  xml:space="preserve" font-size="4.87031" transform="translate(437.315, 110.834)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="4.87031" transform="translate(437.315, 344.983)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="7.30547" transform="translate(129.647, 544.348)" >DC</text>
-<text fill="#000000"  xml:space="preserve" font-size="7.30547" transform="translate(164.062, 561.207)" >10/10 ×12</text>
+<text fill="#000000"  xml:space="preserve" font-size="7.30547" transform="translate(164.062, 561.207)" >10/10 ×24</text>
 <text fill="#000000"  xml:space="preserve" font-size="4.87031" transform="translate(104.822, 541.669)" >VDD</text>
 <text fill="#000000"  xml:space="preserve" font-size="4.87031" transform="translate(67.3584, 635.329)" >VDD</text>
 <path class="l1" d="M45.1142 263.292L185.604 263.292"/>
@@ -334,7 +334,7 @@ text {font-family: Sans-Serif;}
 <circle class="l1" cx="157.506" cy="553.637" r="1.73271"/>
 <circle class="l1" cx="157.506" cy="553.637" r="1.73271"/>
 <circle class="l1" cx="157.506" cy="553.637" r="1.73271"/>
-<text fill="#000000"  xml:space="preserve" font-size="7.30547" transform="translate(157.506, 588.368)" >DC supply decap ~4.9 pF</text>
+<text fill="#000000"  xml:space="preserve" font-size="7.30547" transform="translate(157.506, 588.368)" >DC supply decap ~9.8 pF</text>
 <text fill="#000000"  xml:space="preserve" font-size="17.0461" transform="translate(45.1142, 25.8878)" >tx_drv: dipole TX driver (out_p, out_n in antiphase)</text>
 <text fill="#000000"  xml:space="preserve" font-size="10.2277" transform="translate(45.1142, 47.7947)" >ls (lsdiv's level-shifter output, 0-3.3 V) -&gt; splitter -&gt; two arms; en_p / en_n gate each arm (both low: both outputs low); one arm alone is the monopole fallback</text>
 <text fill="#000000"  xml:space="preserve" font-size="10.2277" transform="translate(45.1142, 63.7168)" >VDD is the driver's own supply (VDPWR stripe and decap), separate from the ring's; source: sim/tx/tx_drv.py block()</text>
