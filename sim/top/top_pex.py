@@ -5,11 +5,11 @@
   python3 sim/top/top_pex.py startup [--tstop 14e-6]           # power-on, tt: VDD = VDD_LS ramp 0 -> 3.3 V in 10 us
   python3 sim/top/top_pex.py summary                            # table -> sim/top/results.md (+ results.json)
 
-Deck: Xtop VDD VDD_LS VSS vctrl bit0-4 bitb0-4 ck a0 vbn vg vco_top (the extracted top: core + reference + filter +
+Deck: Xtop VDD VDD_LS VSS vctrl bit0-4 bitb0-4 ck a0 vbn vg ls vco_top (the extracted top: core + reference + filter +
 level shifter / divider + the VDD_LS decap, all from layout), VDD (vdd) and VDD_LS (vls) separate 3.3 V sources,
 ck loaded as in sim/lsdiv/lsdiv.py ls_x(): a 20 fF wire + one gf180mcu_fd_sc_mcu7t5v0__dffq_1 clock pin (on its own
 supply vff). 27 C, code 9, vctrl 1.65 V. f(a0) is measured at mid-swing over the last 40 % of tstop; LS duty on the
-extraction's monitor label ls (v(xtop.ls), VDD_LS / 2), the /4 ratio from v(ck); power = 3.3 V x the mean supply
+vco_top's ls port (v(ls), VDD_LS / 2; the monitor label xtop.ls before ls became a port), the /4 ratio from v(ck); power = 3.3 V x the mean supply
 current over the same window. .ic: a0..a4 alternating (vco_bias) on a0 only (a1..a4 are not ports), vbn and vbnf at
 the schematic reference's value per corner (initial guesses for the operating point; no uic).
 Imports sim/lsdiv/lsdiv.py read-only for the measurement helpers. Does not modify sim/lsdiv or sim/vco.
@@ -30,7 +30,7 @@ OUT = REPO / "build/top_pex"
 PEX = dict(c=REPO / "layout/pex/vco_top_c.spice", rcx=REPO / "layout/pex/vco_top_rcx.spice")
 CODE, VCTRL, VDD = 9, 1.65, 3.3
 VBN0 = dict(typical=1.232, ss=1.384, ff=1.083)        # schematic reference vbn at 27 C (sim/ref/results.md)
-SAVE = "v(a0) v(vg) v(ck) v(vbn) v(xtop.vbnf) v(xtop.ls) v(xtop.q1) i(vdd) i(vls)"
+SAVE = "v(a0) v(vg) v(ck) v(vbn) v(xtop.vbnf) v(ls) v(xtop.q1) i(vdd) i(vls)"
 # block-level references at code 9, vctrl 1.65 V, 27 C
 REFS = dict(
     core_ref=dict(typical=425.61e6, ss=389.50e6, ff=470.22e6),      # extracted core + extracted reference, no LS (sim/ref/results.md)
@@ -51,7 +51,7 @@ def circuit(pex, corner, supplies):
     bits = "".join(f"vbit{i} bit{i} 0 {VDD if (CODE >> i) & 1 else 0}\nvbitb{i} bitb{i} 0 {0 if (CODE >> i) & 1 else VDD}\n"
                    for i in range(5))
     return f"""{hdr(corner)}{supplies}vctrl vctrl 0 {VCTRL}
-{bits}Xtop vdd vls 0 vctrl {' '.join(f'bit{i}' for i in range(5))} {' '.join(f'bitb{i}' for i in range(5))} ck a0 vbn vg vco_top
+{bits}Xtop vdd vls 0 vctrl {' '.join(f'bit{i}' for i in range(5))} {' '.join(f'bitb{i}' for i in range(5))} ck a0 vbn vg ls vco_top
 .include {PEX[pex]}
 Cwire ck 0 20f
 XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1
@@ -119,7 +119,7 @@ def analyse_ring(name):
         pl = read_raw(d / "out.raw")[0]["vars"]
     except Exception as e:  # noqa: BLE001
         return dict(name=name, error=str(e), flags=flags)
-    t, a0, ck, ls = pl["time"], pl["v(a0)"], pl["v(ck)"], pl["v(xtop.ls)"]
+    t, a0, ck, ls = pl["time"], pl["v(a0)"], pl["v(ck)"], pl["v(ls)"]
     amin, amax = float(a0.min()), float(a0.max())
     fa, _ = LD.freq(t, a0, (amin + amax) / 2)
     h = (t[0] + t[-1]) / 2

@@ -49,14 +49,11 @@ SAVE = ('v(a0) v(ck) v(vg) v(vbn) v(xtop.vbnf) v(ls) v(vdd) v(vls) v(vtx) i(vdd_
 
 
 def topx(pex):
-    """The extracted vco_top with ls added to its ports (written once per netlist into build/tx_top/)."""
+    """The extracted vco_top; ls is its last port (lsdiv's level-shifter output, since 2026-11-09)."""
     src = TP.PEX[pex].read_text()
-    hdr = '.subckt vco_top VDD VDD_LS VSS vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 ck a0 vbn vg'
+    hdr = '.subckt vco_top VDD VDD_LS VSS vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 ck a0 vbn vg ls'
     assert src.count(hdr + '\n') == 1, 'vco_top header changed'
-    dst = OUT / f'vco_top_{pex}_ls.spice'
-    OUT.mkdir(parents=True, exist_ok=True)
-    dst.write_text(src.replace(hdr + '\n', hdr + ' ls\n'))
-    return dst
+    return TP.PEX[pex]
 
 
 def deck(pex, corner, case, temp=27, vdd=3.3, tstop=1.2e-6, rsup=1.0, lsup=1e-9):

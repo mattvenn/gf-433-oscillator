@@ -19,7 +19,8 @@ Floorplan (x left to right, y bottom to top; same y origin as layout/ring_core_v
 Cc: interdigitated M2 and M3 fingers (0.3 / 0.3 um), the a0 and lg fingers alternate on each layer and swap between
     layers (each a0 finger has lg on its sides and above / below). a0 spine at the right edge, lg spine on its left,
     which is where the lg track ends.
-Pins: VDD, VSS (M2 rails), a0 (M2, right edge, y = 4.715 um = the core's a0 tap), ck (M2, left edge). No Metal4/5.
+Pins: VDD, VSS (M2 rails), a0 (M2, right edge, y = 4.715 um = the core's a0 tap), ck (M2, left edge), ls (M3, top edge,
+x = the R1 ls terminal: the TX driver's tap on the level-shifter output). No Metal4/5.
 """
 import argparse, json, os, subprocess, sys
 from pathlib import Path
@@ -465,6 +466,10 @@ def build(sets=()):
         for xx in (sx0 + 200, sx0 + 800):
             c.r("v2", xx - 140, yy - 140, xx + 140, yy + 140)
     bbox = (0, Y["vss_b"] - 300, W_bb, Y["vss2_t"] + 300)
+    # ls port for the TX driver tap: the ls M3 (R1's terminal) on up to the top edge, over R1 strip 0 and the top
+    # VSS rail (M1 / M2 only there)
+    c.r("m3", ls_x - 190, r_ls[1], ls_x + 190, bbox[3])
+    c.label("ls", "m3", ls_x, bbox[3] - 200, port=True)
     meta = dict(Y=Y, bbox=bbox, tracks={n: [k, ty[n], span[n]] for n, k in trk.items()}, ntrk=ntrk,
                 cc=dict(nf=nf, ccl=ccl, xc0=xc0, xa0=xa0, cy0=cy0, h=h), r1=dict(x0=rx0, L0=L0, L9=L9, Ls=Ls),
                 c1=dict(x0=c1_x0, x1=c1_x1), lf_x=lf_x, ls_x=ls_x, S=S)

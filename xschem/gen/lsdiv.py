@@ -26,7 +26,7 @@ _spec.loader.exec_module(LS)
 
 BLOCK = LS.block()
 DEV = parse('\n'.join(ln for ln in BLOCK.splitlines() if ln and not ln.startswith('.')))
-PINS = ['VDD', 'VSS', 'a0', 'ck']
+PINS = ['VDD', 'VSS', 'a0', 'ck', 'ls']
 
 
 def place(s, name, x, y, **kw):
@@ -210,7 +210,11 @@ def build_top():
     t1 = s.place('tspc_t1.sym', 300, 0, name='xd1')
     t2 = s.place('tspc_t2.sym', 600, 0, name='xd2')
     s.wire((xl, 0), ls.pin('a0')); port(s, (xl, 0), 'a0', 'in')
-    s.wire(ls.pin('ls'), t1.pin('clk'))
+    # ls: on to the /2 clock, and up to the ls port (the TX driver's tap)
+    tl = ((ls.pin('ls')[0] + t1.pin('clk')[0]) // 20 * 10, ls.pin('ls')[1])
+    s.bus(ls.pin('ls'), t1.pin('clk'), [tl])
+    s.route(tl, (tl[0], -200), (1100, -200), vfirst=True)
+    port(s, (1100, -200), 'ls', 'out')
     s.wire(t1.pin('q'), t2.pin('clk'))
     g, d, ps, ns = inverter(s, 'B1', 900, 'q2', 'ck')
     s.wire(t2.pin('q'), g)
@@ -223,10 +227,11 @@ def build_top():
         s.text(x, -24, t, 0.3)
     supplies(s, xl, 260)
     title(s, xl, -400, ['lsdiv: a0 level shifter + TSPC /4 + clock buffer',
-                        'ck = f(a0) / 4 at full rail, for the digital dividers; give it its own VDD/VSS branch '
+                        'ck = f(a0) / 4 at full rail, for the digital dividers; ls (the full-rail level-shifter output) '
+                        'is a port for the TX driver tap; give it its own VDD/VSS branch '
                         'and ~10 pF decap (docs/lsdiv_design.md)',
                         'source: sim/lsdiv/lsdiv.py block()'])
-    finish(s, 'lsdiv', PINS, left=['a0'], right=['ck'], top=['VDD'], bottom=['VSS'], width=160, label='lsdiv')
+    finish(s, 'lsdiv', PINS, left=['a0'], right=['ck', 'ls'], top=['VDD'], bottom=['VSS'], width=160, label='lsdiv')
 
 
 def build():

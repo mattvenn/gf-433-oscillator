@@ -103,7 +103,7 @@ def passives(s, out):
 
 def block(s=None):
     """The drawn block as a .subckt (LVS / schematic source): LS (c) with the real passives + TSPC /4 + buffer.
-    Ports VDD VSS a0 ck. Not in it: the parasitic stand-ins Cpa/Cpg, the 20 fF ck wire and the std-cell DFF (loads).
+    Ports VDD VSS a0 ck ls (ls: the level-shifter output, the TX driver's tap). Not in it: the parasitic stand-ins Cpa/Cpg, the 20 fF ck wire and the std-cell DFF (loads).
     Cc stays an ideal C (it is a metal-finger cap, no device)."""
     s = dict(S if s is None else s, real=1)
     body = ls_c(s, out="ls") + divider(s, clk="ls")
@@ -114,7 +114,7 @@ def block(s=None):
             continue
         t = [{"vls": "VDD", "vdv": "VDD", "0": "VSS"}.get(x, x) for x in t]
         lines.append(" ".join(t))
-    return ".subckt lsdiv VDD VSS a0 ck\n" + "\n".join(lines) + "\n.ends\n"
+    return ".subckt lsdiv VDD VSS a0 ck ls\n" + "\n".join(lines) + "\n.ends\n"   # ls: the TX driver tap (port)
 
 
 def ls_b(s, inp="a0", out="lsout", vdd="vls"):
@@ -140,7 +140,8 @@ def ls_x(s):
     """The extracted lsdiv block (Cc, Cpa/Cpg and the wiring C are in the extraction) + the same loads as divider():
     the 20 fF ck wire and the std-cell DFF. One supply (vls) feeds LS + /4 + buffer, so p_ls is the block total
     and p_div is 0. ls and q1 are brought out as extra ports (lsout, q1) for analyse()."""
-    t = LSX.read_text().replace(".subckt lsdiv VDD VSS a0 ck", ".subckt lsdiv_x VDD VSS a0 ck ls q1")
+    t, n = re.subn(r"(?m)^\.subckt lsdiv VDD VSS a0 ck( ls)?$", ".subckt lsdiv_x VDD VSS a0 ck ls q1", LSX.read_text())
+    assert n == 1, "lsdiv extraction header"     # old extractions have no ls port, newer ones end in ls
     t = t.replace(" ppolyf_u_1k ", f" ppolyf_u_{R1MODEL['m']} ")
     return (t + "Xlsdiv vls 0 a0 ck lsout q1 lsdiv_x\n" + f"Cwire ck 0 {s['cwire']}\n"
             + "XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1\n")

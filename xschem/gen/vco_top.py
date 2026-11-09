@@ -5,7 +5,8 @@ lsdiv (level shifter + TSPC /4 + clock buffer) on a0, on its own supply VDD_LS, 
 (nfet_03v3 gate cap, gate VDD_LS, S/D/B VSS, sized as drawn by layout/gen/vco_top.py).
 
 Ports: VDD (ring + reference), VDD_LS (level shifter / divider), VSS, vctrl, bit0-4, bitb0-4, ck (a0 / 4),
-a0 (the ring tap, for the future TX driver), vbn (unfiltered reference bias, monitor), vg (DAC node, monitor).
+a0 (the ring tap), vbn (unfiltered reference bias, monitor), vg (DAC node, monitor), ls (lsdiv's level-shifter
+output: the TX driver's tap).
 
     python3 xschem/gen/vco_top.py
 """
@@ -24,7 +25,7 @@ DCLS = _lay.DCLS
 
 BITS = P['bits']
 PINS = (['VDD', 'VDD_LS', 'VSS', 'vctrl'] + [f'bit{b}' for b in range(BITS)] + [f'bitb{b}' for b in range(BITS)]
-        + ['ck', 'a0', 'vbn', 'vg'])
+        + ['ck', 'a0', 'vbn', 'vg', 'ls'])
 STAIR = [x for b in reversed(range(BITS)) for x in (f'bit{b}', f'bitb{b}')]
 
 
@@ -38,7 +39,7 @@ def build():
     xl, xr = -100, 1400
     core = s.place('ring_core_v3.sym', 600, 0, name='xcore')
     ref = s.place('cgm_ref.sym', 200, 420, name='xref')
-    ls = s.place('lsdiv.sym', 960, -220, name='xls')
+    ls = s.place('lsdiv.sym', 960, -200, name='xls')
     # coarse code and vctrl straight into the core
     for net in STAIR + ['vctrl']:
         p = core.pin(net)
@@ -62,6 +63,10 @@ def build():
     ck = ls.pin('ck')
     s.wire(ck, (xr, ck[1]))
     port(s, (xr, ck[1]), 'ck', 'out')
+    # ls: the level-shifter output, a port for the TX driver's tap
+    lp = ls.pin('ls')
+    s.wire(lp, (xr, lp[1]))
+    port(s, (xr, lp[1]), 'ls', 'out')
     # vg monitor
     g = core.pin('vg')
     s.wire(g, (xr, g[1]))
@@ -94,7 +99,7 @@ def build():
     title(s, xl, -800, ['vco_top: 433.92 MHz current-fed ring VCO, GF180MCU (top level)',
                         'cgm_ref -> vbnf -> ring_core_v3 -> a0 -> lsdiv -> ck = f / 4; lsdiv on its own supply VDD_LS',
                         'the LVS source of layout/vco_top.gds (layout/gen/check_top.sh)'])
-    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl'], right=['a0', 'ck', 'vbn', 'vg'],
+    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl'], right=['a0', 'ck', 'ls', 'vbn', 'vg'],
            top=['VDD', 'VDD_LS'], bottom=['VSS'], width=220, label='vco_top')
 
 

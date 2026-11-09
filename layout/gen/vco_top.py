@@ -22,7 +22,7 @@ Top-level metal (M1-M3 only, no Metal4/5):
           (y 62.88 ... top) over cgm_ref's column A to cgm_ref's VDD rail (y 62.88...65.28, via2s between its via1s).
   VDD_LS: lsdiv's VDD rail (M2, y 41.17...43.57 here) <- an M2 strap from the decap's gate strap; M2 spine and an
           M3 pad up to the top edge. Separate from VDD everywhere inside the macro.
-Pins (labels in vco_top): bit0-4 / bitb0-4 and ck on M3 at the top edge, VDD and VDD_LS on M3 at the top edge,
+Pins (labels in vco_top): bit0-4 / bitb0-4, ck and ls (lsdiv's level-shifter output, the TX tap) on M3 at the top edge, VDD and VDD_LS on M3 at the top edge,
   vg on M3 at the bottom edge (the core's pin), vctrl and vbn on M2 at the right edge (cgm_ref's pins), VSS on M2/M3
   at the bottom, a0 on M2 at the lsdiv / core junction (not routed to an edge: ~1 % of f per fF on a0).
 """
@@ -46,6 +46,7 @@ YTOP = 66795                       # macro top = cgm_ref's top
 YBOT = -4000                       # macro bottom = the core's vg pin
 VSS_B, VSS_T = -2400, 0
 CK_X = (-44390, -44010)            # ck M3 riser in the channel left of lsdiv
+LS_PIN = (20790, 21170)            # lsdiv's ls M3 port (lsdiv x), the TX driver's tap: riser to the top edge
 DC_R = -45600                      # decap_ls right edge
 VDD_DROP = (58000, 62000)          # VDD M2 drop above the core (right of the bit risers)
 VDD_M3 = (56500, 62880)            # VDD M3 strap: x start, y bottom (to YTOP)
@@ -201,6 +202,9 @@ def assemble(decap_gds, info, dst):
       (cky[0] + cky[1]) // 2 + 130)
     r("m3", CK_X[0], cky[0], CK_X[1], YTOP)
     lab("ck", "m3", (CK_X[0] + CK_X[1]) // 2, YTOP - 200)
+    # ---- ls: lsdiv's ls M3 (its top-edge port, lsdiv x 20.79 ... 21.17) on up to the macro's top edge ----
+    r("m3", LS[0] + LS_PIN[0], LS[1] + 34305 - 400, LS[0] + LS_PIN[1], YTOP)
+    lab("ls", "m3", LS[0] + (LS_PIN[0] + LS_PIN[1]) // 2, YTOP - 200)
     # ---- bits: the core's M3 pins up to the top edge ----
     names = ["bitb0", "bit0", "bitb1", "bit1", "bitb2", "bit2", "bitb3", "bit3", "bitb4", "bit4"]
     for (a, b), nm in zip(CORE_BITS_X, names):

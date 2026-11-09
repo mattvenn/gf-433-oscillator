@@ -32,6 +32,7 @@ N 800 -220 860 -220 {}
 N 800 -220 800 -520 {}
 N 800 -520 1400 -520 {}
 N 1060 -220 1400 -220 {}
+N 1060 -180 1400 -180 {}
 N 720 -20 1400 -20 {}
 N 910 -270 910 -340 {}
 N 910 -340 1200 -340 {}
@@ -45,11 +46,11 @@ N 1280 -270 1300 -270 {}
 N -100 660 -40 660 {}
 N -100 720 -40 720 {}
 N -100 780 -40 780 {}
-C {devices/iopin.sym} -100 660 0 1 {name=p16
+C {devices/iopin.sym} -100 660 0 1 {name=p17
 lab=VDD}
-C {devices/iopin.sym} -100 720 0 1 {name=p17
+C {devices/iopin.sym} -100 720 0 1 {name=p18
 lab=VDD_LS}
-C {devices/iopin.sym} -100 780 0 1 {name=p18
+C {devices/iopin.sym} -100 780 0 1 {name=p19
 lab=VSS}
 C {devices/ipin.sym} -100 180 0 0 {name=p11
 lab=vctrl}
@@ -79,11 +80,13 @@ C {devices/opin.sym} 1400 -520 0 0 {name=p13
 lab=a0}
 C {devices/opin.sym} 1400 560 0 0 {name=p12
 lab=vbn}
-C {devices/iopin.sym} 1400 -20 0 0 {name=p15
+C {devices/iopin.sym} 1400 -20 0 0 {name=p16
 lab=vg}
+C {devices/opin.sym} 1400 -180 0 0 {name=p15
+lab=ls}
 C {ring_core_v3.sym} 600 0 0 0 {name=xcore}
 C {cgm_ref.sym} 200 420 0 0 {name=xref}
-C {lsdiv.sym} 960 -220 0 0 {name=xls}
+C {lsdiv.sym} 960 -200 0 0 {name=xls}
 C {symbols/nfet_03v3.sym} 1260 -300 0 0 {name=DCLS
 L=10.0u
 W=49.14u
@@ -113,7 +116,7 @@ C {symbols/vdd.sym} 150 350 0 0 {name=l5
 lab=VDD}
 C {symbols/gnd.sym} 150 490 0 0 {name=l6
 lab=VSS}
-C {symbols/gnd.sym} 910 -170 0 0 {name=l7
+C {symbols/gnd.sym} 910 -130 0 0 {name=l7
 lab=VSS}
 C {symbols/vdd.sym} -40 660 0 0 {name=l8
 lab=VDD}

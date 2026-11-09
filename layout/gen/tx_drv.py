@@ -33,7 +33,10 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 from ring_core import Cell, CO, ENC_CO, ENDCAP, TPITCH  # noqa: E402
-import lsdiv as LL  # noqa: E402  (layout/gen/lsdiv.py: strip(), assign_tracks(), the rules it uses)
+# layout/gen/lsdiv.py: strip(), assign_tracks(), the rules it uses. Loaded by path: xschem/gen/ has an lsdiv.py too
+_ls = importlib.util.spec_from_file_location('lay_lsdiv', HERE / 'lsdiv.py')
+LL = importlib.util.module_from_spec(_ls)
+_ls.loader.exec_module(LL)
 
 _spec = importlib.util.spec_from_file_location('sim_tx_drv', REPO / 'sim' / 'tx' / 'tx_drv.py')
 TX = importlib.util.module_from_spec(_spec)
