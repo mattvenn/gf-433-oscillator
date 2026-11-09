@@ -45,7 +45,9 @@ It is to become an **FM radio toolkit**:
 5. **Sizing, PVT map, PVT noise, v3 layout, MC and start-up** (the docs in the table above).
 
 ## Next steps
-1. **Bench 2026-11-09: done** (results at the top of `bench/lab_todo.md`); next, run `docs/handoff_gf_silicon_factor.md`.
+1. **Bench 2026-11-09: done** (results at the top of `bench/lab_todo.md`). **`docs/handoff_gf_silicon_factor.md` is
+   running on the sim server (started 2026-11-09 evening)**: `git pull` for its status / DONE / FAILED files, then compare
+   with the bench (inv1x5 319.6 MHz and the tap sweep) and re-check that codes 7–11 still reach 433.92 MHz.
    The original list was:
    - measure the ttgf0p2 #200 ring, for the GF silicon/sim factor;
    - check the carrier's core regulator (R1 or R3 feed, VDD_CORE noise);
@@ -80,7 +82,12 @@ It is to become an **FM radio toolkit**:
    - port the OOK LNA (linear, not limiting) and TX driver to GF180;
    - new: mixer, IF preamp, filter, limiter and comparator.
 
-   Pin budget: the TT analog pins are < 500 Ω / < 5 pF on sky130. **The GF figures are unknown, so ask the TT team.**
+   **Pin budget: GF analog pin model done** (`docs/pad_model.md`, `sim/pad/pad_model_gf180.spice`,
+   `xschem/pad_model_gf180.sch`, checked by `sim/pad/check_xsch.py`). tnt's `tt_asw_5v0` switch is 11–37 Ω tt
+   (ss peak 72 Ω), plus 15–60 Ω of routing; a project node sees about 7.7 pF with the pin open; 433.92 MHz out into
+   50 Ω loses −0.5…−0.9 dB vs DC (6–12 dB absolute, the R divider). **Open, ask tnt:** VAPWR on ttgf26c (3.3 or 5 V;
+   simulated at 3.3), and the ttgf26c pin plan (n_off assumed 3; 0–1 likely, 12 `ua` pins requested so far).
+   **Our project is not in `TinyTapeout/tinytapeout-gf-26c` yet: submit before 2026-12-07.**
 6. **Later:** a PLL (on-chip PFD, charge pump and loop filter, reference from the RP2350), and I/Q for the receiver.
 7. **Sign-off:** full PVT (5 corners × 0/27/70 °C × VDD ±4.5 %) plus MC on the extracted tile.
 8. **Estimated tile:** 2x2.
