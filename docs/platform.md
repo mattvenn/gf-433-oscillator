@@ -19,7 +19,8 @@ Each entry says where it comes from: **[repo]** a file in a repo, **[sim]** our 
 ## Supplies and pins
 | Item | Value | Source |
 |---|---|---|
-| VDPWR | 3.3 V | [assumed] template `src/project.v` comment; **[open]** confirm, plus tolerance and ripple on the GF demo board |
+| VDPWR | always 3.3 V | tnt [TT], via Matt, 2026-11-09. **[open]** tolerance and ripple on the GF demo board, and the VDPWR grid impedance a project sees (it sets the TX driver's supply ripple, `sim/tx/results/block_sch.txt`) |
+| VAPWR, VIO | independent of VDPWR, each 3.3–5 V, with VAPWR ≤ VIO (the pad ESD diodes); the analog switch `tt_asw_5v0` runs from VAPWR | tnt [TT], via Matt, 2026-11-09. The TX driver uses 3.3 V devices on VDPWR, so it doesn't depend on the VAPWR setting |
 | ua pin path | switch 11–37 Ω tt (ss peak 72 Ω) + routing 15–60 Ω; about 7.7 pF on a project node with the pin open (3 other projects on the pin); 433.92 MHz out into 50 Ω: −0.5 to −0.9 dB vs DC. Model: `sim/pad/pad_model_gf180.spice`, `docs/pad_model.md` | [sim] + tnt (switch R matches his silicon; routing R). projects per chip pin: 1–4 on ttgf0p3 (TT index API), ttgf26c not known yet |
 | Digital output max toggle | unknown for GF pads | **[open]**. The plan keeps ÷64 (6.8 MHz) and ÷1024 on `uo_out` |
 | Project clock | from the RP2350; 10–50 MHz is typical | [assumed] |
