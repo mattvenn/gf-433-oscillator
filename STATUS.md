@@ -87,11 +87,12 @@ It is to become an **FM radio toolkit**:
    - Schematic: +3.7…+9.3 dBm fundamental into 73 ohm over 5 corners x routing 15–60 ohm x n_off 0–3 (+6.3 dBm tt),
      12.6 mA from VDPWR at tt, duty 48.8–52.1 %, phase error <= 0.5 deg, off state 0 V (`sim/tx/results/`).
    - Layout `layout/tx_drv.gds` 73 x 106 um: DRC / antenna / LVS clean; extracted -0.2…-0.3 dB vs schematic.
-   - On the extracted vco_top: the tap does not disturb the ring; sharing a supply path with it would pull f up to
-     -0.29 %, so it has its own VDPWR stripe. LS duty passes through (out_p 54.0 % at ff).
+   - On the extracted vco_top: the tap does not disturb the ring. Behind TT's power switch (tt_pg_3v3_hp_2, Ron
+     1.2–1.5 ohm, common to the whole tile) keying the driver on moves the ring +0.03…+0.05 % (+110…+210 kHz), ripple
+     12–15 mV, no jitter change. LS duty passes through (out_p 54.0 % at ff). 3rd harmonic at the dipole -14 dBc.
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
    - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
-   - **Open:** ask tnt the VDPWR grid impedance (sets the driver's supply ripple), the ua
+   - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid), the ua
      current limit (~10 mA rms per arm) and the ttgf26c pin plan; re-floorplan with the receiver.
 6. **Receiver blocks:**
    - port the OOK LNA (linear, not limiting) to GF180;

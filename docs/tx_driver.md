@@ -111,6 +111,15 @@ extracted vco_top (code 9, vctrl 1.65 V) and compared against the same top level
 - **The LS duty passes through.** out_p = !ls, so the LS duty of 46.5 % at ff becomes 54.0 % on out_p (47.3 % on
   out_n). The fundamental power is barely affected (+7.32 dBm).
 - **Supply.** At VDD -4.5 % / +4.5 % (3.15 / 3.45 V), P is +5.59 / +7.00 dBm at tt.
+- **Behind Tiny Tapeout's power switch.** Every tile's VDPWR comes through a power gate
+  ([tt-multiplexer pg/gf180mcuD](https://github.com/TinyTapeout/tt-multiplexer/tree/main/pg/gf180mcuD)); for a 2×2
+  tile that is `tt_pg_3v3_hp_2`, one pfet_03v3 of W 3357.5 µm, L 0.28 µm. I simulated its on-resistance at 1.18 (ff)
+  to 1.48 Ω (ss), 1.32 Ω at tt, flat from 1 to 30 mA. It is common to the ring, the LS and the driver, so the driver's
+  own stripe only separates the routing inside the tile. With the switch modelled (ideal chip VDPWR before it), the
+  tile's supply ripple is 12 to 15 mV and switching the driver on moves the ring by +0.03 to +0.05 % (+110 to
+  +210 kHz) with no change in jitter (0.20 to 0.29 ps rms either way). The 1 nH in the shared case above is what
+  made it -0.29 %: inside the tile there is no such inductance. In FM use the vctrl servo absorbs the offset; for
+  on-off keying the loop has to settle after each key-on.
 
 ## Layout and checks
 The layout is one flat cell from `layout/gen/tx_drv.py`, in the same style as lsdiv (it reuses lsdiv's strip and
@@ -166,9 +175,13 @@ excludes. The Tiny Tapeout precheck in continuous integration (CI) passes on thi
 workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
 
 ## Limits and open items
-- **VDPWR grid impedance is unknown.** Every ripple number here assumes 1 Ω + 1 nH between the driver and an ideal
-  3.3 V source. VDPWR is always 3.3 V on ttgf ([platform.md](platform.md)), but its tolerance, ripple and the grid
-  impedance a project sees are open.
+- **VDPWR before the power switch is unknown.** The block benches assume 1 Ω + 1 nH; the top-level runs with TT's
+  power switch (1.2 to 1.5 Ω) take an ideal chip VDPWR before it. The bond wires and the chip-wide grid, shared with
+  every project, are not modelled. VDPWR is always 3.3 V on ttgf ([platform.md](platform.md)).
+- **Harmonics.** The drive is close to a square wave. At tt the dipole's 73 Ω sees the 3rd harmonic at -14.1 dBc and
+  the 5th at -23.3 dBc (on chip: -11.5 / -18.3 dBc; the even ones cancel, -41 dBc). The pad path filters only a few
+  dB, and a real half-wave dipole is near resonance again at 3f, so a bench demo is fine but meeting the 433 MHz
+  band's spurious limits (about -36 dBm) would need a board filter or slower, shaped edges.
 - **Pin current and pin plan.** Each arm carries about 10 mA rms through ua[2] / ua[3] and the analog switch. Whether
   that is within the ua pins' current limit, and whether the ttgf26c pin plan suits a dipole across ua[2] and ua[3],
   are questions for tnt.

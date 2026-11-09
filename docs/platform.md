@@ -20,6 +20,7 @@ Each entry says where it comes from: **[repo]** a file in a repo, **[sim]** our 
 | Item | Value | Source |
 |---|---|---|
 | VDPWR | always 3.3 V | tnt [TT], via Matt, 2026-11-09. **[open]** tolerance and ripple on the GF demo board, and the VDPWR grid impedance a project sees (it sets the TX driver's supply ripple, `sim/tx/results/block_sch.txt`) |
+| Tile power switch | VDPWR reaches the tile through TT's power gate; 2x2: `tt_pg_3v3_hp_2`, pfet_03v3 W 3357.5 µm L 0.28 µm, Ron 1.32 Ω tt (1.18 ff … 1.48 ss), common to everything in the tile | [repo] [tt-multiplexer pg/gf180mcuD](https://github.com/TinyTapeout/tt-multiplexer/tree/main/pg/gf180mcuD) (Matt, 2026-11-09) + [sim] `sim/tx/tb_tx_top.py` case pg |
 | VAPWR, VIO | independent of VDPWR, each 3.3–5 V, with VAPWR ≤ VIO (the pad ESD diodes); the analog switch `tt_asw_5v0` runs from VAPWR | tnt [TT], via Matt, 2026-11-09. The TX driver uses 3.3 V devices on VDPWR, so it doesn't depend on the VAPWR setting |
 | ua pin path | switch 11–37 Ω tt (ss peak 72 Ω) + routing 15–60 Ω; about 7.7 pF on a project node with the pin open (3 other projects on the pin); 433.92 MHz out into 50 Ω: −0.5 to −0.9 dB vs DC. Model: `sim/pad/pad_model_gf180.spice`, `docs/pad_model.md` | [sim] + tnt (switch R matches his silicon; routing R). projects per chip pin: 1–4 on ttgf0p3 (TT index API), ttgf26c not known yet |
 | Digital output max toggle | unknown for GF pads | **[open]**. The plan keeps ÷64 (6.8 MHz) and ÷1024 on `uo_out` |

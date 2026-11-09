@@ -10,6 +10,8 @@ Cases (supplies: ring VDD, VDD_LS, the driver's VDD_TX):
   own    : drivers on. VDD_TX from its own 3.3 V source through Rsup + Lsup (1 ohm + 1 nH, assumed); ring VDD and
            VDD_LS ideal (the driver on its own VDPWR stripe and decap, star at the grid).
   shared : drivers on. Ring VDD, VDD_LS and VDD_TX all behind ONE Rsup + Lsup (worst case: a common supply path).
+  pg     : drivers on, all three supplies behind TT's power switch (tt_pg_3v3_hp_2, the 2x2 tile's VDPWR gate, Ron
+           1.2-1.5 ohm) from an ideal chip VDPWR: the real tile. pgoff: the same with en_p = en_n = 0.
 Measured over the last 40 % of tstop: f(a0) (mid-swing) and its period jitter, f / 4 ratio, LS duty, P into the
 dipole (total, and the fundamental by a DFT at f(a0) over whole periods), out_p / out_n duty and the fundamental
 phase error, I(VDD_TX) avg / rms, ripple (peak-peak) on the ring VDD and VDD_TX.
@@ -58,8 +60,14 @@ def topx(pex):
 
 def deck(pex, corner, case, temp=27, vdd=3.3, tstop=1.2e-6, rsup=1.0, lsup=1e-9):
     v0 = TP.VBN0[corner]
-    en = 0 if case == 'off' else vdd
-    if case == 'shared':
+    en = 0 if case in ('off', 'pgoff') else vdd
+    if case in ('pg', 'pgoff'):
+        # the real path: TT's power switch tt_pg_3v3_hp_2 (2x2 tile; tt-multiplexer pg/gf180mcuD): one pfet_03v3
+        # W 3357.5 um (395 x 8.5) L 0.28, gate at 0 V when on, from an ideal chip VDPWR to the tile's VDPWR, which
+        # feeds the ring (VDD), lsdiv (VDD_LS) and the driver (VDD_TX) alike. Ron 1.18 (ff) ... 1.48 (ss) ohm.
+        sup = (f'vsrc vsrc 0 {vdd}\nXpg vgrid 0 vsrc vsrc pfet_03v3 w=8.5u l=0.28u m=395\n'
+               'vdd_s vdd vgrid 0\nvls_s vls vgrid 0\nvtx_s vtx vgrid 0\n')
+    elif case == 'shared':
         sup = (f'vsrc vsrc 0 {vdd}\nRsup vsrc vs1 {rsup}\nLsup vs1 vgrid {lsup}\n'
                'vdd_s vdd vgrid 0\nvls_s vls vgrid 0\nvtx_s vtx vgrid 0\n')     # same current sign as a 3.3 V source
     else:
@@ -108,6 +116,10 @@ def cases():
         for case in ('off', 'own', 'shared'):
             c[f'c_{corner}_{case}'] = dict(pex='c', corner=corner, case=case)
     c['rcx_typical_own'] = dict(pex='rcx', corner='typical', case='own')
+    for corner in ('typical', 'ss', 'ff'):           # behind TT's power switch (added 2026-11-09)
+        for case in ('pg', 'pgoff'):
+            c[f'c_{corner}_{case}'] = dict(pex='c', corner=corner, case=case)
+    c['rcx_typical_pg'] = dict(pex='rcx', corner='typical', case='pg')
     for temp in (0, 70):
         c[f'c_typical_own_T{temp}'] = dict(pex='c', corner='typical', case='own', temp=temp)
     for vdd in (3.15, 3.45):
@@ -174,7 +186,7 @@ def analyse(name):
     t0 = tc[0]
     a1, _ = fund(t, vr, fa, t0, t[-1])
     r['p1_dbm'] = float(10 * np.log10(max(a1 ** 2 / (2 * RDIP), 1e-18) / 1e-3))
-    if kw.get('case') != 'off':
+    if kw.get('case') not in ('off', 'pgoff'):
         op, on = pl['v(out_p)'], pl['v(out_n)']
         _, ph_p = fund(t, op, fa, t0, t[-1])
         _, ph_n = fund(t, on, fa, t0, t[-1])
