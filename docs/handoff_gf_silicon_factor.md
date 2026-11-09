@@ -1,4 +1,4 @@
-> Running: step 3/5 since 18:37, ETA 21:00 (sim-0; magic 8.3.642 built into ~/.local/magic642)
+> Running: step 4/5 since 20:59, ETA 21:40 (sim-0; magic 8.3.642 built into ~/.local/magic642)
 # Handoff: GF silicon factor from a measured ttgf0p2 ring (sim pod)
 
 **Goal: simulate the ring configurations of `tt_um_algofoogle_vgaringosc` (ttgf0p2, mux address 614) from its
