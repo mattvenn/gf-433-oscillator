@@ -1,0 +1,61 @@
+* pad_model_gf180 characterisation at one DC level VCM, routing RROUTE, NOFF other switches.
+* 1) DC: 100 uA from pin to mod, R = (v(pin) - v(mod)) / 100u   (as tnt's tb_rdson, but through the pad)
+* 2) AC in : 50 ohm generator -> pin -> mod into a high-Z project input (Cmod only); dB relative to 1 MHz
+* 3) AC out: ideal project driver at mod -> pin into a 50 ohm load; dB relative to 1 MHz (and absolute)
+* 4) |Z| at mod with the pin terminated in 50 ohm (a project driving a 50 ohm instrument)
+* 5) C at mod with the pin open (a scope probe / unconnected pin): the load the pin path puts on a project node
+.include {PDK}/design.ngspice
+.lib {PDK}/sm141064.ngspice {CORNER}
+.lib {PDK}/sm141064.ngspice diode_typical
+.include tt_asw_5v0.spice
+.include pad_model_gf180.spice
+.temp 27
+.param vcm={VCM}
+
+* 1) DC
+Xd 0 pind modd pad_model_gf180 rroute={RROUTE} n_off={NOFF}
+Id 0 pind 100u
+Vd modd 0 {vcm}
+* 2) AC in: generator 50 ohm, project input high-Z (Cmod only)
+Vg g1 0 dc {vcm} ac 2
+Rg g1 pin1 50
+Xi 0 pin1 mod1 pad_model_gf180 rroute={RROUTE} n_off={NOFF}
+* 3) AC out: ideal project driver at mod, 50 ohm to a vcm sink at the pin
+Vp mod2 0 dc {vcm} ac 1
+Xo 0 pin2 mod2 pad_model_gf180 rroute={RROUTE} n_off={NOFF}
+Rl pin2 l2 50
+Vl l2 0 {vcm}
+* 4) Z at mod: 1 A ac into mod, pin terminated in 50 ohm to vcm (DC set by a 1 Mohm to vcm)
+Iz 0 mod3 dc 0 ac 1
+Rb mod3 b3 1meg
+Vb b3 0 {vcm}
+Xz 0 pin3 mod3 pad_model_gf180 rroute={RROUTE} n_off={NOFF}
+Rl3 pin3 l3 50
+Vl3 l3 0 {vcm}
+* 5) C at mod, pin open
+Iy 0 mod4 dc 0 ac 1
+Rb4 mod4 b4 1meg
+Vb4 b4 0 {vcm}
+Xy 0 pin4 mod4 pad_model_gf180 rroute={RROUTE} n_off={NOFF}
+Ry pin4 0 1g
+
+.control
+op
+let rdc = (v(pind) - v(modd)) / 100u
+print rdc
+ac dec 50 1meg 10g
+let gin = vdb(mod1) - vdb(mod1)[0]
+let gout = vdb(pin2) - vdb(pin2)[0]
+let gout_abs = vdb(pin2)
+let cy = -1 / (2 * pi * frequency * imag(v(mod4)))
+meas ac gin_433 find gin at=433.92e6
+meas ac gout_433 find gout at=433.92e6
+meas ac gout_abs_lf find gout_abs at=1e6
+meas ac gout_abs_433 find gout_abs at=433.92e6
+meas ac f3_in when gin=-3 fall=1
+meas ac f3_out when gout=-3 fall=1
+meas ac zmod_433 find vm(mod3) at=433.92e6
+meas ac cmod_open find cy at=1e6
+wrdata {OUT} gin gout gout_abs
+.endc
+.end

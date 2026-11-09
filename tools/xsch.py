@@ -270,13 +270,14 @@ def inv(sch, x, y, pkw, nkw, h=75):
     return p, n, g, d
 
 
-def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=None, order=None, label=None, dirs=None):
+def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=None, order=None, label=None, dirs=None,
+                 tpitch=40):
     """Box symbol for a subcircuit: pins listed per side, 40 units apart.
     Pin order in the netlist = order given (left, right, top, bottom).
     params = {name: default}: passed per instance; xschem puts the defaults on
     the .subckt line, so the schematic can use them as 'name'.
     order: the netlist pin order (sim_pinnumber) when it differs from the drawing order;
-    label: the text inside the box (default @symname)."""
+    label: the text inside the box (default @symname); tpitch: top / bottom pin spacing (long pin names)."""
     nl, nr = len(left), len(right)
     h = max(nl, nr, 1) * 40 + 20
     w2, h2 = width // 2, h // 2
@@ -301,10 +302,10 @@ def write_symbol(path, left=(), right=(), top=(), bottom=(), width=160, params=N
         y = -h2 + 30 + i * 40
         out.append(f'L 7 {w2} {y} {w2+20} {y} {{}}'); pin(nm, w2 + 20, y, w2 - 5, y - 6, 1)
     for i, nm in enumerate(top):
-        x = -w2 + 30 + i * 40
+        x = -w2 + 30 + i * tpitch
         out.append(f'L 7 {x} -{h2+20} {x} -{h2} {{}}'); pin(nm, x, -h2 - 20, x - 6, -h2 + 5, 0)
     for i, nm in enumerate(bottom):
-        x = -w2 + 30 + i * 40
+        x = -w2 + 30 + i * tpitch
         out.append(f'L 7 {x} {h2} {x} {h2+20} {{}}'); pin(nm, x, h2 + 20, x - 6, h2 - 20, 0)
     out.append(f'T {{{label or "@symname"}}} 0 -10 0 0 0.35 0.35 {{hcenter=true}}')
     out.append(f'T {{@name}} {w2-30} -{h2+20} 0 0 0.2 0.2 {{}}')

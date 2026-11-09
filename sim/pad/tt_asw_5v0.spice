@@ -1,0 +1,35 @@
+* Tiny Tapeout GF180 analog switch tt_asw_5v0 and its level shifter lv2hv, hand-netlisted from
+* github.com/TinyTapeout/tt-multiplexer asw/gf180mcuD/tt_asw_5v0/xschem (design: Sylvain Munaut, Apache-2.0).
+* ctrl = 1 (VDPWR): switch on (bus <-> mod). ctrl = 0: switch off and mod tied to VGND through M3 (31/0.6).
+* Needs: .include design.ngspice + .lib sm141064.ngspice <corner>
+
+.subckt lv2hv VGND VDPWR VAPWR in out_p out_n
+* two 3.3 V inverters: in -> in_n -> in_p
+XM1  in_n in   VGND  VGND  nfet_03v3 w=0.89u l=0.28u ad=0.16p as=0.16p pd=2.14u ps=2.14u
+XM2  in_n in   VDPWR VDPWR pfet_03v3 w=2.0u  l=0.28u ad=0.36p as=0.36p pd=4.36u ps=4.36u
+XM11 in_p in_n VGND  VGND  nfet_03v3 w=0.89u l=0.28u ad=0.16p as=0.16p pd=2.14u ps=2.14u
+XM12 in_p in_n VDPWR VDPWR pfet_03v3 w=2.0u  l=0.28u ad=0.36p as=0.36p pd=4.36u ps=4.36u
+* cross-coupled 5 V latch (n1, n2) on VAPWR
+XM3  n1 in_p VGND  VGND  nfet_05v0 w=0.5u l=0.6u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+XM4  n1 n2   VAPWR VAPWR pfet_05v0 w=0.5u l=0.5u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+XM5  n2 in_n VGND  VGND  nfet_05v0 w=0.5u l=0.6u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+XM6  n2 n1   VAPWR VAPWR pfet_05v0 w=0.5u l=0.5u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+* output inverters: out_p = !n1, out_n = !n2
+XM9  out_p n1 VGND  VGND  nfet_05v0 w=0.5u l=0.6u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+XM10 out_p n1 VAPWR VAPWR pfet_05v0 w=1.0u l=0.5u nf=2 ad=0.09p as=0.18p pd=1.36u ps=2.72u
+XM7  out_n n2 VGND  VGND  nfet_05v0 w=0.5u l=0.6u ad=0.09p as=0.09p pd=1.36u ps=1.36u
+XM8  out_n n2 VAPWR VAPWR pfet_05v0 w=1.0u l=0.5u nf=2 ad=0.09p as=0.18p pd=1.36u ps=2.72u
+.ends
+
+* pins in the order of tt_asw_5v0.sym / the blackbox: VGND VDPWR VAPWR ctrl mod bus
+* mult: N identical switches in parallel (the bus side of N projects); the level shifter is not multiplied.
+.subckt tt_asw_5v0 VGND VDPWR VAPWR ctrl mod bus mult=1
+X1 VGND VDPWR VAPWR ctrl tgon_p tgon_n lv2hv
+* The schematic's nf=7 / nf=16 devices are written as m = nf unit fingers (one instance with nf falls outside the
+* model bins in ngspice). Per-finger ad/as/pd/ps = the schematic totals / nf, so the junction C is the same:
+* nmos 217u/0.6u nf=7: 4 + 4 diffusions of 31u x 0.18u; pmos 592u/0.5u nf=16: 8 (drain, mod) + 9 (source, bus)
+* diffusions of 37u x 0.18u, the terminals as in tnt's schematic.
+XM2 bus tgon_p mod VGND  nfet_05v0 w=31u l=0.6u m={7*mult} ad=3.189p as=3.189p pd=35.63u ps=35.63u
+XM1 mod tgon_n bus VAPWR pfet_05v0 w=37u l=0.5u m={16*mult} ad=3.330p as=3.746p pd=37.18u ps=41.83u
+XM3 mod tgon_n VGND VGND nfet_05v0 w=31u l=0.6u m={mult} ad=5.58p as=5.58p pd=62.36u ps=62.36u
+.ends

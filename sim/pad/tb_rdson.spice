@@ -1,0 +1,20 @@
+* Reproduce tnt's tb_rdson (tt-multiplexer asw/gf180mcuD/tt_asw_5v0/xschem/tb_rdson.sch), schematic only:
+* 100 uA forced into bus, mod held at Vcm, R = (v(mod) - v(bus)) / 100u, swept 0..3.3 V.
+.include {PDK}/design.ngspice
+.lib {PDK}/sm141064.ngspice {CORNER}
+.include tt_asw_5v0.spice
+.temp 27
+VAP VAPWR 0 3.3
+VDP VDPWR 0 3.3
+VC  ctrl  0 3.3
+X1 0 VDPWR VAPWR ctrl mod bus tt_asw_5v0
+I0 bus 0 100u
+Vcm mod 0 1
+.control
+dc Vcm 0 3.3 0.01
+let r = (v(mod) - v(bus)) / 100u
+wrdata {OUT} r
+meas dc rmax max r
+meas dc rmin min r
+.endc
+.end

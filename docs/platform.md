@@ -20,7 +20,7 @@ Each entry says where it comes from: **[repo]** a file in a repo, **[sim]** our 
 | Item | Value | Source |
 |---|---|---|
 | VDPWR | 3.3 V | [assumed] template `src/project.v` comment; **[open]** confirm, plus tolerance and ripple on the GF demo board |
-| ua pin path | sky130 spec: < 500 Ω, < 5 pF, 4 mA. **The GF analog switch is not documented** | **[open]** GF `tt_asw` R/C, and bandwidth at 433 MHz |
+| ua pin path | switch 11–37 Ω tt (ss peak 72 Ω) + routing 15–60 Ω; about 7.7 pF on a project node with the pin open (3 other projects on the pin); 433.92 MHz out into 50 Ω: −0.5 to −0.9 dB vs DC. Model: `sim/pad/pad_model_gf180.spice`, `docs/pad_model.md` | [sim] + tnt (switch R matches his silicon; routing R). projects per chip pin: 1–4 on ttgf0p3 (TT index API), ttgf26c not known yet |
 | Digital output max toggle | unknown for GF pads | **[open]**. The plan keeps ÷64 (6.8 MHz) and ÷1024 on `uo_out` |
 | Project clock | from the RP2350; 10–50 MHz is typical | [assumed] |
 | RP2350 PIO counting | counts edges up to ~sysclk/2 (75 MHz at 150 MHz); the crystal is ±30 ppm, ≈ 13 kHz at 433.92 MHz | [assumed] RP2350 datasheet; check on the bench |

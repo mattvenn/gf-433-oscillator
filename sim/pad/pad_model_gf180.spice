@@ -1,0 +1,43 @@
+* pad_model_gf180: one Tiny Tapeout GF180 (ttgf) analog pin, from the board pin to a project's ua[] port.
+* GF180 version of tnt's sky130 pad_model (github.com/mattvenn/tt08-analog-r2r-dac-3v3 xschem/pad_model.zip).
+*
+*  pin --Cpcb-- R1 -- L1 -- pad --(asig_5p0: ESD diodes + 1.29 pF metal)-- Rroute (pi with Croute) -- bus
+*  bus -- tt_asw_5v0 (on) -- mod (Cmod) ;  bus -- n_off x tt_asw_5v0 (off, their mod side grounded by M3)
+*
+* Sources of each element:
+*   Cpcb 2 pF, R1 1 ohm, L1 1 nH, Cmod 250 fF : kept from the sky130 model (board, package/bond wire, project route).
+*   ESD diodes : PDK netlist gf180mcu_fd_io__asig_5p0 (4 x nd2ps to DVSS, 4 x pd2nw to DVDD, 150 pm^2, 106 um each).
+*   Cpad 1.29 pF : magic 8.3.642 flat C extraction of the asig_5p0 GDS (ASIG5V: 0.626p DVDD, 0.486p DVSS,
+*                  0.151p VSS, 0.022p VDD); all supplies are AC ground here, so lumped to VGND.
+*   Rroute 15..60 ohm : tnt (TT), pad to switch routing, depends on the project's position. Default 40.
+*   Croute : [assumed] 0.2 pF, split as a pi. Not extracted.
+*   tt_asw_5v0 : schematic (tt_asw_5v0.spice); its Rdson curve matches tnt's tb_rdson (11.3 ohm at 0 V, 36.9 at 2.03 V).
+*   n_off : other projects' switches on the same chip pin. TT spreads analog projects over the chip pins and places
+*           a switch only where a project uses the pin; ttgf0p3 (the only GF shuttle with analog so far, TT index API)
+*           has 1-4 projects per pin, so n_off = 0..3. Default 3. (n_off = 0 is modelled as 1e-6 of a switch.)
+* Supplies inside the subckt (like the sky130 model): VDDIO (pad ring DVDD), VAPWR and VDPWR, all vsup = 3.3 V.
+* Needs: .include design.ngspice ; .lib sm141064.ngspice <corner> ; .lib sm141064.ngspice diode_typical ;
+*        .include tt_asw_5v0.spice
+
+.subckt pad_model_gf180 VGND pin mod rroute=40 croute=0.2p vsup=3.3 n_off=3
+VIO   vddio VGND {vsup}
+VAP   vapwr VGND {vsup}
+VDP   vdpwr VGND {vsup}
+* board pin, package and bond wire
+Cpcb  pin VGND 2p
+R1    pin n1 1
+L1    n1 pad 1n
+* gf180mcu_fd_io__asig_5p0
+Dn    VGND pad diode_nd2ps_06v0 area=150p pj=106u m=4
+Dp    pad vddio diode_pd2nw_06v0 area=150p pj=106u m=4
+Cpad  pad VGND 1.29p
+* pad -> switch routing
+Cr1   pad VGND {croute/2}
+Rr    pad bus {rroute}
+Cr2   bus VGND {croute/2}
+* this project's switch (on) and its route to the project
+Xon   VGND vdpwr vapwr vdpwr mod bus tt_asw_5v0
+Cmod  mod VGND 250f
+* the other projects' switches on the same chip pin (off)
+Xoff  VGND vdpwr vapwr VGND modoff bus tt_asw_5v0 mult={max(n_off,1e-6)}
+.ends
