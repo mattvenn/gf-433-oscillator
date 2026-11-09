@@ -10,6 +10,9 @@ Check the generated schematics are the simulated circuit (run from the repo root
   3b. netgen + device sizes: lsdiv vs sim/lsdiv/lsdiv.py block() (the simulated level shifter + /4, drawn passives);
       mutation: R1's length +10 % in a copy of the netlist -> the device diff must fail (netgen black-boxes the
       PDK resistors, so only the size diff sees it)
+  3c. netgen + device sizes: tx_drv (tx_split, tx_arm) vs sim/tx/tx_drv.py block() (the simulated TX driver);
+      mutations: the output stage M5n's width -10 % (netgen and the device diff must fail); TGn's gate on VSS
+      instead of VDD (a wiring error: netgen must fail)
   4. mutation: one DAC leg's m changed in a copy of cfed_dac.sch -> both comparisons must fail
   5. simulate vco_cfed from the xschem netlist at tt 27 C, code 9, vctrl 1.65 V, against vco_bias's own
      deck at the same point (same deck, only the circuit swapped); |df| < 0.5 %
@@ -80,7 +83,8 @@ def vco_ref(p, path):
                     f'.subckt vco_ref {" ".join(vco_cfed.PINS)}\n' + '\n'.join(lines) + '\n.ends\n')
 
 
-SUBCKTS = ('cfed_ring', 'cfed_dac', 'ring_core_v3', 'cgm_ref', 'vco_cfed', 'lsdiv', 'ls_ac', 'tspc_t1', 'tspc_t2')
+SUBCKTS = ('cfed_ring', 'cfed_dac', 'ring_core_v3', 'cgm_ref', 'vco_cfed', 'lsdiv', 'ls_ac', 'tspc_t1', 'tspc_t2',
+           'tx_drv', 'tx_split', 'tx_arm')
 
 
 def devices(path):
@@ -188,6 +192,27 @@ def main():
     ok8, d8 = diff(OUT / 'mut_lsdiv.spice', OUT / 'ref_lsdiv.spice')
     log(f'mutation R1 length +10 %: device diff {"FAIL (expected)" if not ok8 else "PASS (BAD: not caught)"}  [{"; ".join(d8)}]')
     ok3 &= ok6 and ok7 and not ok8 and mtxt != (OUT / 'lsdiv.spice').read_text()
+    # 3c. tx_drv vs the simulated TX driver
+    spec = importlib.util.spec_from_file_location('sim_tx_drv', Path(REPO) / 'sim' / 'tx' / 'tx_drv.py')
+    TX = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(TX)
+    (OUT / 'ref_tx_drv.spice').write_text(TX.block())
+    ok9, r9 = netgen('tx_drv.spice', 'tx_drv', 'ref_tx_drv.spice', 'tx_drv', 'lvs_tx_drv')
+    ok10, d10 = diff(OUT / 'tx_drv.spice', OUT / 'ref_tx_drv.spice')
+    log(f'tx_drv vs tx_drv.py block(): {"PASS" if ok9 else "FAIL"}  [{r9}]; device sizes '
+        f'{"PASS" if ok10 else "FAIL"} ({sum(devices(OUT / "tx_drv.spice").values())} devices){" " + "; ".join(d10) if d10 else ""}')
+    ttxt = (OUT / 'tx_drv.spice').read_text()
+    mtxt, nm = re.subn(r'(?m)^(XM5n .*?W=)([\d.]+)u', lambda m: f'{m.group(1)}{float(m.group(2)) * 0.9:g}u', ttxt, count=1)
+    (OUT / 'mut_tx_drv.spice').write_text(mtxt)
+    ok11, r11 = netgen('mut_tx_drv.spice', 'tx_drv', 'ref_tx_drv.spice', 'tx_drv', 'lvs_mut_tx_drv')
+    ok12, d12 = diff(OUT / 'mut_tx_drv.spice', OUT / 'ref_tx_drv.spice')
+    log(f'mutation M5n W -10 %: netgen {"FAIL (expected)" if not ok11 else "PASS (BAD: not caught)"}  [{r11}]; '
+        f'device diff {"FAIL (expected)" if not ok12 else "PASS (BAD: not caught)"}  [{"; ".join(d12)}]')
+    gtxt, ng = re.subn(r'(?m)^(XTGn \S+ )VDD ', r'\1VSS ', ttxt, count=1)
+    (OUT / 'mut2_tx_drv.spice').write_text(gtxt)
+    ok13, r13 = netgen('mut2_tx_drv.spice', 'tx_drv', 'ref_tx_drv.spice', 'tx_drv', 'lvs_mut2_tx_drv')
+    log(f'mutation TGn gate VDD -> VSS: netgen {"FAIL (expected)" if not ok13 else "PASS (BAD: not caught)"}  [{r13}]')
+    ok3 &= ok9 and ok10 and nm == 1 and not ok11 and not ok12 and ng == 1 and not ok13
     # 4. mutation: FC_3 (bit 3, m = 8) -> m = 7 in a copy
     mut = OUT / 'mut'
     if mut.exists():
