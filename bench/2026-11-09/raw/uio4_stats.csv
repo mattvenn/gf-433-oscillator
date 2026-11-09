@@ -1,0 +1,5 @@
+pin,clksel2,clksel,ring,f_mean_Hz,f_sd_Hz,f_min_Hz,f_max_Hz,count,valid,notes
+uio4,0,15,inv_2 x161,23.7281504e6,13810,23.5621e6,23.9465e6,12639,yes,rise 1.82ns fall 1.19ns (10-90) top 3.35V
+uio4,0,14,inv_2 x97,35.9775578e6,40532,35.6381e6,36.4086e6,12634,yes,
+uio4,0,13,inv_2 x65,49.6910431e6,180104,49.196e6,50.462e6,11446,yes,ringing ~10ns approaching half-period
+uio4,1,10,inv_1 x5,,,,,,no,pad does not toggle: ~0.9V band around 0V

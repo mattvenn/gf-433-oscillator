@@ -1,0 +1,18 @@
+Chip 2: second ttgf0p2 carrier, ROM commit 7416232b (chip 1: ff701baa). Same demo board (1c7ed99f3a9d6b89), clk 25.25 MHz, probe CH1 on uio[7] (/8).
+Previous carrier tried before this one: ROM read failed (CRC mismatch, magic 0x70), uo_out stuck 0x70 / 0x00 with ui_in[7]; factory test did not count.
+Pin check (RP2350 drives each pin high/low, reads its pad):
+  ui_in0,2,3,4,5,6 HELD LOW (read 0 when driven 1); ui_in1, ui_in7, uio0..3 OK.  (uio4..7 not tested: chip outputs)
+  -> held low, not open: suggests shorts to ground (bond wires on the COB), not missing wires. Chip 1 carrier: uio[1] held low (same symptom).
+Consequence: chip sees clksel = 2 whenever ui_in[1]=1, else 0. Only 3-tap ring, the fixed rings and clk/!clk reachable.
+Results (median of 3 restarts x 30 single readings, x8):
+  inv_2 x3 (clksel 2):            216.0 MHz  (chip 1 220.5 -> -2.0 %)
+  inv_1 x5 (clksel2 1):           311.6 MHz  (chip 1 319.6 -> -2.5 %)
+  inv_4 x5 (clksel2 2):           206.5 MHz median, BUT /8 output irregular (duty 23-92 %, edges scattered) -> counter likely miscounting; treat as uncertain
+  !clk (clksel2 3):               25.252 MHz = clk, as expected
+
+Carrier tally (same demo board 1c7ed99f3a9d6b89), pin check = RP2350 drives pin high, reads own pad:
+  #1 (ROM ff701baa): works; uio[1] held low.
+  #2 (no boot):     ROM unreadable (CRC 0x3b99ba1c != 0x5030d4f0, magic 0x70); uo_out stuck 0x70 (0x00 when ui_in[7]=1). Pin check not run.
+  #3 (ROM 7416232b): works partly; ui_in0,2,3,4,5,6 held low.
+  #4 (no boot):     same ROM failure signature as #2; ui_in0..6, uio1, uio2 held low; ui_in7, uio0, uio3 OK.
+Held-low (not open) on every pin we could test -> shorts to ground rather than missing bond wires.

@@ -1,0 +1,12 @@
+# 2026-11-09 ~11:40, clksel2 driven as real RP outputs (uio0/uio1 Pin.OUT), clk 25.25 MHz, probe CH1 on uio[7] (/8), short ground
+tag,clksel2,clksel,f_ring_Hz_rep0,f_ring_Hz_rep1,single_read_spread_pct,vtop,vbase
+inv1x5,1,10,3.207688e8,3.183740e8,34,3.35,-0.35
+inv2x161,0,15,2.367488e7,2.369008e7,0.25,3.33,-0.02
+inv2x33,0,10,7.756760e7,7.755960e7,0.7,3.27,-0.02
+inv2x3,0,2,2.207728e8,2.206156e8,1.7,3.40,0.02
+clk(25.25MHz),0,0,2.525240e7,2.525888e7,0.1,3.33,-0.01
+# uio[1] reads 0 even when RP drives it high as an output -> held low on this board. clksel2=2 acts as 0 (77.6 MHz = inv2x33), clksel2=3 acts as 1 (318 MHz = inv1x5). inv_4 x5 and !clk NOT measured.
+# altclk (clksel=1) with ui_in[4] static: no output edges (as expected)
+# harmonic test, clksel 2 -> 15 WITHOUT reset, 8 tries (MHz): 72.458 23.670 72.446 23.670 23.688 72.592 23.671 23.696  -> 3/8 in 3rd-harmonic mode (3.06x)
+# earlier same day: 1 occurrence switching inv1x5 -> clksel 15 without reset: 70.4 MHz
+# clksel 15 WITH reset: 4/4 here + 8/8 earlier = 12/12 fundamental (23.67-23.70 MHz)

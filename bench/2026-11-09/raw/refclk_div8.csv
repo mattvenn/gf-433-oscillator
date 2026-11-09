@@ -1,0 +1,5 @@
+case,sys_clk_Hz,pll,pwm,f_target_Hz,f_meas_Hz,ppm,per8_sd_ps,per8_pkpk_ps,count,notes
+int_13M56,135600000,12M x113 /5/2,div 1.0 top 9 (/10),13560000,13561130,+83,43.8,311,5326,integer
+int_27M12,135600000,12M x113 /5/2,div 1.0 top 4 (/5),27120000,27122310,+85,29.0,223,6204,integer; 40/60 duty
+sdk_13M56,54000000,12M x126 /7/4,div 1.0 top 3 (/4),13560000,13501140,-4342(vs target),32.8,243,6269,SDK default picks 13.5 MHz (whole-MHz sys clock search)
+frac_13M6,133000000,12M x133 /6/2,div 4+14/16 top 1,13640000,13642160,,40.5,290,6252,fractional pattern repeats every 8 PWM periods -> invisible in /8 period measurement

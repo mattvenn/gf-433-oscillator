@@ -1,0 +1,14 @@
+uio[7] (div8) checks, 2026-11-09, ttgf0p2 v0.1 carrier, demo board serial 1c7ed99f3a9d6b89, SDK 3.1.1, CH1 short ground
+- clksel=0 (project clk 25.25 MHz from RP): div8 x8 = 25.2524 MHz -> div8 chain + scope agree with RP clock to 0.01 %
+- div8 counter is cleared during VGA HBLANK (worker_reset = reset || hblank); single-period median readings avoid the gap
+- clksel=15 without reset after switching from another ring: ~70.4 MHz (3rd-harmonic mode). After reset: 8/8 restarts fundamental 23.68-23.70 MHz
+- uio[1] (clksel2[1]) reads back 0 when driven 1: clksel2=2 behaves as 0 (tracks clksel: 69.07 @11, 35.79 @14), clksel2=3 behaves as 1 (309 MHz inv_1x5).
+  => inv_4 x5 ring NOT measured. RP2350 regs: GPIO26 SIO, OE=1, OUT=1, pad IN=0 (GPIO25 same config reads 1): net held low outside the RP; board vs carrier vs chip pad not isolated; the 'inv4x5' row in sweep_div8.csv is actually inv_2 x33.
+- inv_1 x5 at 320 MHz: wider spread (1.3 %), counter at 3.1 ns clock period may be marginal; least certain point.
+
+VDD_CORE feed (carrier ttgf0p2 v0.1; netlist TinyTapeout/breakout-pcb breakout-gf-cob/breakout-gf-cob.xml)
+- U1/U2 AP2112K-3.3 not fitted (Matt confirmed U1 at bench; netlist marks U1, U2, R1, R5 DNP).
+- Path: demo-board +3V3 -> R3 -> /VCOREIN -> R2 -> VCORE_REG -> R4 -> VDD_CORE (all 0R). No carrier regulation.
+- Consistent with measured 3.300 V (would be 5 V via R1 if U1 absent).
+- VDD_CORE is brought out on J1 pin 9 (VCORE_REG on J1 pin 8): lift R4 to inject a clean external supply.
+- Carrier removed (12:0x): GPIO26 driven 1 reads 1, driven 0 reads 0 (GPIO25 same). Demo board OK -> uio[1] held low on the ttgf0p2 carrier or at the chip's uio[1] pad.

@@ -16,7 +16,8 @@ It is to become an **FM radio toolkit**:
 ## Start here
 **The oscillator topology is chosen: a current-fed ring with a 5-bit current DAC.**
 - It passes every check so far, in schematic and on the extracted v3 layout.
-- The only Gate 1 input still open is **the GF silicon factor** (bench, 2026-11-09).
+- The only Gate 1 input still open is **the GF silicon factor**: the silicon side was measured on 2026-11-09
+  (`bench/lab_todo.md` results), the matching simulation is `docs/handoff_gf_silicon_factor.md` (sim pod).
 
 | | Result | Doc |
 |---|---|---|
@@ -44,7 +45,8 @@ It is to become an **FM radio toolkit**:
 5. **Sizing, PVT map, PVT noise, v3 layout, MC and start-up** (the docs in the table above).
 
 ## Next steps
-1. **Monday 2026-11-09, bench** (`bench/lab_todo.md`):
+1. **Bench 2026-11-09: done** (results at the top of `bench/lab_todo.md`); next, run `docs/handoff_gf_silicon_factor.md`.
+   The original list was:
    - measure the ttgf0p2 #200 ring, for the GF silicon/sim factor;
    - check the carrier's core regulator (R1 or R3 feed, VDD_CORE noise);
    - check the RP2350 13.56 / 27.12 MHz reference clock;

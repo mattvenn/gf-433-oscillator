@@ -1,0 +1,9 @@
+measurement,probe,bw,rms_mean_V,rms_min_V,rms_max_V,pkpk_mean_V,count,notes
+VDD_CORE DC,CH2 long ground,full,3.27169,,,,241,DC average
+VDD_CORE DC,CH1 short ground,full,3.29953,,,,461,DC average (quote this)
+VDD_CORE noise,CH2 long ground,20MHz,540.4e-6,326e-6,978e-6,4.33e-3,322,AC coupled
+VDD_CORE noise,CH2 long ground,full,98.2e-3,,,417.6e-3,241,ground-loop pickup
+VDD_CORE noise,CH1 short ground,20MHz,426.1e-6,206.9e-6,1001.3e-6,2.203e-3,601,AC coupled 10mV/div
+VDD_CORE noise,CH1 short ground,full,2.3587e-3,2.1648e-3,2.5591e-3,22.78e-3,723,
+floor (tip to own ground at board),CH1 short ground,20MHz,257.1e-6,202.4e-6,402.9e-6,1.610e-3,779,
+floor (tip to own ground at board),CH1 short ground,full,1.6664e-3,1.5338e-3,1.8148e-3,14.80e-3,704,
