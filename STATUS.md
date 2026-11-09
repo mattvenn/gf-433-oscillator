@@ -16,8 +16,10 @@ It is to become an **FM radio toolkit**:
 ## Start here
 **The oscillator topology is chosen: a current-fed ring with a 5-bit current DAC.**
 - It passes every check so far, in schematic and on the extracted v3 layout.
-- The only Gate 1 input still open is **the GF silicon factor**: the silicon side was measured on 2026-11-09
-  (`bench/lab_todo.md` results), the matching simulation is `docs/handoff_gf_silicon_factor.md` (sim pod).
+- **GF silicon factor: about 1.0 at typical** (`docs/gf_silicon_factor.md`, 2026-11-09). On the ttgf0p2 ring #614
+  the six inv_2 taps give silicon/sim 0.993–1.001 and sit between the sf and tt corners. The 5× inv_1 ring gives
+  0.935, but it is the least certain bench point and disagrees with the taps: re-measure it. Even at 0.935, the
+  extracted range (193–851 MHz) still covers 433.92 MHz.
 
 | | Result | Doc |
 |---|---|---|

@@ -9,7 +9,7 @@ the ring oscillators in `tt_um_algofoogle_vgaringosc`, measured on the ttgf0p2 s
 (`bench/2026-11-09/`), with a simulation of the same tile extracted from the shuttle layout. Brief:
 `docs/handoff_gf_silicon_factor.md`.
 
-**Method.** Scripts and data are in `sim/silicon_factor/`.
+**Method.** Scripts and data are in `sim/silicon_factor/` (Fig. 2-5: `plots.py`).
 - Layout: the shuttle OASIS file at TinyTapeout/tinytapeout-gf-0p2 commit 4150e96. The whole 1×1 tile, standard cells
   included, was flattened and extracted with magic 8.3.642 (capacitance only, `ext2spice lvs`, `cthresh 0`):
   11,899 transistors, 68,661 capacitors, 12.7 pF in total.
@@ -56,6 +56,13 @@ Fig. 1. Ring frequency against ring length, silicon chip 1 against the C-extract
 - **Wire resistance does not matter here.** A resistance-capacitance (RC) extraction at typical gives inv1x5
   342.0 → 341.9 MHz and t3 220.9 → 220.8 MHz (−0.03 % and −0.04 %), so the C-only result stands.
 
+![silicon / sim factor per ring](img/gf_sf_factor.png)
+
+Fig. 2. Silicon frequency divided by the typical simulation, per ring. The grey bars show where a wafer at the ss
+or ff corner would land (×0.71 … ×1.33), and the ticks the sf and fs corners. The inv_2 taps measure 0.993-1.001,
+on the sf/typical ticks. The 5× inv_1 ring measures 0.935 (chip 1) and 0.911 (chip 2), below its own sf and fs
+ticks. The dashed line is the sky130 factor, ×0.866.
+
 ### Gate delay and overhead
 A straight line T = a·N + b, with T = 1/f in ns and N the number of stages, separates the delay per stage (a) from
 the fixed overhead of the tap multiplexer and output path (b). Fitted on the same six taps:
@@ -71,6 +78,12 @@ overhead. The bench report's fit (a = 0.240 ns/stage, b = 4.19 ns) uses all 14 m
 than these six. The line is not a perfect fit (residuals up to +0.9 ns at 33 stages, in silicon and sim alike), so a
 and b move slightly with the taps chosen; on the same six taps the bench data gives 0.2374 / 4.238.
 
+![period vs stages fit](img/gf_sf_fit.png)
+
+Fig. 3. Left: period against stages for the six taps, with the straight-line fit (silicon a = 0.2374 ns/stage,
+b = 4.238 ns; typical 0.2359 / 4.234). Right: the residual from each fit. It has the same shape and size in
+silicon and simulation (+0.80 and +0.87 ns at 33 stages), so the bend comes from the circuit itself, not from a silicon/model difference.
+
 ### Magic version
 Extracting the same tile with magic 8.3.684 gives 64,099 capacitors and 9.33 pF, against 68,661 and 12.72 pF with
 8.3.642. By class:
@@ -84,11 +97,22 @@ Extracting the same tile with magic 8.3.684 gives 64,099 capacitors and 9.33 pF,
 So 8.3.684 drops substrate capacitors and also reports smaller coupling values for the same capacitors. The cause has
 not been investigated. The close silicon match with 8.3.642 supports keeping it for extraction.
 
+![magic version capacitance](img/gf_sf_magic.png)
+
+Fig. 4. Extracted capacitance of the same tile by class. magic 8.3.684 reports 27 % less in total (9.33 against
+12.72 pF): 40 % less signal-to-signal coupling, 20 % less to VPWR, and 23 % less to VGND / substrate.
+
 ## What it means for our VCO
 Our ring uses the same device family (5 V nfet_05v0 / pfet_05v0 at 3.3 V). If the same factor applies, about 1.0
 from the inv_2 taps or 0.935 at worst from inv1x5, the ×0.7 … ×1.4 margin carried since sky130 is far more than
 needed, and the typical design point can be trusted. With 0.935 applied, the extracted range at vctrl 1.65 V,
 193-851 MHz over the corners (`docs/remap_results.md`), becomes about 180-796 MHz and still covers 433.92 MHz.
+
+![VCO range under each factor](img/gf_sf_vco_range.png)
+
+Fig. 5. Our VCO's extracted range at vctrl 1.65 V (193-851 MHz over the corners), scaled by each factor. With the
+taps' 0.993 it is 192-845 MHz, with inv1x5's 0.935 it is 180-796 MHz; both cover 433.92 MHz with wide margin.
+The grey bars are the ×0.7 and ×1.4 extremes the design had to allow for until now.
 
 ## Limits
 At the time of writing:
