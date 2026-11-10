@@ -25,7 +25,7 @@ DCLS = _lay.DCLS
 
 BITS = P['bits']
 PINS = (['VDD', 'VDD_LS', 'VSS', 'vctrl'] + [f'bit{b}' for b in range(BITS)] + [f'bitb{b}' for b in range(BITS)]
-        + ['ck', 'a0', 'vbn', 'vg', 'ls'])
+        + ['ck', 'a0', 'vbn', 'vg', 'ls', 'vbnf'])
 STAIR = [x for b in reversed(range(BITS)) for x in (f'bit{b}', f'bitb{b}')]
 
 
@@ -48,11 +48,16 @@ def build():
     # vbnf: the filtered bias into the DAC gate (the core's vbn pin); vbn (unfiltered) out as a monitor
     f, v = ref.pin('vbnf'), ref.pin('vbn')
     x2 = 380
-    s.route(f, (x2, f[1]), (x2, core.pin('vbn')[1]), core.pin('vbn'))
+    cv = core.pin('vbn')
+    s.wire(f, (x2, f[1]))
+    s.bus((x2, f[1]), (x2, cv[1]), [(x2, 300)])
+    s.wire((x2, cv[1]), cv)
+    s.wire((x2, 300), (xl, 300))                 # vbnf out to the medium DAC (docs/tx_fine_tune.md)
+    port(s, (xl, 300), 'vbnf', 'out')
     yb = 560
     s.route(v, (340, v[1]), (340, yb), (xr, yb))
     port(s, (xr, yb), 'vbn', 'out')
-    s.text(392, 300, 'vbnf', 0.3)
+    s.text(392, 320, 'vbnf', 0.3)
     # a0: ring tap -> level shifter, tapped out as a port
     a0, la0 = core.pin('a0'), ls.pin('a0')
     ta = (800, a0[1])
@@ -99,7 +104,7 @@ def build():
     title(s, xl, -800, ['vco_top: 433.92 MHz current-fed ring VCO, GF180MCU (top level)',
                         'cgm_ref -> vbnf -> ring_core_v3 -> a0 -> lsdiv -> ck = f / 4; lsdiv on its own supply VDD_LS',
                         'the LVS source of layout/vco_top.gds (layout/gen/check_top.sh)'])
-    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl'], right=['a0', 'ck', 'ls', 'vbn', 'vg'],
+    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl', 'vbnf'], right=['a0', 'ck', 'ls', 'vbn', 'vg'],
            top=['VDD', 'VDD_LS'], bottom=['VSS'], width=220, label='vco_top')
 
 

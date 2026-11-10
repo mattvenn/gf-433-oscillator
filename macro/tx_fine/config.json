@@ -15,11 +15,11 @@
     170,
     260
   ],
-  "PL_TARGET_DENSITY_PCT": 55,
+  "PL_TARGET_DENSITY_PCT": 50,
   "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
   "RT_MAX_LAYER": "Metal4",
   "PDN_MULTILAYER": false,
-  "PDN_VWIDTH": 2.0,
+  "PDN_VWIDTH": 1.6,
   "PDN_VPITCH": 40,
   "PDN_VOFFSET": 10,
   "PDN_CORE_RING": false,
@@ -66,5 +66,8 @@
   ],
   "MAX_CAP_VIOLATION_CORNERS": [
     "*tt_025C_3v30"
-  ]
+  ],
+  "PDN_VERTICAL_LAYER": "Metal4",
+  "PDN_HORIZONTAL_LAYER": "Metal5",
+  "PDN_VSPACING": 1.0
 }

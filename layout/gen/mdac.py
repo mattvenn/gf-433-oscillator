@@ -409,8 +409,9 @@ def main():
     rc = "/foss/pdks/gf180mcuD/libs.tech/magic/gf180mcuD.magicrc"
     r = subprocess.run([str(REPO / "tools/osic-mac"), "bash", "-c",
                         f"cd {out} && magic -dnull -noconsole -rcfile {rc} mdac.tcl > magic.log 2>&1"], check=False)
-    (out / "geo.json").write_text(json.dumps(dict(XR=geo["XR"], YT=geo["YT"], pins=geo["pins"], ctrl_y=geo["ctrl_y"]),
-                                             indent=1))
+    pj = json.dumps(dict(XR=geo["XR"], YT=geo["YT"], pins=geo["pins"], ctrl_y=geo["ctrl_y"]), indent=1)
+    (out / "geo.json").write_text(pj)
+    (REPO / "layout/mdac_pins.json").write_text(pj)      # read by layout/gen/tt_wrapper.py
     print(f"mdac {geo['XR'] / 1000:.2f} x {geo['YT'] / 1000:.2f} um, {len(pins)} pins -> {gds}")
 
 

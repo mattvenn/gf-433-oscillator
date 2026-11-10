@@ -1,4 +1,4 @@
-> Running: phase B (macro, LibreLane) and phase D (DAC layout) since 21:00, ETA 00:00. Phase A done: docs/tx_fine_tune.md
+> Running: phase D (tile integration: macro + DAC + pull-down in tt_wrapper, LVS source) since 21:11, ETA 23:11. Phases A, B done
 # Handoff: on-chip fine tuning and FSK for the TX (option C), schematic to tile (sim server)
 
 **Goal: replace the board-driven vctrl with on-chip fine tuning, so that the chip needs nothing on the board except

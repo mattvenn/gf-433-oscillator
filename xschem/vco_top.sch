@@ -5,7 +5,7 @@ K {}
 V {}
 S {}
 E {}
-T {vbnf} 392 300 0 0 0.3 0.3 {}
+T {vbnf} 392 320 0 0 0.3 0.3 {}
 T {VDD_LS decap ~10 pF} 1300 -360 0 0 0.35 0.35 {}
 T {vco_top: 433.92 MHz current-fed ring VCO, GF180MCU (top level)} -100 -800 0 0 0.7 0.7 {}
 T {cgm_ref -> vbnf -> ring_core_v3 -> a0 -> lsdiv -> ck = f / 4; lsdiv on its own supply VDD_LS} -100 -740 0 0 0.42 0.42 {}
@@ -22,8 +22,10 @@ N -100 100 480 100 {}
 N -100 140 480 140 {}
 N -100 180 480 180 {}
 N 300 400 380 400 {}
-N 380 400 380 220 {}
+N 380 220 380 300 {}
+N 380 300 380 400 {}
 N 380 220 480 220 {}
+N 380 300 -100 300 {}
 N 300 440 340 440 {}
 N 340 440 340 560 {}
 N 340 560 1400 560 {}
@@ -46,11 +48,11 @@ N 1280 -270 1300 -270 {}
 N -100 660 -40 660 {}
 N -100 720 -40 720 {}
 N -100 780 -40 780 {}
-C {devices/iopin.sym} -100 660 0 1 {name=p17
+C {devices/iopin.sym} -100 660 0 1 {name=p18
 lab=VDD}
-C {devices/iopin.sym} -100 720 0 1 {name=p18
+C {devices/iopin.sym} -100 720 0 1 {name=p19
 lab=VDD_LS}
-C {devices/iopin.sym} -100 780 0 1 {name=p19
+C {devices/iopin.sym} -100 780 0 1 {name=p20
 lab=VSS}
 C {devices/ipin.sym} -100 180 0 0 {name=p11
 lab=vctrl}
@@ -74,16 +76,18 @@ C {devices/ipin.sym} -100 -100 0 0 {name=p4
 lab=bitb3}
 C {devices/ipin.sym} -100 -180 0 0 {name=p2
 lab=bitb4}
-C {devices/opin.sym} 1400 -220 0 0 {name=p14
+C {devices/opin.sym} 1400 -220 0 0 {name=p15
 lab=ck}
-C {devices/opin.sym} 1400 -520 0 0 {name=p13
+C {devices/opin.sym} 1400 -520 0 0 {name=p14
 lab=a0}
-C {devices/opin.sym} 1400 560 0 0 {name=p12
+C {devices/opin.sym} 1400 560 0 0 {name=p13
 lab=vbn}
-C {devices/iopin.sym} 1400 -20 0 0 {name=p16
+C {devices/iopin.sym} 1400 -20 0 0 {name=p17
 lab=vg}
-C {devices/opin.sym} 1400 -180 0 0 {name=p15
+C {devices/opin.sym} 1400 -180 0 0 {name=p16
 lab=ls}
+C {devices/opin.sym} -100 300 0 0 {name=p12
+lab=vbnf}
 C {ring_core_v3.sym} 600 0 0 0 {name=xcore}
 C {cgm_ref.sym} 200 420 0 0 {name=xref}
 C {lsdiv.sym} 960 -200 0 0 {name=xls}

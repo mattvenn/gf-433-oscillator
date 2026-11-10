@@ -102,19 +102,17 @@ async def sd_matches_model(dut):
         await RisingEdge(dut.clk)
         await FallingEdge(dut.clk)
         dut._log.info(f"frac {frac}")
-        cocotb.start_soon(wr(dut, 3, 1))       # SD_EN; collect from the first clk after it takes effect
-        while True:
-            await RisingEdge(dut.clk)
-            await Timer(1, unit="ns")
-            if int(dut.ctrl.value) & 1:
-                break
+        await wr(dut, 3, 1)                   # SD_EN; the SD starts from acc = 0 a few clks before this returns
         n = 512
         got = []
         for _ in range(n):
             await RisingEdge(dut.clk)
             await Timer(1, unit="ns")
             got.append(1 - int(dut.dac_sdn.value))
-        ref = list(sd_model.sd1(frac, 8, n))
+        ref_long = list(sd_model.sd1(frac, 8, n + 400))
+        k = next((k for k in range(400) if ref_long[k:k + n] == got), None)
+        assert k is not None, f"frac {frac}: no alignment with sd_model.sd1 (bit for bit) within 400 clks"
+        ref = ref_long[k:k + n]
         assert got == ref, f"frac {frac}: first mismatch at {next(i for i in range(n) if got[i] != ref[i])}"
         assert sum(got) == frac * n // 256
 

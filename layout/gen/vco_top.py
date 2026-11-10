@@ -22,7 +22,8 @@ Top-level metal (M1-M3 only, no Metal4/5):
           (y 62.88 ... top) over cgm_ref's column A to cgm_ref's VDD rail (y 62.88...65.28, via2s between its via1s).
   VDD_LS: lsdiv's VDD rail (M2, y 41.17...43.57 here) <- an M2 strap from the decap's gate strap; M2 spine and an
           M3 pad up to the top edge. Separate from VDD everywhere inside the macro.
-Pins (labels in vco_top): bit0-4 / bitb0-4, ck and ls (lsdiv's level-shifter output, the TX tap) on M3 at the top edge, VDD and VDD_LS on M3 at the top edge,
+Pins (labels in vco_top): vg and vbnf (the medium DAC's output node and bias, M3 at the top edge, x 29.19 / 52.0),
+  bit0-4 / bitb0-4, ck and ls (lsdiv's level-shifter output, the TX tap) on M3 at the top edge, VDD and VDD_LS on M3 at the top edge,
   vg on M3 at the bottom edge (the core's pin), vctrl and vbn on M2 at the right edge (cgm_ref's pins), VSS on M2/M3
   at the bottom, a0 on M2 at the lsdiv / core junction (not routed to an edge: ~1 % of f per fF on a0).
 """
@@ -58,6 +59,7 @@ CORE_BITS_X = [(30450, 30830), (33090, 33470), (34150, 34530), (36790, 37170), (
                (41550, 41930), (44190, 44570), (45250, 45630), (47890, 48270)]   # core bit/bitb M3 at its top edge
 CORE_TOP = 47875
 VG_X = (29000, 29380)
+VBNF_X = (51810, 52190)            # vbnf M3 riser from the core's vbn M2 track (y 42.475 ... 42.855) to the top edge
 
 
 def um(v):
@@ -210,6 +212,13 @@ def assemble(decap_gds, info, dst):
     for (a, b), nm in zip(CORE_BITS_X, names):
         r("m3", a, CORE_TOP - 400, b, YTOP)
         lab(nm, "m3", (a + b) // 2, YTOP - 200)
+    # ---- vg and vbnf up to the top edge, for the medium DAC above the macro (docs/tx_fine_tune.md) ----
+    r("m3", VG_X[0], 32000, VG_X[1], YTOP)                 # the core's vg M3 (x 29.0 ... 29.38) on up
+    lab("vg", "m3", (VG_X[0] + VG_X[1]) // 2, YTOP - 200)
+    r("m2", VBNF_X[0], 42475, VBNF_X[1], 42855)            # pad on the core's vbn (= vbnf) M2 track
+    r("v2", (VBNF_X[0] + VBNF_X[1]) // 2 - 130, 42535, (VBNF_X[0] + VBNF_X[1]) // 2 + 130, 42795)
+    r("m3", VBNF_X[0], 42475, VBNF_X[1], YTOP)
+    lab("vbnf", "m3", (VBNF_X[0] + VBNF_X[1]) // 2, YTOP - 200)
     # ---- a0: the abutment (a patch inside the union of the two shapes, no extra area) ----
     r("m2", -2000, 35980, -1800, 36360)
     lab("a0", "m2", -1900, 36170)
