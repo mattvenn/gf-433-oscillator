@@ -106,6 +106,7 @@ TOPPINS = {"clk": "clk", "rst_n": "rst_n", "sclk": "uio_in[0]", "mosi": "uio_in[
 VG_TOP = (29000, 29380)          # vco_top's vg / vbnf M3 risers at its top edge (own x)
 VBNF_TOP = (51810, 52190)
 JOG_X = (192500, 231800)         # the M3 jog channel between the TX risers (x 181...189 and 236...244)
+HOP_X = (331000, 333400)         # M3 antenna hop on every DAC control line, between the ui_in drops and the DAC
 
 # std-cell rows
 ROW_H = 3920
@@ -153,6 +154,8 @@ def build(defpath, gds_out, lef_out):
     assert ly.cell("vco_top") is not None
     ly.read(str(REPO / "layout/tx_drv.gds"))
     assert ly.cell("tx_drv") is not None
+    # the fine-tuning blocks; the macro brings its own copies of the standard cells, which the wrapper then reuses
+    # (a second copy would come in renamed "...$1")
     for f, c in ((REPO / "layout/mdac.gds", "mdac"), (REPO / "layout/vctrl_pd.gds", "vctrl_pd"), (MAC_GDS, "tx_fine")):
         ly.read(str(f))
         assert ly.cell(c) is not None, c
@@ -160,6 +163,9 @@ def build(defpath, gds_out, lef_out):
     sc.read(str(scgds))
     cells = {}
     for n in ("inv_1", "tiel", "tieh", "antenna", "filltie", "fill_1", "fill_2", "fill_4"):
+        if ly.cell(SC + n) is not None:                             # already in the layout (from the macro)
+            cells[n] = ly.cell(SC + n)
+            continue
         src = sc.cell(SC + n)
         dst = ly.create_cell(SC + n)
         dst.copy_tree(src)
@@ -486,6 +492,8 @@ def build(defpath, gds_out, lef_out):
     log["tx_fine"] = add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PINS, ytop, yck)
 
     # ---- checks on what was drawn ----
+    dup = [c.name for c in ly.each_cell() if "$" in c.name]
+    assert not dup, f"duplicate cell names: {dup}"
     for li in ly.layer_indexes():
         i = ly.get_info(li)
         if (i.layer, i.datatype) in ((81, 0), (82, 0), (81, 10)):
@@ -600,10 +608,19 @@ def add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PI
             r("m3", xo - PAD // 2, sy - PAD // 2, xo + PAD // 2, py + PAD // 2)
         via(2, xo, sy)
         r("m2", xo - PAD // 2, sy - PAD // 2, xj + PAD // 2, sy + PAD // 2)
-        via(2, xj, sy)
-        r("m3", xj - PAD // 2, min(sy, ty_) - PAD // 2, xj + PAD // 2, max(sy, ty_) + PAD // 2)
-        via(2, xj, ty_)
-        r("m2", xj - PAD // 2, ty_ - PAD // 2, tx_ + PAD // 2, ty_ + PAD // 2)
+        if abs(sy - ty_) < 700:                                     # too close for two via2s: an M2 dogleg
+            r("m2", xj - PAD // 2, min(sy, ty_) - PAD // 2, xj + PAD // 2, max(sy, ty_) + PAD // 2)
+        else:
+            via(2, xj, sy)
+            r("m3", xj - PAD // 2, min(sy, ty_) - PAD // 2, xj + PAD // 2, max(sy, ty_) + PAD // 2)
+            via(2, xj, ty_)
+        # antenna: an M3 hop just before the DAC, so the long M2 run is not on the switch gate when M2 is etched
+        h1, h2 = HOP_X
+        r("m2", xj - PAD // 2, ty_ - PAD // 2, h1 + PAD // 2, ty_ + PAD // 2)
+        via(2, h1, ty_)
+        r("m3", h1 - PAD // 2, ty_ - PAD // 2, h2 + PAD // 2, ty_ + PAD // 2)
+        via(2, h2, ty_)
+        r("m2", h2 - PAD // 2, ty_ - PAD // 2, tx_ + PAD // 2, ty_ + PAD // 2)
         jog[mpin] = dict(dac=dpin, jog_x=xj / 1000, y_macro=sy / 1000, y_dac=ty_ / 1000)
     log["dac_lines"] = jog
     # ---- ck: vco_top's ck (M2 track y 112) -> x 178 -> M3 down to y 40 -> M2 under the macro to its ck pin ----
@@ -625,7 +642,7 @@ def add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PI
         sx = MAC[0] + (x0 + x1) // 2
         sx -= sx % 5
         ys = MAC[1] + y1 + 600                                      # just above the macro's top edge
-        yt = 306000 + 800 * k
+        yt = 306400 + 800 * k                                       # clear of the pin stubs (top 305.79)
         r("m2", sx - 280, MAC[1] + y0, sx + 280, ys + PAD // 2)    # pin stub up out of the macro
         via(2, sx, ys)
         r("m3", sx - PAD // 2, ys - PAD // 2, sx + PAD // 2, yt + PAD // 2)

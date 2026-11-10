@@ -3,9 +3,9 @@ project:
   title:        "433 MHz VCO for an FM radio toolkit"      # Project title
   author:       "Matt Venn"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Tunable 433.92 MHz current-fed ring oscillator with a 5-bit DAC, fine-tune input and divide-by-4 clock output"      # One line description of what your project does
+  description:  "433.92 MHz current-fed ring VCO with dipole TX driver, on-chip fine tuning (10-bit DAC + sigma-delta, SPI) and 2-FSK"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     25000000       # SPI register and sigma-delta clock: 10-50 MHz works, 25 MHz recommended (docs/tx_fine_tune.md)
 
   # How many tiles your design occupies? A single tile is about 340x160 uM.
   tiles: "2x2"          # Valid values for analog projects: 1x2, 2x2, 3x2, 4x2
@@ -32,30 +32,30 @@ pinout:
   ui[4]: "code bit 4"
   ui[5]: "TX enable p (out_p, ua[3])"
   ui[6]: "TX enable n (out_n, ua[2])"
-  ui[7]: ""
+  ui[7]: "FSK data (2-FSK: +/- the FSK_DEV register)"
 
   # Outputs
-  uo[0]: "ck: f / 4"
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
+  uo[0]: "ck: f / 4 (gated, off after reset: CTRL.CK_EN)"
+  uo[1]: "f / 64 (ck / 16)"
+  uo[2]: "f / 256 (ck / 64)"
+  uo[3]: "f / 4096 (ck / 1024)"
   uo[4]: ""
   uo[5]: ""
   uo[6]: ""
   uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
+  uio[0]: "SPI SCLK (in)"
+  uio[1]: "SPI MOSI (in)"
+  uio[2]: "SPI CS_n (in)"
+  uio[3]: "SPI MISO (out)"
   uio[4]: ""
   uio[5]: ""
   uio[6]: ""
   uio[7]: ""
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: "vctrl: fine tune (0-3.3 V)"
+  ua[0]: "vctrl: bench override of the fine leg (200 kOhm to GND on chip; leave open)"
   ua[1]: "vbn: bias monitor"
   ua[2]: "TX out_n: 433 MHz dipole arm (antiphase to ua[3])"
   ua[3]: "TX out_p: 433 MHz dipole arm"
@@ -64,3 +64,8 @@ pinout:
 
 # Do not change!
 yaml_version: 6
+
+# Register map (SPI mode 0, 16-bit frames: [15] 1 = read, [14:12] address, [11:0] data; docs/tx_fine_tune.md)
+#   0 MED_INT [9:0] medium DAC word (reset 512)    1 MED_FRAC [7:0] sigma-delta fraction (0)
+#   2 FSK_DEV [11:0] FSK deviation, 4.8 fixed point in DAC LSBs (0)
+#   3 CTRL [0] SD_EN [1] CK_EN [2] FSK_EN [3] FSK_INV (all 0)    4 EFF_INT [9:0] read only    7 ID = 0x433 read only
