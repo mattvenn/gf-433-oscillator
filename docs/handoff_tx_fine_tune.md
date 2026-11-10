@@ -1,4 +1,4 @@
-> Not started
+> Running: phase A, step 1 (sigma-delta model) since 20:10, ETA 21:10
 # Handoff: on-chip fine tuning and FSK for the TX (option C), schematic to tile (sim server)
 
 **Goal: replace the board-driven vctrl with on-chip fine tuning, so that the chip needs nothing on the board except
