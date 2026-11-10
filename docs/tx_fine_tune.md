@@ -81,7 +81,7 @@ sinks the ring current from `vg` to VSS. One coarse unit (nfet 1.2 / 5.33 µm on
 units of Iu. Range ≥ 1.3 × the largest step (ff, 25.4 MHz) needs at least 1.36 Iu; the design uses 1.6 Iu for margin
 on the gain chain.
 
-**Circuit** (`sim/tune/mdac.py`, `mdac_netlist()`).
+**Circuit** (`sim/tune/mdac_sim.py`, `mdac_netlist()`).
 1) Bias: two coarse units on `vbnf` sink 2 Iu from a diode of 128 PMOS units, so each PMOS unit carries
    I_L = Iu / 64 = 66 nA. The LSB tracks the coarse step over process and temperature, because both come from the
    constant-gm reference.
@@ -106,7 +106,7 @@ the 31 units of the binary groups. Its σ is about 2.9 % × √63 = 0.23 LSB, so
 Six binary bits would double the units in that difference and put it near 3σ, at about the 99 % limit.
 
 *Table II. Medium DAC on the schematic ring, at each corner's 433.92 MHz code, `vctrl` pulled down
-(`mdac.py fword`).*
+(`mdac_sim.py fword`).*
 
 | Corner | Code | f(word 0) MHz | f(word 1023) MHz | Range MHz | Coarse step MHz | Range / step | LSB kHz |
 |---|---|---|---|---|---|---|---|
@@ -121,7 +121,7 @@ The range is over 1.3 coarse steps everywhere, so the coarse + medium settings o
 medium DAC at mid-scale). The swing at `vg` and the ring nodes is unchanged (tt 1.81-3.43 V).
 
 *Table III. Monotonicity, Monte Carlo (mismatch only, every PMOS / NMOS unit its own instance, N = 200 per corner,
-`mdac.py mc`; DC output current for all 1024 words, `vg` held at the corner's operating point).*
+`mdac_sim.py mc`; DC output current for all 1024 words, `vg` held at the corner's operating point).*
 
 | Corner | DNL > −1 LSB | Worst DNL | 1st percentile of the per-sample minimum | LSB (output) | ΣΔ cell / LSB |
 |---|---|---|---|---|---|
@@ -129,7 +129,7 @@ medium DAC at mid-scale). The swing at `vg` and the ring nodes is unchanged (tt 
 | ss | 200 / 200 | −0.682 | −0.662 | 6.90-7.19 nA | 0.932-1.068 |
 | ff | 200 / 200 | −0.763 | −0.738 | 6.17-6.46 nA | 0.924-1.075 |
 
-*Table IV. rms FM from the reference and DAC current noise (`mdac.py noise`: `.noise` of the coarse DAC's and
+*Table IV. rms FM from the reference and DAC current noise (`mdac_sim.py noise`: `.noise` of the coarse DAC's and
 the medium DAC's drain currents with `vg` held, times K_I = df/dI from the ideal sink; 1-10 kHz).*
 
 | Corner | Coarse path only | + medium, word 0 | word 512 | word 1023 |

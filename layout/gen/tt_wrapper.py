@@ -92,13 +92,29 @@ TX_Y = TX_PIN_Y + 38915          # instance origin: tile y = TX_Y - y
 OUT_W = 8000                     # out_p / out_n route width (M2 horizontals, M3 verticals): 7.3 mA |avg| (ff) at 2.09 mA/um
 ANT_ROW_Y = 113680               # DEF row 29: the two enable antenna diodes, under tx_drv
 
+# medium DAC (layout/mdac.gds), vctrl pull-down (layout/vctrl_pd.gds), digital macro (macro/tx_fine): tile origins
+MDAC = (335000, 118000)          # above vco_top, between the bit risers and the VDPWR stripe at x 540
+MDAC_PINS = REPO / "layout/mdac_pins.json"
+VPD = (252000, 13000)            # left of vco_top, under the vctrl / vbn routes
+MAC = (600, 45000)               # left strip; its VDD / VSS Metal4 strap pairs at macro x 55.92 / 58.52 and
+                                 # 135.92 / 138.52 land between pin drops: extended, they are the tile stripes there
+MAC_LEF = REPO / "macro/tx_fine/lef/tx_fine.lef"
+MAC_GDS = REPO / "macro/tx_fine/gds/tx_fine.gds"
+TOPPINS = {"clk": "clk", "rst_n": "rst_n", "sclk": "uio_in[0]", "mosi": "uio_in[1]", "cs_n": "uio_in[2]",
+           "miso": "uio_out[3]", "fsk": "ui_in[7]", "ck_o": "uo_out[0]", "div16": "uo_out[1]", "div64": "uo_out[2]",
+           "div1024": "uo_out[3]"}
+VG_TOP = (29000, 29380)          # vco_top's vg / vbnf M3 risers at its top edge (own x)
+VBNF_TOP = (51810, 52190)
+JOG_X = (192500, 231800)         # the M3 jog channel between the TX risers (x 181...189 and 236...244)
+
 # std-cell rows
 ROW_H = 3920
 INV_ROW_Y = 90160                # DEF ROW_22 (N)
 TIE_ROW_Y = 317520               # DEF ROW_80 (N)
 STRIPE_Y = (5000, 320360)        # template stripe span
 STRIPES = [  # (net, x0, width)
-    ("VGND", 85000, 1600), ("VDPWR", 87600, 1600),
+    ("VDPWR", 56520, 1600), ("VGND", 59120, 1600),            # the macro's strap pairs, extended (MAC)
+    ("VDPWR", 136520, 1600), ("VGND", 139120, 1600),
     ("VDPWR", 420000, 2000), ("VGND", 426000, 2000),
     ("VDPWR", 540000, 2000), ("VGND", 590000, 2000),
     ("VDPWR", 649140, 2000),
@@ -137,10 +153,13 @@ def build(defpath, gds_out, lef_out):
     assert ly.cell("vco_top") is not None
     ly.read(str(REPO / "layout/tx_drv.gds"))
     assert ly.cell("tx_drv") is not None
+    for f, c in ((REPO / "layout/mdac.gds", "mdac"), (REPO / "layout/vctrl_pd.gds", "vctrl_pd"), (MAC_GDS, "tx_fine")):
+        ly.read(str(f))
+        assert ly.cell(c) is not None, c
     sc = db.Layout()
     sc.read(str(scgds))
     cells = {}
-    for n in ("inv_1", "tiel", "antenna", "filltie", "fill_1", "fill_2", "fill_4"):
+    for n in ("inv_1", "tiel", "tieh", "antenna", "filltie", "fill_1", "fill_2", "fill_4"):
         src = sc.cell(SC + n)
         dst = ly.create_cell(SC + n)
         dst.copy_tree(src)
@@ -247,7 +266,7 @@ def build(defpath, gds_out, lef_out):
     # ---- power stripes ----
     for net, x0, w in STRIPES:
         yb, yt = STRIPE_Y
-        if net == "VDPWR" and x0 == 87600:
+        if net == "VDPWR" and x0 == 56520:
             yt = 321940                                             # reaches the tiel row's VDD rail
         r("m4", x0, yb, x0 + w, yt)
         label(net, (x0, yb, x0 + w, yt))
@@ -266,9 +285,11 @@ def build(defpath, gds_out, lef_out):
     nv[("VDPWR", 649140)] = via_array(3, lsx0, lsx1, Y0 + VDDLS[2], Y0 + VDDLS[3], margin=150)
     # VDPWR bar at the top of the tile: M2 (under the VGND stripes and the M3 signal risers) from the tiel row's
     # stripe to the VDD_LS stripe, via2 + via3 at every VDPWR stripe; a star point at the pin edge
-    r("m2", 87600, STAR_Y[0], 665650, STAR_Y[1])
+    r("m2", 136520, STAR_Y[0], 665650, STAR_Y[1])                # from the x 136.52 stripe: the 56.52 one joins
+                                                                    # it through the macro's rails; the bar would
+                                                                    # hit uio_oe[3]'s tieh output via at x 61.88
     for n, x0, w in STRIPES:
-        if n == "VDPWR":
+        if n == "VDPWR" and x0 >= 136520:
             r("m3", x0, STAR_Y[0], x0 + w, STAR_Y[1])
             via_array(2, x0, x0 + w, *STAR_Y, margin=150)
             via_array(3, x0, x0 + w, *STAR_Y, margin=150)
@@ -346,15 +367,10 @@ def build(defpath, gds_out, lef_out):
         via(2, xp, yt_)
         r("m3", xp - PAD // 2, yt_ - PAD // 2, xp + PAD // 2, yv + PAD // 2)
 
-    # ---- ck -> uo_out[0] ----
     yck = 112000
     ckx = mx((CK[0] + CK[1]) // 2)
     r("m3", mx(CK[1]), ytop - 400, mx(CK[0]), yck + PAD // 2)
     via(2, ckx, yck)
-    xp, yv = top_pin_drop("uo_out[0]", 322500)
-    r("m2", xp - PAD // 2, yck - PAD // 2, ckx + PAD // 2, yck + PAD // 2)
-    via(2, xp, yck)
-    r("m3", xp - PAD // 2, yck - PAD // 2, xp + PAD // 2, yv + PAD // 2)
 
     # ---- tx_drv: the dipole driver, mirrored in y above lsdiv; tile (x, y) = (TX_X + x, TX_Y - y) ----
     top.insert(db.CellInstArray(ly.cell("tx_drv").cell_index(), db.Trans(db.Trans.M0, db.Vector(TX_X, TX_Y))))
@@ -442,6 +458,7 @@ def build(defpath, gds_out, lef_out):
     tied = [f"uo_out[{i}]" for i in range(1, 8)] + [f"uio_out[{i}]" for i in range(8)] + \
            [f"uio_oe[{i}]" for i in range(8)]
     tied.sort(key=pin_x)
+    driven = set(TOPPINS.values())                                  # these slots get a fill_4 instead of a tie cell
     xs = [pin_x(n) for n in tied]
     assert all(b - a == 7280 for a, b in zip(xs, xs[1:])), xs
     yr = TIE_ROW_Y
@@ -449,18 +466,24 @@ def build(defpath, gds_out, lef_out):
     for n in tied:
         xp = pin_x(n)
         assert x == xp - 1410
-        place("tiel", x, yr)
-        yz = yr + 1090                                              # ZN M1: y 0.53 ... 1.65
-        cut("v1", xp, yz); pad("m2", xp, yz)
-        cut("v2", xp, yz); pad("m3", xp, yz)
-        cut("v3", xp, yz)
-        r("m4", xp - PAD // 2, yz - PAD // 2, xp + PAD // 2, PINS[n]["rect"][3])
+        if n in driven:
+            place("fill_4", x, yr)
+        else:
+            high = n == "uio_oe[3]"                                 # MISO: uio[3] is an output
+            place("tieh" if high else "tiel", x, yr)
+            yz = yr + (2850 if high else 1090)                      # tieh Z M1: y 2.305 ... 3.39; tiel ZN: 0.53 ... 1.65
+            cut("v1", xp, yz); pad("m2", xp, yz)
+            cut("v2", xp, yz); pad("m3", xp, yz)
+            cut("v3", xp, yz)
+            r("m4", xp - PAD // 2, yz - PAD // 2, xp + PAD // 2, PINS[n]["rect"][3])
         x += 2240
         for f, wf in (("filltie", 1120), ("fill_4", 2240), ("fill_2", 1120), ("fill_1", 560)):
             place(f, x, yr); x += wf
     # tiel row rails -> the 1.6 um stripe pair at x 85 / 87.6 (inside the uio_oe[0] slot)
-    via(1, 85800, yr); via(2, 85800, yr); via(3, 85800, yr)
-    via(1, 88400, yr + ROW_H); via(2, 88400, yr + ROW_H); via(3, 88400, yr + ROW_H)
+    via(1, 59920, yr); via(2, 59920, yr); via(3, 59920, yr)
+    via(1, 57320, yr + ROW_H); via(2, 57320, yr + ROW_H); via(3, 57320, yr + ROW_H)
+
+    log["tx_fine"] = add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PINS, ytop, yck)
 
     # ---- checks on what was drawn ----
     for li in ly.layer_indexes():
@@ -478,6 +501,144 @@ def build(defpath, gds_out, lef_out):
     return log
 
 
+def macro_pins(lef):
+    """{pin: (layer, (x0, y0, x1, y1) nm)} and {VDD/VSS: [rects]} from the macro LEF."""
+    t = Path(lef).read_text()
+    pins, power = {}, {}
+    for m in re.finditer(r"PIN (\S+)(.*?)END \1", t, re.S):
+        name, body = m.groups()
+        rects = [(l, tuple(int(round(float(v) * 1000)) for v in r)) for l, *r in
+                 re.findall(r"LAYER (\S+) ;\s*RECT (\S+) (\S+) (\S+) (\S+)", body)]
+        if name in ("VDD", "VSS"):
+            power[name] = [rc for l, rc in rects if l == "Metal4"]
+        else:
+            pins[name] = rects[0]
+    return pins, power
+
+
+def add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PINS, ytop, yck):
+    """The fine-tuning blocks (docs/tx_fine_tune.md): the digital macro tx_fine, the medium DAC mdac, the vctrl
+    pull-down vctrl_pd, and their wiring. Returns a log dict."""
+    import klayout.db as db
+    log = {}
+    # ---- instances ----
+    for c, (x, y) in (("tx_fine", MAC), ("mdac", MDAC), ("vctrl_pd", VPD)):
+        top.insert(db.CellInstArray(ly.cell(c).cell_index(), db.Trans(db.Vector(x, y))))
+    mp, mpow = macro_pins(MAC_LEF)
+    dp = json.loads(MDAC_PINS.read_text())
+    M = lambda x, y: (MAC[0] + x, MAC[1] + y)
+    D = lambda x, y: (MDAC[0] + x, MDAC[1] + y)
+    # ---- macro power: the strap pairs under the tile stripes must line up exactly ----
+    for net, tnet in (("VDD", "VDPWR"), ("VSS", "VGND")):
+        xs = sorted(MAC[0] + rc[0] for rc in mpow[net])
+        tile = sorted(x0 for n, x0, w in STRIPES if n == tnet and x0 < 200000)
+        assert all(t in xs for t in tile), (net, xs, tile)
+    log["macro_straps_used"] = [x0 / 1000 for n, x0, w in STRIPES if x0 < 200000]
+    # ---- medium DAC: supplies on the x 420 (VDPWR) / 426 (VGND) stripes ----
+    for net, x0 in (("VDD", 420000), ("VSS", 426000)):
+        _, xl, yl = dp["pins"][net]
+        yc = MDAC[1] + yl
+        via_array(3, x0, x0 + 2000, yc - 1000, yc + 1000, margin=150)
+    # vg: DAC M2 pin (right edge) -> M2 right to vco_top's vg riser, M3 down onto it
+    _, xg, yg = dp["pins"]["vg"]
+    gx, gy = D(xg, yg)
+    vgx = mx((VG_TOP[0] + VG_TOP[1]) // 2)
+    r("m2", gx - PAD // 2, gy - PAD // 2, vgx + PAD // 2, gy + PAD // 2)
+    via(2, vgx, gy)
+    r("m3", vgx - PAD // 2, ytop - 400, vgx + PAD // 2, gy + PAD // 2)
+    # vbnf: DAC M3 pin -> M3 right and down onto vco_top's vbnf riser
+    _, xb, yb = dp["pins"]["vbnf"]
+    bx_, by_ = D(xb, yb)
+    vbx = mx((VBNF_TOP[0] + VBNF_TOP[1]) // 2)
+    r("m3", bx_ - PAD // 2, by_ - PAD // 2, vbx + PAD // 2, by_ + PAD // 2)
+    r("m3", vbx - PAD // 2, ytop - 400, vbx + PAD // 2, by_ + PAD // 2)
+    log["mdac"] = dict(origin=[v / 1000 for v in MDAC], vg=[gx / 1000, gy / 1000], vbnf=[bx_ / 1000, by_ / 1000])
+    # ---- vctrl pull-down: a -> vctrl (the ua[0] M3 at x 295.8), b -> VSS (cgm_ref's bottom M2 rail) ----
+    pa = (VPD[0] + 31910, VPD[1] + 11300)
+    pb_ = (VPD[0] + 580, VPD[1] + 1100)
+    vx = 295800
+    r("m2", pa[0] - PAD // 2, pa[1] - PAD // 2, vx + PAD // 2, pa[1] + PAD // 2)
+    via(2, vx, pa[1])
+    r("m2", pb_[0] - PAD // 2, Y0 - 190 - 100, mx(VT["xr"]) + 600, Y0 + 190 - 100)
+    r("m2", pb_[0] - PAD // 2, Y0 - 290, pb_[0] + PAD // 2, pb_[1] + PAD // 2)
+    log["vctrl_pd"] = dict(origin=[v / 1000 for v in VPD])
+    # ---- DAC control lines: macro east pins (M3) -> M2 -> M3 jog -> M2 -> DAC pins n<g> (M2, left edge) ----
+    names = [(f"dac_tn[{i}]", f"ns{i + 1}") for i in range(31)] + [(f"dac_bn[{b}]", f"nb{b}") for b in range(5)] + \
+            [("dac_sdn", "nsd")]
+    jog = {}
+    ends = {}
+    for mpin, dpin in names:
+        _, (x0, y0, x1, y1) = mp[mpin]
+        sx, sy = M(x1, (y0 + y1) // 2)
+        sy -= sy % 5
+        _, dx, dy = dp["pins"][dpin]
+        ends[mpin] = (sx, sy, D(dx, dy))
+    # the out_p M2 bar (y 244 ... 252) crosses the macro-side band: a pin there steps down on M3 to y 242.9 first
+    BAND = (243700, 252300)
+    step = {m: 242900 for m, (sx, sy, _) in ends.items() if BAND[0] <= sy <= BAND[1]}
+    assert len(step) <= 1, step
+    ends = {m: (sx, step.get(m, sy), d) for m, (sx, sy, d) in ends.items()}
+    pin_y = {m: M(0, (mp[m][1][1] + mp[m][1][3]) // 2)[1] // 5 * 5 for m in ends}
+    # jog order: line i's macro-side M2 [macro, x_i] at y m_i and line j's DAC-side M2 [x_j, DAC] at y d_j overlap
+    # if |m_i - d_j| < 700 and x_j < x_i, so such pairs need x_i < x_j: a topological order (ties by m)
+    after = {a: {b for b in ends if b != a and abs(ends[a][1] - ends[b][2][1]) < 700} for a in ends}
+    order, done = [], set()
+    while len(order) < len(ends):
+        free = [a for a in ends if a not in done and not any(a in after[b] for b in ends if b not in done and b != a)]
+        assert free, "jog order: cycle"
+        nxt = min(free, key=lambda a: ends[a][1])
+        order.append(nxt); done.add(nxt)
+    for k, mpin in enumerate(order):
+        dpin = dict(names)[mpin]
+        sx, sy, (tx_, ty_) = ends[mpin]
+        xj = JOG_X[0] + 680 * k
+        assert xj + PAD // 2 < JOG_X[1], k
+        xo = sx + 800                                               # via2 just outside the macro's east edge
+        py = pin_y[mpin]
+        r("m3", sx - 560, py - 280, xo + PAD // 2, py + 280)        # the pin (M3) out of the macro
+        if py != sy:                                                # the out_p band: M3 down to y 242.9
+            r("m3", xo - PAD // 2, sy - PAD // 2, xo + PAD // 2, py + PAD // 2)
+        via(2, xo, sy)
+        r("m2", xo - PAD // 2, sy - PAD // 2, xj + PAD // 2, sy + PAD // 2)
+        via(2, xj, sy)
+        r("m3", xj - PAD // 2, min(sy, ty_) - PAD // 2, xj + PAD // 2, max(sy, ty_) + PAD // 2)
+        via(2, xj, ty_)
+        r("m2", xj - PAD // 2, ty_ - PAD // 2, tx_ + PAD // 2, ty_ + PAD // 2)
+        jog[mpin] = dict(dac=dpin, jog_x=xj / 1000, y_macro=sy / 1000, y_dac=ty_ / 1000)
+    log["dac_lines"] = jog
+    # ---- ck: vco_top's ck (M2 track y 112) -> x 178 -> M3 down to y 40 -> M2 under the macro to its ck pin ----
+    _, (x0, y0, x1, y1) = mp["ck"]
+    cx, cy = M((x0 + x1) // 2, y0)
+    cx -= cx % 5
+    xc3, yc2 = 178000, 40000
+    ckx = mx((CK[0] + CK[1]) // 2)
+    r("m2", xc3 - PAD // 2, yck - PAD // 2, ckx + PAD // 2, yck + PAD // 2)
+    via(2, xc3, yck)
+    r("m3", xc3 - PAD // 2, yc2 - PAD // 2, xc3 + PAD // 2, yck + PAD // 2)
+    via(2, xc3, yc2)
+    r("m2", cx - PAD // 2, yc2 - PAD // 2, xc3 + PAD // 2, yc2 + PAD // 2)
+    r("m2", cx - PAD // 2, yc2 - PAD // 2, cx + PAD // 2, cy + 560)
+    # ---- top-edge pins: macro north pins (M2) -> M3 up -> M2 track (y 306 ...) -> M3 up to a via3 -> Metal4 drop ----
+    ytrk = {}
+    for k, (mpin, tpin) in enumerate(sorted(TOPPINS.items(), key=lambda t: mp[t[0]][1][0])):
+        _, (x0, y0, x1, y1) = mp[mpin]
+        sx = MAC[0] + (x0 + x1) // 2
+        sx -= sx % 5
+        ys = MAC[1] + y1 + 600                                      # just above the macro's top edge
+        yt = 306000 + 800 * k
+        r("m2", sx - 280, MAC[1] + y0, sx + 280, ys + PAD // 2)    # pin stub up out of the macro
+        via(2, sx, ys)
+        r("m3", sx - PAD // 2, ys - PAD // 2, sx + PAD // 2, yt + PAD // 2)
+        via(2, sx, yt)
+        xp, yv = top_pin_drop(tpin, 322500)
+        r("m2", min(sx, xp) - PAD // 2, yt - PAD // 2, max(sx, xp) + PAD // 2, yt + PAD // 2)
+        via(2, xp, yt)
+        r("m3", xp - PAD // 2, yt - PAD // 2, xp + PAD // 2, yv + PAD // 2)
+        ytrk[mpin] = dict(pin=tpin, track_y=yt / 1000)
+    log["top_pins"] = ytrk
+    return log
+
+
 def write_lef(path, W, H, PINS, top, L, db):
     f = lambda v: f"{v / 1000:.3f}"
     out = ["VERSION 5.7 ;", "  NOWIREEXTENSIONATPIN ON ;", '  DIVIDERCHAR "/" ;', '  BUSBITCHARS "[]" ;',
@@ -492,7 +653,7 @@ def write_lef(path, W, H, PINS, top, L, db):
         out += [f"  PIN {net}", "    DIRECTION INOUT ;", f"    USE {use} ;", "    PORT", "      LAYER Metal4 ;"]
         for n, x0, w in STRIPES:
             if n == net:
-                yt = 321940 if (n, x0) == ("VDPWR", 87600) else STRIPE_Y[1]
+                yt = 321940 if (n, x0) == ("VDPWR", 56520) else STRIPE_Y[1]
                 out.append(f"        RECT {f(x0)} {f(STRIPE_Y[0])} {f(x0 + w)} {f(yt)} ;")
         out += ["    END", f"  END {net}"]
     # obstructions: Metal1-3 over the whole tile; Metal4: every drawn Metal4 shape that is not a pin or a stripe
@@ -503,7 +664,7 @@ def write_lef(path, W, H, PINS, top, L, db):
     for p in PINS.values():
         pins.insert(db.Box(*p["rect"]))
     for n, x0, w in STRIPES:
-        yt = 321940 if (n, x0) == ("VDPWR", 87600) else STRIPE_Y[1]
+        yt = 321940 if (n, x0) == ("VDPWR", 56520) else STRIPE_Y[1]
         pins.insert(db.Box(x0, STRIPE_Y[0], x0 + w, yt))
     rest = (m4 - pins.sized(300)).merged()
     if not rest.is_empty():

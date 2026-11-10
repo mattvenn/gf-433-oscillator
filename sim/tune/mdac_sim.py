@@ -17,10 +17,10 @@ Circuit (all from the constant-gm reference, so the LSB tracks the coarse step):
            I_out = (word + sd + off) * I_L * nb / na.
   vctrl  : RV (ppolyf_u_1k) from vctrl to VSS (the fine NMOS leg is off by default); ua[0] can still override it.
 
-    python3 sim/tune/mdac.py ideal  [--corners ...]        # ideal current into vg: f vs I and the coarse steps
-    python3 sim/tune/mdac.py fword  [--corners ...]        # transistor DAC: f vs word at the 433.92 code
-    python3 sim/tune/mdac.py dc     --corner typical       # DAC output current vs every word (vg held), nominal
-    python3 sim/tune/mdac.py mc     --corner typical --n 200 --jobs 26   # same, mismatch on, one sample per process
+    python3 sim/tune/mdac_sim.py ideal  [--corners ...]        # ideal current into vg: f vs I and the coarse steps
+    python3 sim/tune/mdac_sim.py fword  [--corners ...]        # transistor DAC: f vs word at the 433.92 code
+    python3 sim/tune/mdac_sim.py dc     --corner typical       # DAC output current vs every word (vg held), nominal
+    python3 sim/tune/mdac_sim.py mc     --corner typical --n 200 --jobs 26   # same, mismatch on, one sample per process
 Outputs: build/tx_fine/mdac/<mode>_*.json
 """
 import argparse, json, math, os, re, subprocess, sys

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""vctrl pull-down: 200 kOhm of ppolyf_u_1k (1 um wide, 193.91 um long, sim/tune/mdac.py rv) from vctrl to VSS.
+"""vctrl pull-down: 200 kOhm of ppolyf_u_1k (1 um wide, 193.91 um long, sim/tune/mdac_sim.py rv) from vctrl to VSS.
 
     python3 layout/gen/vctrl_pd.py [--out build/layout_vctrl_pd] [--gds layout/vctrl_pd.gds]
 
@@ -18,18 +18,23 @@ from ring_core import Cell  # noqa: E402
 
 REPO = HERE.parents[1]
 sys.path.insert(0, str(REPO / "sim/tune"))
-import mdac  # noqa: E402
+import mdac_sim as mdac  # noqa: E402
 
 RPITCH = 1700
 NRS = 7
 
 
+def rtot():
+    """Drawn length (nm) for mdac.M["rv"]."""
+    return int(round(mdac.rv_length(mdac.M["rv"]) * 1000 / 5.0)) * 5
+
+
 def build(c):
-    rtot = int(round(mdac.rv_length(mdac.M["rv"]) * 1000 / 5.0)) * 5
+    rtot_ = rtot()
     D = 2440
-    Ls = (rtot - (NRS - 1) * RPITCH - 2 * D) // NRS // 10 * 10
-    D0 = (rtot - (NRS - 1) * RPITCH - NRS * Ls) // 2 // 5 * 5
-    D8 = rtot - (NRS - 1) * RPITCH - NRS * Ls - D0
+    Ls = (rtot_ - (NRS - 1) * RPITCH - 2 * D) // NRS // 10 * 10
+    D0 = (rtot_ - (NRS - 1) * RPITCH - NRS * Ls) // 2 // 5 * 5
+    D8 = rtot_ - (NRS - 1) * RPITCH - NRS * Ls - D0
     assert min(D0, D8) >= 2400, (D0, D8)
     xa = 610 + D0 + 400
     xb = xa + Ls
@@ -59,7 +64,7 @@ def build(c):
     c.via1(xe6 + 430, ys6 + 500)
     c.label("a", "m2", xe6 + 430, ys6 + 500, port=True)
     return dict(a=(xe6 + 430, ys6 + 500), b=(xe0 - 430, ys0 + 500), w=xe6 + 610 + 400, h=ys6 + 1000 + 600,
-                length_nm=rtot)
+                length_nm=rtot_)
 
 
 def main():

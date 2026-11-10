@@ -10,9 +10,10 @@
 #      errors, no pin-matching failure and no "do not match".
 #   3. resistor sizes (netgen black-boxes the PDK resistors): each nwell / nplus_u / ppolyf_u_1k in the source
 #      matched to one in the layout by model and size (W 0.1 %, L 1 %).
-#   4. mutations, each must FAIL: (a) ui_in[0] and ui_in[1] swapped at the inverters, (b) ck moved from uo_out[0]
-#      to uo_out[1] (and its tiel to uo_out[0]), (c) the VDD_LS decap m 5 -> 4 (property error), (d) the TX
-#      driver's outputs swapped (ua[2] <-> ua[3]), (e) its enables swapped (ui_in[5] <-> ui_in[6]).
+#   4. mutations, each must FAIL: (a) ui_in[0] and ui_in[1] swapped at the inverters, (b) the macro's ck_o and div16
+#      outputs swapped (uo_out[0] <-> uo_out[1]), (c) the VDD_LS decap m 5 -> 4 (property error), (d) the TX
+#      driver's outputs swapped (ua[2] <-> ua[3]), (e) its enables swapped (ui_in[5] <-> ui_in[6]), (f) the SPI
+#      SCLK / MOSI pins swapped at the macro, (g) two medium-DAC control lines swapped (b4 <-> s1, 16 vs 32 units).
 # Usage: bash layout/gen/check_tt.sh [gds] [source] [outdir]
 #   defaults gds/tt_um_mattvenn_gf433_vco.gds lvs/tt_um_mattvenn_gf433_vco.spice build/check/tt
 #   env: PDK_ROOT (default /foss/pdks), MAGIC (default: magic; use 8.3.642, see CLAUDE.md), NETGEN (default netgen)
@@ -137,8 +138,12 @@ mutate() {  # mutate <tag> <description> <sed expr>...
 }
 mutate swap "ui_in[0] <-> ui_in[1] at the inverters" \
   '/^xinv0 /s/^xinv0 ui_in\[0\]/xinv0 ui_in[1]/' '/^xinv1 /s/^xinv1 ui_in\[1\]/xinv1 ui_in[0]/'
-mutate ck "ck on uo_out[1], its tiel on uo_out[0]" \
-  '/^xvco /s/ uo_out\[0\] / uo_out[1] /' '/^xtie_uo_out_1 /s/ uo_out\[1\] / uo_out[0] /'
+mutate ck "macro ck_o <-> div16 (uo_out[0] <-> uo_out[1])" \
+  '/^xmac /s/ uo_out\[0\] / TMP /' '/^xmac /s/ uo_out\[1\] / uo_out[0] /' '/^xmac /s/ TMP / uo_out[1] /'
+mutate spi "SPI SCLK <-> MOSI at the macro (uio_in[0] <-> uio_in[1])" \
+  '/^xmac /s/ uio_in\[0\] / TMP /' '/^xmac /s/ uio_in\[1\] / uio_in[0] /' '/^xmac /s/ TMP / uio_in[1] /'
+mutate dacbit "DAC line b4 <-> s1 at mdac (dac_bn[4] <-> dac_tn[0])" \
+  '/^xmdac /s/ dac_bn\[4\] / TMP /' '/^xmdac /s/ dac_tn\[0\] / dac_bn[4] /' '/^xmdac /s/ TMP / dac_tn[0] /'
 mutate dcls "VDD_LS decap m 5 -> 4" '/^XDCLS /s/m=5$/m=4/'
 mutate txout "tx_drv out_p <-> out_n (ua[3] <-> ua[2])" '/^xtx /s/ ua\[3\] ua\[2\] / ua[2] ua[3] /'
 mutate txen "tx_drv en_p <-> en_n (ui_in[5] <-> ui_in[6])" '/^xtx /s/ ui_in\[5\] ui_in\[6\] / ui_in[6] ui_in[5] /'

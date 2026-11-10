@@ -115,6 +115,8 @@ def main():
     for cell, name, pins in insts:
         assert cell in cells, f"cell {cell} not in the library"
         order = cells[cell][0]
+        pins = dict(pins)
+        pins.setdefault("VNW", pins.get("VDD")); pins.setdefault("VPW", pins.get("VSS"))   # endcap / filltie: VDD VSS only
         missing = [p for p in order if p not in pins]
         assert not missing, (name, cell, missing)
         nm = re.sub(r"[^\w]", "_", name)

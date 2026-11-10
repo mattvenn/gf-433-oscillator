@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Layout of the medium DAC ("mdac", gf180mcuD, 3.3 V devices): sim/tune/mdac.py mdac_netlist() plus dummies.
+"""Layout of the medium DAC ("mdac", gf180mcuD, 3.3 V devices): sim/tune/mdac_sim.py mdac_netlist() plus dummies.
 
     python3 layout/gen/mdac.py [--out build/layout_mdac] [--gds layout/mdac.gds] [--spice build/layout_mdac/mdac_src.spice]
 
-Circuit (sizes from sim/tune/mdac.py M): PMOS unit 1/4 um, gate pb, source VDD. Groups: 31 unary segments s1..s31 of
+Circuit (sizes from sim/tune/mdac_sim.py M): PMOS unit 1/4 um, gate pb, source VDD. Groups: 31 unary segments s1..s31 of
 32 units, binary b4..b0 (16/8/4/2/1), the sigma-delta cell sd (1), off (32, always on to mo), MPB (64, diode on pb).
 Each switched group: SW (gate n<g>, c<g> -> mo) and SD (gate mo, c<g> -> md), PMOS 1/0.28. NMOS (coarse unit
 1.2/5.335): MD 30 (diode on mo), MO 3 (gate mo, drain vg), MB 1 (gate vbnf, drain pb); MDD 2 x 3.4/1 (diode on md).
@@ -34,7 +34,7 @@ from ring_core import Cell, CO, ENC_CO, CO_POLY, ENDCAP, POLY_DIFF, NSD_PSD  # n
 
 REPO = HERE.parents[1]
 sys.path.insert(0, str(REPO / "sim/tune"))
-import mdac as md  # noqa: E402
+import mdac_sim as md  # noqa: E402
 
 M = md.M
 NF = 32                       # fingers per PMOS row
