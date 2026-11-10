@@ -47,7 +47,7 @@ Read `STATUS.md` ("Decisions 2026-11-10" under Next steps) first. **Work in `/fo
 | Medium DAC LSB | ≤ 50 kHz at every corner (about 10 bits). Upper bits unary (thermometer-coded) for monotonic steps |
 | Monotonic | DNL > −1 LSB at ≥ 99 % of Monte Carlo runs (N ≥ 200, unit instances; see the MC trap in CLAUDE.md) |
 | Resolution with ΣΔ | ≤ 1 kHz (8 fractional bits or more) |
-| ΣΔ spurs | ≤ −40 dBc at any offset from 10 kHz to 30 MHz, for **every** fractional input (sweep them; small and near-rational fractions are the trap) |
+| ΣΔ spurs | ≤ −40 dBc at any offset from 10 kHz to 30 MHz, for **every** fractional input (sweep them). Sanity check: in a first-order ΣΔ the accumulator residue is under one LSB × one clock, so the phase error stays below 2π·LSB/f_clk (0.0126 rad for 50 kHz at 25 MHz). A quick laptop model gives a worst spur of −50 dBc (fraction ½, 12.5 MHz offset) over all 256 fractions, so first order probably meets this; higher orders are for the noise target, if at all |
 | ΣΔ-added FM noise | ≤ 2 kHz rms over 1–100 kHz (the ring's own is 7–8 kHz rms over 1–10 kHz) |
 | FSK | a deviation word added to or subtracted from the DAC word, selected by ui[7] (synchronised to `clk`); ±100 kHz ≈ ±2 LSB, calibrated by counting both states |
 | Divider | ÷16 (27 MHz), ÷64 (6.8 MHz), ÷1024 (424 kHz) on `uo` pins; `ck` on uo[0] gated by a register bit that resets to off |
@@ -66,7 +66,7 @@ Push the progress line (top of this file) at every phase change.
 **A. Study, behavioural first (local CPU, about 2 h).**
 1. A Python ΣΔ model (first order, second order, MASH 1-1 / 1-1-1, optional LSB dither). Model the frequency as
    LSB × (bitstream − fraction), integrate it to phase, take the spectrum, and sweep the fractional input (all
-   256 values, plus fine steps near 0, ½ and the small rationals). Choose the order, clock and LSB that meet the spur
+   256 values, plus fine steps near 0, ½ and the small rationals). Choose the simplest order, clock and LSB that meet the spur
    and noise targets. If none does with LSB ≥ 10 kHz, **stop and report** the options (smaller LSB, higher clock,
    dither).
 2. Size the medium DAC on the schematic. Mirror ratio from the reference, unit leg, segmentation; sweep tt/ss/ff/sf/fs
