@@ -81,8 +81,12 @@ def ring_tran(corner, code, ctl, tstop, save, extra="", supply="vdd vdd 0 3.3\n"
     rv = f"XRV vctrl 0 0 ppolyf_u_1k r_width=1e-6 r_length={ms.rv_length(ms.M['rv']):.2f}e-6\n"
     md = ms.mdac_netlist(p, ms.M, g=vb.gnet(p))
     cs = "".join(f"vn{k} n{k} 0 {v}\n" for k, v in ctl.items())
+    # vbnf held at its DC value: the 1 MOhm / 20 pF filter node drifts by about 0.1 mV/us in a long transient
+    # (about 2 nA of integration error on a 20 ms node), which moves f by tens of kHz per us and would swamp the
+    # LSB-sized effects measured here; the circuit itself is DC-stable there
+    hold = f"vhold vbnf 0 {ms.VBNF[corner]}\n"
     return f"""* phase C {corner} code {code}
-{ms.HDR.format(corner=corner)}{supply}{rv}{src}{body}vam vg vgo 0
+{ms.HDR.format(corner=corner)}{supply}{rv}{src}{body}{hold}vam vg vgo 0
 {md}{cs}{extra}.ic {ics}
 .option temp={temp}
 .control
@@ -361,11 +365,17 @@ def driver(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["driver", "summary"])
+    ap.add_argument("mode", choices=["driver", "summary", "sch"])
     ap.add_argument("--jobs", type=int, default=22)
     a = ap.parse_args()
     if a.mode == "driver":
         driver(a)
+    elif a.mode == "sch":                             # the schematic benches c2-c5 only (c1 kept), then the analysis
+        status("rerun c2-c5 (vbnf held)")
+        with ThreadPoolExecutor(max_workers=a.jobs) as ex:
+            list(ex.map(lambda dt: run_one(*dt), jobs_c2() + jobs_c3() + jobs_c4() + jobs_c5()))
+        analyse()
+        status("DONE sch")
     else:
         print(json.dumps(analyse(), indent=1)[:6000])
 
