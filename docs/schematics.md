@@ -7,8 +7,28 @@ The VCO as real xschem schematics, generated from Python in `xschem/gen/` (one g
 - the winner reference (`sim/results/2026-11-08/winner_sets.txt`) with lnw = 5.023 µm;
 - plus `topo=cfed kc=0.75 k=6 cvg=3e-12 ka=16 wfu=0.30 wff=0.30 rf=1e6 cf=20e-12`.
 
-Click a link to open it in the online viewer. Previews (SVG and PNG, rendered headless by `xschem/gen/render.sh`) are in `docs/img/xschem/`.
+Click a schematic to open it in the online xschem viewer, or a layout to open it in the Tiny Tapeout 3D GDS viewer. Previews (SVG and PNG, rendered headless by `xschem/gen/render.sh`) are in `docs/img/xschem/`.
 
+| Block | Schematic | Layout (3D) | What it is |
+|---|---|---|---|
+| **Tile** `tt_um_mattvenn_gf433_vco` | – (LVS source from `lvs/make_source.py`) | [tt_um_mattvenn_gf433_vco.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/gds/tt_um_mattvenn_gf433_vco.gds&pdk=gf180mcuD) | the 2x2 Tiny Tapeout tile: vco_top, tx_drv and the wrapper routes |
+| vco_top | [vco_top](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/vco_top.sch) | [vco_top.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/vco_top.gds&pdk=gf180mcuD) | the VCO as laid out: ring_core_v3 + cgm_ref + lsdiv + the VDD_LS decap |
+| vco_cfed | [vco_cfed](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/vco_cfed.sch) | – (laid out as vco_top) | the whole VCO as simulated in `vco_bias`, without lsdiv |
+| cgm_ref | [cgm_ref](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/cgm_ref.sch) | [cgm_ref.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/cgm_ref.gds&pdk=gf180mcuD) | constant-gm reference and the 1 MΩ / 20 pF filter |
+| ring_core_v3 | [ring_core_v3](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/ring_core_v3.sch) | [ring_core_v3.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/ring_core_v3.gds&pdk=gf180mcuD) | ring + DAC + vg decap |
+| ↳ cfed_ring | [cfed_ring](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/cfed_ring.sch) | in [ring_core_v3](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/ring_core_v3.gds&pdk=gf180mcuD) | the 5 inverters |
+| ↳ cfed_dac | [cfed_dac](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/cfed_dac.sch) | in [ring_core_v3](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/ring_core_v3.gds&pdk=gf180mcuD) | the coarse current DAC and the fine leg |
+| lsdiv | [lsdiv](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/lsdiv.sch) | [lsdiv.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/lsdiv.gds&pdk=gf180mcuD) | level shifter, TSPC ÷4 and clock buffer |
+| ↳ ls_ac | [ls_ac](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/ls_ac.sch) | in [lsdiv](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/lsdiv.gds&pdk=gf180mcuD) | the AC-coupled level shifter |
+| ↳ tspc_t1, tspc_t2 | [tspc_t1](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tspc_t1.sch), [tspc_t2](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tspc_t2.sch) | in [lsdiv](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/lsdiv.gds&pdk=gf180mcuD) | TSPC ÷2 flip-flops |
+| tx_drv | [tx_drv](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tx_drv.sch) | [tx_drv.gds](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/tx_drv.gds&pdk=gf180mcuD) | the dipole TX driver |
+| ↳ tx_split, tx_arm | [tx_split](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tx_split.sch), [tx_arm](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tx_arm.sch) | in [tx_drv](https://gds-viewer.tinytapeout.com/?url=https://raw.githubusercontent.com/mattvenn/gf-433-oscillator/main/layout/tx_drv.gds&pdk=gf180mcuD) | phase splitter; one output arm |
+| pad_model_gf180 | [pad_model_gf180](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/pad_model_gf180.sch) | – (TT's pin, not our layout) | one TT GF180 analog pin, for simulation |
+| ↳ tt_asw_5v0, lv2hv | [tt_asw_5v0](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/tt_asw_5v0.sch), [lv2hv](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/lv2hv.sch) | – | tnt's analog switch and its level shifter, redrawn |
+
+## Block details
+
+- **vco_top**: the VCO top level as laid out in `layout/vco_top.gds`, and the LVS source of `layout/gen/check_top.sh`. ring_core_v3 driven by cgm_ref (vbnf to the DAC gate), lsdiv on a0 with its own supply VDD_LS, and the VDD_LS decap DCLS (nfet_03v3 gate cap, sized as drawn by `layout/gen/vco_top.py`). Ports: VDD, VDD_LS, VSS, vctrl, bit0-4, bitb0-4, ck (a0 / 4), a0, vbn (monitor), vg (monitor) and ls (the TX driver's tap).
 - [vco_cfed](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/vco_cfed.sch): the whole VCO - the constant-gm reference drives the ring core through the 1 MΩ / 20 pF filter (vbnf).
 - [cgm_ref](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/cgm_ref.sch): the constant-gm (beta-multiplier) reference - MN1/MN2 as 14 × 14 series-parallel arrays (each drawn as one vector instance), the 56/14 µm PMOS mirror, the n-well + n+ resistor, the 3-transistor start-up and the RC filter to vbnf.
 - [ring_core_v3](https://xschem-viewer.com/?file=https://github.com/mattvenn/gf-433-oscillator/blob/main/xschem/ring_core_v3.sch): the ring, the DAC and the vg decap (nfet_03v3, 6 × 30.71/4 µm, as drawn in the layout). This is the cell in `layout/ring_core_v3.gds`, so it can be its LVS source.
@@ -42,6 +62,6 @@ Every `.sch` is netlisted headless with xschem (`xschem/gen/netlist.sh`) and com
 - **Measurement threshold:** I measured the frequency at mid-swing, not at VDD/2. The cfed ring swings from vg (about 1.8 V) up to VDD, so a0 never crosses 1.65 V. That makes `vco_bias.deck()`'s VDD/2 measurement fail for cfed, and `topo_cmp.py` uses mid-swing too.
 
 ## Superseded
-These hand-drawn SVGs in `docs/schematic/` came before the xschem schematics. I've kept them, but the xschem files are the reference now:
+The layouts `layout/ring_core.gds` and `layout/ring_core_v2.gds` are earlier versions of ring_core_v3. These hand-drawn SVGs in `docs/schematic/` came before the xschem schematics. I've kept them, but the xschem files are the reference now:
 - `ring_stage.svg`, `ring_loop.svg`, `ring_bias.svg` (with `ring_svg.py`)
 - `dac_cfed.svg` (with `dac_svg.py`)
