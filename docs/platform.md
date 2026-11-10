@@ -25,6 +25,7 @@ Each entry says where it comes from: **[repo]** a file in a repo, **[sim]** our 
 | ua pin path | switch 11–37 Ω tt (ss peak 72 Ω) + routing 15–60 Ω; about 7.7 pF on a project node with the pin open (3 other projects on the pin); 433.92 MHz out into 50 Ω: −0.5 to −0.9 dB vs DC. Model: `sim/pad/pad_model_gf180.spice`, `docs/pad_model.md` | [sim] + tnt (switch R matches his silicon; routing R). projects per chip pin: 1–4 on ttgf0p3 (TT index API), ttgf26c not known yet |
 | Digital output max toggle | ttgf0p2 `uio_out[4]` driven straight by a ring, scope on the pin: clean full swing at 23.7 MHz (3.35 V top, rise 1.82 ns / fall 1.19 ns 10-90 %), valid at 36 and 49.7 MHz (ringing about 10 ns, near the half-period), counts still roughly right but noisy at about 78 MHz, no toggling at 320 MHz (a 0.9 V band). So about 50 MHz is safe and 108 MHz (our `ck`) is not; a ÷16 (27 MHz) or ÷64 (6.8 MHz) output is well inside | [silicon] `bench/2026-11-09/raw/uio4_stats.csv`, `sweep_uio4.csv` (bidirectional pad, scope probe load) |
 | Project clock | from the RP2350; 10–50 MHz is typical | [assumed] |
+| Fine-tuning macro clock | `tx_fine` closes timing at 50 MHz at tt 3.3 V (+1.5 ns) and at about 41 MHz at ss 125 °C 3.0 V (the 3.3 V libraries' slow corner); 25 MHz is the recommended `clk` (`docs/tx_fine_tune.md`) | [sim] LibreLane STA, `macro/tx_fine` |
 | RP2350 PIO counting | counts edges up to ~sysclk/2 (75 MHz at 150 MHz); the crystal is ±30 ppm, ≈ 13 kHz at 433.92 MHz | [assumed] RP2350 datasheet; check on the bench |
 
 ## Prior GF180 silicon (ttgf0p2)

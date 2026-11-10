@@ -194,3 +194,9 @@ workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
   which start at the block's out pins.
 - **Sign-off not done.** Full process, voltage and temperature (PVT) corners plus Monte Carlo on the extracted
   tile have not been run at the time of writing.
+
+## Pins shared with the fine-tuning path (2026-11-10)
+The TX enables stay on ui_in[5] / ui_in[6] and the dipole on ua[2] / ua[3]. The on-chip fine tuning
+(`docs/tx_fine_tune.md`) adds ui_in[7] (FSK data), uio[0..3] (SPI: SCLK, MOSI, CS_n in, MISO out), uo_out[0] (`ck`,
+now gated and off after reset, because 4 × ck = 433.92 MHz is an on-channel spur) and uo_out[1..3] (f / 16, f / 64,
+f / 1024). ua[4] / ua[5] stay free for the RX.
