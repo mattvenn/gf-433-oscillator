@@ -81,6 +81,8 @@ def main():
     (out / "vctrl_pd_src.spice").write_text(
         ".subckt vctrl_pd a b\n"
         f"XRV a b VSUBS ppolyf_u_1k r_width=1e-6 r_length={g['length_nm'] / 1000:.3f}e-6\n.ends vctrl_pd\n")
+    for old in out.glob("*.mag"):                       # "load" would start from the last run's saved cell
+        old.unlink()
     rc = "/foss/pdks/gf180mcuD/libs.tech/magic/gf180mcuD.magicrc"
     subprocess.run([str(REPO / "tools/osic-mac"), "bash", "-c",
                     f"cd {out} && magic -dnull -noconsole -rcfile {rc} vctrl_pd.tcl > magic.log 2>&1"], check=False)

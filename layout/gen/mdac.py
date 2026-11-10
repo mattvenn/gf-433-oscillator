@@ -63,19 +63,29 @@ def row_plan():
     hi = ["sd", "b1", "b3"] + [f"s{i}" for i in range(1, 32, 2)] + ["MPB1"]
     rows = lo + hi
     assert len(rows) == 40 and len(set(rows)) == 40
+    want = dict(M_units())
     out = []
     for r in rows:
         if r.startswith("MPB"):
             out.append((r, "mpb", 16, "S"))
         elif r == "off":
             out.append((r, "off", 16, "S"))
+        elif r in ("b0", "sd"):                       # before the "s" test: "sd" is not a segment
+            out.append((r, "bin", 1, "D"))            # one finger: region 0 is its drain, the rest are dummies
         elif r.startswith("s"):
             out.append((r, "seg", 16, "S"))
-        elif r in ("b0", "sd"):
-            out.append((r, "bin", 1, "D"))            # one finger: region 0 is its drain, the rest are dummies
         else:
             out.append((r, "bin", (1 << int(r[1])) // 2, "S"))
+    for name, kind, nact, start in out:                # every group's unit count = the simulated circuit's
+        if kind in ("seg", "bin", "off"):
+            n = sum(1 for a, b in fingers(region_nets(name, kind, nact, start)) if a != "VDD" or b != "VDD")
+            assert n == want[name], (name, n, want[name])
     return out
+
+
+def M_units():
+    """Units per switched group from sim/tune/mdac_sim.py (the simulated circuit)."""
+    return [(g, n) for g, n in md.groups(M)]
 
 
 def region_nets(name, kind, nact, start):
@@ -406,6 +416,8 @@ def main():
     gds = REPO / a.gds
     tcl.write_text("drc off\nsnap internal\n" + c.tcl() + f"gds write {gds}\nquit -noprompt\n")
     pins = lvs_source(out / "mdac_src.spice")
+    for old in out.glob("*.mag"):                       # "load" would start from the last run's saved cell
+        old.unlink()
     rc = "/foss/pdks/gf180mcuD/libs.tech/magic/gf180mcuD.magicrc"
     r = subprocess.run([str(REPO / "tools/osic-mac"), "bash", "-c",
                         f"cd {out} && magic -dnull -noconsole -rcfile {rc} mdac.tcl > magic.log 2>&1"], check=False)

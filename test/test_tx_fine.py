@@ -144,7 +144,7 @@ async def fsk_offset(dut):
 async def divider_and_ck_gate(dut):
     await start(dut)
     from cocotb.utils import get_sim_time
-    for sig, n in ((dut.div16, 16), (dut.div64, 64), (dut.div1024, 1024)):
+    for sig, n in ((dut.div16, 4), (dut.div64, 16), (dut.div1024, 256)):      # in ck periods (ck = f / 4)
         await RisingEdge(sig)
         t0 = get_sim_time("ps")
         await RisingEdge(sig)

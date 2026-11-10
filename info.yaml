@@ -36,9 +36,9 @@ pinout:
 
   # Outputs
   uo[0]: "ck: f / 4 (gated, off after reset: CTRL.CK_EN)"
-  uo[1]: "f / 64 (ck / 16)"
-  uo[2]: "f / 256 (ck / 64)"
-  uo[3]: "f / 4096 (ck / 1024)"
+  uo[1]: "f / 16 (27 MHz)"
+  uo[2]: "f / 64 (6.8 MHz)"
+  uo[3]: "f / 1024 (424 kHz)"
   uo[4]: ""
   uo[5]: ""
   uo[6]: ""

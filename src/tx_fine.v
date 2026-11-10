@@ -6,7 +6,8 @@
  *
  *   clk domain (the TT project clock, 10-50 MHz): SPI register, FSK offset, first-order sigma-delta (SD),
  *     the medium DAC's control lines (31 thermometer segments, 5 binary bits, one SD cell), registered.
- *   ck domain (the VCO's f/4, about 108 MHz): ripple divider /16, /64, /1024, and ck itself gated by CTRL.CK_EN.
+ *   ck domain (the VCO's f/4, about 108 MHz): ripple divider giving f/16, f/64, f/1024 (ck/4, ck/16, ck/256),
+ *   and ck itself gated by CTRL.CK_EN.
  *
  * SPI: mode 0 (SCLK idles low, MOSI sampled on the rising edge, MISO changes on the falling edge), MSB first,
  * 16-bit frames while CS_n is low: [15] 1 = read / 0 = write, [14:12] address, [11:0] data. A write takes effect
@@ -40,9 +41,9 @@ module tx_fine (
     input  wire        fsk,
     input  wire        ck,
     output wire        ck_o,
-    output wire        div16,
-    output wire        div64,
-    output wire        div1024,
+    output wire        div16,      // f / 16   = ck / 4   (27.1 MHz at 433.92 MHz)
+    output wire        div64,      // f / 64   = ck / 16  (6.78 MHz)
+    output wire        div1024,    // f / 1024 = ck / 256 (424 kHz)
     output reg  [30:0] dac_tn,     // thermometer, active low: segment i+1 on (0) when word[9:5] > i
     output reg  [4:0]  dac_bn,     // binary word[4:0], active low
     output reg         dac_sdn     // the SD cell (1 LSB), active low
@@ -158,11 +159,11 @@ module tx_fine (
 
     // ripple counter: stage 0 toggles on ck, stage i on the falling edge of stage i-1, so only stage 0 runs at
     // the ck rate (about 108 MHz); the outputs are frequency outputs, so the ripple skew doesn't matter
-    wire [10:0] tck;
+    wire [8:0] tck;
     assign tck[0] = ck;
     genvar gi;
     generate
-        for (gi = 0; gi < 10; gi = gi + 1) begin : rip
+        for (gi = 0; gi < 8; gi = gi + 1) begin : rip
             reg q;
             if (gi == 0) begin : s0
                 always @(posedge ck or negedge rst_ck_n)
@@ -174,9 +175,9 @@ module tx_fine (
             assign tck[gi + 1] = q;
         end
     endgenerate
-    assign div16   = tck[4];
-    assign div64   = tck[6];
-    assign div1024 = tck[10];
+    assign div16   = tck[2];
+    assign div64   = tck[4];
+    assign div1024 = tck[8];
 
     reg [1:0] s_cken;    // CK_EN into the ck domain
     always @(posedge ck or negedge rst_ck_n)

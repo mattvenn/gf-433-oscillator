@@ -6,7 +6,7 @@ SCH=$(cd "${1:-xschem}" && pwd); mkdir -p "${2:-build/xsch}"; OUT=$(cd "${2:-bui
 cd "$SCH"
 for s in ${@:-cfed_ring cfed_dac ring_core_v3 cgm_ref vco_cfed lsdiv vco_top tx_drv}; do
   xschem -n -s -q -o "$OUT" $s.sch > "$OUT/$s.xlog" 2>&1
-  sed -i -e 's/^\*\*\.subckt/.subckt/' -e 's/^\*\*\.ends/.ends/' "$OUT/$s.spice"
+  sed -i -e 's/^\*\*\.subckt/.subckt/' -e 's/^\*\*\.ends/.ends/' -e '/^\.subckt/,/^[^*+]/s/^\*+ /+ /' "$OUT/$s.spice"
   if grep -q "IS MISSING" "$OUT/$s.spice"; then echo "MISSING symbol in $s"; exit 1; fi
   echo "netlisted $s: $(grep -c '^[XCR]' "$OUT/$s.spice") element lines"
 done
