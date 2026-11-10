@@ -73,8 +73,15 @@ It is to become an **FM radio toolkit**:
    - **Hi-res poly is 1 kΩ/sq (confirmed, `docs/platform.md`); the design now uses ppolyf_u_1k.** `vco_bias.py`
      sizes RF for 1 MΩ at 1k (970 µm at 1 µm wide; `rfm=3k` reproduces older results). tt 27 °C code 9 noise is
      unchanged (7.87 kHz rms 1–10 kHz). lsdiv's R1 stays as drawn (about 164 kΩ); extracted corners unchanged.
-3. **Digital macro** (LibreLane): ÷8…÷256 (overall ÷32 / ÷64 / ÷1024), the `uo_out` buffers and mux, and later the
-   code latch / TX enable / FLL counter.
+3. **On-chip fine tuning and FSK (option C): done through the tile, 2026-11-11** (`docs/tx_fine_tune.md`,
+   handoff `docs/handoff_tx_fine_tune.md`). 10-bit medium current DAC on vg (5 unary + 5 binary, PMOS steering,
+   3/30 mirror) + first-order ΣΔ cell, SPI register / FSK offset / ÷16 ÷64 ÷1024 / gated ck in the digital macro
+   `tx_fine` (LibreLane), vctrl pulled down on chip (200 kΩ), tile LVS / DRC / antenna clean, TT precheck passes.
+   - Extracted ring + DAC: LSB 27.4 / 31.1 / 35.7 kHz (ss / tt / ff), range > 1.3 coarse steps; MC (N = 200 × 3
+     corners) monotonic; ΣΔ spurs −58.7 dBc (model −60); FSK ±3 LSB = 201 kHz, settles in 0.26 µs; FM +5 %.
+   - **Open:** the macro's clock-edge current on the 1.32 Ω tile supply gives −37 dBc at 25 MHz (target −40, estimated
+     current): clock-gate the static flops in `src/tx_fine.v`. ΣΔ-cell charge injection (+0.4 LSB at fraction ½)
+     and a 40 ns FSK spike at a major carry are measured, not designed out. The DAC block itself is not extracted yet.
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
    Extracted core + extracted reference: f within −0.03 % of the schematic reference at tt/ss/ff, vbnf start-up
    88–94 µs. **Top level `vco_top` done** (`docs/top_layout.md`, 406.7 × 70.8 µm, DRC/LVS/antenna clean, no Metal4/5): the extracted

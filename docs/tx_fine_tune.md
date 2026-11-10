@@ -11,7 +11,7 @@ behind it (2026-11-10) are in `STATUS.md`.
 
 All numbers are at 27 °C and VDD 3.3 V unless a corner is named (corner policy, `docs/handoff_autonomy.md`).
 
-## Summary (phase A: schematic)
+## Summary
 
 | Item | Target | Result | Source |
 |---|---|---|---|
@@ -23,6 +23,13 @@ All numbers are at 27 °C and VDD 3.3 V unless a corner is named (corner policy,
 | Medium DAC LSB | ≤ 50 kHz | 29.4 kHz (ss) … 38.5 kHz (ff) | Table II |
 | Monotonic (Monte Carlo, N = 200) | DNL > −1 LSB in ≥ 99 % | 200 / 200 at tt, ss and ff (worst −0.76 LSB, ff) | Table III |
 | rms FM, 1-10 kHz, reference path | ≤ 15 kHz (whole VCO) | 8.20 → 8.62 kHz at mid-scale, 9.08 kHz at full scale (tt) | Table IV |
+| Medium DAC on the extracted vco_top | LSB ≤ 50 kHz, range ≥ 1.3 steps | LSB 27.4 (ss) / 31.1 (tt) / 35.7 (ff) kHz, range 27.8-36.5 MHz | Table V |
+| ΣΔ spurs, transistor level | ≤ −40 dBc | −58.7 dBc (fraction 77, model −60.1), −65.2 dBc (fraction ½) | Fig. 3 |
+| FSK, ±3 LSB | ±100 kHz | 201.4 kHz step; settles to 2 % in 180-260 ns | Fig. 3 |
+| Digital supply coupling | ≤ −40 dBc | **−37.0 dBc at 25 MHz: fails by 3 dB** with the estimated macro current | Fig. 3 |
+| Macro timing | 10-50 MHz clk, ~108 MHz ck | 50 MHz at tt 3.3 V (+1.5 ns); about 41 MHz at ss 125 °C 3.0 V | `macro/tx_fine` |
+| Tile checks | LVS, DRC, antenna, CI | LVS match (7/7 mutations caught), magic DRC 0, antenna 0, KLayout only DCF.1a (fill); TT precheck passes in CI | |
+| Tuning from cold, RP2350 model | about 1 kHz | 0.3-0.6 kHz at tt / ss / ff; FSK spread 199 kHz | Fig. 4 |
 
 ## The ΣΔ modulator
 
@@ -148,3 +155,139 @@ and at most adds 1.65 Iu to `vg`. That is less than the fine leg at `vctrl` = 3.
 
 **Power.** The array runs at (1024 + 32) × 66 nA = 70 µA plus 8.4 µA of bias, about 0.26 mW from VDPWR, against
 12.6 mA for the TX driver.
+
+## The digital macro (`src/tx_fine.v`, `macro/tx_fine`)
+
+**What it does.** The macro is one LibreLane-hardened block (170 × 260 µm, Metal1-4, gf180mcuD 7-track cells at
+3.3 V) with two clock domains:
+- `clk` (the TT project clock, 25 MHz recommended): the SPI register, the FSK offset, the ΣΔ and the 37 DAC control
+  lines (31 thermometer segments, 5 binary bits, the ΣΔ cell), registered and active low (0 V turns a cell on);
+- `ck` (f / 4, about 108 MHz, from the VCO's divider): a ripple divider giving f / 16 (27.1 MHz), f / 64 (6.78 MHz)
+  and f / 1024 (424 kHz) on uo[1..3], and `ck` itself on uo[0] through a glitch-free gate that is off after reset.
+  4 × ck = 433.92 MHz, so a toggling `ck` pin would be an on-channel spur.
+
+*Table VI. Register map. SPI mode 0, MSB first, 16-bit frames while CS_n is low: [15] 1 = read / 0 = write,
+[14:12] address, [11:0] data. SCLK must stay below clk / 8.*
+
+| Address | Name | Bits | Reset | Use |
+|---|---|---|---|---|
+| 0 | MED_INT | [9:0] | 512 | medium DAC word |
+| 1 | MED_FRAC | [7:0] | 0 | ΣΔ fraction (LSB / 256) |
+| 2 | FSK_DEV | [11:0] | 0 | FSK deviation, 4.8 fixed point in LSBs |
+| 3 | CTRL | [0] SD_EN, [1] CK_EN, [2] FSK_EN, [3] FSK_INV | 0 | |
+| 4 | EFF_INT | [9:0] | read only | the integer word the DAC sees (after FSK and saturation) |
+| 7 | ID | [11:0] | 0x433 | read only |
+
+The effective word is {MED_INT, MED_FRAC} ± FSK_DEV (+ when ui[7] = 1, unless FSK_INV), saturated to 0 … 1023.996. It is
+registered, then decoded, so the adder and the decoder sit in separate clock cycles.
+
+**Evidence.**
+- Five cocotb tests (`test/`, `make` and `make GL=1`): reset values, write and readback, the ΣΔ bitstream bit for
+  bit against `sim/tune/sd_model.py`, the FSK offset and saturation, and the divider ratios and `ck` gate. They pass
+  on the RTL and on the hardened netlist. Three RTL mutations (a wrong carry bit, a wrong divider tap, a shifted
+  FSK_DEV write) each fail a test.
+- LibreLane: magic and KLayout DRC, LVS and antenna are clean. At tt 3.3 V the 50 MHz `clk` and the 140 MHz `ck`
+  constraint both close (+1.5 ns). At the 3.3 V libraries' slow corner (ss, 125 °C, 3.0 V) the `clk` domain closes
+  at about 41 MHz. That corner is far from the room-temperature operating point, so 25 MHz has a wide margin.
+
+## Layout and tile integration
+
+![Tile](img/tt_wrapper.png)
+
+*Fig. 2. The 2x2 tile: the digital macro (left strip), the medium DAC above vco_top (x 335-492 µm, y 118-222 µm), the
+vctrl pull-down left of vco_top, and the 37 control lines through a Metal3 jog channel between the two TX risers.*
+
+- **Medium DAC** (`layout/gen/mdac.py`, 156.8 × 104.2 µm): 40 PMOS rows of 32 fingers (1 / 4 µm) in mirrored
+  pairs. Each pair shares a poly gate bar (`pb`) and an n+ tap rail. The segments are placed symmetrically about
+  the binary rows, so a linear gradient cancels pairwise. Unused fingers in the binary rows are dummies with both
+  ends on VDD. A steering pair per row is on the left, with Metal3 `mo` / `md` buses. The output mirror (30 + 3
+  coarse units) and the bias device are below. The generator asserts that each group's unit count equals the
+  simulated circuit's.
+- **vco_top** brings `vg` and `vbnf` up to its top edge on Metal3 risers. Its own checks still pass
+  (`check_top.sh`).
+- **Tile** (`layout/gen/tt_wrapper.py`): the macro's VDD / VSS strap pairs at x 56.5 and 136.5 µm are extended to
+  become the tile's stripes there. The control lines' jog columns are ordered so that no two Metal2 runs overlap.
+  Each line also gets a short Metal3 hop just before the DAC: the long Metal2 run is then not connected to the
+  switch gate when Metal2 is etched (antenna).
+- **Checks:** block DRC / LVS / antenna clean for mdac and vctrl_pd, with three mutations caught in mdac. The
+  xschem schematic `xschem/mdac.sch` matches both the layout source and the simulated circuit (`check.py`, with an
+  SD-cell mutation). Tile LVS matches with 7 of 7 mutations caught, including the SPI pins swapped and two DAC lines
+  swapped. Tile magic DRC 0, antenna 0, KLayout only DCF.1a (dummy fill). The TT precheck passes in CI.
+- **A bug the cross-check found:** the layout first drew the ΣΔ cell as a 32-unit segment (`"sd".startswith("s")`),
+  and every LVS passed because the LVS source came from the same code. The schematic-against-simulation comparison
+  caught it.
+
+## Transistor-level checks (`sim/tune/phase_c.py`)
+
+The medium DAC was put on the extracted vco_top (RC, magic 8.3.642, `rcfix.py`) for f against the word. The other
+benches use the schematic ring with the reference and the DAC. In those transients `vbnf` is held at its DC value.
+The 1 MΩ / 20 pF filter node otherwise drifts by about 0.1 mV/µs, which is about 2 nA of integration error on a
+20 ms node. That drift moves f by tens of kHz per µs, which hides LSB-sized effects.
+
+*Table V. Medium DAC on the extracted vco_top (27 °C).*
+
+| Corner | Code | f(word 0) | f(word 512) | f(word 1023) | LSB (full scale / 1023) | LSB at 512 → 513 |
+|---|---|---|---|---|---|---|
+| tt | 9 | 404.88 MHz | 420.99 | 436.71 | 31.12 kHz | 31.12 kHz |
+| ss | 11 | 411.40 | 425.58 | 439.45 | 27.42 | 27.43 |
+| ff | 7 | 396.59 | 415.11 | 433.11 | 35.70 | 35.68 |
+
+The extracted LSB is 0.93× the schematic value, close to the ring's own extracted factor. At ff, code 7 tops out at
+433.11 MHz, so 433.92 MHz is reached from code 8. The range (more than 1.3 steps) ensures one of the two codes
+covers it.
+
+![Phase C](img/tx_fine_phase_c.png)
+
+*Fig. 3. Left: FSK by ±3 LSB (word 509 ↔ 515), a 201.4 kHz step that settles in 180-260 ns; this pair crosses the
+major carry at 512, and each edge has a 40 ns spike of about +600 kHz. Middle: mean frequency against the ΣΔ
+fraction, 8.3 kHz (fraction 77) and 13.9 kHz (fraction ½) above the static LSB line. Right: the phase spectrum
+with the macro's estimated current on the tile supply, −37.0 dBc at 25 MHz.*
+
+- **ΣΔ.** The spurs match the model: −58.7 dBc at 7.59 MHz for fraction 77 (model −60.1 dBc) and −65.2 dBc for
+  fraction ½. The mean frequency is not linear in the fraction. Each turn-on of the ΣΔ cell injects charge from
+  its drain node (about 0.9 V swing) into `mo`: about 1.1 Hz·ms per edge. The excess therefore follows the edge
+  rate, which is largest at fraction ½. The curve stays monotonic and continuous across word boundaries, so the
+  counting servo absorbs it. A dummy switch or slower edges on that one cell would remove it.
+- **Charge injection.** At the major carry 511 → 512 (16 cells switch): `mo` peaks 30 mV (ss 35 mV), `vg` 1.5 mV,
+  and `vbnf` 0.07 mV in the run without the hold. The step is +33.3 kHz, so it stays monotonic. With the ΣΔ toggling,
+  `mo` ripples 2.8 mV p-p.
+- **FSK.** The step is the expected 6 LSB (201.4 kHz). The 40 ns spike at a major carry is about 0.1 rad of phase
+  per edge. The RP2350 can avoid it by keeping the FSK pair on one side of a multiple of 32.
+- **Digital supply coupling: this fails the target.** The model is the ring's VDD through the 1.32 Ω power switch
+  with 9.8 pF of decap, plus the macro's current. That current is estimated from LibreLane's tt power report scaled
+  to 25 / 108 MHz: 0.6 mA DC, a 1 ns, 24 mA-peak pulse on each `clk` edge, and a 0.4 ns pulse on each `ck` edge. VDD
+  moves 34 mV p-p, and the phase line at 25 MHz is −37.0 dBc (−43 dBc at 50 MHz), 3 dB over the −40 dBc target. More
+  decap does not help at this source impedance: the volt-seconds per edge are set by charge × 1.32 Ω. The fix is
+  less charge per edge. Clock-gating the roughly 140 flops that hold static values (the register, the effective
+  word, the decoded lines) leaves about 20 flops on every edge, which should be worth about 15 dB. That is an RTL
+  change, with no floorplan or supply change. The current waveform is an estimate, not an extraction.
+- **FM noise** with the DAC is Table IV (`.noise`, schematic): +5 % at mid-scale.
+
+## RP2350 tuning model (`sim/tune/rp2350_model.py`)
+
+![Tuning sequence](img/tx_fine_servo.png)
+
+*Fig. 4. Left: the frequency error after the coarse search and the LSB measurement, 0.3-0.6 kHz after two or three
+10 ms reciprocal counts at tt / ss / ff. Right: a 27 → 35 °C warm-up in 60 s with the servo every 0.1 s, within
+2.3 kHz at each packet start.*
+
+The procedure and the counting methods are in [tuning.md](tuning.md). The model uses the schematic f(word), white FM
+noise of 8 kHz rms (1-10 kHz), +120 ppm/°C and a +10 ppm RP2350 crystal. The residual error is the FM noise over a
+10 ms count. A 1 s servo interval is too slow for the fastest warm-up (8.3 kHz); 0.1 s keeps it to 2.3 kHz. The
+nonlinearity of the ΣΔ cell (Fig. 3, middle) is not in the model. The servo corrects it, but the first step lands
+up to 0.4 LSB off.
+
+## Limits and open items (at the time of writing)
+
+- **Digital supply coupling** is 3 dB over the target with the estimated current. Clock gating in the macro is the
+  proposed fix and has not been done. An extracted current waveform (from the macro's SPEF) would firm up the
+  number.
+- **The medium DAC is not extracted**; Table V uses the extracted ring with the schematic DAC. The DAC's own routing
+  adds C on `mo` and on the control lines.
+- **Monte Carlo** used the schematic DAC (unit instances), not the layout.
+- **Corners:** 27 °C, VDD 3.3 V. The low-VDD (3.15 V) headroom check on the DAC cells was not run.
+- **The ΣΔ cell's charge injection** (1.1 Hz·ms per edge) and the FSK major-carry spike are measured and explained,
+  but not designed out.
+- **Crystal error:** tuning is relative to each RP2350's crystal (±30 ppm, ±13 kHz), so two boards agree to the sum
+  of their crystal errors unless the receiver corrects it.
+

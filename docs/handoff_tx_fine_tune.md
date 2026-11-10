@@ -1,4 +1,4 @@
-> Running: phase C (transistor checks, sim/tune/phase_c.py driver) since 21:37, ETA 22:27. Phases A, B done; tile LVS + DRC clean
+> Done (2026-11-11): results in docs/tx_fine_tune.md. Open: the macro's supply coupling is −37 dBc at 25 MHz (target −40; clock gating proposed), the DAC block is not extracted
 # Handoff: on-chip fine tuning and FSK for the TX (option C), schematic to tile (sim server)
 
 **Goal: replace the board-driven vctrl with on-chip fine tuning, so that the chip needs nothing on the board except
