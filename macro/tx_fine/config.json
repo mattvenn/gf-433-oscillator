@@ -1,0 +1,70 @@
+{
+  "DESIGN_NAME": "tx_fine",
+  "VERILOG_FILES": "dir::../../src/tx_fine.v",
+  "CLOCK_PORT": [
+    "clk",
+    "ck"
+  ],
+  "CLOCK_PERIOD": 20,
+  "PNR_SDC_FILE": "dir::tx_fine.sdc",
+  "SIGNOFF_SDC_FILE": "dir::tx_fine.sdc",
+  "FP_SIZING": "absolute",
+  "DIE_AREA": [
+    0,
+    0,
+    170,
+    260
+  ],
+  "PL_TARGET_DENSITY_PCT": 55,
+  "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+  "RT_MAX_LAYER": "Metal4",
+  "PDN_MULTILAYER": false,
+  "PDN_VWIDTH": 2.0,
+  "PDN_VPITCH": 40,
+  "PDN_VOFFSET": 10,
+  "PDN_CORE_RING": false,
+  "VDD_NETS": [
+    "VDD"
+  ],
+  "GND_NETS": [
+    "VSS"
+  ],
+  "RUN_LINTER": true,
+  "GRT_ALLOW_CONGESTION": false,
+  "DIODE_ON_PORTS": "in",
+  "RUN_HEURISTIC_DIODE_INSERTION": false,
+  "MAX_TRANSITION_CONSTRAINT": 1.5,
+  "IO_DELAY_CONSTRAINT": 10,
+  "DEFAULT_CORNER": "nom_tt_025C_3v30",
+  "STA_CORNERS": [
+    "nom_tt_025C_3v30",
+    "min_tt_025C_3v30",
+    "max_tt_025C_3v30",
+    "nom_ss_125C_3v00",
+    "min_ss_125C_3v00",
+    "max_ss_125C_3v00",
+    "nom_ff_n40C_3v60",
+    "min_ff_n40C_3v60",
+    "max_ff_n40C_3v60"
+  ],
+  "LIB": {
+    "*_tt_025C_3v30": [
+      "pdk_dir::libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib"
+    ],
+    "*_ss_125C_3v00": [
+      "pdk_dir::libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_3v00.lib"
+    ],
+    "*_ff_n40C_3v60": [
+      "pdk_dir::libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_3v60.lib"
+    ]
+  },
+  "SETUP_VIOLATION_CORNERS": [
+    "*tt_025C_3v30"
+  ],
+  "MAX_SLEW_VIOLATION_CORNERS": [
+    "*tt_025C_3v30"
+  ],
+  "MAX_CAP_VIOLATION_CORNERS": [
+    "*tt_025C_3v30"
+  ]
+}
