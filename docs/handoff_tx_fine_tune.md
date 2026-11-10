@@ -1,4 +1,4 @@
-> Running: phase D (tile DRC / antenna / precheck, xschem, extraction) since 21:23, ETA 23:23. Phases A, B done; tile LVS clean
+> Running: phase C (transistor checks, sim/tune/phase_c.py driver) since 21:37, ETA 22:27. Phases A, B done; tile LVS + DRC clean
 # Handoff: on-chip fine tuning and FSK for the TX (option C), schematic to tile (sim server)
 
 **Goal: replace the board-driven vctrl with on-chip fine tuning, so that the chip needs nothing on the board except
