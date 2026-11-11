@@ -106,8 +106,9 @@ It is to become an **FM radio toolkit**:
    - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
    - **ua pin limit is 10 mA rms** (tnt, 2026-11-11): each arm carries 7.8-8.1 mA rms at tt / 40 Ω, but
      10.8-11.1 mA at ff with 15 Ω of routing. Narrowing the final stage 40 -> ~34 um fixes it for ~1 dB (Matt's call).
-   - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid) and the ttgf26c pin plan;
-     re-floorplan with the receiver.
+   - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid); re-floorplan with the receiver.
+     The pin plan can't be known before tapeout (it depends on the other projects then), so the TX is checked
+     over n_off 0-3 instead.
 6. **Receiver blocks:**
    - port the OOK LNA (linear, not limiting) to GF180;
    - new: mixer, IF preamp, filter, limiter and comparator.
@@ -116,8 +117,9 @@ It is to become an **FM radio toolkit**:
    `xschem/pad_model_gf180.sch`, checked by `sim/pad/check_xsch.py`). tnt's `tt_asw_5v0` switch is 11–37 Ω tt
    (ss peak 72 Ω), plus 15–60 Ω of routing; a project node sees about 7.7 pF with the pin open; 433.92 MHz out into
    50 Ω loses −0.5…−0.9 dB vs DC (6–12 dB absolute, the R divider). VAPWR is 3.3–5 V, set independently of VDPWR
-   (tnt, `docs/platform.md`; simulated at 3.3 V, the conservative case). **Open, ask tnt:** the ttgf26c pin plan
-   (n_off assumed 3; 0–1 likely; 12 `ua` pins requested so far, 4 used now: vctrl, vbn, TX out_n, TX out_p).
+   (tnt, `docs/platform.md`; simulated at 3.3 V, the conservative case). The ttgf26c pin plan isn't known until
+   tapeout (it depends on the other analog projects then, Matt 2026-11-11), so designs are checked over n_off 0–3
+   (3 the default, 0–1 likely). 12 `ua` pins requested so far, 4 used now: vctrl, vbn, TX out_n, TX out_p.
    **Our project is not in `TinyTapeout/tinytapeout-gf-26c` yet: submit before 2026-12-07.**
 7. **Later:** a PLL (on-chip PFD, charge pump and loop filter, reference from the RP2350), and I/Q for the receiver.
 8. **Sign-off:** full PVT (5 corners × 0/27/70 °C × VDD ±4.5 %) plus MC on the extracted tile.
