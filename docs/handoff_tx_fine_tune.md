@@ -1,4 +1,4 @@
-> Done (2026-11-11): results in docs/tx_fine_tune.md. Open: the macro's supply coupling is −37 dBc at 25 MHz (target −40; clock gating proposed), the DAC block is not extracted
+> Done (2026-11-11): results in docs/tx_fine_tune.md. Follow-up the same day: clock gating (supply spur −45.5 dBc, target −40), the DAC extracted (−0.2 % LSB vs schematic), VDD headroom fine down to 2.8 V. Open: ΣΔ-cell charge injection and the FSK major-carry overshoot (to discuss)
 # Handoff: on-chip fine tuning and FSK for the TX (option C), schematic to tile (sim server)
 
 **Goal: replace the board-driven vctrl with on-chip fine tuning, so that the chip needs nothing on the board except

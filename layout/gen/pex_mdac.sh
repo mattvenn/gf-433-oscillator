@@ -52,3 +52,7 @@ if [ "$MODE" = rc ]; then
   python3 "$REPO/layout/gen/rcfix.py" "$DST" "$REPO/layout/pex/mdac_rcx.spice" \
     $( [ -f "$REPO/layout/pex/mdac_c.spice" ] && echo --check "$REPO/layout/pex/mdac_c.spice" )
 fi
+# c: merge the parallel unit fingers (exact for a C-only netlist) -> mdac_cm.spice, about 100x faster transients
+if [ "$MODE" = c ]; then
+  python3 "$REPO/layout/gen/pexmerge.py" "$DST" "$REPO/layout/pex/mdac_cm.spice"
+fi

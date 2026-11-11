@@ -182,9 +182,12 @@ workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
   the 5th at -23.3 dBc (on chip: -11.5 / -18.3 dBc; the even ones cancel, -41 dBc). The pad path filters only a few
   dB, and a real half-wave dipole is near resonance again at 3f, so a bench demo is fine but meeting the 433 MHz
   band's spurious limits (about -36 dBm) would need a board filter or slower, shaped edges.
-- **Pin current and pin plan.** Each arm carries about 10 mA rms through ua[2] / ua[3] and the analog switch. Whether
-  that is within the ua pins' current limit, and whether the ttgf26c pin plan suits a dipole across ua[2] and ua[3],
-  are questions for tnt.
+- **Pin current: over the limit at ff with low routing R.** The `ua` pins are limited to 10 mA rms (tnt, via Matt,
+  2026-11-11). The pin carries the dipole current, √(P / 73 Ω) from the block sims (`sim/tx/results/block_sch.txt`,
+  section 4): 7.8-8.1 mA rms at tt with 40 Ω of routing, 5.8-9.9 mA at ss / sf / fs, 9.2-9.5 mA at tt with 15 Ω, and
+  **10.8-11.1 mA at ff with 15 Ω**, over the limit. The pad and board C add a little on top. Narrowing the final stage
+  from 40 to about 34 µm would bring the worst case under 10 mA for about 1 dB less output; not done yet (Matt's
+  call). Whether the ttgf26c pin plan suits a dipole across ua[2] and ua[3] is still a question for tnt.
 - **The decap value is not justified by analysis.** The sims show it does not change P, and the ripple depends
   mostly on the assumed L, so about 9.8 pF is a placeholder until the grid impedance is known.
 - **0 / 70 °C.** At tt the f shifts (+4.37 / -5.40 %) are the ring's own temperature coefficient. The jitter there

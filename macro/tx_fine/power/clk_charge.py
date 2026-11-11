@@ -52,7 +52,8 @@ def trace(insts):
 
 
 def power(run):
-    out = HERE / f"inst_{Path(run).name}.rpt"
+    out = HERE.parents[2] / "build/tx_fine/power" / f"inst_{Path(run).name}.rpt"
+    out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(["sta", "-no_init", "-exit", str(HERE / "clk_charge.tcl")], check=True, capture_output=True,
                    env=dict(os.environ, RUN=str(run), OUT=str(out), PDK_ROOT=os.environ.get("PDK_ROOT", "/foss/pdks")))
     p = {}

@@ -77,11 +77,14 @@ It is to become an **FM radio toolkit**:
    handoff `docs/handoff_tx_fine_tune.md`). 10-bit medium current DAC on vg (5 unary + 5 binary, PMOS steering,
    3/30 mirror) + first-order ΣΔ cell, SPI register / FSK offset / ÷16 ÷64 ÷1024 / gated ck in the digital macro
    `tx_fine` (LibreLane), vctrl pulled down on chip (200 kΩ), tile LVS / DRC / antenna clean, TT precheck passes.
-   - Extracted ring + DAC: LSB 27.4 / 31.1 / 35.7 kHz (ss / tt / ff), range > 1.3 coarse steps; MC (N = 200 × 3
-     corners) monotonic; ΣΔ spurs −58.7 dBc (model −60); FSK ±3 LSB = 201 kHz, settles in 0.26 µs; FM +5 %.
-   - **Open:** the macro's clock-edge current on the 1.32 Ω tile supply gives −37 dBc at 25 MHz (target −40, estimated
-     current): clock-gate the static flops in `src/tx_fine.v`. ΣΔ-cell charge injection (+0.4 LSB at fraction ½)
-     and a 40 ns FSK spike at a major carry are measured, not designed out. The DAC block itself is not extracted yet.
+   - Extracted ring + extracted DAC (C only, `pex_mdac.sh` + `pexmerge.py`): LSB 27.4 / 31.1 / 35.6 kHz (ss / tt / ff),
+     −0.2 % vs the schematic DAC, range > 1.3 coarse steps; MC (N = 200 × 3 corners, schematic DAC) monotonic; ΣΔ
+     spurs −58.2 dBc (model −60); FSK ±3 LSB = 204 kHz, settles within 0.26 µs; FM +5 %. VDD 2.8-3.3 V: LSB and
+     range unchanged (no headroom issue).
+   - **Clock gating (2026-11-11, macro r12):** 4 icgtp gates, small CTS buffers; clock charge 21.1 -> 4.48 pC per
+     25 MHz cycle (OpenSTA, `macro/tx_fine/power/clk_charge.py`); supply spur −32.1 -> **−45.5 dBc** (target −40).
+   - **Open (to discuss):** ΣΔ-cell charge injection (+0.4 LSB at fraction ½) and an FSK overshoot at a major carry
+     are measured, not designed out.
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
    Extracted core + extracted reference: f within −0.03 % of the schematic reference at tt/ss/ff, vbnf start-up
    88–94 µs. **Top level `vco_top` done** (`docs/top_layout.md`, 406.7 × 70.8 µm, DRC/LVS/antenna clean, no Metal4/5): the extracted
@@ -101,8 +104,10 @@ It is to become an **FM radio toolkit**:
      12–15 mV, no jitter change. LS duty passes through (out_p 54.0 % at ff). 3rd harmonic at the dipole -14 dBc.
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
    - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
-   - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid), the ua
-     current limit (~10 mA rms per arm) and the ttgf26c pin plan; re-floorplan with the receiver.
+   - **ua pin limit is 10 mA rms** (tnt, 2026-11-11): each arm carries 7.8-8.1 mA rms at tt / 40 Ω, but
+     10.8-11.1 mA at ff with 15 Ω of routing. Narrowing the final stage 40 -> ~34 um fixes it for ~1 dB (Matt's call).
+   - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid) and the ttgf26c pin plan;
+     re-floorplan with the receiver.
 6. **Receiver blocks:**
    - port the OOK LNA (linear, not limiting) to GF180;
    - new: mixer, IF preamp, filter, limiter and comparator.

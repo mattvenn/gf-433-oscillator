@@ -13,7 +13,7 @@ Jobs (27 C, VDD 3.3 V; ring = vco_bias netlist with the 2026-11-08 reference + R
   c4 supply    : tt: the ring's VDD through the 1.32 ohm tile power switch with 9.8 pF of decap and the macro's
                  current (1.0 mA mean, pulses at the 25 MHz clk and the 108 MHz ck edges)   -> FM spurs from digital
   c4q          : c4 with the macro's measured clock charge per cycle (QCLK: r10 and the clock-gated r12)
-  --pex        : every bench with the extracted medium DAC (layout/pex/mdac_c.spice, C only; layout/gen/pex_mdac.sh)
+  --pex        : every bench with the extracted medium DAC (layout/pex/mdac_cm.spice: C only, parallel fingers merged by layout/gen/pexmerge.py; pex_mdac.sh)
                  instead of the schematic one; outputs in build/tx_fine/pexdac (python3 sim/tune/phase_c.py all --pex)
   c5 fsk       : tt: word 509 -> 515 at 1.0 us -> 509 at 2.0 us (+/- 3 LSB, about +/- 100 kHz)   -> step and settling
 FM noise with the DAC is the .noise result of sim/tune/mdac_sim.py noise (Table IV of docs/tx_fine_tune.md).
@@ -382,11 +382,11 @@ def main():
     ap.add_argument("mode", choices=["driver", "summary", "sch", "all", "c4q"])
     ap.add_argument("--jobs", type=int, default=22)
     ap.add_argument("--pex", action="store_true", help="the extracted medium DAC (layout/pex/mdac_rcx.spice) in every "
-                    "bench; outputs in build/tx_fine/pexdac. C only (mdac_c.spice): the rc netlist splits VDD into ~1000 small-R nodes and the transient stops on timestep too small; at uA currents the wire R does not matter")
+                    "bench; outputs in build/tx_fine/pexdac. C only, merged (mdac_cm.spice): the rc netlist splits VDD into ~1000 small-R nodes and the transient stops on timestep too small; at uA currents the wire R does not matter")
     a = ap.parse_args()
     global OUT
     if a.pex:
-        ms.PEX, OUT = "c", REPO / "build/tx_fine/pexdac"
+        ms.PEX, OUT = "cm", REPO / "build/tx_fine/pexdac"
         OUT.mkdir(parents=True, exist_ok=True)
     if a.mode == "driver":
         driver(a)

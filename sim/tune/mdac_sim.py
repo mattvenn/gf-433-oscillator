@@ -33,8 +33,8 @@ sys.path.insert(0, str(REPO / "xschem/gen"))
 import vco_bias as vb  # noqa: E402
 OSIC = os.environ.get("OSIC", str(REPO / "tools/osic-mac"))
 OUT = REPO / "build/tx_fine/mdac"
-PEX = None  # None: schematic DAC; "rcx" / "c": the extracted layout (--pex)
-PEX_FILE = {k: REPO / f"layout/pex/mdac_{k}.spice" for k in ("rcx", "c")}
+PEX = None  # None: schematic DAC; "rcx" / "c" / "cm" (c, parallel fingers merged): the extracted layout (--pex)
+PEX_FILE = {k: REPO / f"layout/pex/mdac_{k}.spice" for k in ("rcx", "c", "cm")}
 VDD = 3.3   # supply (V); --vdd sets it for the headroom check
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 CODE433 = {"typical": 9, "ss": 11, "ff": 7, "sf": 9, "fs": 10}   # docs/remap_results.md (extracted); schematic: fs 9
@@ -80,13 +80,36 @@ def word_bits(word, sd=0, m=M):
     return st
 
 
+def pex_ports(src):
+    """Copy of an extracted mdac netlist with its internal bias / mirror nets renamed pb, mo, md and added as ports,
+    so benches can probe them as in the schematic. Found by their diode-connected devices: the PMOS unit diode
+    (pb), the 1.2 / 5.335 NMOS diode (mo) and the 3.4 / 1 NMOS diode (md)."""
+    txt = Path(src).read_text()
+    ren = {}
+    for ln in txt.splitlines():
+        t = ln.split()
+        if t and t[0][0] in "Xx" and len(t) > 6 and t[1] == t[2]:
+            w = re.search(r"\bw=([\d.]+)u", ln).group(1)
+            name = {"pfet_03v3": "pb"}.get(t[5]) or ("md" if float(w) > 2 else "mo")
+            assert ren.get(t[1], name) == name, (t[1], name)
+            ren[t[1]] = name
+    assert sorted(ren.values()) == ["md", "mo", "pb"], ren
+    for a, b in ren.items():
+        txt = re.sub(r"(?<![\w#])" + re.escape(a) + r"(?![\w#])", b, txt)
+    txt = re.sub(r"^(\.subckt mdac .*)$", r"\1 pb mo md", txt, count=1, flags=re.M)
+    out = OUT / f"{Path(src).stem}_ports.spice"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(txt)
+    return out
+
+
 def mdac_netlist(p, m=M, split=False, g="vbnf"):
     """The medium DAC as netlist lines (vco_bias fet() style). split=True: every m>1 device as unit instances (MC)."""
-    if PEX:   # the extracted layout (layout/pex/mdac_<PEX>.spice), same nets
-        hdr = next(l for l in open(PEX_FILE[PEX]) if l.startswith(".subckt"))
+    if PEX:   # the extracted layout (layout/pex/mdac_<PEX>.spice), same nets; pb / mo / md brought out as ports
+        f = pex_ports(PEX_FILE[PEX])
+        hdr = next(l for l in open(f) if l.startswith(".subckt"))
         nets = {"VDD": "vdd", "VSS": "0", "vg": "vgo", "vbnf": g}
-        return (f".include {PEX_FILE[PEX]}\n"
-                "Xmdac " + " ".join(nets.get(x, x) for x in hdr.split()[2:]) + " mdac\n")
+        return f".include {f}\nXmdac " + " ".join(nets.get(x, x) for x in hdr.split()[2:]) + " mdac\n"
     wn, ln = unit_n(p)
     s = ""
 
@@ -225,7 +248,7 @@ def main():
     ap.add_argument("--words", default="0,1,31,32,256,511,512,513,767,1023")
     ap.add_argument("--set", action="append", default=[], help="medium DAC overrides k=v")
     ap.add_argument("--tag", default="")
-    ap.add_argument("--pex", choices=["rcx", "c"], help="use the extracted DAC")
+    ap.add_argument("--pex", choices=["rcx", "c", "cm"], help="use the extracted DAC")
     ap.add_argument("--vdd", type=float, default=3.3, help="supply (V), e.g. 3.15 for the headroom check")
     a = ap.parse_args()
     global VDD, PEX
