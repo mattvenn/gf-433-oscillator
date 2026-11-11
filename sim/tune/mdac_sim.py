@@ -33,6 +33,9 @@ sys.path.insert(0, str(REPO / "xschem/gen"))
 import vco_bias as vb  # noqa: E402
 OSIC = os.environ.get("OSIC", str(REPO / "tools/osic-mac"))
 OUT = REPO / "build/tx_fine/mdac"
+PEX = None  # None: schematic DAC; "rcx" / "c": the extracted layout (--pex)
+PEX_FILE = {k: REPO / f"layout/pex/mdac_{k}.spice" for k in ("rcx", "c")}
+VDD = 3.3   # supply (V); --vdd sets it for the headroom check
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 CODE433 = {"typical": 9, "ss": 11, "ff": 7, "sf": 9, "fs": 10}   # docs/remap_results.md (extracted); schematic: fs 9
 
@@ -79,6 +82,11 @@ def word_bits(word, sd=0, m=M):
 
 def mdac_netlist(p, m=M, split=False, g="vbnf"):
     """The medium DAC as netlist lines (vco_bias fet() style). split=True: every m>1 device as unit instances (MC)."""
+    if PEX:   # the extracted layout (layout/pex/mdac_<PEX>.spice), same nets
+        hdr = next(l for l in open(PEX_FILE[PEX]) if l.startswith(".subckt"))
+        nets = {"VDD": "vdd", "VSS": "0", "vg": "vgo", "vbnf": g}
+        return (f".include {PEX_FILE[PEX]}\n"
+                "Xmdac " + " ".join(nets.get(x, x) for x in hdr.split()[2:]) + " mdac\n")
     wn, ln = unit_n(p)
     s = ""
 
@@ -101,12 +109,14 @@ def mdac_netlist(p, m=M, split=False, g="vbnf"):
     return s
 
 
-def ctl_sources(m=M, word=512, sd=0, vdd=3.3):
+def ctl_sources(m=M, word=512, sd=0, vdd=None):
+    vdd = VDD if vdd is None else vdd
     st = word_bits(word, sd, m)
     return "".join(f"vn{k} n{k} 0 {vdd * (1 - v)}\n" for k, v in st.items() if k != "off")
 
 
-def ctl_alter(word, sd=0, m=M, vdd=3.3):
+def ctl_alter(word, sd=0, m=M, vdd=None):
+    vdd = VDD if vdd is None else vdd
     st = word_bits(word, sd, m)
     return "".join(f"alter vn{k} {vdd * (1 - v)}\n" for k, v in st.items() if k != "off")
 
@@ -135,13 +145,13 @@ destroy all
 def ring_deck(p, corner, temp, code, ctl, mdac=True, iideal=0.0, vctrl=None, m=M):
     """Ring + reference (+ medium DAC on vg through the ammeter vam). vctrl=None: the RV pull-down only."""
     body, ics = vb.netlist(p)
-    src = "".join(f"vbit{b} bit{b} 0 {3.3 if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else 3.3}\n"
+    src = "".join(f"vbit{b} bit{b} 0 {VDD if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else VDD}\n"
                   for b in range(p["bits"]))
     vc = f"vctrl vctrl 0 {vctrl}\n" if vctrl is not None else ""
     rv = f"XRV vctrl 0 0 ppolyf_u_1k r_width=1e-6 r_length={rv_length(m['rv']):.2f}e-6\n"
     md = (mdac_netlist(p, m, g=vb.gnet(p)) + ctl_sources(m)) if mdac else f"Iid vgo 0 {iideal}\n"
     return f"""* mdac ring {corner} {temp}
-{HDR.format(corner=corner)}vdd vdd 0 3.3
+{HDR.format(corner=corner)}vdd vdd 0 {VDD}
 {vc}{rv}{src}{body}vam vg vgo 0
 {md}.ic {ics}
 .option temp={temp}
@@ -188,9 +198,9 @@ def iu_deck(p, corner, temp):
     body, _ = vb.netlist(dict(p, n=0))
     wn, ln = unit_n(p)
     return f"""* iu
-{HDR.format(corner=corner)}vdd vdd 0 3.3
+{HDR.format(corner=corner)}vdd vdd 0 {VDD}
 vctrl vctrl 0 0
-{''.join(f'vbit{b} bit{b} 0 0{chr(10)}vbitb{b} bitb{b} 0 3.3{chr(10)}' for b in range(p['bits']))}{body}{vb.fet('XU', 'du', vb.gnet(p), '0', '0', 'nfet_03v3', wn, ln)}vdu du 0 1.9
+{''.join(f'vbit{b} bit{b} 0 0{chr(10)}vbitb{b} bitb{b} 0 {VDD}{chr(10)}' for b in range(p['bits']))}{body}{vb.fet('XU', 'du', vb.gnet(p), '0', '0', 'nfet_03v3', wn, ln)}vdu du 0 1.9
 .option temp={temp}
 .control
 op
@@ -215,7 +225,11 @@ def main():
     ap.add_argument("--words", default="0,1,31,32,256,511,512,513,767,1023")
     ap.add_argument("--set", action="append", default=[], help="medium DAC overrides k=v")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--pex", choices=["rcx", "c"], help="use the extracted DAC")
+    ap.add_argument("--vdd", type=float, default=3.3, help="supply (V), e.g. 3.15 for the headroom check")
     a = ap.parse_args()
+    global VDD, PEX
+    VDD, PEX = a.vdd, a.pex
     p = base_p()
     m = dict(M)
     for kv in a.set:
@@ -264,7 +278,7 @@ def main():
                 ctl += vb_bits_alter(k) + ctl_alter(w, 0, m) + fmeas(f"c{k}_w{w}")
             ctl += vb_bits_alter(k) + ctl_alter(512, 1, m) + fmeas(f"c{k}_w512sd")
             decks.append((f"fword_{c}", ring_deck(p, c, a.temp, k, ctl, mdac=True, m=m)))
-        logs = run(decks, a.jobs)
+        logs = run(decks, a.jobs, OUT / tag)
         res = {}
         for c in corners:
             r = parse_f(logs[f"fword_{c}"]); k = CODE433[c]; res[c] = r
@@ -287,7 +301,7 @@ def main():
         return f"""* mdac dc {a.corner} seed {seed}
 {HDR.format(corner=a.corner)}.param sw_stat_mismatch={1 if seed else 0}
 .options seed={seed or 1}
-vdd vdd 0 3.3
+vdd vdd 0 {VDD}
 vbnf vbnf 0 {VBNF.get(a.corner, VBNF['typical'])}
 vvg vgo 0 {vg[a.corner]}
 {body}{ctl_sources(m, 0, 0)}.option temp={a.temp}
@@ -300,7 +314,7 @@ while w < 1024
   destroy all
   let w = w + 1
 end
-alter vnsd 3.3
+alter vnsd {VDD}
 {word_alter_static(512, m)}op
 let isd0 = -i(vvg)
 echo "SD0 $&isd0"
@@ -347,12 +361,12 @@ def noise_deck(p, m, corner, temp, code, word, out):
     """Reference + filter + coarse DAC (drains on vg, held by vvg1) + medium DAC (drains on vgo, held by vvg2), no
     ring. out: coarse | med | sum -> .noise of the chosen current(s) through a 1 V/A CCVS (noiseless)."""
     body, _ = vb.netlist(dict(p, n=0))
-    src = "".join(f"vbit{b} bit{b} 0 {3.3 if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else 3.3}\n"
+    src = "".join(f"vbit{b} bit{b} 0 {VDD if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else VDD}\n"
                   for b in range(p["bits"]))
     outs = {"coarse": "Hc no 0 vvg1 1\n", "med": "Hm no 0 vvg2 1\n",
             "sum": "Hc nc 0 vvg1 1\nHm no nc vvg2 1\n"}[out]
     return f"""* mdac noise {corner} {temp} code {code} word {word} {out}
-{HDR.format(corner=corner)}vdd vdd 0 dc 3.3 ac 1
+{HDR.format(corner=corner)}vdd vdd 0 dc {VDD} ac 1
 vctrl vctrl 0 0
 {src}{body.replace('Cvg vg 0', '* Cvg vg 0')}vvg1 vg 0 {VG_OP[corner]}
 {mdac_netlist(p, m, g=vb.gnet(p))}vvg2 vgo 0 {VG_OP[corner]}
@@ -401,7 +415,7 @@ def noise_mode(a, p, m, corners):
 
 
 def vb_bits_alter(code, nb=5):
-    return "".join(f"alter vbit{b} {3.3 if (code >> b) & 1 else 0}\nalter vbitb{b} {0 if (code >> b) & 1 else 3.3}\n"
+    return "".join(f"alter vbit{b} {VDD if (code >> b) & 1 else 0}\nalter vbitb{b} {0 if (code >> b) & 1 else VDD}\n"
                    for b in range(nb))
 
 
@@ -415,10 +429,10 @@ def dc_alter_loop(m=M):
     nb = m["nbin"]
     for i in range(1, m["nseg"] + 1):
         s += (f"  if floor(w/{1 << nb}) >= {i}\n    alter vns{i} 0\n  else\n"
-              f"    alter vns{i} 3.3\n  end\n")
+              f"    alter vns{i} {VDD}\n  end\n")
     for b in range(nb):
         s += (f"  if floor(w/{1 << b}) - 2*floor(w/{1 << (b + 1)}) > 0.5\n    alter vnb{b} 0\n"
-              f"  else\n    alter vnb{b} 3.3\n  end\n")
+              f"  else\n    alter vnb{b} {VDD}\n  end\n")
     return s
 
 

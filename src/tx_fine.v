@@ -26,10 +26,31 @@
  * fraction drives the SD: {carry, acc} <= acc + frac each clk, sd = carry (sim/tune/sd_model.py sd1).
  * Pipeline: the effective word is registered (eff_q), then decoded into the array lines, so the FSK adder and the
  * thermometer decode are in separate clk cycles. The array lines are active low: the medium DAC's steering switch
- * conducts with its gate at 0 V (sim/tune/mdac.py).
+ * conducts with its gate at 0 V (sim/tune/mdac_sim.py).
+ *
+ * Clock gating (docs/tx_fine_tune.md, "Digital supply coupling"): each clk edge's supply current shows up as an
+ * FM spur at the clk frequency, so only the flops that can change see the clock. Four integrated clock gates
+ * (tx_cg, the library's icgtp):
+ *   g_spi : the SPI shifter and the registers, while CS_n is low (synchronised) and two cycles after;
+ *   g_eff : eff_q, after an FSK edge and while the SPI runs (the only times the effective word changes);
+ *   g_dec : eff_int and the array lines, when eff_q's integer part differs from eff_int;
+ *   g_sd  : the SD accumulator and cell, while SD_EN and a non-zero fraction (or until acc / the cell have cleared).
+ * The ten input synchronisers stay on clk. The outputs are cycle-for-cycle the same as without the gates.
  */
 
 `default_nettype none
+
+// integrated clock gate: gclk = clk while en (en latched while clk is low)
+module tx_cg (input wire clk, input wire en, output wire gclk);
+`ifdef SYNTHESIS
+    gf180mcu_fd_sc_mcu7t5v0__icgtp_1 icg (.CLK(clk), .E(en), .TE(1'b0), .Q(gclk));
+`else
+    reg en_l;
+    always @(clk or en)
+        if (!clk) en_l = en;
+    assign gclk = clk & en_l;
+`endif
+endmodule
 
 module tx_fine (
     input  wire        clk,
@@ -50,15 +71,16 @@ module tx_fine (
 );
     // ---------------- clk domain ----------------
     reg [2:0] s_sclk, s_cs;
-    reg [1:0] s_mosi, s_fsk;
+    reg [1:0] s_mosi;
+    reg [2:0] s_fsk;     // [2]: the previous value, for the FSK edge that clocks eff_q
     always @(posedge clk or negedge rst_n)
         if (!rst_n) begin
-            s_sclk <= 3'b000; s_cs <= 3'b111; s_mosi <= 2'b00; s_fsk <= 2'b00;
+            s_sclk <= 3'b000; s_cs <= 3'b111; s_mosi <= 2'b00; s_fsk <= 3'b000;
         end else begin
             s_sclk <= {s_sclk[1:0], sclk};
             s_cs   <= {s_cs[1:0], cs_n};
             s_mosi <= {s_mosi[0], mosi};
-            s_fsk  <= {s_fsk[0], fsk};
+            s_fsk  <= {s_fsk[1:0], fsk};
         end
     wire sck_rise = s_sclk[1] & ~s_sclk[2];
     wire sck_fall = ~s_sclk[1] & s_sclk[2];
@@ -77,6 +99,10 @@ module tx_fine (
     reg        rnw;
     reg [2:0]  addr;
 
+    wire clk_spi, clk_eff, clk_dec, clk_sd;
+    wire en_spi = sel | ~s_cs[2];
+    tx_cg g_spi (.clk(clk), .en(en_spi), .gclk(clk_spi));
+
     function [11:0] rdmux(input [2:0] a);
         case (a)
             3'd0: rdmux = {2'b00, med_int};
@@ -89,7 +115,7 @@ module tx_fine (
         endcase
     endfunction
 
-    always @(posedge clk or negedge rst_n)
+    always @(posedge clk_spi or negedge rst_n)
         if (!rst_n) begin
             bitcnt <= 0; sr <= 0; rd <= 0; rnw <= 0; addr <= 0; miso <= 0;
             med_int <= 10'd512; med_frac <= 8'd0; fsk_dev <= 12'd0; ctrl <= 4'd0;
@@ -131,20 +157,34 @@ module tx_fine (
     reg  [17:0] eff_q;
     reg  [7:0] acc;
     wire [8:0] acc_n = {1'b0, acc} + {1'b0, eff_q[7:0]};
-    integer i;
-    always @(posedge clk or negedge rst_n)
+    // eff only changes after an FSK edge (s_fsk[1] != s_fsk[2]) or a register write (inside en_spi, which stays on
+    // two clks after CS_n rises); enabling on those causes keeps the FSK adder out of the gate's enable path
+    tx_cg g_eff (.clk(clk), .en(en_spi | (s_fsk[1] ^ s_fsk[2])), .gclk(clk_eff));
+    tx_cg g_dec (.clk(clk), .en(eff_q[17:8] != eff_int), .gclk(clk_dec));
+    // acc + 0 holds acc, so with a zero fraction only the cell has to clear; with SD_EN off, acc and the cell clear
+    tx_cg g_sd  (.clk(clk), .en((sd_en ? |eff_q[7:0] : |acc) | ~dac_sdn), .gclk(clk_sd));
+
+    always @(posedge clk_eff or negedge rst_n)
+        if (!rst_n) eff_q <= {10'd512, 8'd0};
+        else        eff_q <= eff;
+
+    always @(posedge clk_sd or negedge rst_n)
         if (!rst_n) begin
-            eff_q <= {10'd512, 8'd0};
-            acc <= 0; dac_sdn <= 1'b1; dac_tn <= 31'h7fff_0000; dac_bn <= 5'h1f; eff_int <= 10'd512;
+            acc <= 0; dac_sdn <= 1'b1;
+        end else if (sd_en) begin
+            acc <= acc_n[7:0];
+            dac_sdn <= ~acc_n[8];
         end else begin
-            eff_q <= eff;
-            if (sd_en) begin
-                acc <= acc_n[7:0];
-                dac_sdn <= ~acc_n[8];
-            end else begin
-                acc <= 0;
-                dac_sdn <= 1'b1;
-            end
+            acc <= 0;
+            dac_sdn <= 1'b1;
+        end
+
+    // eff_int and the array lines are functions of eff_q[17:8], one cycle later
+    integer i;
+    always @(posedge clk_dec or negedge rst_n)
+        if (!rst_n) begin
+            dac_tn <= 31'h7fff_0000; dac_bn <= 5'h1f; eff_int <= 10'd512;
+        end else begin
             eff_int <= eff_q[17:8];
             for (i = 0; i < 31; i = i + 1)
                 dac_tn[i] <= ~(eff_q[17:13] > i);

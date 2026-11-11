@@ -12,6 +12,9 @@ Jobs (27 C, VDD 3.3 V; ring = vco_bias netlist with the 2026-11-08 reference + R
   c3 inject    : tt / ss: word 511 -> 512 at 0.6 us (the major carry), SD fraction 128 from 1.2 us  -> vbnf / vg / mo
   c4 supply    : tt: the ring's VDD through the 1.32 ohm tile power switch with 9.8 pF of decap and the macro's
                  current (1.0 mA mean, pulses at the 25 MHz clk and the 108 MHz ck edges)   -> FM spurs from digital
+  c4q          : c4 with the macro's measured clock charge per cycle (QCLK: r10 and the clock-gated r12)
+  --pex        : every bench with the extracted medium DAC (layout/pex/mdac_c.spice, C only; layout/gen/pex_mdac.sh)
+                 instead of the schematic one; outputs in build/tx_fine/pexdac (python3 sim/tune/phase_c.py all --pex)
   c5 fsk       : tt: word 509 -> 515 at 1.0 us -> 509 at 2.0 us (+/- 3 LSB, about +/- 100 kHz)   -> step and settling
 FM noise with the DAC is the .noise result of sim/tune/mdac_sim.py noise (Table IV of docs/tx_fine_tune.md).
 Frequencies come from a0's mid-swing rising crossings; the phase deviation at each crossing gives the spur spectrum
@@ -175,18 +178,23 @@ def jobs_c3():
     return out
 
 
-def jobs_c4():
+def jobs_c4(qclk=None, tag="supply"):
+    """qclk: the macro's charge per clk cycle (C), all in one 1 ns triangle at the rising edge (the worst case for
+    the clk line: the falling edge's share would partly cancel it). None: the first estimate (12 pC, from
+    LibreLane's power report). Measured (macro/tx_fine/power/clk_charge.py, data static): r10 21.1 pC, r12 4.48 pC
+    with the SD running."""
     ctl = static_ctl(512)
     bits = sd_model.sd1(77, 8, int(4.2e-6 * FCLK) + 2)
     ctl["sd"] = pwl_bits(list(bits), 0.2e-6)
     # tile supply: 3.3 V through the 1.32 ohm power switch onto node vdd, 9.8 pF decap (tx_drv), the macro's current
     # (5.8 mW at 50 / 140 MHz from LibreLane's tt power report, scaled to 25 MHz clk / 108 MHz ck: about 1 mA mean):
     # 0.6 mA DC + a 1 ns triangle at each clk edge (0.3 mA mean) + a 0.4 ns triangle at each ck edge (0.1 mA mean)
+    ipk = 24e-3 if qclk is None else 2 * qclk / 1e-9
     sup = "vsup vsup 0 3.3\nRpg vsup vdd 1.32\nCdec vdd 0 9.8p\n"
     imac = ("Imdc vdd 0 0.6m\n"
-            "Imclk vdd 0 PULSE(0 24m 0.2u 0.5n 0.5n 0 40n)\n"
+            f"Imclk vdd 0 PULSE(0 {ipk:.4g} 0.2u 0.5n 0.5n 0 40n)\n"
             "Imck vdd 0 PULSE(0 4.6m 0.2u 0.2n 0.2n 0 9.2n)\n")
-    return [(OUT / "c4" / "supply", ring_tran("typical", 9, ctl, 4.2e-6, "v(a0) v(vdd) v(vg)", extra=imac, supply=sup))]
+    return [(OUT / "c4" / tag, ring_tran("typical", 9, ctl, 4.2e-6, "v(a0) v(vdd) v(vg)", extra=imac, supply=sup))]
 
 
 def jobs_c5():
@@ -226,6 +234,23 @@ quit
 
 def jobs_c1():
     return [(OUT / "c1" / f"{c}_w{w}", pex_deck(c, PEX_CODE[c], w)) for c in ("typical", "ss", "ff") for w in (0, 512, 513, 1023)]
+
+
+def c4_result(d):
+    ok, bad = log_ok(d)
+    if not ok:
+        return dict(error=bad)
+    pl = read_raw(d / "out.raw")[0]["vars"]
+    t = np.real(pl["time"])
+    tc = crossings(t, np.real(pl["v(a0)"]), 0.25e-6)
+    sp, prms = phase_spurs(tc)
+    vdd = np.real(pl["v(vdd)"])[t > 0.3e-6]
+    s25 = max((x for x in sp if abs(x[0] - FCLK) < 1e6), key=lambda x: x[1], default=None)
+    return dict(f=(len(tc) - 1) / (tc[-1] - tc[0]), spurs=sp[:6], phase_rms=prms, spur_25m=s25,
+                vdd_mean=float(vdd.mean()), vdd_pp=float(np.ptp(vdd)))
+
+
+QCLK = {"q_r10": 21.1e-12, "q_r12": 4.48e-12}   # macro/tx_fine/power/clk_charge.py, SD running
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -291,18 +316,7 @@ def analyse():
         c3[corner] = r
     res["c3"] = c3
     # c4
-    d = OUT / "c4" / "supply"
-    ok, bad = log_ok(d)
-    if ok:
-        pl = read_raw(d / "out.raw")[0]["vars"]
-        t = np.real(pl["time"])
-        tc = crossings(t, np.real(pl["v(a0)"]), 0.25e-6)
-        sp, prms = phase_spurs(tc)
-        vdd = np.real(pl["v(vdd)"])[t > 0.3e-6]
-        res["c4"] = dict(f=(len(tc) - 1) / (tc[-1] - tc[0]), spurs=sp[:6], phase_rms=prms,
-                         vdd_mean=float(vdd.mean()), vdd_pp=float(np.ptp(vdd)))
-    else:
-        res["c4"] = dict(error=bad)
+    res["c4"] = c4_result(OUT / "c4" / "supply")
     # c5
     d = OUT / "c5" / "fsk"
     ok, bad = log_ok(d)
@@ -365,9 +379,15 @@ def driver(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["driver", "summary", "sch"])
+    ap.add_argument("mode", choices=["driver", "summary", "sch", "all", "c4q"])
     ap.add_argument("--jobs", type=int, default=22)
+    ap.add_argument("--pex", action="store_true", help="the extracted medium DAC (layout/pex/mdac_rcx.spice) in every "
+                    "bench; outputs in build/tx_fine/pexdac. C only (mdac_c.spice): the rc netlist splits VDD into ~1000 small-R nodes and the transient stops on timestep too small; at uA currents the wire R does not matter")
     a = ap.parse_args()
+    global OUT
+    if a.pex:
+        ms.PEX, OUT = "c", REPO / "build/tx_fine/pexdac"
+        OUT.mkdir(parents=True, exist_ok=True)
     if a.mode == "driver":
         driver(a)
     elif a.mode == "sch":                             # the schematic benches c2-c5 only (c1 kept), then the analysis
@@ -376,6 +396,21 @@ def main():
             list(ex.map(lambda dt: run_one(*dt), jobs_c2() + jobs_c3() + jobs_c4() + jobs_c5()))
         analyse()
         status("DONE sch")
+    elif a.mode == "c4q":                             # c4 with the measured clock charge of r10 and r12
+        jobs = [j for k, q in QCLK.items() for j in jobs_c4(q, k)]
+        with ThreadPoolExecutor(max_workers=a.jobs) as ex:
+            list(ex.map(lambda dt: run_one(*dt), jobs))
+        res = {k: dict(qclk=q, **c4_result(OUT / "c4" / k)) for k, q in QCLK.items()}
+        (OUT / "c4q.json").write_text(json.dumps(res, indent=1))
+        for k, r in res.items():
+            print(k, f"Q {r['qclk']*1e12:.2f} pC: 25 MHz line {r.get('spur_25m')}, VDD {r.get('vdd_pp', 0)*1e3:.1f} mV p-p, "
+                  f"top {r.get('spurs', [])[:3]}")
+    elif a.mode == "all":                             # c1-c5 (no re-extraction of vco_top), then the analysis
+        status("run c1-c5" + (" (extracted DAC)" if a.pex else ""))
+        with ThreadPoolExecutor(max_workers=a.jobs) as ex:
+            list(ex.map(lambda dt: run_one(*dt), jobs_c1() + jobs_c2() + jobs_c3() + jobs_c4() + jobs_c5()))
+        analyse()
+        status("DONE all")
     else:
         print(json.dumps(analyse(), indent=1)[:6000])
 

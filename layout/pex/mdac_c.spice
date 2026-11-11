@@ -1,0 +1,1866 @@
+* mdac: magic R+C extraction of layout/mdac.gds (layout/gen/pex.sh)
+* extracted 2026-11-11T14:15:24+01:00 with magic 8.3.642, mode c, from mdac.gds
+.subckt mdac VDD VSS vg vbnf ns30 ns28 ns26 ns24 ns22 ns20 ns18 ns16 ns14 ns12 ns10 ns8 ns6 ns4 ns2 nb4 nb2 nb0 nsd nb1 nb3 ns1 ns3 ns5 ns7 ns9 ns11 ns13 ns15 ns17 ns19 ns21 ns23 ns25 ns27 ns29 ns31
+X0 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.41646n ps=2.35092m w=1u l=4u
+X2 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X3 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X4 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X5 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X6 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X7 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X8 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X9 a_546_12214# nb3 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X10 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X11 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X12 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X13 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X14 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X15 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X16 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X17 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X18 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X19 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X20 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X21 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X22 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X23 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X24 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X25 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X26 a_546_12214# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X27 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X28 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X29 a_546_5802# ns18 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X30 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X31 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X32 a_546_6718# ns14 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X33 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X34 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X35 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X36 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X37 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X38 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X39 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X40 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X41 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X42 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X43 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X44 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X45 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X46 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X47 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X48 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X49 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X50 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X51 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X52 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X53 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X54 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X55 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X56 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X57 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X58 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X59 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X60 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X61 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X62 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X63 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X64 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X65 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X66 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X67 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X68 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X69 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X70 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X71 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X72 a_210_350# a_400_3054# a_546_8950# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X73 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X74 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X75 a_210_350# a_400_3054# a_546_9866# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X76 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X77 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X78 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X79 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X80 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X81 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X82 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X83 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X84 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X85 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X86 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X87 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X88 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X89 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X90 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X91 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X92 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X93 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X94 a_546_13530# ns5 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X95 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X96 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X97 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X98 a_546_14446# ns9 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X99 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X100 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X101 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X102 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X103 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X104 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X105 a_210_350# a_400_3054# a_546_17194# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X106 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X107 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X108 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X109 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X110 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X111 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X112 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X113 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X114 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X115 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X116 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X117 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X118 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X119 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X120 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X121 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X122 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X123 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X124 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X125 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X126 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X127 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X128 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X129 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X130 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X131 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X132 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X133 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X134 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X135 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X136 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X137 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X138 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X139 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X140 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X141 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X142 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X143 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X144 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X145 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X146 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X147 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X148 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X149 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X150 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X151 a_210_350# a_400_3054# a_546_10782# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X152 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X153 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X154 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X155 a_210_350# a_400_3054# a_546_11698# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X156 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X157 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X158 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X159 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X160 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X161 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X162 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X163 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X164 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X165 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X166 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X167 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X168 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X169 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X170 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X171 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X172 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X173 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X174 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X175 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X176 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X177 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X178 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X179 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X180 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X181 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X182 a_210_350# a_400_3054# a_546_3454# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X183 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X184 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X185 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X186 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X187 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X188 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X189 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X190 a_546_8034# ns8 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X191 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X192 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X193 a_210_350# a_400_3054# a_546_18110# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X194 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X195 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X196 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X197 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X198 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X199 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X200 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X201 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X202 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X203 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X204 a_210_350# a_400_3054# a_546_19026# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X205 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X206 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X207 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X208 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X209 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X210 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X211 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X212 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X213 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X214 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X215 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X216 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X217 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X218 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X219 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X220 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X221 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X222 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X223 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X224 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X225 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X226 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X227 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X228 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X229 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X230 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X231 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X232 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X233 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X234 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X235 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X236 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X237 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X238 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X239 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X240 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X241 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X242 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X243 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X244 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X245 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X246 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X247 a_210_350# a_400_3054# a_546_12614# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X248 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X249 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X250 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X251 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X252 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X253 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X254 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X255 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X256 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X257 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X258 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X259 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X260 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X261 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X262 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X263 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X264 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X265 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X266 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X267 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X268 VDD a_1344_2092# a_546_10382# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X269 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X270 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X271 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X272 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X273 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X274 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X275 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X276 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X277 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X278 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X279 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X280 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X281 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X282 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X283 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X284 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X285 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X286 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X287 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X288 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X289 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X290 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X291 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X292 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X293 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X294 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X295 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X296 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X297 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X298 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X299 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X300 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X301 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X302 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X303 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X304 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X305 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X306 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X307 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X308 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X309 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X310 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X311 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X312 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X313 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X314 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X315 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X316 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X317 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X318 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X319 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X320 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X321 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X322 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X323 a_546_19542# ns31 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X324 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X325 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X326 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X327 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X328 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X329 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X330 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X331 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X332 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X333 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X334 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X335 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X336 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X337 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X338 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X339 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X340 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X341 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X342 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X343 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X344 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X345 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X346 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X347 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X348 VDD a_1344_2092# a_546_12214# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X349 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X350 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X351 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X352 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X353 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X354 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X355 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X356 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X357 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X358 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X359 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X360 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X361 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X362 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X363 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X364 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X365 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X366 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X367 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X368 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X369 a_210_350# a_400_3054# a_546_16794# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X370 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X371 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X372 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X373 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X374 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X375 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X376 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X377 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X378 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X379 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X380 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X381 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X382 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X383 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X384 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X385 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X386 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X387 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X388 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X389 a_210_350# a_400_3054# a_546_8550# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X390 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X391 a_210_350# a_400_3054# a_546_9466# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X392 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X393 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X394 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X395 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X396 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X397 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X398 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X399 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X400 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X401 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X402 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X403 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X404 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X405 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X406 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X407 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X408 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X409 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X410 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X411 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X412 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X413 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X414 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X415 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X416 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X417 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X418 a_546_13130# ns3 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X419 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X420 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X421 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X422 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X423 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X424 a_546_14046# ns7 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X425 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X426 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X427 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X428 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X429 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X430 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X431 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X432 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X433 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X434 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X435 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X436 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X437 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X438 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X439 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X440 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X441 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X442 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X443 a_546_7634# ns10 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X444 a_210_350# a_400_3054# a_546_17710# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X445 a_210_350# a_400_3054# a_546_18626# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X446 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X447 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X448 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X449 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X450 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X451 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X452 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X453 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X454 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X455 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X456 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X457 a_210_350# a_400_3054# a_546_10382# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X458 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X459 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X460 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X461 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X462 a_210_350# a_400_3054# a_546_11298# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X463 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X464 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X465 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X466 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X467 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X468 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X469 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X470 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X471 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X472 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X473 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X474 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X475 VDD a_1344_2092# a_546_12214# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X476 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X477 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X478 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X479 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X480 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X481 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X482 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X483 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X484 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X485 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X486 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X487 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X488 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X489 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X490 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X491 a_210_350# a_400_3054# a_546_3054# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X492 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X493 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X494 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X495 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X496 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X497 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X498 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X499 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X500 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X501 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X502 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X503 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X504 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X505 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X506 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X507 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X508 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X509 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X510 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X511 a_210_350# a_210_350# VSS VSS nfet_03v3 ad=0.952p pd=3.96u as=1.53p ps=7.7u w=3.4u l=1u
+X512 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X513 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X514 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X515 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X516 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X517 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X518 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X519 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X520 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X521 a_546_15362# ns13 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X522 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X523 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X524 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X525 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X526 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X527 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X528 a_546_16278# ns17 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X529 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X530 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X531 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X532 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X533 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X534 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X535 VDD a_1344_2092# a_546_10382# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X536 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X537 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X538 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X539 a_546_8950# ns4 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X540 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X541 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X542 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X543 a_546_9866# nb4 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X544 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.54p pd=3.3u as=0.336p ps=1.76u w=1.2u l=5.335u
+X545 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X546 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X547 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X548 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X549 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X550 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X551 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X552 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X553 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X554 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X555 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X556 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X557 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X558 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X559 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X560 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X561 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X562 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X563 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X564 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X565 a_210_350# a_400_3054# a_546_12214# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X566 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X567 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X568 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X569 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X570 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X571 a_546_10382# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X572 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X573 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X574 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X575 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X576 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X577 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X578 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X579 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X580 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X581 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X582 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X583 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X584 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X585 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X586 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X587 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X588 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X589 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X590 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X591 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X592 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X593 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X594 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X595 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X596 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X597 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X598 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X599 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X600 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X601 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X602 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X603 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X604 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X605 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X606 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X607 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X608 a_210_350# a_400_3054# a_546_4370# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X609 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X610 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X611 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X612 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X613 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X614 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X615 a_210_350# a_400_3054# a_546_5286# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X616 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X617 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X618 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X619 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X620 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X621 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X622 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X623 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X624 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X625 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X626 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X627 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X628 VDD a_1344_2092# a_546_12214# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X629 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X630 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X631 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X632 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X633 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X634 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X635 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X636 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X637 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X638 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X639 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X640 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X641 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X642 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X643 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X644 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X645 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X646 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X647 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X648 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X649 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X650 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X651 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X652 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X653 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X654 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X655 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X656 a_546_3454# ns28 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X657 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X658 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X659 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X660 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X661 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X662 a_210_350# a_400_3054# a_546_13530# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X663 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X664 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X665 a_546_12214# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X666 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X667 a_210_350# a_400_3054# a_546_14446# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X668 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X669 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X670 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X671 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X672 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X673 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X674 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X675 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X676 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X677 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X678 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X679 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X680 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X681 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X682 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.54p ps=3.3u w=1.2u l=5.335u
+X683 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X684 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X685 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X686 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X687 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X688 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X689 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X690 a_210_350# a_400_3054# a_546_6202# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X691 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X692 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X693 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X694 a_210_350# a_400_3054# a_546_7118# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X695 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X696 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X697 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X698 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X699 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X700 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X701 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X702 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X703 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X704 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X705 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X706 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X707 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X708 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X709 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X710 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X711 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X712 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X713 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X714 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X715 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X716 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X717 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X718 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X719 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X720 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X721 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X722 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X723 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X724 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X725 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X726 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X727 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X728 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X729 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X730 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X731 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X732 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X733 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X734 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X735 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X736 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X737 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X738 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X739 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X740 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X741 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X742 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X743 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X744 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X745 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X746 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X747 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X748 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X749 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X750 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X751 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X752 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X753 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X754 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X755 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X756 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X757 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X758 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X759 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X760 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X761 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X762 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X763 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X764 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X765 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X766 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X767 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X768 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X769 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X770 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X771 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X772 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X773 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X774 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X775 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X776 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X777 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X778 a_546_14962# ns11 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X779 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X780 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X781 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X782 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X783 a_546_15878# ns15 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X784 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X785 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X786 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X787 vg a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X788 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X789 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X790 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X791 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X792 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X793 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X794 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X795 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X796 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X797 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X798 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X799 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X800 VSS a_210_350# a_210_350# VSS nfet_03v3 ad=1.53p pd=7.7u as=0.952p ps=3.96u w=3.4u l=1u
+X801 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X802 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X803 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X804 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X805 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X806 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X807 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X808 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X809 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X810 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X811 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X812 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X813 a_546_12214# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X814 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X815 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X816 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X817 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X818 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X819 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X820 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X821 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X822 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X823 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X824 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X825 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X826 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X827 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X828 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X829 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X830 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X831 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X832 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X833 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X834 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X835 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X836 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X837 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X838 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X839 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X840 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X841 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X842 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X843 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X844 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X845 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X846 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X847 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X848 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X849 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X850 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X851 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X852 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X853 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X854 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X855 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X856 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X857 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X858 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X859 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X860 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X861 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X862 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X863 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X864 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X865 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X866 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X867 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X868 a_210_350# a_400_3054# a_546_3970# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X869 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X870 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X871 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X872 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X873 a_210_350# a_400_3054# a_546_4886# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X874 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X875 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X876 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X877 a_546_8550# ns6 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X878 a_546_9466# ns2 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X879 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X880 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X881 a_210_350# a_400_3054# a_546_19542# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X882 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X883 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X884 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X885 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X886 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X887 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X888 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X889 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X890 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X891 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X892 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X893 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X894 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X895 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X896 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X897 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X898 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X899 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X900 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X901 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X902 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X903 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X904 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X905 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X906 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X907 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X908 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X909 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X910 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X911 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X912 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X913 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X914 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X915 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X916 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X917 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X918 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X919 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X920 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X921 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X922 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X923 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X924 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X925 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X926 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X927 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X928 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X929 a_1344_2092# vbnf VSS VSS nfet_03v3 ad=0.54p pd=3.3u as=0.54p ps=3.3u w=1.2u l=5.335u
+X930 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X931 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X932 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X933 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X934 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X935 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X936 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X937 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X938 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X939 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X940 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X941 vg a_400_3054# VSS VSS nfet_03v3 ad=0.54p pd=3.3u as=0.336p ps=1.76u w=1.2u l=5.335u
+X942 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X943 a_210_350# a_400_3054# a_546_5802# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X944 a_546_17194# ns21 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X945 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X946 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X947 a_210_350# a_400_3054# a_546_6718# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X948 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X949 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X950 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X951 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X952 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X953 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X954 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X955 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X956 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X957 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X958 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X959 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X960 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X961 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X962 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X963 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X964 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X965 a_546_3054# ns30 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X966 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X967 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X968 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X969 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X970 a_210_350# a_400_3054# a_546_13130# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X971 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X972 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X973 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X974 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X975 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X976 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X977 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X978 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X979 a_210_350# a_400_3054# a_546_14046# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X980 a_546_10782# nb0 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X981 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X982 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X983 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X984 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X985 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X986 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X987 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X988 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X989 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X990 a_546_11698# nb1 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X991 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X992 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X993 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X994 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X995 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X996 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X997 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X998 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X999 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1000 VDD a_1344_2092# a_546_10782# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1001 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1002 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1003 a_546_11698# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1004 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1005 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1006 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1007 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1008 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1009 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1010 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1011 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1012 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1013 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1014 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1015 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1016 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1017 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1018 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1019 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1020 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1021 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1022 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1023 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1024 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1025 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1026 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1027 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1028 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1029 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1030 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1031 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1032 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1033 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1034 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1035 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1036 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1037 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1038 a_546_18110# ns25 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1039 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1040 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1041 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1042 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1043 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1044 a_546_19026# ns29 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1045 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1046 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1047 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1048 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1049 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1050 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1051 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1052 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1053 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1054 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1055 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1056 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1057 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1058 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1059 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1060 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1061 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1062 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1063 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1064 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1065 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1066 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1067 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1068 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1069 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1070 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1071 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1072 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1073 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1074 a_546_4370# ns24 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1075 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1076 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1077 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1078 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1079 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1080 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1081 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1082 a_546_5286# ns20 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1083 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1084 a_546_12614# ns1 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1085 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1086 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1087 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1088 a_210_350# a_400_3054# a_546_15362# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1089 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1090 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1091 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1092 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1093 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1094 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1095 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1096 a_210_350# a_400_3054# a_546_16278# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1097 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1098 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1099 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1100 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1101 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1102 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1103 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1104 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1105 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1106 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1107 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1108 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1109 a_546_12214# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1110 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1111 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1112 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1113 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1114 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1115 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1116 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1117 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1118 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1119 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1120 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1121 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1122 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1123 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1124 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1125 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1126 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1127 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1128 a_210_350# a_400_3054# a_546_8034# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1129 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1130 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1131 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1132 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1133 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1134 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1135 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1136 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1137 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1138 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1139 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1140 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1141 VDD a_1344_2092# a_546_12214# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1142 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1143 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1144 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1145 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1146 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1147 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1148 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1149 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1150 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1151 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1152 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1153 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1154 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1155 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1156 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1157 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1158 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1159 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1160 VDD a_1344_2092# a_546_15362# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1161 VDD a_1344_2092# a_546_16278# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1162 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1163 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1164 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1165 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1166 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1167 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1168 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1169 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1170 a_546_6202# ns16 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1171 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1172 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1173 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1174 a_546_7118# ns12 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1175 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1176 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1177 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1178 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1179 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1180 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1181 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1182 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1183 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1184 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1185 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1186 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1187 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1188 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1189 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1190 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1191 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1192 VSS a_400_3054# vg VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1193 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1194 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1195 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1196 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1197 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1198 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1199 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1200 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1201 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1202 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1203 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1204 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1205 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1206 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1207 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1208 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1209 a_546_7634# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1210 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1211 a_546_16794# ns19 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1212 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1213 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1214 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1215 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1216 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1217 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1218 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1219 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1220 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1221 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1222 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1223 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1224 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1225 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1226 a_546_3454# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1227 a_546_17194# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1228 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1229 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1230 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1231 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1232 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1233 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1234 a_546_19542# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1235 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1236 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1237 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1238 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1239 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1240 VDD a_1344_2092# a_546_8034# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1241 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1242 VDD a_1344_2092# a_546_19542# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1243 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1244 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1245 VDD a_1344_2092# a_546_4370# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1246 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1247 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1248 a_546_4370# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1249 VDD a_1344_2092# a_546_5286# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1250 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1251 a_546_5286# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1252 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1253 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1254 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1255 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1256 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1257 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1258 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1259 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1260 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1261 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1262 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1263 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1264 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1265 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1266 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1267 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1268 a_546_8550# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1269 VDD a_1344_2092# a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1270 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1271 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1272 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1273 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1274 a_546_9466# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1275 a_546_8034# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1276 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1277 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1278 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1279 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1280 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1281 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1282 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1283 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1284 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1285 a_546_17710# ns23 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1286 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1287 VDD a_1344_2092# a_546_3970# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1288 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1289 a_546_18626# ns27 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1290 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1291 a_546_8950# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1292 VDD a_1344_2092# a_546_17710# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1293 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1294 VDD a_1344_2092# a_546_3454# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1295 VDD a_1344_2092# a_546_4886# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1296 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1297 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1298 a_546_9866# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1299 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1300 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1301 VDD a_1344_2092# a_546_18626# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1302 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1303 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1304 a_546_18110# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1305 a_546_17710# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1306 VDD a_1344_2092# a_546_16794# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1307 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1308 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1309 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1310 a_546_16794# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1311 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.45p pd=2.9u as=0.28p ps=1.56u w=1u l=4u
+X1312 VDD a_1344_2092# a_546_13530# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1313 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1314 VDD a_1344_2092# a_1344_2092# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1315 a_546_19026# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1316 a_546_18626# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1317 a_546_10382# nb2 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1318 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1319 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1320 VDD a_1344_2092# a_546_14446# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1321 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1322 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1323 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1324 a_546_11298# nsd a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1325 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1326 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1327 a_400_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1328 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1329 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1330 VDD a_1344_2092# a_546_11698# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1331 VDD a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0 ps=0 w=1u l=4u
+X1332 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.54p ps=3.3u w=1.2u l=5.335u
+X1333 a_546_15362# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1334 a_546_10382# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1335 a_546_3970# ns26 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1336 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1337 a_546_4886# ns22 a_400_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=0.28u
+X1338 VDD a_1344_2092# a_546_6202# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1339 a_546_16278# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1340 a_546_13530# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1341 a_546_13130# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1342 VDD a_1344_2092# a_546_11298# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1343 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1344 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1345 a_210_350# a_400_3054# a_546_14962# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1346 a_546_14446# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1347 VDD a_1344_2092# a_546_7118# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1348 VDD a_1344_2092# a_546_3054# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1349 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.45p ps=2.9u w=1u l=4u
+X1350 a_546_6202# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1351 a_546_14046# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1352 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1353 a_546_7118# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1354 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1355 a_546_3970# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1356 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1357 a_210_350# a_400_3054# a_546_15878# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1358 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1359 VDD a_1344_2092# a_546_13130# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1360 a_546_4886# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1361 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1362 VDD a_1344_2092# a_546_14046# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1363 a_546_12614# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1364 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1365 a_400_3054# a_400_3054# VSS VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1366 VDD a_1344_2092# a_546_8550# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1367 VDD a_1344_2092# a_546_9466# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1368 VSS a_400_3054# a_400_3054# VSS nfet_03v3 ad=0.336p pd=1.76u as=0.336p ps=1.76u w=1.2u l=5.335u
+X1369 VDD a_1344_2092# a_546_18110# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1370 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1371 VDD a_1344_2092# a_546_14962# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1372 a_210_350# a_400_3054# a_546_7634# VDD pfet_03v3 ad=1.2p pd=4.4u as=0.28p ps=1.56u w=1u l=0.28u
+X1373 VDD a_1344_2092# a_546_19026# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1374 VDD a_1344_2092# a_546_17194# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1375 VDD a_1344_2092# a_546_15878# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1376 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1377 VDD a_1344_2092# a_546_8950# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1378 a_1344_2092# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1379 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1380 a_546_14962# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1381 VDD a_1344_2092# a_546_9866# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1382 VDD a_1344_2092# a_546_7634# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1383 VDD a_1344_2092# a_546_12614# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1384 a_546_5802# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1385 a_546_15878# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1386 a_546_6718# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1387 VDD a_1344_2092# a_546_5802# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1388 a_546_3054# a_1344_2092# VDD VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+X1389 VDD a_1344_2092# a_546_6718# VDD pfet_03v3 ad=0.28p pd=1.56u as=0.28p ps=1.56u w=1u l=4u
+C0 a_546_12214# a_1344_2092# 1.40353f
+C1 ns15 a_210_350# 0.0057f
+C2 ns7 ns5 0.31364f
+C3 a_546_8550# a_1344_2092# 4.84882f
+C4 a_546_6202# a_546_6718# 2.81004f
+C5 a_546_4370# ns26 0
+C6 ns16 ns18 0.03875f
+C7 a_400_3054# a_546_16794# 0.20887f
+C8 ns11 a_210_350# 0.0057f
+C9 a_546_16278# ns17 0.01017f
+C10 a_400_3054# nsd 0.10249f
+C11 a_1344_2092# a_210_350# 0.85523f
+C12 a_546_13530# ns3 0
+C13 ns30 ns28 0.03875f
+C14 a_400_3054# ns30 0.13243f
+C15 a_546_15878# VDD 3.7311f
+C16 ns23 a_400_3054# 0.10249f
+C17 a_1344_2092# a_546_3454# 4.84893f
+C18 a_546_14446# a_546_14046# 3.92235f
+C19 a_546_7118# a_1344_2092# 4.84882f
+C20 a_546_6718# VDD 3.7311f
+C21 a_1344_2092# a_546_19542# 8.60519f
+C22 a_546_9866# a_400_3054# 0.20887f
+C23 ns2 a_210_350# 0.0057f
+C24 nb0 nb2 0.03875f
+C25 ns1 a_400_3054# 0.10249f
+C26 a_546_6202# VDD 3.7311f
+C27 a_546_13130# a_210_350# 0.18749f
+C28 a_546_9466# a_546_8950# 2.81004f
+C29 ns21 VDD 0.17433f
+C30 a_546_12614# VDD 4.51189f
+C31 a_546_10782# a_546_11698# 0
+C32 a_546_17710# a_546_18110# 3.92235f
+C33 a_546_10782# nb2 0
+C34 a_546_14046# a_210_350# 0.18749f
+C35 ns2 ns4 0.31364f
+C36 ns27 a_210_350# 0.0057f
+C37 a_546_9866# nb4 0.01017f
+C38 a_546_10382# a_546_9866# 0.34912f
+C39 a_1344_2092# vg 1.03458f
+C40 a_400_3054# ns19 0.10249f
+C41 a_546_17194# a_1344_2092# 4.84882f
+C42 ns13 a_546_15362# 0.01017f
+C43 ns29 VDD 0.17527f
+C44 a_546_11698# a_1344_2092# 0.24594f
+C45 a_400_3054# nb3 0.10249f
+C46 a_546_18626# a_546_18110# 2.81004f
+C47 a_546_3970# VDD 3.7311f
+C48 a_546_11298# VDD 0.16947f
+C49 a_546_4370# a_1344_2092# 4.84882f
+C50 ns5 a_546_13130# 0
+C51 ns25 VDD 0.17433f
+C52 ns15 ns17 0.03875f
+C53 ns9 ns7 0.03875f
+C54 a_546_18626# a_546_19026# 3.92235f
+C55 ns13 a_546_14962# 0
+C56 a_546_15878# a_210_350# 0.18749f
+C57 VDD ns6 0.17433f
+C58 a_400_3054# ns24 0.10249f
+C59 a_546_6718# a_210_350# 0.18749f
+C60 VDD ns10 0.17433f
+C61 ns11 a_546_15362# 0
+C62 a_1344_2092# a_546_4886# 4.84882f
+C63 a_1344_2092# a_546_15362# 4.84882f
+C64 a_546_12214# a_546_12614# 0.95694f
+C65 a_400_3054# ns12 0.10249f
+C66 nb1 a_546_11298# 0
+C67 nb1 VDD 0.17433f
+C68 a_546_16794# ns19 0.01017f
+C69 a_1344_2092# a_546_8034# 4.84882f
+C70 ns9 ns11 0.31364f
+C71 a_546_14446# VDD 3.7311f
+C72 a_546_9466# a_400_3054# 0.20887f
+C73 a_546_6202# a_210_350# 0.18749f
+C74 a_546_7118# a_546_6718# 3.92235f
+C75 a_546_16278# a_400_3054# 0.20887f
+C76 a_546_13130# ns3 0.01017f
+C77 ns11 a_546_14962# 0.01017f
+C78 a_546_17710# a_400_3054# 0.20887f
+C79 ns21 a_210_350# 0.0057f
+C80 a_546_12614# a_210_350# 0.18749f
+C81 a_546_6718# ns14 0.01017f
+C82 a_1344_2092# a_546_14962# 4.84882f
+C83 ns26 ns28 0.31364f
+C84 a_400_3054# ns26 0.10249f
+C85 a_400_3054# a_546_13530# 0.20887f
+C86 a_1344_2092# a_546_18110# 4.84882f
+C87 VDD ns20 0.17433f
+C88 a_546_8950# a_1344_2092# 4.84882f
+C89 a_546_12214# VDD 1.01612f
+C90 a_546_8550# VDD 3.7311f
+C91 a_546_9466# nb4 0
+C92 a_400_3054# a_546_18626# 0.20887f
+C93 a_1344_2092# a_546_19026# 4.84903f
+C94 ns29 a_210_350# 0.0057f
+C95 a_1344_2092# vbnf 0.76826f
+C96 a_546_11298# a_210_350# 0.21108f
+C97 a_546_3970# a_210_350# 0.18749f
+C98 VDD a_210_350# 4.14621f
+C99 ns25 a_210_350# 0.0057f
+C100 a_546_6202# ns16 0.01017f
+C101 ns1 nb3 0.03875f
+C102 a_546_8550# ns6 0.01017f
+C103 a_546_3970# a_546_3454# 2.81004f
+C104 a_400_3054# ns13 0.10249f
+C105 a_546_3454# VDD 3.7311f
+C106 a_546_3054# ns28 0
+C107 a_400_3054# ns18 0.10249f
+C108 a_400_3054# ns7 0.10249f
+C109 VDD ns4 0.17433f
+C110 a_546_7118# VDD 3.7311f
+C111 ns9 a_546_14046# 0
+C112 a_546_16278# a_546_16794# 2.81004f
+C113 a_210_350# ns6 0.0057f
+C114 a_546_3054# a_400_3054# 3.0073f
+C115 a_400_3054# nb0 0.10249f
+C116 VDD ns14 0.17433f
+C117 a_546_15878# ns17 0
+C118 a_546_19542# VDD 3.88941f
+C119 ns5 VDD 0.17433f
+C120 a_210_350# ns10 0.0057f
+C121 a_546_5802# ns18 0.01017f
+C122 a_546_17194# ns21 0.01017f
+C123 ns4 ns6 0.03875f
+C124 VDD ns16 0.17433f
+C125 a_546_10782# a_400_3054# 0.20887f
+C126 ns23 a_546_17710# 0.01017f
+C127 nb1 a_210_350# 0.0057f
+C128 ns15 a_400_3054# 0.10249f
+C129 a_546_14446# a_210_350# 0.18749f
+C130 ns27 a_546_19026# 0
+C131 a_546_15878# a_546_15362# 2.81004f
+C132 a_546_10382# nb0 0
+C133 a_546_9466# a_546_9866# 1.94557f
+C134 a_400_3054# ns11 0.10249f
+C135 a_400_3054# a_1344_2092# 9.85091f
+C136 VDD vg 0.02223f
+C137 a_546_12214# a_210_350# 0.18749f
+C138 a_210_350# ns20 0.0057f
+C139 a_546_17194# VDD 3.7311f
+C140 a_546_10782# a_546_10382# 0.08398f
+C141 a_546_11698# a_546_11298# 0.08398f
+C142 a_546_11698# VDD 0.28639f
+C143 a_1344_2092# a_546_5286# 4.84882f
+C144 a_546_8550# a_210_350# 0.18749f
+C145 VDD nb2 0.17433f
+C146 a_546_4370# a_546_3970# 3.92235f
+C147 a_546_4370# VDD 3.7311f
+C148 nsd nb0 0.31364f
+C149 a_1344_2092# a_546_5802# 4.84882f
+C150 a_546_7634# a_1344_2092# 4.84882f
+C151 VDD ns3 0.17433f
+C152 a_546_3054# ns30 0.01017f
+C153 VDD ns22 0.17433f
+C154 a_546_10382# a_1344_2092# 0.64528f
+C155 a_546_8550# ns4 0
+C156 VDD ns17 0.17433f
+C157 ns29 ns31 0.31364f
+C158 ns2 a_400_3054# 0.10249f
+C159 a_546_3454# a_210_350# 0.18749f
+C160 a_210_350# ns4 0.0057f
+C161 a_546_7118# a_210_350# 0.18749f
+C162 VDD ns31 0.18804f
+C163 a_400_3054# a_546_13130# 0.20887f
+C164 a_210_350# ns14 0.0057f
+C165 a_546_19542# a_210_350# 0.18602f
+C166 nb1 a_546_11698# 0.01017f
+C167 VDD a_546_4886# 3.7311f
+C168 a_1344_2092# a_546_16794# 4.84882f
+C169 VDD a_546_15362# 3.7311f
+C170 ns5 a_210_350# 0.0057f
+C171 a_400_3054# a_546_14046# 0.20887f
+C172 a_400_3054# ns27 0.10249f
+C173 VDD a_546_8034# 3.7311f
+C174 ns2 nb4 0.03875f
+C175 a_210_350# ns16 0.0057f
+C176 ns9 VDD 0.17433f
+C177 a_546_7118# ns14 0
+C178 VDD a_546_14962# 3.7311f
+C179 a_546_12214# a_546_11698# 0.17331f
+C180 ns26 ns24 0.03875f
+C181 VDD a_546_18110# 3.7311f
+C182 a_546_8950# VDD 3.7311f
+C183 ns25 a_546_18110# 0.01017f
+C184 ns29 a_546_19026# 0.01017f
+C185 ns8 VDD 0.17433f
+C186 ns16 ns14 0.31364f
+C187 a_546_9866# a_1344_2092# 2.91115f
+C188 a_546_17194# a_210_350# 0.18749f
+C189 VDD a_546_19026# 3.77138f
+C190 a_546_11698# a_210_350# 0.18733f
+C191 ns22 ns20 0.03875f
+C192 a_546_8034# ns10 0
+C193 a_400_3054# a_546_15878# 0.20887f
+C194 vbnf VDD 0.22379f
+C195 a_210_350# nb2 0.0057f
+C196 a_546_4370# a_210_350# 0.18749f
+C197 a_546_8950# ns6 0
+C198 a_210_350# ns3 0.0057f
+C199 ns8 ns6 0.31364f
+C200 a_400_3054# a_546_6718# 0.20887f
+C201 a_210_350# ns22 0.0057f
+C202 ns9 a_546_14446# 0.01017f
+C203 a_210_350# ns17 0.0057f
+C204 a_546_4886# ns20 0
+C205 ns8 ns10 0.03875f
+C206 a_546_14446# a_546_14962# 2.81004f
+C207 a_546_9866# ns2 0
+C208 a_210_350# ns31 0.0057f
+C209 a_546_6202# a_400_3054# 0.20887f
+C210 a_400_3054# ns21 0.10249f
+C211 a_546_12614# a_400_3054# 0.20887f
+C212 a_546_8550# a_546_8034# 2.81004f
+C213 a_210_350# a_546_4886# 0.18749f
+C214 a_546_15362# a_210_350# 0.18749f
+C215 ns5 ns3 0.03875f
+C216 a_210_350# a_546_8034# 0.18749f
+C217 a_546_6202# a_546_5802# 3.92235f
+C218 ns9 a_210_350# 0.0057f
+C219 ns29 a_400_3054# 0.10249f
+C220 a_546_19542# ns31 0.01017f
+C221 a_210_350# a_546_14962# 0.18749f
+C222 VDD ns28 0.17433f
+C223 a_546_8950# a_546_8550# 3.92235f
+C224 a_400_3054# a_546_3970# 0.20887f
+C225 a_400_3054# a_546_11298# 0.20887f
+C226 a_400_3054# VDD 10.0095f
+C227 a_400_3054# ns25 0.10249f
+C228 a_210_350# a_546_18110# 0.18749f
+C229 a_546_8950# a_210_350# 0.18749f
+C230 VDD a_546_5286# 3.7311f
+C231 ns8 a_210_350# 0.0057f
+C232 a_546_16278# ns15 0
+C233 a_210_350# a_546_19026# 0.18749f
+C234 a_546_5802# VDD 3.7311f
+C235 a_400_3054# ns6 0.10249f
+C236 a_546_7634# VDD 3.7311f
+C237 a_546_9466# a_1344_2092# 5.56786f
+C238 a_546_16278# a_1344_2092# 4.84882f
+C239 a_546_8950# ns4 0.01017f
+C240 a_546_16794# ns21 0
+C241 nb4 VDD 0.17433f
+C242 a_546_10382# a_546_11298# 0
+C243 a_546_10382# VDD 0.58335f
+C244 a_546_17710# a_1344_2092# 4.84882f
+C245 a_400_3054# ns10 0.10249f
+C246 a_1344_2092# a_546_13530# 4.84882f
+C247 ns23 ns21 0.31364f
+C248 nb1 a_400_3054# 0.10249f
+C249 a_546_19542# a_546_19026# 2.81004f
+C250 a_1344_2092# a_546_18626# 4.84893f
+C251 a_400_3054# a_546_14446# 0.20887f
+C252 a_546_4370# a_546_4886# 2.81004f
+C253 a_546_16794# VDD 3.7311f
+C254 a_546_7634# ns10 0.01017f
+C255 a_546_11298# nsd 0.01017f
+C256 ns15 ns13 0.31364f
+C257 a_546_9466# ns2 0.01017f
+C258 nsd VDD 0.17232f
+C259 a_546_10782# nb0 0.01017f
+C260 a_546_4886# ns22 0.01017f
+C261 ns30 VDD 0.21376f
+C262 a_400_3054# ns20 0.10249f
+C263 a_546_12214# a_400_3054# 0.20887f
+C264 ns13 ns11 0.03875f
+C265 a_546_12614# ns1 0.01017f
+C266 ns23 VDD 0.17433f
+C267 ns23 ns25 0.03875f
+C268 a_400_3054# a_546_8550# 0.20887f
+C269 a_546_5286# ns20 0.01017f
+C270 a_210_350# ns28 0.0057f
+C271 a_546_3054# a_1344_2092# 4.84903f
+C272 a_546_13530# a_546_13130# 3.92235f
+C273 a_400_3054# a_210_350# 5.88849f
+C274 vbnf vg 0.11299f
+C275 a_546_9866# VDD 2.01413f
+C276 a_546_14046# a_546_13530# 2.81004f
+C277 a_546_5286# a_210_350# 0.18749f
+C278 a_546_3454# ns28 0.01017f
+C279 ns21 ns19 0.03875f
+C280 ns1 VDD 0.17433f
+C281 a_546_10782# a_1344_2092# 0.04811f
+C282 a_400_3054# a_546_3454# 0.20887f
+C283 nb1 nsd 0.03875f
+C284 a_400_3054# ns4 0.10249f
+C285 a_546_12614# nb3 0
+C286 a_400_3054# a_546_7118# 0.20887f
+C287 a_546_5802# a_210_350# 0.18749f
+C288 ns27 a_546_18626# 0.01017f
+C289 a_546_7634# a_210_350# 0.18749f
+C290 a_400_3054# ns14 0.10249f
+C291 nb4 a_210_350# 0.0057f
+C292 a_546_15362# a_546_14962# 3.92235f
+C293 a_546_10382# a_210_350# 0.18749f
+C294 a_400_3054# a_546_19542# 0.20887f
+C295 a_400_3054# ns5 0.10249f
+C296 a_546_16278# a_546_15878# 3.92235f
+C297 a_546_6718# ns12 0
+C298 a_546_7634# a_546_7118# 2.81004f
+C299 a_400_3054# ns16 0.10249f
+C300 ns19 VDD 0.17433f
+C301 a_546_14046# ns7 0.01017f
+C302 nb3 VDD 0.17433f
+C303 ns8 a_546_8034# 0.01017f
+C304 a_546_16794# a_210_350# 0.18749f
+C305 nsd a_210_350# 0.0057f
+C306 a_546_5802# ns16 0
+C307 a_400_3054# vg 0.47931f
+C308 ns30 a_210_350# 0.0057f
+C309 a_400_3054# a_546_17194# 0.20887f
+C310 a_400_3054# a_546_11698# 0.20887f
+C311 ns23 a_210_350# 0.0057f
+C312 a_400_3054# nb2 0.10249f
+C313 a_546_4370# a_400_3054# 0.20887f
+C314 a_546_3970# ns24 0
+C315 VDD ns24 0.17433f
+C316 a_1344_2092# a_546_13130# 4.84882f
+C317 a_546_3454# ns30 0
+C318 a_546_12214# ns1 0
+C319 a_400_3054# ns3 0.10249f
+C320 nb1 nb3 0.31364f
+C321 a_546_9866# a_210_350# 0.18749f
+C322 a_400_3054# ns22 0.10249f
+C323 a_546_14046# a_1344_2092# 4.84882f
+C324 VDD ns12 0.17433f
+C325 a_400_3054# ns17 0.10249f
+C326 a_546_5286# ns22 0
+C327 ns1 a_210_350# 0.0057f
+C328 a_546_10382# a_546_11698# 0.0333f
+C329 a_546_9466# VDD 4.25146f
+C330 a_546_16278# VDD 3.7311f
+C331 nb4 nb2 0.31364f
+C332 a_546_10382# nb2 0.01017f
+C333 a_400_3054# ns31 0.10226f
+C334 a_546_17710# VDD 3.7311f
+C335 a_546_17710# ns25 0
+C336 a_546_3970# ns26 0.01017f
+C337 ns26 VDD 0.17433f
+C338 a_546_12214# nb3 0.01017f
+C339 a_400_3054# a_546_4886# 0.20887f
+C340 a_546_13530# VDD 3.7311f
+C341 a_400_3054# a_546_15362# 0.20887f
+C342 ns15 a_546_15878# 0.01017f
+C343 a_546_6202# ns18 0
+C344 ns29 a_546_18626# 0
+C345 a_546_17194# a_546_16794# 3.92235f
+C346 a_546_5286# a_546_4886# 3.92235f
+C347 ns12 ns10 0.31364f
+C348 a_400_3054# a_546_8034# 0.20887f
+C349 VDD a_546_18626# 3.7311f
+C350 ns19 a_210_350# 0.0057f
+C351 ns9 a_400_3054# 0.10249f
+C352 a_546_11698# nsd 0
+C353 nb3 a_210_350# 0.0057f
+C354 a_1344_2092# a_546_15878# 4.84882f
+C355 a_400_3054# a_546_14962# 0.20887f
+C356 a_546_6718# a_1344_2092# 4.84882f
+C357 a_400_3054# a_546_18110# 0.20887f
+C358 a_400_3054# a_546_8950# 0.20887f
+C359 a_546_7634# a_546_8034# 3.92235f
+C360 a_400_3054# ns8 0.10249f
+C361 ns13 VDD 0.17433f
+C362 VDD ns18 0.17433f
+C363 ns7 VDD 0.17433f
+C364 a_400_3054# a_546_19026# 0.20887f
+C365 a_546_3054# VDD 3.73935f
+C366 nb0 VDD 0.17232f
+C367 a_400_3054# vbnf 0.0113f
+C368 a_210_350# ns24 0.0057f
+C369 a_546_6202# a_1344_2092# 4.84882f
+C370 a_546_12614# a_1344_2092# 5.92738f
+C371 a_546_7634# ns8 0
+C372 a_546_10782# a_546_11298# 0.0859f
+C373 a_210_350# ns12 0.0057f
+C374 a_546_10782# VDD 0.16947f
+C375 ns15 VDD 0.17433f
+C376 ns1 ns3 0.31364f
+C377 a_546_9466# a_210_350# 0.18749f
+C378 a_546_16278# a_210_350# 0.18749f
+C379 a_546_17710# a_210_350# 0.18749f
+C380 a_546_17194# ns19 0
+C381 ns11 VDD 0.17433f
+C382 a_546_7118# ns12 0.01017f
+C383 a_546_3970# a_1344_2092# 4.84882f
+C384 a_546_11298# a_1344_2092# 0.04811f
+C385 a_1344_2092# VDD 0.95895p
+C386 ns26 a_210_350# 0.0057f
+C387 a_546_13530# a_210_350# 0.18749f
+C388 a_546_14446# ns7 0
+C389 ns12 ns14 0.03875f
+C390 a_546_18626# a_210_350# 0.18749f
+C391 a_546_12614# a_546_13130# 2.81004f
+C392 ns23 a_546_18110# 0
+C393 ns20 ns18 0.31364f
+C394 a_400_3054# ns28 0.10249f
+C395 ns19 ns17 0.31364f
+C396 a_546_13530# ns5 0.01017f
+C397 ns2 VDD 0.17433f
+C398 a_400_3054# a_546_5286# 0.20887f
+C399 ns13 a_210_350# 0.0057f
+C400 a_210_350# ns18 0.0057f
+C401 ns7 a_210_350# 0.0057f
+C402 a_546_4370# ns24 0.01017f
+C403 a_546_3054# a_210_350# 0.18555f
+C404 VDD a_546_13130# 3.7311f
+C405 nb0 a_210_350# 0.0057f
+C406 a_400_3054# a_546_5802# 0.20887f
+C407 a_546_7634# a_400_3054# 0.20887f
+C408 a_546_14446# a_1344_2092# 4.84882f
+C409 ns29 ns27 0.03875f
+C410 a_400_3054# nb4 0.10249f
+C411 ns24 ns22 0.31364f
+C412 a_546_14046# VDD 3.7311f
+C413 a_546_10382# a_400_3054# 0.20887f
+C414 a_546_5802# a_546_5286# 2.81004f
+C415 ns27 VDD 0.17436f
+C416 a_546_3054# a_546_3454# 3.92235f
+C417 ns27 ns25 0.31364f
+C418 a_546_17710# a_546_17194# 2.81004f
+C419 a_546_10782# a_210_350# 0.21108f
+C420 vg VSS 4.32658f
+C421 vbnf VSS 4.0635f
+C422 ns30 VSS 0.11974f
+C423 ns28 VSS 0.06717f
+C424 ns26 VSS 0.06717f
+C425 ns24 VSS 0.06717f
+C426 ns22 VSS 0.06717f
+C427 ns20 VSS 0.06717f
+C428 ns18 VSS 0.06717f
+C429 ns16 VSS 0.06717f
+C430 ns14 VSS 0.06717f
+C431 ns12 VSS 0.06717f
+C432 ns10 VSS 0.06717f
+C433 ns8 VSS 0.06717f
+C434 ns6 VSS 0.06717f
+C435 ns4 VSS 0.06717f
+C436 ns2 VSS 0.06717f
+C437 nb4 VSS 0.06717f
+C438 nb2 VSS 0.06717f
+C439 nb0 VSS 0.06893f
+C440 nsd VSS 0.06893f
+C441 nb1 VSS 0.06717f
+C442 nb3 VSS 0.06717f
+C443 ns1 VSS 0.06717f
+C444 ns3 VSS 0.06717f
+C445 ns5 VSS 0.06717f
+C446 ns7 VSS 0.06717f
+C447 ns9 VSS 0.06717f
+C448 ns11 VSS 0.06717f
+C449 ns13 VSS 0.06717f
+C450 ns15 VSS 0.06717f
+C451 ns17 VSS 0.06717f
+C452 ns19 VSS 0.06717f
+C453 ns21 VSS 0.06717f
+C454 ns23 VSS 0.06717f
+C455 ns25 VSS 0.06717f
+C456 ns27 VSS 0.06717f
+C457 ns29 VSS 0.06717f
+C458 ns31 VSS 0.10187f
+C459 VDD VSS 1.56788p
+C460 a_546_9466# VSS 0.58464f
+C461 a_546_9866# VSS 0.44726f
+C462 a_546_10382# VSS 0.07495f
+C463 a_546_10782# VSS 0
+C464 a_546_11298# VSS 0
+C465 a_546_11698# VSS 0
+C466 a_546_12214# VSS 0.22447f
+C467 a_546_12614# VSS 0.88967f
+C468 a_210_350# VSS 2.77519f
+C469 a_546_19542# VSS 0.084f
+C470 a_400_3054# VSS 44.2409f
+C471 a_1344_2092# VSS 13.2175f
+.ends

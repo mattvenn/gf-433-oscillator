@@ -69,5 +69,14 @@
   ],
   "PDN_VERTICAL_LAYER": "Metal4",
   "PDN_HORIZONTAL_LAYER": "Metal5",
-  "PDN_VSPACING": 1.0
+  "PDN_VSPACING": 1.0,
+  "LINTER_DEFINES": [
+    "SYNTHESIS"
+  ],
+  "LINTER_INCLUDE_PDK_MODELS": true,
+  "CTS_ROOT_BUFFER": "gf180mcu_fd_sc_mcu7t5v0__clkbuf_4",
+  "CTS_CLK_BUFFERS": [
+    "gf180mcu_fd_sc_mcu7t5v0__clkbuf_2",
+    "gf180mcu_fd_sc_mcu7t5v0__clkbuf_4"
+  ]
 }

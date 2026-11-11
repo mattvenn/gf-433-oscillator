@@ -162,3 +162,69 @@ async def divider_and_ck_gate(dut):
     for _ in range(40):
         await Timer(CK_NS / 4, unit="ns")
         assert int(dut.ck_o.value) == 0
+
+
+async def count_edges(sig, n_clk, clk):
+    """Rising edges of `sig` during n_clk cycles of clk."""
+    cnt = 0
+    async def watch():
+        nonlocal cnt
+        while True:
+            await RisingEdge(sig)
+            cnt += 1
+    w = cocotb.start_soon(watch())
+    await ClockCycles(clk, n_clk)
+    w.cancel()
+    return cnt
+
+
+@cocotb.test()
+async def clock_gating(dut):
+    """The gated clocks are idle when nothing changes, run only when needed, and the outputs still follow."""
+    await start(dut)
+    gl = not hasattr(dut, "clk_dec")
+    # SD off -> fraction 0 -> SD cell held off
+    await wr(dut, 0, 600); await wr(dut, 1, 77); await wr(dut, 3, 1)
+    await ClockCycles(dut.clk, 50)
+    await wr(dut, 1, 0)
+    await ClockCycles(dut.clk, 4)
+    ones = 0
+    for _ in range(200):
+        await RisingEdge(dut.clk); await Timer(1, unit="ns")
+        ones += 1 - int(dut.dac_sdn.value)
+    assert ones == 0, "SD cell toggles with a zero fraction"
+    await wr(dut, 1, 77)
+    await ClockCycles(dut.clk, 4)
+    ones = 0
+    for _ in range(256):
+        await RisingEdge(dut.clk); await Timer(1, unit="ns")
+        ones += 1 - int(dut.dac_sdn.value)
+    assert ones == 77, f"SD mean after re-enabling the fraction: {ones}/256"
+    await wr(dut, 3, 0)
+    await ClockCycles(dut.clk, 4)
+    assert int(dut.dac_sdn.value) == 1
+    assert dac_word(dut) == 600
+    if gl:
+        return
+    # idle: no SPI, fixed word, SD off -> no gated clock edges
+    for name in ("clk_spi", "clk_eff", "clk_dec", "clk_sd"):
+        n = await count_edges(getattr(dut, name), 100, dut.clk)
+        assert n == 0, f"{name}: {n} edges in 100 idle clks"
+    # SD on with a fraction: only clk_sd runs
+    await wr(dut, 3, 1)
+    await ClockCycles(dut.clk, 4)
+    for name, exp in (("clk_spi", 0), ("clk_eff", 0), ("clk_dec", 0), ("clk_sd", 100)):
+        n = await count_edges(getattr(dut, name), 100, dut.clk)
+        assert n == exp, f"{name}: {n} edges in 100 clks with the SD running (expected {exp})"
+    # FSK: one eff and one dec edge per FSK edge
+    await wr(dut, 2, 0x300); await wr(dut, 3, 0b101)
+    await ClockCycles(dut.clk, 4)
+    async def toggles():
+        for f in (1, 0, 1, 0):
+            dut.fsk.value = f
+            await ClockCycles(dut.clk, 20)
+    t = cocotb.start_soon(toggles())
+    ne = cocotb.start_soon(count_edges(dut.clk_eff, 80, dut.clk))
+    nd = await count_edges(dut.clk_dec, 80, dut.clk)
+    await t
+    assert (await ne) == 4 and nd == 4, f"FSK: eff {ne.result()} / dec {nd} edges for 4 FSK edges"
