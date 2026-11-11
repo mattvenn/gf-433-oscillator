@@ -136,14 +136,14 @@ def build():
     s.bus((xm, ymo), (xmo, ymo), [t for t in mo_taps if t not in ((xm, ymo), (xmo, ymo))])
     xmd = max(t[0] for t in md_taps)
     s.bus((xq, ymd), (xmd, ymd), [t for t in md_taps if t not in ((xq, ymd), (xmd, ymd))])
-    s.text(xmo + 20, ymo - 10, 'mo', 0.35)
-    s.text(xmd + 20, ymd - 10, 'md', 0.35)
+    s.text(xm + 15, ymo - 35, 'mo', 0.35)    # net names next to the diodes they belong to
+    s.text(xq + 15, ymd - 35, 'md', 0.35)
     # supply ports
     for k, net in enumerate(('VDD', 'VSS')):
         y = 640 + 60 * k
         s.wire((x0 - 650, y), (x0 - 590, y)); port(s, (x0 - 650, y), net, 'io')
         supply(s, (x0 - 590, y), net)
-    title(s, x0 - 650, -320, ['mdac: 10-bit medium DAC for fine tuning (5 unary + 5 binary + SD cell), PMOS current steering',
+    title(s, x0 - 650, -370, ['mdac: 10-bit medium DAC for fine tuning (5 unary + 5 binary + SD cell), PMOS current steering',
                               'I_out = (word + sd + 32) x Iu / 64 x 3 / 30 into vg; full scale 1.6 coarse units (docs/tx_fine_tune.md)',
                               'the LVS source of layout/mdac.gds (layout/gen/mdac.py); one control line per group, active low'])
     ctl = [p for p in PINS if p.startswith('n')]

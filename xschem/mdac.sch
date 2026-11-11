@@ -46,11 +46,11 @@ T {off} 9560 -70 0 0 0.35 0.35 {}
 T {dummies} 9820 -70 0 0 0.35 0.35 {}
 T {bias diode} 10080 -70 0 0 0.35 0.35 {}
 T {pb} -90 -140 0 0 0.35 0.35 {}
-T {mo} 9640 270 0 0 0.35 0.35 {}
-T {md} 9420 320 0 0 0.35 0.35 {}
-T {mdac: 10-bit medium DAC for fine tuning (5 unary + 5 binary + SD cell), PMOS current steering} -650 -320 0 0 0.7 0.7 {}
-T {I_out = (word + sd + 32) x Iu / 64 x 3 / 30 into vg; full scale 1.6 coarse units (docs/tx_fine_tune.md)} -650 -260 0 0 0.42 0.42 {}
-T {the LVS source of layout/mdac.gds (layout/gen/mdac.py); one control line per group, active low} -650 -226 0 0 0.42 0.42 {}
+T {mo} -285 245 0 0 0.35 0.35 {}
+T {md} -135 295 0 0 0.35 0.35 {}
+T {mdac: 10-bit medium DAC for fine tuning (5 unary + 5 binary + SD cell), PMOS current steering} -650 -370 0 0 0.7 0.7 {}
+T {I_out = (word + sd + 32) x Iu / 64 x 3 / 30 into vg; full scale 1.6 coarse units (docs/tx_fine_tune.md)} -650 -310 0 0 0.42 0.42 {}
+T {the LVS source of layout/mdac.gds (layout/gen/mdac.py); one control line per group, active low} -650 -276 0 0 0.42 0.42 {}
 N 0 -30 0 -180 {}
 N 0 0 20 0 {}
 N 20 0 20 -30 {}
