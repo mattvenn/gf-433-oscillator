@@ -82,6 +82,7 @@ def build():
             bulk(s, t, to='VDD')
         s.wire(sw.pin('G'), (xc - 110, 160))
         port(s, (xc - 110, 160), f'n{g}', 'in')
+        s.text(xc - 27, 222, '1 / 0.28', 0.25)    # SW and SD, each
     xr = x0 + pitch * (len(cols) - 1)
     # dummies and the bias diode, right of the columns
     xd = xr + pitch
@@ -145,7 +146,22 @@ def build():
         supply(s, (x0 - 590, y), net)
     title(s, x0 - 650, -370, ['mdac: 10-bit medium DAC for fine tuning (5 unary + 5 binary + SD cell), PMOS current steering',
                               'I_out = (word + sd + 32) x Iu / 64 x 3 / 30 into vg; full scale 1.6 coarse units (docs/tx_fine_tune.md)',
-                              'the LVS source of layout/mdac.gds (layout/gen/mdac.py); one control line per group, active low'])
+                              'the LVS source of layout/mdac.gds (layout/gen/mdac.py); one control line per group, active low',
+                              'sizes: m x W / L in um; the steering pair SW / SD is 1 / 0.28 each'])
+    # sizes as plain text: the symbol's own 'm x W / L' label is on a layer the renders and xschem-viewer don't draw
+    for it in s.items:
+        if 'fet' not in it.sym:
+            continue
+        p = it.props
+        if p.get('name', '').startswith(('SW', 'SD')):
+            continue                            # one note per steering pair, below
+        w, l, m = (float(str(p[k]).rstrip('u')) for k in ('W', 'L', 'm'))
+        t = f'{m:g} x {w:g} / {l:g}' if m != 1 else f'{w:g} / {l:g}'
+        sz = 0.25
+        name = p.get('name', '')
+        left = name.startswith('SW') or name in ('MD', 'MO', 'MDUM', 'MPB')   # off the wires / the SD note
+        dx = 25 if it.flip else (-25 - len(t) * 27 * sz if left else 25)
+        s.text(it.x + dx, it.y + 38, t, sz)
     ctl = [p for p in PINS if p.startswith('n')]
     finish(s, 'mdac', PINS, left=ctl, right=['vg', 'vbnf'], top=['VDD'], bottom=['VSS'], width=240, label='mdac')
 
