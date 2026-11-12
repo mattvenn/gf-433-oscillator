@@ -87,9 +87,15 @@ It is to become an **FM radio toolkit**:
      at 25 MHz needs ~5 nF, about 1 mm² of MOS cap; no MIM on TT GF, `docs/platform.md`). **Coupling path found (2026-11-12, `sim/tune/spur_paths.py`,
      schematic, tt, supply path only):** all of it comes through the ring inverters' VDD: ripple on the ring alone
      -45.3 dBc, on the DACs or nothing about -80 dBc. vg's 3 pF decap goes to VSS, so vg holds still (2 mV p-p) while
-     VDD moves 15 mV, and the ring sees ~17 mV across it. **Returning that decap to VDD gives -80.5 dBc** (VDD - vg
-     ripple 2 mV; 6 pF to VDD: -74 dBc). To check before adopting: start-up, ss/ff, a MOS cap's C(V) at
-     VDD - vg = 1.2-1.6 V (PMOS: gate vg, well VDD; or NMOS: gate VDD, S/D vg; no MIM on TT GF), ground ripple (not modelled), then the layout (ring_core_v3 decap). Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
+     VDD moves 15 mV, and the ring sees ~17 mV across it. **Returning that decap to VDD gives -80.5 dBc.** Study (`sim/tune/vg_decap.py`, schematic, 2026-11-12):
+     a PMOS gate cap (gate vg, S/D/B VDD, same 6 x 30.71/4 um) is 2.9-3.15 pF at every corner's vg (today's NMOS
+     2.9-3.1); spur with it -79.8 / -80.3 / -80.8 dBc at tt / ss / ff (today -45.2 / -47.0 / -43.4), f within 6 kHz;
+     best near 3 pF (2-4 pF within 4 dB; any C left to VSS undoes it: 2 to VDD + 1 to VSS -54.9); supply FM per mV
+     8.3 kHz at DC both, at 1 / 10 / 25 / 60 MHz 95 / 687 / 919 / 972 kHz today against 6.7 / 8.5 / 15 / 31 kHz;
+     start-up (5 corners x code 0/31, 10 us ramp, + tt 1 us ramp, real vbn filter): all 24 start in the fundamental
+     mode, vg never above VDD, 0.5-1 us later than today, same f (ss code 0 checked to 50 us). **To do:** the layout
+     (ring_core_v3 decap -> PMOS in an n-well), then the extracted spur; ground ripple is not modelled; the TX driver
+     keying shift (110-210 kHz) should also drop. Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
      model); the analog on VAPWR (needs the `_pgvaa` template, VAPWR set to 3.3 V, ask tnt whether it is switched);
      an RC filter on the ring supply (~1 kohm + 20-100 pF: -10…-24 dB); trimming the 10 always-clocked flops.
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
