@@ -1,4 +1,4 @@
-# Where we are (2026-11-09, late evening)
+# Where we are (2026-11-12)
 
 This is the "pick up from here" note: a summary, the next steps, and where everything lives. The detail and evidence
 for each result are in the docs it links.
@@ -48,7 +48,7 @@ It is to become an **FM radio toolkit**:
 5. **Sizing, PVT map, PVT noise, v3 layout, MC and start-up** (the docs in the table above).
 
 ## Next steps
-**Decisions 2026-11-10 (Matt):** no board components except the dipoles, so all fine tuning is on chip. TX plan is option C: a ~10-bit medium current DAC (~50 kHz LSB, ±25 MHz, from the constant-gm reference) with sigma-delta dither below one LSB, an SPI register from the RP2350, FSK as a digital offset (±100 kHz, 2-FSK), and a ÷16/÷64/÷1024 divider to `uo_out` (GF pins are fine to ~50 MHz, so `ck` at 108 MHz is not; gate it, since 4 × ck = 433.92 MHz). vctrl is tied inside the chip, with ua[0] kept as a debug override. The RP2350 counts and servos (freezing during packets). The RX gets its own dipole on a second pair of `ua` pins (6 of 6 used); zero-IF vs low-IF is deferred. Focus on the TX first.
+**Decisions 2026-11-10 (Matt):** no board components except the dipoles, so all fine tuning is on chip. TX plan is option C: a ~10-bit medium current DAC (~50 kHz LSB, ±25 MHz, from the constant-gm reference) with sigma-delta dither below one LSB, an SPI register from the RP2350, FSK as a digital offset (±100 kHz, 2-FSK), and a ÷16/÷64/÷1024 divider to `uo_out` (GF pins are fine to ~50 MHz, so `ck` at 108 MHz is not; gate it, since 4 × ck = 433.92 MHz). vctrl is tied inside the chip, with ua[0] kept as a debug override. The RP2350 counts and servos (freezing during packets). The RX gets its own dipole on a second pair of `ua` pins (6 of 6 used); zero-IF vs low-IF is deferred. Focus on the TX first. **Option C (fine tuning and FSK, item 3) is complete (2026-11-12); the TX is not: the driver's harmonics are open (item 5, `docs/handoff_tx_harmonics.md` on branch `tx-harmonics`).**
 
 1. **Bench 2026-11-09: done** (results at the top of `bench/lab_todo.md`). **`docs/handoff_gf_silicon_factor.md` is
    running on the sim server (started 2026-11-09 evening)**: `git pull` for its status / DONE / FAILED files, then compare
@@ -73,7 +73,7 @@ It is to become an **FM radio toolkit**:
    - **Hi-res poly is 1 kΩ/sq (confirmed, `docs/platform.md`); the design now uses ppolyf_u_1k.** `vco_bias.py`
      sizes RF for 1 MΩ at 1k (970 µm at 1 µm wide; `rfm=3k` reproduces older results). tt 27 °C code 9 noise is
      unchanged (7.87 kHz rms 1–10 kHz). lsdiv's R1 stays as drawn (about 164 kΩ); extracted corners unchanged.
-3. **On-chip fine tuning and FSK (option C): done through the tile, 2026-11-11** (`docs/tx_fine_tune.md`,
+3. **On-chip fine tuning and FSK (option C): complete, closed 2026-11-12** (built through the tile 2026-11-11) (`docs/tx_fine_tune.md`,
    handoff `docs/handoff_tx_fine_tune.md`). 10-bit medium current DAC on vg (5 unary + 5 binary, PMOS steering,
    3/30 mirror) + first-order ΣΔ cell, SPI register / FSK offset / ÷16 ÷64 ÷1024 / gated ck in the digital macro
    `tx_fine` (LibreLane), vctrl pulled down on chip (200 kΩ), tile LVS / DRC / antenna clean, TT precheck passes.
@@ -105,7 +105,7 @@ It is to become an **FM radio toolkit**:
    - **Tempco at room temperature is +100…+140 ppm/°C (about 45–60 kHz/°C)**, schematic and layout alike. The sizing
      nulled the 0–70 °C least-squares slope (+1.6 ppm/°C), but f(T) is a parabola peaking near 35 °C. For
      room-temperature operation, re-tune the n-well length lnw to put the peak at 27 °C (only RBW's length changes).
-5. **TX driver: done through the tile** (`docs/tx_driver.md`, 2026-11-09). lsdiv's `ls` -> tap -> phase splitter ->
+5. **TX driver: built through the tile; harmonics open** (`docs/tx_driver.md`, 2026-11-09). lsdiv's `ls` -> tap -> phase splitter ->
    two arms (NAND2 enable + x4 taper, final N 40 / P 100 um, 3.3 V devices on VDPWR) -> ua[3] (out_p) / ua[2] (out_n)
    into a two-wire dipole; enables on ui_in[5] / ui_in[6].
    - Schematic: +3.7…+9.3 dBm fundamental into 73 ohm over 5 corners x routing 15–60 ohm x n_off 0–3 (+6.3 dBm tt),
