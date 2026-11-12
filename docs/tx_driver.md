@@ -186,8 +186,8 @@ workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
   2026-11-11). The pin carries the dipole current, √(P / 73 Ω) from the block sims (`sim/tx/results/block_sch.txt`,
   section 4): 7.8-8.1 mA rms at tt with 40 Ω of routing, 5.8-9.9 mA at ss / sf / fs, 9.2-9.5 mA at tt with 15 Ω, and
   **10.8-11.1 mA at ff with 15 Ω**, over the limit. The pad and board C add a little on top. Narrowing the final stage
-  from 40 to about 34 µm would bring the worst case under 10 mA for about 1 dB less output; not done yet (Matt's
-  call). The ttgf26c pin plan, and so how many other projects share each of our pins, isn't known until tapeout:
+  from 40 to about 34 µm would bring the worst case under 10 mA for about 1 dB less output; kept at 40 µm (Matt,
+  2026-11-12: the small excess at ff is acceptable). The ttgf26c pin plan, and so how many other projects share each of our pins, isn't known until tapeout:
   it depends on the other analog projects then. The output power is therefore given over n_off 0-3.
 - **The decap value is not justified by analysis.** The sims show it does not change P, and the ripple depends
   mostly on the assumed L, so about 9.8 pF is a placeholder until the grid impedance is known.

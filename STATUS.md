@@ -105,7 +105,7 @@ It is to become an **FM radio toolkit**:
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
    - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
    - **ua pin limit is 10 mA rms** (tnt, 2026-11-11): each arm carries 7.8-8.1 mA rms at tt / 40 Ω, but
-     10.8-11.1 mA at ff with 15 Ω of routing. Narrowing the final stage 40 -> ~34 um fixes it for ~1 dB (Matt's call).
+     10.8-11.1 mA at ff with 15 Ω of routing. Kept at 40 um (Matt, 2026-11-12: the small ff excess is acceptable).
    - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid); re-floorplan with the receiver.
      The pin plan can't be known before tapeout (it depends on the other projects then), so the TX is checked
      over n_off 0-3 instead.
