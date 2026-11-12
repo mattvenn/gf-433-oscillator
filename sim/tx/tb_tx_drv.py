@@ -10,7 +10,9 @@ Block testbench for the dipole TX driver (sim/tx/tx_drv.py), ported from ook-asi
 Measures over NPER periods after TSET: P into the dipole (total and the fundamental, from a Fourier fit), out_p
 20-80 % rise/fall (of the actual swing), out_p / out_n duty at mid-swing, the antiphase error (out_p rise vs out_n
 fall, at mid-swing) and the splitter skew (a vs b at VDD/2), ls -> out_p delay, I(VDD) avg / rms / peak, the VDD
-ripple (peak-peak on chip), and for EM sizing the rms / |avg| / peak currents in arm p's stage 4 and 5 drains and
+ripple (peak-peak on chip), the harmonics H2-H7 of the dipole voltage vr in dBc (h2_dbc ... h7_dbc, ngspice
+fourier over the last period, 1000-point grid), the pin current rms (the dipole current, sqrt(P / 73 ohm)), the
+efficiency P_dip / (VDD x I_avg), and for EM sizing the rms / |avg| / peak currents in arm p's stage 4 and 5 drains and
 sources. --off: both enables low (outputs must sit low, no DC through the dipole).
 
     python3 sim/tx/tb_tx_drv.py [corners...] [--set K=V ...] [--rroute 40] [--noff 3] [--off] [--jobs 8]
@@ -147,6 +149,7 @@ meas tran tdl TRIG v(ls) VAL=$&vh TD=$&t0 FALL=1 TARG v(out_p) VAL=$&vm TD=$&t0 
 {em}let op = v(out_p)
 let on = v(out_n)
 linearize vr op on
+set fourgridsize=1000
 fourier {F} vr op on
 echo RESULTS_END
 .endc
@@ -157,13 +160,20 @@ echo RESULTS_END
 NUM = r'([-+]?\d[\d.]*(?:[eE][-+]?\d+)?)'
 
 
-def parse(log, off):
+def parse(log, off, vdd=3.3):
     r = {k: float(v) for k, v in re.findall(r'^(\w+)\s+=\s+' + NUM, log, re.M)}
     h1 = re.findall(r'^\s*1\s+[\d.eE+-]+\s+' + NUM + r'\s+' + NUM, log, re.M)   # Fourier harmonic 1: mag, phase
     if len(h1) >= 3:                                                                   # vr, out_p, out_n
         r['v1'] = float(h1[0][0])
         r['ph_err'] = (float(h1[1][1]) - float(h1[2][1])) % 360 - 180             # out_p vs out_n, minus 180 deg
     out = {}
+    m = re.search(r'Fourier analysis for vr:(.*?)(?:Fourier analysis for|\Z)', log, re.S)
+    if m:
+        hv = {int(n): float(v) for n, v in re.findall(r'^\s*(\d+)\s+[\d.eE+-]+\s+' + NUM, m.group(1), re.M)}
+        if hv.get(1):
+            for n in range(2, 8):
+                if n in hv:
+                    out[f'h{n}_dbc'] = 20 * math.log10(max(abs(hv[n]), 1e-12) / hv[1])
     if 'p_dip' not in r:
         return None
     out['p_dip_dbm'] = 10 * math.log10(max(r['p_dip'], 1e-15) / 1e-3)
@@ -172,6 +182,8 @@ def parse(log, off):
     out.update(i_avg_ma=r['i_avg'] * 1e3, i_rms_ma=r['i_rms'] * 1e3, i_pk_ma=r['i_pk'] * 1e3,
                vdd_ripple_mv=(r['vdd_max'] - r['vdd_min']) * 1e3, vdd_min=r['vdd_min'],
                vcap_drift_mv=(r['vc_b'] - r['vc_a']) * 1e3,
+               i_pin_ma=math.sqrt(max(r['p_dip'], 0) / RDIP) * 1e3,
+               eff_pct=r['p_dip'] / max(vdd * r['i_avg'], 1e-15) * 100,
                out_hi=r['vhi'], out_lo=r['vlo'], pin_hi=r['vpin_hi'], pin_lo=r['vpin_lo'])
     if not off and 'tpr2' in r:
         out.update(tr_ps=r['tr'] * 1e12, tf_ps=r['tf'] * 1e12,
@@ -193,7 +205,9 @@ def parse(log, off):
 def run(job):
     corner, sizes, kw = job
     tag = '_'.join([corner] + ([f'pex{kw["pex"]}'] if kw.get('pex') else []) + [f'{k}{v:g}' for k, v in sorted(sizes.items())]
-                   + [f'r{kw["rroute"]:g}', f'n{kw["noff"]:g}', 'off' if kw['off'] else 'on'])
+                   + [f'r{kw["rroute"]:g}', f'n{kw["noff"]:g}', 'off' if kw['off'] else 'on']
+                   + ([f't{kw["temp"]:g}'] if kw.get('temp', 27) != 27 else [])
+                   + ([f'v{kw["vdd"]:g}'] if kw.get('vdd', 3.3) != 3.3 else []))
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / '.spiceinit').write_text('set ng_nomodcheck\nset num_threads=1\noption noinit\n')
     cir = OUT / f'{tag}.cir'
@@ -202,7 +216,7 @@ def run(job):
     log = p.stdout + p.stderr
     (OUT / f'{tag}.log').write_text(log)
     bad = [s for s in ('singular', 'Transient op started', 'timestep too small') if s in log]
-    res = parse(log, kw['off'])
+    res = parse(log, kw['off'], kw.get('vdd', 3.3))
     if res and abs(res['vcap_drift_mv']) > 20:
         bad.append(f"not settled: dipole C drifts {res['vcap_drift_mv']:.0f} mV over the window")
     rec = dict(tag=tag, corner=corner, sizes=sizes, **kw, ok=res is not None and not bad, warn=bad, res=res)
@@ -223,6 +237,9 @@ def line(rec):
               f"delay {r['delay_ps']:4.0f} ps  out {r['out_lo']:.2f}..{r['out_hi']:.2f} V")
     else:
         s += f"  out_p {r['out_lo']:.3f}..{r['out_hi']:.3f} V  pin_p {r['pin_lo']:.3f}..{r['pin_hi']:.3f} V"
+    if 'h3_dbc' in r:
+        s += '  H2-7 ' + '/'.join(f"{r.get(f'h{n}_dbc', float('nan')):.1f}" for n in range(2, 8)) + ' dBc'
+        s += f"  Ipin {r['i_pin_ma']:.2f} mA rms  eff {r['eff_pct']:.1f} %"
     if rec['warn']:
         s += f'  WARN {rec["warn"]}'
     return s
@@ -240,9 +257,15 @@ def main():
     ap.add_argument('--rsup', type=float, default=1.0)
     ap.add_argument('--lsup', type=float, default=1e-9)
     ap.add_argument('--jobs', type=int, default=8)
+    ap.add_argument('--temp', type=float, default=27)
+    ap.add_argument('--vdd', type=float, default=3.3)
+    ap.add_argument('--outdir', help='results / decks directory (default build/tx)')
     ap.add_argument('--em', action='store_true', help='print the stage 4/5 EM currents')
     ap.add_argument('--pex', choices=['c', 'rcx'], help='the extracted layout instead of block()')
     a = ap.parse_args()
+    global OUT
+    if a.outdir:
+        OUT = Path(a.outdir).resolve()
     base = {k: float(v) for k, v in (kv.split('=') for kv in a.set)}
     sweeps = [[(k, float(v)) for v in vs.split(',')] for k, vs in (s.split('=') for s in a.sweep)]
     jobs = []
@@ -252,7 +275,7 @@ def main():
                 for no in a.noff.split(','):
                     jobs.append((c, dict(base, **dict(combo)),
                                  dict(rroute=float(rr), noff=float(no), off=a.off, edge=a.edge, rsup=a.rsup,
-                                      lsup=a.lsup, pex=a.pex)))
+                                      lsup=a.lsup, pex=a.pex, temp=a.temp, vdd=a.vdd)))
     with ThreadPoolExecutor(a.jobs) as ex:
         for rec in ex.map(run, jobs):
             print(line(rec), flush=True)

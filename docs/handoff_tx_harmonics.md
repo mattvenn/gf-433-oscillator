@@ -1,4 +1,4 @@
-> Not started. Branch `tx-harmonics`.
+> Running: step V-D since 22:07, ETA 22:27 (all short runs, local)
 
 # Handoff: TX harmonic reduction, option 1 (slew-controlled final stage), block sims (sim0)
 
