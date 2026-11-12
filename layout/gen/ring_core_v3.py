@@ -279,7 +279,9 @@ def build(p):
     top.r("v1", wl_ + 400, Y["dcs_b"] + 170, wr_ - 400, Y["dcs_t"] - 170)
     for cx in dc["rx"]:                      # S/D (both) onto the VDD strap
         top.r("m1", cx - 190, Y["dcs_b"], cx + 190, dc["cb"])
-    dcvdd = [1000, snap(dcx1 - 1000)]        # M3 VDD drops (1 um), top rail -> strap; drawn with the rails below
+    # M3 VDD drops (1 um), top rail -> strap, drawn with the rails below. Both stay right of the ring wiring (a0 tap,
+    # ring rows: x < ~15.5 um): a drop at x 1 um crossed a0 / a1 and added 0.22 fF to VDD on them (-0.3 % of f).
+    dcvdd = [snap(dcx1 - 7000), snap(dcx1 - 1000)]
 
     # ---- DAC to the right ----
     vssv = wr_ + 430 + 190                   # VSS M1 vertical (left side of the DAC; its p+ rails 0.43 from the n-well)

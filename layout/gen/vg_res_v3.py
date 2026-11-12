@@ -20,13 +20,16 @@ for ln in lines:
         continue
     if t[0].startswith("R") and t[1].split(".")[0] == "vg" and t[2].split(".")[0] == "vg":
         R.append((t[1], t[2], float(t[3])))
-    if t[0].startswith("X") and "nfet_03v3" in t:
+    if t[0].startswith("X") and ("nfet_03v3" in t or "pfet_03v3" in t):
         d, g, s = t[1], t[2], t[3]
         w = re.search(r"\bw=(\S+)u", ln).group(1)
         l = re.search(r"\bl=(\S+)u", ln).group(1)
-        if w == "2" and g.startswith("a") and "vg" in (s.split(".")[0], d.split(".")[0]):
+        if "pfet_03v3" in t:                     # the decap: PMOS gate cap to VDD since 2026-11-12 (gate vg)
+            if g.startswith("vg"):
+                decap.append(g)
+        elif w == "2" and g.startswith("a") and "vg" in (s.split(".")[0], d.split(".")[0]):
             inv[f"N{(int(g[1]))}"] = s if s.startswith("vg") else d   # N{i}: gate a{i}, source vg (magic may swap S/D)
-        elif l == "4" and g.startswith("vg"):
+        elif l == "4" and g.startswith("vg"):  # the NMOS decap to VSS (layouts before 2026-11-12)
             decap.append(g)
         elif float(l) > 5 and d.startswith("vg"):
             dac.append(d)
