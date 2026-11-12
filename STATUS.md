@@ -83,6 +83,15 @@ It is to become an **FM radio toolkit**:
      range unchanged (no headroom issue).
    - **Clock gating (2026-11-11, macro r12):** 4 icgtp gates, small CTS buffers; clock charge 21.1 -> 4.48 pC per
      25 MHz cycle (OpenSTA, `macro/tx_fine/power/clk_charge.py`); supply spur −32.1 -> **−45.5 dBc** (target −40).
+   - **To look at later: the 25 MHz supply spur** (-45.5 dBc, target -40). More decap barely helps (|Z| < 1.3 ohm
+     at 25 MHz needs ~5 nF, ~2.5 mm² of MIM). **Coupling path found (2026-11-12, `sim/tune/spur_paths.py`,
+     schematic, tt, supply path only):** all of it comes through the ring inverters' VDD: ripple on the ring alone
+     -45.3 dBc, on the DACs or nothing about -80 dBc. vg's 3 pF decap goes to VSS, so vg holds still (2 mV p-p) while
+     VDD moves 15 mV, and the ring sees ~17 mV across it. **Returning that decap to VDD gives -80.5 dBc** (VDD - vg
+     ripple 2 mV; 6 pF to VDD: -74 dBc). To check before adopting: start-up, ss/ff, a PMOS gate cap's C(V) at
+     VDD - vg = 1.2-1.6 V (or MIM), ground ripple (not modelled), then the layout (ring_core_v3 decap). Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
+     model); the analog on VAPWR (needs the `_pgvaa` template, VAPWR set to 3.3 V, ask tnt whether it is switched);
+     an RC filter on the ring supply (~1 kohm + 20-100 pF: -10…-24 dB); trimming the 10 always-clocked flops.
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
      corrects it) and the FSK overshoot at a major carry (firmware keeps the FSK pair inside one block of 32).
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
