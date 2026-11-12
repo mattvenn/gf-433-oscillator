@@ -3,14 +3,14 @@
 #   1. netlist xschem/ring_core_v3.sch headless (xschem/gen/netlist.sh): the hierarchical ring_core_v3 subckt
 #   2. check_v2.sh on the GDS: magic DRC, KLayout DRC (FEOL+BEOL), antenna, netgen LVS layout vs that netlist
 #   3. cross-check: netgen xschem netlist vs layout/ref/ring_core_v3.spice (the old LVS source, kept for this only)
-#   4. mutation: two broken copies of the xschem netlist (FC_3 m 8 -> 7; XTN0 gate bit0 -> bitb0) against the same
-#      layout extraction must both FAIL, so a PASS in step 2 means something
+#   4. mutation: three broken copies of the xschem netlist (FC_3 m 8 -> 7; XTN0 gate bit0 -> bitb0; the vg decap's
+#      S/D on VSS instead of VDD) against the same layout extraction must all FAIL, so a PASS in step 2 means something
 # Usage: bash layout/gen/check_v3.sh [gds] [outdir]     defaults: layout/ring_core_v3.gds build/check/ring_core_v3
 #   XSCH_SET=wfu=0.25,wff=0.25  regenerate the sheets at those settings first (into <outdir>/xsch_src) instead of
 #                               using the committed xschem/ (for a GDS made at another width)
 #   SKIP=klayout,antenna        passed to check_v2.sh
-# Antenna passes on 0 violations; its 6 "feedback" entries are the MOS decap fingers (S = D = VSS, "device missing
-# 1 terminal"), expected.
+# Antenna passes on 0 violations; its 6 "feedback" entries are the MOS decap fingers (PMOS, S = D = B = VDD since
+# 2026-11-12, "device missing 1 terminal; connecting remainder to node VDD"), expected.
 # Results: <outdir>/summary.txt (all steps; last line CHECK OK / CHECK FAIL), lvs.report, lvs_ref.report, lvs_mut*.report
 set -u
 REPO=$(pwd)
@@ -58,6 +58,7 @@ mutate() {  # mutate <tag> <sed expr> <description>
 }
 mutate lvs_mut_m   '/^XFC_3 /s/m=8$/m=7/'          "FC_3 m 8 -> 7"
 mutate lvs_mut_net '/^XTN0 /s/ bit0 / bitb0 /'      "XTN0 gate bit0 -> bitb0"
+mutate lvs_mut_dc  '/^XDC /s/^XDC VDD vg VDD /XDC VSS vg VSS /'  "vg decap S/D VDD -> VSS"
 
 lvs_ok=0; grep -q "^LVS PASS" summary.txt && lvs_ok=1
 drc_ok=0; grep -q "^== magic DRC.*: count 0$" summary.txt && grep -q "^== KLayout DRC.*: count 0$" summary.txt && drc_ok=1

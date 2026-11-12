@@ -7,7 +7,8 @@ PEX schematic reference for layout/ring_core_v3.gds).
 Parameters: ring_core_v3.params() (vco_bias.P + the winner reference + CFED, wff = wfu unless set).
 Dropped: the const-gm reference (MN*/MP1/MP2/MS*/RB*/XRB*/Rvbn), the vbn filter (XRF/CF, off here), the wiring
 caps Cw* (unless --keep-cw). The ideal decap Cvg is replaced by the drawn MOS decap
-  XDC VSS vg VSS VSS nfet_03v3 w=<W>u l=<L>u m=<nf>     (gate on vg, S/D/B on VSS; ~cvg at vg 1.1-3 V)
+  XDC VDD vg VDD VDD pfet_03v3 w=<W>u l=<L>u m=<nf>     (gate on vg, S/D/B on VDD in its own n-well; ~cvg at
+                                                      every corner's vg, build/tx_fine/vg_decap/cv; to VSS before 2026-11-12)
 unless --ideal-cvg (keeps Cvg, for the schematic comparison). Nets: "0" -> VSS, vdd -> VDD.
 """
 import argparse, re, sys
@@ -45,7 +46,7 @@ def core(p, keep_cw=False, ideal_cvg=False):
         if t[0] == "Cvg" and not ideal_cvg:
             nf, L, W = gen.decap_size(p)
             dropped.append("Cvg")
-            out.append(f"XDC VSS vg VSS VSS nfet_03v3 w={W}u l={L}u m={nf}")
+            out.append(f"XDC VDD vg VDD VDD pfet_03v3 w={W}u l={L}u m={nf}")
             continue
         out.append(" ".join(t))
     return out, dropped

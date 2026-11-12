@@ -79,7 +79,7 @@ def vco_ref(p, path):
             continue
         t = [common.RENAME.get(x, x) for x in t]
         if t[0] == 'Cvg':
-            t = f'XDC VSS vg VSS VSS nfet_03v3 w={W}u l={L}u m={m}'.split()
+            t = f'XDC VDD vg VDD VDD pfet_03v3 w={W}u l={L}u m={m}'.split()   # PMOS gate cap to VDD
         lines.append(' '.join(t))
     path.write_text(f'* vco_bias.netlist() at the chosen design, as a subckt (xschem/gen/check.py)\n'
                     f'.subckt vco_ref {" ".join(vco_cfed.PINS)}\n' + '\n'.join(lines) + '\n.ends\n')

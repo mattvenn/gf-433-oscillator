@@ -5,14 +5,17 @@
 
 Circuit (sizes from vco_bias, settings CFED below; wff follows wfu unless set):
   5 plain inverters P 5/0.28 (source VDD), N 2/0.28 (source vg), ring a0..a4;
-  vg: MOS decap (nfet_03v3, gate vg, S/D/B VSS, ~cvg) + one shared NMOS current DAC vg -> VSS:
+  vg: MOS decap (pfet_03v3, gate vg, S/D/B VDD, ~cvg; to VSS as an nfet before 2026-11-12) + one shared NMOS
+      current DAC vg -> VSS:
       base k units (gate vbn), binary coarse legs 2^b units (gate g_b), fine leg (gate vctrl);
       unit W = wfu*kw, L = ls*kl (kc, ka as vco_bias.netlist); coarse switches TN/TP/TD per bit.
 
 Floorplan (x left to right, y bottom to top):
   VSS rail (M1+M2) along the bottom, inside the p+ substrate ring.
-  left : MOS decap, one row of dc_nf fingers (L dc_l), S/D columns down into the VSS rail, gate contacts up into
-         the vg strap (M1+M2) that runs straight above it;  the inverter cluster (v2 cluster without heads) sits
+  left : MOS decap, one row of dc_nf PMOS fingers (L dc_l) in its own n-well, gate contacts up into the vg strap
+         (M1+M2) that runs straight above it; S/D columns down onto an n+ tap strip with a VDD strap (M1+M2) just
+         above the VSS rail, fed from the top VDD rail by two M3 drops over the inverter cluster (VDD - vg is the
+         ring's own supply: with the decap to VDD, vg rides with VDD at the macro's 25 MHz, docs/tx_fine_tune.md);  the inverter cluster (v2 cluster without heads) sits
          directly on the vg strap: every N source is a 0.3 um M1 drop into it.
   right: the DAC, 7 rows x 6 unit slots, point-symmetric (common centroid) for the base and binary legs, the fine
          leg and bit 0 in the middle row. Rows pair up around an M2 gate-track bundle (row A gate contacts on top,
@@ -30,14 +33,15 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import ring_core as v1  # noqa: E402
-from ring_core import Cell, fet_row, vco_bias, CO, CO_POLY, ENC_CO, NW_ENC_NSD, NSD_PSD, TPITCH  # noqa: E402
+from ring_core import Cell, fet_row, vco_bias, CO, CO_POLY, ENC_CO, NW_ENC_NSD, NW_ENC_P, NSD_PSD, TPITCH  # noqa: E402
 from ring_core_v2 import ORDER, MIRROR, IPITCH, XIN, RROW, mirror_cell, tap_ring  # noqa: E402
 
 REPO = HERE.parents[1]
 # the 2026-11-08 winner reference + the cfed settings (docs/cfed_results.md); ka = 16: DAC area x16
 WINNER = dict(rideal=0, lnp=100.0, lnw=3.665, nsn=14, wpm=56.0, lpm=14.0, mr=4.0)
 CFED = dict(topo="cfed", kc=0.75, k=6, cvg=3e-12, cw=3e-15, ka=16.0, rf=0.0, cf=0.0)
-COX = 4.07e-3            # nfet_03v3 gate C per area incl. overlap (F/m2), tt, Vg 1.1-3 V (build/v3/cv)
+COX = 4.07e-3            # nfet_03v3 gate C per area incl. overlap (F/m2), tt, Vg 1.1-3 V (build/v3/cv); the pfet_03v3
+                         # decap to VDD gives the same C at the same size (2.9-3.15 pF, build/tx_fine/vg_decap/cv)
 DECAP = dict(dc_nf=6, dc_l=4.0)
 END = CO_POLY + CO + ENC_CO   # diffusion end beyond the outer gate (contacted)
 DGAP = 560                    # S/D region between gates
@@ -105,10 +109,14 @@ def plan(p, dac_h):
     """y coordinates. dac_h: DAC height above the VSS rail top (from draw_dac in a dry run)."""
     nf, L, Wdc = decap_size(p)
     Y = dict(vss_b=-2400, vss_t=0)
-    Y["dc_b"] = 400
+    Y["dct_b"] = 310                       # decap n+ tap strip (VDD) above the VSS rail; strap M1+M2 dcs_b..dcs_t
+    Y["dcs_b"], Y["dcs_t"] = 300, 900
+    Y["dc_b"] = Y["dct_b"] + 380 + NSD_PSD
+    Y["dcw_b"] = Y["dct_b"] - NW_ENC_NSD     # decap n-well bottom
     Y["dc_t"] = Y["dc_b"] + um(Wdc)
     Y["vg_b"] = max(Y["dc_t"] + 255, dac_h + 500)
     Y["dc_pc"] = Y["vg_b"] + 190
+    Y["dcw_t"] = Y["dc_t"] + NW_ENC_P
     Y["vg_t"] = Y["vg_b"] + 1500
     Y["n_bot"] = Y["vg_t"] + 300
     Y["n_top"] = Y["n_bot"] + um(p["wn"])
@@ -251,20 +259,28 @@ def build(p):
     iv, ii = inv_cell(p, Y)
     top = Cell("ring_core")
 
-    # ---- decap: one row of nf fingers from x=0 ----
-    dc = fet_row(top, 0, Y["dc_b"], um(Wdc), [(um(Ldc), "vg")] * nf, "n")
+    # ---- decap: one row of nf PMOS fingers from x=0, in its own n-well with an n+ tap strip below ----
+    dc = fet_row(top, 0, Y["dc_b"], um(Wdc), [(um(Ldc), "vg")] * nf, "p")
     for (ga, gb) in dc["gx"]:
         top.r("poly", ga, Y["dc_t"], gb, Y["dc_pc"] + 185)
         gc = (ga + gb) // 2
         for o in (-1200, 0, 1200):
             top.r("pc", gc + o - 115, Y["dc_pc"] - 115, gc + o + 115, Y["dc_pc"] + 115)
         top.r("m1", ga + 600 - 190 * 0, Y["dc_pc"] - 190, gb - 600, Y["dc_pc"] + 190)
-    for cx in dc["rx"]:
-        top.r("m1", cx - 190, Y["vss_t"] - 300, cx + 190, dc["cb"])
     dcx1 = dc["x1"]
+    wl_, wr_ = -NW_ENC_P, dcx1 + NW_ENC_P   # decap n-well
+    top.r("nwell", wl_, Y["dcw_b"], wr_, Y["dcw_t"])
+    top.r("nsd", wl_ + NW_ENC_NSD, Y["dct_b"], wr_ - NW_ENC_NSD, Y["dct_b"] + 380)
+    top.r("nsc", wl_ + NW_ENC_NSD + 75, Y["dct_b"] + 75, wr_ - NW_ENC_NSD - 75, Y["dct_b"] + 305)
+    for lay in ("m1", "m2"):                 # VDD strap over the tap
+        top.r(lay, wl_ + NW_ENC_NSD - 5, Y["dcs_b"], wr_ - NW_ENC_NSD + 5, Y["dcs_t"])
+    top.r("v1", wl_ + 400, Y["dcs_b"] + 170, wr_ - 400, Y["dcs_t"] - 170)
+    for cx in dc["rx"]:                      # S/D (both) onto the VDD strap
+        top.r("m1", cx - 190, Y["dcs_b"], cx + 190, dc["cb"])
+    dcvdd = [1000, snap(dcx1 - 1000)]        # M3 VDD drops (1 um), top rail -> strap; drawn with the rails below
 
     # ---- DAC to the right ----
-    vssv = dcx1 + NSD_PSD + 190            # VSS M1 vertical (left side of the DAC)
+    vssv = wr_ + NW_ENC_NSD + NSD_PSD + 190  # VSS M1 vertical (left side of the DAC; its p+ rails clear the n-well)
     vgv = vssv + 700                        # vg M3 vertical
     dx0 = vssv + 190 + 900
     gd = draw_dac(top, p, dx0, {})
@@ -407,6 +423,11 @@ def build(p):
             top.r("v1", x - 130, yb + 300, x + 130, yt - 300)
             x += 2000
         top.label(nm, "m2", xl + 1000, (yb + yt) // 2, port=True)
+    for x in dcvdd:                          # decap VDD drops: M3 from the VDD rail down to the decap's tap strap
+        top.r("m3", x - 500, Y["dcs_b"], x + 500, Y["vdd_t"])
+        for (yb, yt) in ((Y["dcs_b"], Y["dcs_t"]), (Y["vdd_b"], Y["vdd_t"])):
+            top.r("m2", x - 500, yb, x + 500, yt)
+            top.r("v2", x - 330, yb + 150, x + 330, yt - 150)
     gb, gt = Y["vss_b"] + 1010, Y["nw_t"] + 1200
     for (a, b2, c2, d) in ((gl, gb, gr, gb + 380), (gl, gt, gr, gt + 380), (gl, gb, gl + 380, gt + 380),
                            (gr - 380, gb, gr, gt + 380)):
@@ -439,7 +460,7 @@ def build(p):
     top.r("m2", vxb - 400, vy - 190, gr + 300, vy + 190)
     top.label("vctrl", "m2", gr + 100, vy, port=True)
     bbox = (gl - 300, pin_b, gr + 300, pin_t)
-    meta = dict(Y=Y, cx=cx, lens=lens, spans=spans, bbox=bbox, decap=dict(nf=nf, L=Ldc, W=Wdc, x1=dcx1),
+    meta = dict(Y=Y, cx=cx, lens=lens, spans=spans, bbox=bbox, decap=dict(nf=nf, L=Ldc, W=Wdc, x1=dcx1, vdd_m3=dcvdd),
                 dac=dict(x0=gd["x0"], x1=gd["x1"], top=gd["top"], rows=gd["rows"]), switches=gcs,
                 sizes=dac_sizes(p), vgv=vgv, wfu=p["wfu"])
     return [iv, mirror_cell(iv, "ring_inv_m"), top], meta

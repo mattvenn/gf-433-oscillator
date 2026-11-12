@@ -1,6 +1,6 @@
 """
 ring_core_v3: the cfed ring core as laid out in layout/ring_core_v3.gds (the LVS source):
-cfed_ring + cfed_dac + the vg MOS decap (nfet_03v3, gate vg, S/D/B VSS, sized for ~cvg by the
+cfed_ring + cfed_dac + the vg MOS decap (pfet_03v3, gate vg, S/D/B VDD, sized for ~cvg by the
 same rule as layout/gen/ring_core_v3.py, docs/ring_layout_v3.md).
 
 Ports and order as layout/gen/export_core_v3.py. The DAC gate net is the port vbn: in vco_cfed it
@@ -30,7 +30,7 @@ def build():
         port(s, (xl, p[1]), 'vbn' if net == 'vbnf' else net, 'in')
     # vg: DAC -> ring, the decap on it, and out to the vg port under the ring
     m, L, W = decap_size()
-    dc = gmos(s, 'n', 200, -120, W=W, L=L, m=m, name='DC', ad=False)
+    dc = gmos(s, 'p', 200, -120, W=W, L=L, m=m, name='DC', ad=False)
     dc.props['val'] = f'"{W:g}/{L:g} ×{m}"'
     yv = dac.pin('vg')[1]
     tg, tp = (dc.pin('G')[0], yv), (370, yv)
@@ -40,8 +40,8 @@ def build():
     s.wire(dc.pin('D'), (xt, dc.pin('D')[1])); s.wire(dc.pin('B'), (xt, dc.pin('B')[1]))
     s.bus((xt, dc.pin('D')[1]), (xt, dc.pin('S')[1]), [(xt, dc.pin('B')[1])])
     s.wire(dc.pin('S'), (xt, dc.pin('S')[1]))
-    supply(s, (xt, dc.pin('S')[1]), 'VSS')
-    s.text(150, -40, f'vg decap ~{P["cvg"] * 1e12:g} pF', 0.35)
+    supply(s, (xt, dc.pin('S')[1]), 'VDD')   # to VDD: vg rides with VDD (docs/tx_fine_tune.md)
+    s.text(150, -40, f'vg decap to VDD ~{P["cvg"] * 1e12:g} pF', 0.35)
     s.route(tp, (370, 60), (xr, 60), vfirst=True)
     port(s, (xr, 60), 'vg', 'io_r')
     # ring outputs

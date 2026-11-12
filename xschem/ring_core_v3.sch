@@ -5,7 +5,7 @@ K {}
 V {}
 S {}
 E {}
-T {vg decap ~3 pF} 150 -40 0 0 0.35 0.35 {}
+T {vg decap to VDD ~3 pF} 150 -40 0 0 0.35 0.35 {}
 T {ring_core_v3: cfed ring + DAC + vg decap} -300 -520 0 0 0.7 0.7 {}
 T {the LVS source of layout/ring_core_v3.gds} -300 -460 0 0 0.42 0.42 {}
 T {vbn here is the DAC gate bias; vco_cfed drives it from the filtered vbnf} -300 -426 0 0 0.42 0.42 {}
@@ -25,11 +25,11 @@ N 100 -220 180 -220 {}
 N 180 -220 370 -220 {}
 N 370 -220 400 -220 {}
 N 180 -220 180 -120 {}
-N 220 -150 240 -150 {}
+N 220 -90 240 -90 {}
 N 220 -120 240 -120 {}
 N 240 -150 240 -120 {}
 N 240 -120 240 -90 {}
-N 220 -90 240 -90 {}
+N 220 -150 240 -150 {}
 N 370 -220 370 60 {}
 N 370 60 800 60 {}
 N 600 -220 800 -220 {}
@@ -81,7 +81,7 @@ C {devices/opin.sym} 800 -60 0 0 {name=p18
 lab=a4}
 C {cfed_dac.sym} 0 0 0 0 {name=xdac}
 C {cfed_ring.sym} 500 -140 0 0 {name=xring}
-C {symbols/nfet_03v3.sym} 200 -120 0 0 {name=DC
+C {symbols/pfet_03v3.sym} 200 -120 0 0 {name=DC
 L=4.0u
 W=30.71u
 nf=1
@@ -95,11 +95,11 @@ nrs=0
 sa=0
 sb=0
 sd=0
-model=nfet_03v3
+model=pfet_03v3
 spiceprefix=X
 val="30.71/4 ×6"}
-C {symbols/gnd.sym} 240 -90 0 0 {name=l1
-lab=VSS}
+C {symbols/vdd.sym} 240 -150 0 0 {name=l1
+lab=VDD}
 C {symbols/vdd.sym} -50 -270 0 0 {name=l2
 lab=VDD}
 C {symbols/gnd.sym} -50 270 0 0 {name=l3
