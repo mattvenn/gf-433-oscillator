@@ -1,4 +1,4 @@
-> Running: step V-D since 22:07, ETA 22:27 (all short runs, local)
+> Done (2026-11-12): results in docs/tx_harmonics.md (branch tx-harmonics). Option 1 does not pass (H3 -23, H5 -33 dBc at tt).
 
 # Handoff: TX harmonic reduction, option 1 (slew-controlled final stage), block sims (sim0)
 

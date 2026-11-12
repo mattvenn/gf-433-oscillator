@@ -185,7 +185,10 @@ def parse(log, off, vdd=3.3):
                i_pin_ma=math.sqrt(max(r['p_dip'], 0) / RDIP) * 1e3,
                eff_pct=r['p_dip'] / max(vdd * r['i_avg'], 1e-15) * 100,
                out_hi=r['vhi'], out_lo=r['vlo'], pin_hi=r['vpin_hi'], pin_lo=r['vpin_lo'])
-    if not off and 'tpr2' in r:
+    if not off and all(k in r for k in ('tpr', 'tpf', 'tpr2', 'tnf', 'tnr', 'tnf2')):
+        nan = float('nan')
+        for k in ('tr', 'tf', 'tar', 'tbf', 'taf', 'tbr', 'tdl'):
+            r.setdefault(k, nan)     # a weak shaped edge may not reach 20 / 80 %
         out.update(tr_ps=r['tr'] * 1e12, tf_ps=r['tf'] * 1e12,
                    duty_p=(r['tpf'] - r['tpr']) / (r['tpr2'] - r['tpr']) * 100,
                    duty_n=(r['tnr'] - r['tnf']) / (r['tnf2'] - r['tnf']) * 100,

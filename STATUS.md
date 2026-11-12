@@ -116,8 +116,12 @@ It is to become an **FM radio toolkit**:
      12–15 mV, no jitter change. LS duty passes through (out_p 54.0 % at ff). 3rd harmonic at the dipole -14 dBc.
    - **To check: on-chip harmonic reduction** (the 3rd is -14 dBc at the dipole; the ETSI spurious limit at 1.3 GHz
      is about -36 dBc at our power; the pad path filters only ~2.6 dB). Block sims on the driver bench:
-     - slower, controlled edges (rise time ~T/3 = 0.77 ns nulls the 3rd; ~1.7 dB of fundamental; the null moves with
-       corner);
+     - **slower, controlled edges (option 1): done 2026-11-12, does not pass** (`docs/tx_harmonics.md`, branch
+       `tx-harmonics`). A current-starved break-before-make final stage gives H3 -23.2 / H5 -33.2 dBc at tt (today
+       -14.2 / -23.5) for 2.4 dB of fundamental; the H3 floor is -18…-23 dBc at every corner, a trim doesn't help,
+       sf duty 55 %. Even ideal linear trapezoids can't get H3 and H5 both under -36 dBc (best -34.6 / -35.8).
+       With option 2 on top: about -26…-32 dBc. Suggested next: 4 ring taps 36 deg apart weighted 1 : 1.618 : 1.618
+       : 1 null H3, H5 and H7 together (calculated, not simulated). Today's fs H2 is already -32…-34 dBc.
      - two ring taps 72 deg apart summed in a split final stage (~8 dB off the 3rd, ~1 dB of fundamental; tracks
        process); together perhaps -30…-35 dBc.
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
