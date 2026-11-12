@@ -84,17 +84,20 @@ def lsq(s=None):
         if tk[0] in ('Cpa', 'Cpg'):
             continue
         lines.append(' '.join({'0': 'VSS'}.get(x, x) for x in tk))
-    return ('.subckt rx_lsq VDD VSS aq enb lsq\n' + rxc.pfet('Hq', 'vq', 'enb', 'VDD', s['whead'], m=s['mhead'])
+    return ('.subckt rx_lsq VDD VSS aq qenb lsq\n' + rxc.pfet('Hq', 'vq', 'qenb', 'VDD', s['whead'], m=s['mhead'])
             + rxc.scap('Cq', 'vq', s['cq'])
-            + rxc.nfet('Dq', 'lsq', 'enb', 'VSS', 0.42) + '\n'.join(lines) + '\n.ends\n')
+            + rxc.nfet('Dq', 'lsq', 'qenb', 'VSS', 0.42) + '\n'.join(lines) + '\n.ends\n')
 
 
 def block(s=None):
-    """rx_lo: the Q level shifter + the two LO buffers. Ports: VDD VSS ls aq en enb lo_i lob_i lo_q lob_q."""
+    """rx_lo: the Q level shifter + the two LO buffers. Ports: VDD VSS ls aq en qenb lo_i lob_i lo_q lob_q.
+    qenb gates the Q tap copy's supply (low = on). rx_top ties it to VSS (the copy always on, so rx_en doesn't move
+    the ring; 0.15-0.26 mA with rx_en = 0); tying it to enb instead turns the copy off with rx_en (about 0 A, but the
+    ring moves by 14-23 fine-DAC LSB): the review's choice (docs/rx_design.md)."""
     s = dict(S, **(s or {}))
     return (lobuf(s) + lsq(s)
-            + '.subckt rx_lo VDD VSS ls aq en enb lo_i lob_i lo_q lob_q\n'
-            + 'xlq VDD VSS aq enb lsq rx_lsq\n'
+            + '.subckt rx_lo VDD VSS ls aq en qenb lo_i lob_i lo_q lob_q\n'
+            + 'xlq VDD VSS aq qenb lsq rx_lsq\n'
             + 'xbi VDD VSS ls en lo_i lob_i rx_lobuf\n'
             + 'xbq VDD VSS lsq en lo_q lob_q rx_lobuf\n'
             + '.ends\n')
@@ -140,7 +143,7 @@ def ring_deck(corner, code, case, tstop=1.2e-6, vdd=3.3, vctrl=1.65, s=None, qmo
             lsqn = 'lsq'
         else:
             q = (f'Cpaq {tapn} 0 {LD.S["cpa"]}\nCpgq xlo.xlq.lg 0 {LD.S["cpg"]}\n'
-                 f'Xlo vrx 0 lsout {tapn} en enb lo_i lob_i lo_q lob_q rx_lo\n')
+                 f'Xlo vrx 0 lsout {tapn} en {hq} lo_i lob_i lo_q lob_q rx_lo\n')
             sub = block(s)
             lsqn = 'xlo.lsq'
         rx = (f'{sub}{rx_mix.block()}Ven en 0 {en}\nVenb enb 0 {vdd - en}\n{q}'

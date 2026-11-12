@@ -29,7 +29,7 @@ import rx_bb  # noqa: E402
 import rx_bias  # noqa: E402
 
 S = dict(
-    sl_w=4.0, sl_nf=2, sl_l=0.5, sl_mt=1.0, sl_rl=16e3,     # stage L
+    sl_w=4.0, sl_nf=2, sl_l=0.5, sl_mt=1.0, sl_rl=10e3,     # stage L
     cc=0.5e-12,
     vb1=150e3, vb2=100e3, cvb=1e-12,
     c_w=2.0, c_nf=2, c_l=0.5, c_mt=1.0,                    # comparator input pair, tail (x 25 uA)

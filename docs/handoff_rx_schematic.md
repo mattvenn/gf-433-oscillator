@@ -1,4 +1,4 @@
-> Running: phase A (block sizing), step 5 (write-up) since 23:11, ETA 23:51
+> Running: phase B (schematics) since 23:25, ETA 00:55
 # Handoff: the receiver (option B, zero-IF 1-bit I/Q), schematics and first-pass sims (sim server)
 
 **Goal: design the receiver as xschem schematics, with each block sized and the whole chain simulated once, at
