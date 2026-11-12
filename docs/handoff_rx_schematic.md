@@ -59,15 +59,34 @@ LO_I: lsdiv's `ls` (from a0) ─ buffer + rx_en gate      LO_Q: a second ls_ac o
   - Passive mixers carry no DC, so there is little flicker noise at the ±100 kHz baseband.
   - The LO has 50 % duty and I/Q overlap. Check that the two mixers don't load each other through the LNA output.
   - If passive doesn't meet the NF or gain target, compare a Gilbert cell and write down why.
-- **LNA:** inductorless and differential: a resistive-feedback CMOS inverter, or a differential pair with resistive
-  loads.
-  - For reference, `github.com/mattvenn/ook-asic-radio` has the sky130 OOK LNA. The STATUS plan says to port it as a
-    linear (not limiting) LNA.
-  - **The input bias matters:** the TT switch is about 15 Ω near 0.5 V or 3 V and peaks mid-rail (37 Ω tt, 72 Ω ss;
-    `docs/pad_model.md`). The dipole is open at DC, so we choose the pin's DC level. Compare two inputs:
-    (a) DC-coupled and self-biased;
-    (b) an on-chip MOS-cap AC coupling with the pin held near 0 V or VDD through a large resistor.
-  - Pick the one with the lower NF through the pad model.
+- **LNA: port stage 1 of the OOK receiver (Matt, 2026-11-12).** Source: `github.com/mattvenn/ook-asic-radio`,
+  `layout/ref/lna_chain.spice` and `xschem/lna_chain.sch`. Its `amp_dp` is:
+  - an NMOS differential pair, W 80 / L 0.15 µm, nf 4;
+  - 1 kΩ resistor loads;
+  - a 20 × (6 / 0.5) mirrored tail;
+  - the input AC-coupled through 2 pF, with the gates biased to `vcm` through 20 kΩ.
+
+  The OOK chain reached NF 9.4–12 dB in schematic, on sky130 with its own pin model.
+  - **Port only the LNA, not the chain.**
+    - Take `amp_dp`, plus at most one `amp_dpc`-style second stage, and only if the mixer's noise needs it (target
+      about 15–20 dB of RF gain in front of the mixers).
+    - The OOK chain's six stages and ~76 dB of RF gain fed a log detector. In option B the gain goes in baseband.
+    - That also avoids the OOK chain's oscillation from 0.5–1 fF of output-to-input coupling
+      (ook `docs/verify_lna_lo.md`).
+  - **Port changes:**
+    - sky130 `nfet_01v8` L 0.15 → GF180 `nfet_03v3` L 0.28 (slower: expect less gain-bandwidth per mA);
+    - MIM → MOS caps (no MIM on TT GF);
+    - `res_high_po` → `ppolyf_u_1k`.
+  - **Re-size for the GF pin, not the sky130 numbers.** Fig. 1 of the model (`sim/rx/results/rx_fig1_nf.png`)
+    asks for about 20–40 mS of gm per side for NF 10 dB through the 7.7 pF / 26–97 Ω pin. The load is now the two
+    passive mixers, not `amp_dpc`.
+  - **Use the AC-coupled input, and choose where the pin sits.** The TT switch is about 15 Ω near 0.5 V or 3 V and
+    peaks mid-rail (37 Ω tt, 72 Ω ss; `docs/pad_model.md`). The dipole is open at DC, so hold the pin side of the
+    coupling cap near 0 V or VDD through a large resistor, and bias the gate side at the pair's `vcm`. Size the
+    coupling cap ≫ the pair's gate C. Compare the NF against a self-biased mid-rail pin through the pad model, and
+    keep the better one.
+  - If the ported pair can't reach the NF target within the current budget, try a resistive-feedback CMOS inverter
+    (gm from both devices for the same current) and write down the comparison.
 - **Baseband, per arm:** gain stages with AC coupling *between* stages, so the mixer's DC offset can't saturate
   anything. Every coupling corner counts toward the total high-pass, which must stay ≤ 10 kHz.
   - The model's low-pass: Butterworth 2nd order at 150 kHz. Report what 3rd or 4th order would cost in area; it is a

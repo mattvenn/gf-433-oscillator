@@ -134,7 +134,8 @@ It is to become an **FM radio toolkit**:
      A (low IF 250 kHz, one real mixer) −104.3 dBm; at A's image B takes a CW +16.6 dB above the signal, A −1.1 dB.
      The ring's LO noise and the 72° taps (vs 90°) cost nothing measurable; the comparators need hysteresis.
    - The pin costs NF: 26–97 Ω of switch + routing and 7.7 pF per side (a 240 MHz low-pass with the dipole).
-   - Blocks: differential inductorless LNA, passive I/Q mixers, LO taps (I from `ls`, Q from a second `ls_ac` on
+   - Blocks: LNA ported from the OOK receiver's first stage (amp_dp: resistively loaded NMOS pair, AC-coupled input),
+     passive I/Q mixers, LO taps (I from `ls`, Q from a second `ls_ac` on
      a2/a3), AC-coupled baseband with a 150 kHz low-pass, limiter + comparator with hysteresis, `rx_en`.
 
    **Pin budget: GF analog pin model done** (`docs/pad_model.md`, `sim/pad/pad_model_gf180.spice`,
