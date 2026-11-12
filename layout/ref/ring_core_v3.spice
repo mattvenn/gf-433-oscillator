@@ -24,7 +24,7 @@ XFC_2 vg g2 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4
 XFC_3 vg g3 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=8
 XFC_4 vg g4 VSS VSS nfet_03v3 w=1.2u l=5.333333333333333u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=16
 XFFC vg vctrl VSS VSS nfet_03v3 w=1.2u l=21.333333333333332u ad=0.6p as=0.6p pd=3.4u ps=3.4u m=1
-XDC VDD vg VDD VDD pfet_03v3 w=30.71u l=4.0u m=6
+XDC VDD vg VDD VDD pfet_03v3 w=29.82u l=4.12u m=6
 XP0 a1 a0 VDD VDD pfet_03v3 w=5.0u l=0.28u ad=2.5p as=2.5p pd=11.0u ps=11.0u m=1
 XN0 a1 a0 vg VSS nfet_03v3 w=2.0u l=0.28u ad=1.0p as=1.0p pd=5.0u ps=5.0u m=1
 XP1 a2 a1 VDD VDD pfet_03v3 w=5.0u l=0.28u ad=2.5p as=2.5p pd=11.0u ps=11.0u m=1

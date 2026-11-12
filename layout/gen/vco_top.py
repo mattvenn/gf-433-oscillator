@@ -11,18 +11,18 @@ on the GDS layers, so the block cells are copied byte for byte (cgm_ref keeps it
 Floorplan (x left to right, all blocks on the same y origin = the bottom VSS rail, y -2.4 ... 0):
   decap_ls | channel (ck M3, VDD_LS M2) | lsdiv (raised +31.455 um, a0 abutting) | ring_core | cgm_ref
   - lsdiv's a0 M2 spine (right edge) touches the core's a0 M2 tap (left edge, y 36.17): no a0 wire.
-  - cgm_ref abuts the core's right edge (x 67.19): vbnf meets the DAC gate pin vbn, vctrl feeds through.
+  - cgm_ref abuts the core's right edge (x 68.19): vbnf meets the DAC gate pin vbn, vctrl feeds through.
 Top-level metal (M1-M3 only, no Metal4/5):
   VSS   : bottom rail M1 + M2 + p+ tap (in decap_ls) from the decap under lsdiv to the core, two p+ tap columns
           under lsdiv (DCF.1a); M2 + M1 bridges core -> cgm_ref; an M3 strap over the
           whole bottom rail (gap at the core's vg M3 pin) with via2s, for the tile's Metal4 VGND via3 landing;
           lsdiv's left M3 VSS strap extended down (4 um wide under lsdiv) into it: lsdiv's return current goes
           straight to the bottom rail, not through the core's tap ring.
-  VDD   : the core's VDD rail (y 43.155...45.555) -> an M2 drop (x 58...62) -> an M3 strap along the top edge
+  VDD   : the core's VDD rail (y 43.155...45.555) -> an M2 drop (x 59...63) -> an M3 strap along the top edge
           (y 62.88 ... top) over cgm_ref's column A to cgm_ref's VDD rail (y 62.88...65.28, via2s between its via1s).
   VDD_LS: lsdiv's VDD rail (M2, y 41.17...43.57 here) <- an M2 strap from the decap's gate strap; M2 spine and an
           M3 pad up to the top edge. Separate from VDD everywhere inside the macro.
-Pins (labels in vco_top): vg and vbnf (the medium DAC's output node and bias, M3 at the top edge, x 29.19 / 52.0),
+Pins (labels in vco_top): vg and vbnf (the medium DAC's output node and bias, M3 at the top edge, x 30.19 / 53.0),
   bit0-4 / bitb0-4, ck and ls (lsdiv's level-shifter output, the TX tap) on M3 at the top edge, VDD and VDD_LS on M3 at the top edge,
   vg on M3 at the bottom edge (the core's pin), vctrl and vbn on M2 at the right edge (cgm_ref's pins), VSS on M2/M3
   at the bottom, a0 on M2 at the lsdiv / core junction (not routed to an edge: ~1 % of f per fF on a0).
@@ -40,8 +40,10 @@ DCLS = dict(nf=5, w=49.14, l=10.0)  # VDD_LS decap fingers: the CF finger of cgm
 DCLS["c_pf"] = DCLS["nf"] * DCLS["w"] * DCLS["l"] * 1e-12 * COX * 1e12
 
 # placements (nm): block origins in vco_top
+CORE_DX = 1000                     # 2026-11-12: the core's PMOS vg decap (own n-well) moved its DAC, switches and right
+                                   # edge +1.0 um in x (every y unchanged); every core x right of the decap below includes it
 CORE = (0, 0)
-REF = (67190, 0)                   # the core's right edge
+REF = (67190 + CORE_DX, 0)         # the core's right edge
 LS = (-42390, 31455)               # lsdiv's right edge (40.49) on the core's left edge (-1.9); a0 4.715 -> 36.17
 YTOP = 66795                       # macro top = cgm_ref's top
 YBOT = -4000                       # macro bottom = the core's vg pin
@@ -49,17 +51,18 @@ VSS_B, VSS_T = -2400, 0
 CK_X = (-44390, -44010)            # ck M3 riser in the channel left of lsdiv
 LS_PIN = (20790, 21170)            # lsdiv's ls M3 port (lsdiv x), the TX driver's tap: riser to the top edge
 DC_R = -45600                      # decap_ls right edge
-VDD_DROP = (58000, 62000)          # VDD M2 drop above the core (right of the bit risers)
-VDD_M3 = (56500, 62880)            # VDD M3 strap: x start, y bottom (to YTOP)
+VDD_DROP = (58000 + CORE_DX, 62000 + CORE_DX)        # VDD M2 drop above the core (right of the bit risers)
+VDD_M3 = (56500 + CORE_DX, 62880)           # VDD M3 strap: x start, y bottom (to YTOP)
 LS_VDD = (41170, 43570)
 RAIL_END = -1000                   # decap_ls's VSS rail runs on under lsdiv onto the core's M1 tap ring (x -1.605)
 TAP_X = (-31600, -16600)           # p+ tap columns under lsdiv (vco_top x)
 TAP_TOP = 28000            # lsdiv VDD rail in vco_top (9.715...12.115 + 31.455)
-CORE_BITS_X = [(30450, 30830), (33090, 33470), (34150, 34530), (36790, 37170), (37850, 38230), (40490, 40870),
-               (41550, 41930), (44190, 44570), (45250, 45630), (47890, 48270)]   # core bit/bitb M3 at its top edge
+CORE_BITS_X = [(a + CORE_DX, b + CORE_DX) for a, b in
+               [(30450, 30830), (33090, 33470), (34150, 34530), (36790, 37170), (37850, 38230), (40490, 40870),
+                (41550, 41930), (44190, 44570), (45250, 45630), (47890, 48270)]]   # core bit/bitb M3 at its top edge
 CORE_TOP = 47875
-VG_X = (29000, 29380)
-VBNF_X = (51810, 52190)            # vbnf M3 riser from the core's vbn M2 track (y 42.475 ... 42.855) to the top edge
+VG_X = (29000 + CORE_DX, 29380 + CORE_DX)
+VBNF_X = (51810 + CORE_DX, 52190 + CORE_DX)           # vbnf M3 riser from the core's vbn M2 track (y 42.475 ... 42.855) to the top edge
 
 
 def um(v):
@@ -169,8 +172,8 @@ def assemble(decap_gds, info, dst):
     xr = REF[0] + 238750                       # macro right edge (cgm_ref's)
     # ---- VSS ----
     r("m2", RAIL_END - 500, VSS_B, -500, VSS_T)  # decap_ls's M2 rail -> the core's M2 VSS rail (starts at -0.92)
-    r("m1", 66600, VSS_B, 67600, VSS_T)        # core M1 rail end (66.895) -> cgm_ref M1 rail (67.19)
-    r("m2", 65800, VSS_B, 67600, VSS_T)        # core M2 rail end (66.21) -> cgm_ref M2 rail
+    r("m1", 66600 + CORE_DX, VSS_B, REF[0], VSS_T)   # core M1 rail end (66.895 + dx) -> cgm_ref M1 rail
+    r("m2", 65800 + CORE_DX, VSS_B, REF[0], VSS_T)   # core M2 rail end (66.21 + dx) -> cgm_ref M2 rail
     vg_gap = (VG_X[0] - 600, VG_X[1] + 600)
     for (a, b) in ((xl, vg_gap[0]), (vg_gap[1], xr)):
         r("m3", a, VSS_B, b, VSS_T)

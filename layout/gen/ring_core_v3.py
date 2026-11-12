@@ -42,7 +42,8 @@ WINNER = dict(rideal=0, lnp=100.0, lnw=3.665, nsn=14, wpm=56.0, lpm=14.0, mr=4.0
 CFED = dict(topo="cfed", kc=0.75, k=6, cvg=3e-12, cw=3e-15, ka=16.0, rf=0.0, cf=0.0)
 COX = 4.07e-3            # nfet_03v3 gate C per area incl. overlap (F/m2), tt, Vg 1.1-3 V (build/v3/cv); the pfet_03v3
                          # decap to VDD gives the same C at the same size (2.9-3.15 pF, build/tx_fine/vg_decap/cv)
-DECAP = dict(dc_nf=6, dc_l=4.0)
+DECAP = dict(dc_nf=6, dc_l=4.12)   # L 4.12 (W 29.82, 737 um2 as the 4.0 x 30.71 before): the PMOS decap's n+ tap strip
+                                   # fits under it with every y above the decap unchanged (vbn meets cgm_ref at a fixed y)
 END = CO_POLY + CO + ENC_CO   # diffusion end beyond the outer gate (contacted)
 DGAP = 560                    # S/D region between gates
 
@@ -112,6 +113,7 @@ def plan(p, dac_h):
     Y["dct_b"] = 310                       # decap n+ tap strip (VDD) above the VSS rail; strap M1+M2 dcs_b..dcs_t
     Y["dcs_b"], Y["dcs_t"] = 300, 900
     Y["dc_b"] = Y["dct_b"] + 380 + NSD_PSD
+    assert Y["dc_b"] + um(Wdc) + 255 <= 31365, "the decap would move every y above it (vco_top, cgm_ref vbn)"
     Y["dcw_b"] = Y["dct_b"] - NW_ENC_NSD     # decap n-well bottom
     Y["dc_t"] = Y["dc_b"] + um(Wdc)
     Y["vg_b"] = max(Y["dc_t"] + 255, dac_h + 500)
@@ -280,7 +282,7 @@ def build(p):
     dcvdd = [1000, snap(dcx1 - 1000)]        # M3 VDD drops (1 um), top rail -> strap; drawn with the rails below
 
     # ---- DAC to the right ----
-    vssv = wr_ + NW_ENC_NSD + NSD_PSD + 190  # VSS M1 vertical (left side of the DAC; its p+ rails clear the n-well)
+    vssv = wr_ + 430 + 190                   # VSS M1 vertical (left side of the DAC; its p+ rails 0.43 from the n-well)
     vgv = vssv + 700                        # vg M3 vertical
     dx0 = vssv + 190 + 900
     gd = draw_dac(top, p, dx0, {})
