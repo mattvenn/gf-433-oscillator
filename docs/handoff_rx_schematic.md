@@ -6,9 +6,9 @@ schematic level. Write it up in `docs/rx_design.md`. Stop before layout: Matt re
 first.** First pass means tt plus the bounding process corners at 27 °C and 3.3 V. No temperature, VDD sweeps or
 Monte Carlo yet.
 
-Read `STATUS.md` first, then this file. **Work in `/foss/designs/gf433-sims`** (`git pull --rebase` first; if
-`sim/rx/rx_model.py` isn't there, this work is still on branch `claude/inspiring-franklin-3g1avv`: ask Matt to
-merge it to `main`). You
+Read `STATUS.md` first, then this file. **Work in `/foss/designs/gf433-sims` on branch `rx-option-b`**:
+`git fetch origin && git checkout rx-option-b && git pull --rebase`. Commit and push everything (progress lines,
+results, docs) to `rx-option-b`, never to `main`. Matt merges it after the review. You
 own `sim/rx/`, `xschem/gen/rx_*.py`, `xschem/rx_*.sch`, `docs/rx_design.md` and `docs/img/rx/`. The only change
 allowed in existing blocks is exposing the ring tap (below). Commit and push at the end of every phase, so nothing
 is lost if the session dies.
