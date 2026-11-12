@@ -2,6 +2,8 @@
 
 [![Made with Claude](https://img.shields.io/badge/Made%20with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
 
+**Decision (Matt, 2026-11-12): a board low-pass filter fixes the harmonics (H3 below −55 dBc at every corner, below). The on-chip study that led there follows.**
+
 **Result (2026-11-12): option 1 does not pass, and cannot on its own.** A current-starved, break-before-make final
 stage brings the 3rd harmonic at the dipole from −14.2 to −23.2 dBc and the 5th from −23.5 to −33.2 dBc at the
 typical (tt) corner, for 2.4 dB of fundamental. The pass line is −36 dBc for both. Even an ideal linear trapezoid
@@ -93,6 +95,34 @@ both). At VDD 3.15 V and fs, H3 is −17.7 and H5 −32.1 dBc. The H2 at fs is n
 dBc, H3 and H7 fall 8.4 dB and H5 rises 1.8 dB, for 1.8 dB of fundamental. On the shaped results that gives
 max(H3, H5) of −26.1 (fs) to −31.6 dBc (tt). On an ideal trapezoid set to the H5 null (t_r = 0.40 T), it gives
 H3 −34.4 dBc. Both still fail.
+
+## Decision: a board low-pass filter (2026-11-12)
+Neither on-chip option reaches −36 dBc on both harmonics with margin, so the fix is a filter on the board, the one
+exception to the "dipoles only" rule. Short experiments can still run without it.
+
+**The filter.** A balanced 5th-order Butterworth low-pass in pi form (capacitor first), designed for the dipole's
+73 Ω with a 550 MHz corner, between the two pins and the dipole. Each line has 4.7 pF to ground, 18 nH in series,
+15 pF to ground, 18 nH, and 4.7 pF to ground (standard values; the exact design is 4.9 pF / 17.1 nH / 15.9 pF).
+The capacitors go to ground rather than across the pair, so the common mode is filtered too. The first capacitor
+sits in parallel with the pad's own capacitance. `sim/tx/board_lpf.py` puts it into the block bench.
+
+**Evidence** (standard values, 5 corners × routing 15 / 60 Ω × 0 / 3 other projects, 27 °C, 3.3 V):
+
+| final stage N | fundamental | H3 | H5 | pad current, worst | supply current |
+|---|---|---|---|---|---|
+| 40 µm (today) | +4.9 … +9.8 dBm | −54.4 … −56.5 dBc (pi, exact values) | ≤ −80 dBc | 13.8 mA rms ✗ (ff, 15 Ω) | 9.6–15.3 mA |
+| 22 µm | +2.5 … +7.2 dBm | −55.7 … −60.1 dBc | ≤ −77 dBc | 9.9 mA rms | 6.9–10.5 mA |
+| 20 µm | +2.0 … +6.6 dBm | −55.8 … −60.1 dBc | ≤ −77 dBc | 9.3 mA rms | 6.5–9.8 mA |
+
+The pass line is −36 dBc, so the 3rd harmonic has about 20 dB of margin. The filter also transforms the load, so
+the chip delivers more power than it does into the bare dipole (+8.6 against +6.3 dBm at tt, 15 Ω, 40 µm). That
+pushes the pad current over the 10 mA rms limit, so the final stage should shrink to 20–22 µm (P 50–55 µm); the
+worst-case fundamental then drops from +3.7 to +2.0–2.5 dBm (ss, 60 Ω, 3 other projects). Moving the corner
+from 450 to 650 MHz takes H3 from −67 to −49 dBc at tt, so the usual ±5 % part tolerances cost only a few dB.
+
+**Limits.** Ideal L and C (no self-resonance, no board parasitics); the dipole is a 73 Ω + 100 pF model, not its
+real impedance at 3f and 5f; the pad current is through the pin model's output, and the 10 mA rms limit is per
+`ua` pin (tnt).
 
 ## What bears on option 2
 The 5-stage ring has taps every 36°. A segmented final stage that sums 4 consecutive taps with weights
