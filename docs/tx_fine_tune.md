@@ -421,9 +421,10 @@ up to 0.4 LSB off.
   VDD in place of the NMOS all give the same f within 1 ppm (+180 ppm against the NMOS), and on the new layout an
   ideal 3 pF gives the PMOS's f within 1 ppm. `vg` sits 0.76 mV lower in the new layout, which accounts for about
   half of the shift (f ≈ I / (C × swing)). The C-only extraction moves f by only −0.011 % (the TX bench), so the
-  wiring resistance of the re-drawn core is the likely place to look. The mechanism had not been found at the time
-  of writing; the next step is to swap the core's extraction (old against new) inside the same top. The codes and
-  the 1.3-step range are unaffected.
+  wiring resistance of the re-drawn core is the likely place to look. It does not matter in use: the RP2350 servo
+  measures and tunes the absolute frequency, and the codes, the LSB and the 1.3-step range are unaffected, so the
+  mechanism was not pursued (2026-11-12). Swapping the core's extraction (old against new) inside the same top
+  would locate it.
 - **The medium DAC's extraction is C only.** The RC netlist does not converge in transients (above). Its static
   transfer from the RC netlist was not checked separately.
 - **Monte Carlo** used the schematic DAC (unit instances), not the layout. The extracted DAC adds only C, which

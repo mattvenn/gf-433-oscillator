@@ -90,10 +90,9 @@ It is to become an **FM radio toolkit**:
      clean. **Extracted layout: 25 MHz spur -84.6 / -84.3 / -84.1 dBc at tt / ss / ff (was -46.1 / -47.8 / -44.2)**;
      schematic -79.8 / -80.3 / -80.8; TX driver-on jitter 0.10-0.13 ps (was 0.20-0.29); start-up fine (0.5-1 us
      later). Write-up: `docs/tx_fine_tune.md`, "Supply coupling: the vg decap".
-     - **Open:** the re-drawn layout runs 0.10-0.11 % low (-410…-470 kHz, LSB 31.09 kHz tt) against the NMOS-decap
+     - **Not pursued (Matt, 2026-11-12: the RP2350 servo tunes absolute f):** the re-drawn layout runs 0.10-0.11 % low (-410…-470 kHz, LSB 31.09 kHz tt) against the NMOS-decap
        layout. Not the decap device (an ideal C gives the same f within 1 ppm); vg is 0.76 mV lower (about half of
-       it); C-only extraction shows only -0.011 %, so look at the core's wiring R. Next step: swap the core extraction
-       old/new inside the same top. Codes unchanged.
+       it); C-only extraction shows only -0.011 %, likely the core's wiring R. Codes, LSB and range unchanged.
      - **Not modelled:** ground ripple (needs the TT ground path's R and L) and VDPWR before the power switch (ask tnt).
        Still open as options: the floorplan coupling Matt suspects; the analog on VAPWR.
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
