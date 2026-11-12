@@ -1,4 +1,4 @@
-> Not started.
+> Running: phase A, step 1 (LO taps) since 22:35, ETA 00:05
 # Handoff: the receiver (option B, zero-IF 1-bit I/Q), schematics and first-pass sims (sim server)
 
 **Goal: design the receiver as xschem schematics, with each block sized and the whole chain simulated once, at
