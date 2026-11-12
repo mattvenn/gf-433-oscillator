@@ -1,4 +1,4 @@
-> Running: phase B (schematics) since 23:25, ETA 00:55
+> Paused (usage limit) in phase B: sheets rx_bias, rx_lna2, rx_lna, rx_mix, rx_lobuf, rx_lsq, rx_lo drawn and netgen + size checked; left: rx_bb, rx_lim, rx_top sheets, vco_top a2 port, check.py hook, renders, schematics.md, phases C and D
 # Handoff: the receiver (option B, zero-IF 1-bit I/Q), schematics and first-pass sims (sim server)
 
 **Goal: design the receiver as xschem schematics, with each block sized and the whole chain simulated once, at

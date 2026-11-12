@@ -1,0 +1,46 @@
+v {xschem version=3.4.5 file_version=1.2
+}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -100 -90 100 -90 {}
+L 4 -100 90 100 90 {}
+L 4 -100 -90 -100 90 {}
+L 4 100 -90 100 90 {}
+L 7 -120 -60 -100 -60 {}
+B 5 -122.5 -62.5 -117.5 -57.5 {name=inp dir=in sim_pinnumber=3}
+T {inp} -95 -66 0 0 0.25 0.25 {}
+L 7 -120 -20 -100 -20 {}
+B 5 -122.5 -22.5 -117.5 -17.5 {name=inn dir=in sim_pinnumber=4}
+T {inn} -95 -26 0 0 0.25 0.25 {}
+L 7 -120 20 -100 20 {}
+B 5 -122.5 17.5 -117.5 22.5 {name=nb dir=in sim_pinnumber=9}
+T {nb} -95 14 0 0 0.25 0.25 {}
+L 7 -120 60 -100 60 {}
+B 5 -122.5 57.5 -117.5 62.5 {name=enb dir=in sim_pinnumber=10}
+T {enb} -95 54 0 0 0.25 0.25 {}
+L 7 100 -60 120 -60 {}
+B 5 117.5 -62.5 122.5 -57.5 {name=oip dir=out sim_pinnumber=5}
+T {oip} 95 -66 0 1 0.25 0.25 {}
+L 7 100 -20 120 -20 {}
+B 5 117.5 -22.5 122.5 -17.5 {name=oin dir=out sim_pinnumber=6}
+T {oin} 95 -26 0 1 0.25 0.25 {}
+L 7 100 20 120 20 {}
+B 5 117.5 17.5 122.5 22.5 {name=oqp dir=out sim_pinnumber=7}
+T {oqp} 95 14 0 1 0.25 0.25 {}
+L 7 100 60 120 60 {}
+B 5 117.5 57.5 122.5 62.5 {name=oqn dir=out sim_pinnumber=8}
+T {oqn} 95 54 0 1 0.25 0.25 {}
+L 7 -70 -110 -70 -90 {}
+B 5 -72.5 -112.5 -67.5 -107.5 {name=VDD dir=inout sim_pinnumber=1}
+T {VDD} -76 -85 0 0 0.25 0.25 {}
+L 7 -70 90 -70 110 {}
+B 5 -72.5 107.5 -67.5 112.5 {name=VSS dir=inout sim_pinnumber=2}
+T {VSS} -76 70 0 0 0.25 0.25 {}
+T {lna} 0 -10 0 0 0.35 0.35 {hcenter=true}
+T {@name} 70 -110 0 0 0.2 0.2 {}
