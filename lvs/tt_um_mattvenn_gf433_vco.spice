@@ -94,7 +94,7 @@ XDCLS VSS VDD_LS VSS VSS nfet_03v3 L=10.0u W=49.14u nf=1 ad=0 as=0 pd=0 ps=0 nrd
 *.opin a4
 xdac vg vbn vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 VDD VSS cfed_dac
 xring VDD vg VSS a0 a1 a2 a3 a4 cfed_ring
-XDC VSS vg VSS VSS nfet_03v3 L=4.0u W=30.71u nf=1 ad=0 as=0 pd=0 ps=0 nrd=0 nrs=0 sa=0 sb=0 sd=0 m=6
+XDC VDD vg VDD VDD pfet_03v3 L=4.12u W=29.82u nf=1 ad=0 as=0 pd=0 ps=0 nrd=0 nrs=0 sa=0 sb=0 sd=0 m=6
 .ends
 
 

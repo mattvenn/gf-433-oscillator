@@ -17,7 +17,7 @@ Metal4 rectangle: ua[0..7] 3 x 1 um on the bottom edge, the digital pins 0.3 x 1
 --def is downloaded from tt-support-tools main into build/tt/ if it is not there.
 
 Floorplan (um, tile coordinates):
-  - vco_top mirrored left-right (x -> -x) at origin (602.94, 14.0): bbox x 297.0 ... 703.68, y 10.0 ... 80.795.
+  - vco_top mirrored left-right (x -> -x) at origin (602.94, 14.0): bbox x 296.0 ... 703.68, y 10.0 ... 80.795.
     The mirror puts vctrl / vbn (the reference's edge, originally the right edge) on the left edge, next to the
     analog pads ua[1] (x 283.64) and ua[0] (x 327.32).
   - ua[0] <- vctrl: M2 stub from the macro edge, via2, M3 down to y 5, M3 under the macro to the pad, via3s, Metal4
@@ -62,7 +62,9 @@ PITCH = 660                      # via array pitch (0.40 space)
 
 # vco_top placement: mirrored in x, origin here (nm)
 X0, Y0 = 602940, 14000
-VT = dict(xl=-100740, xr=305940, yb=-4000, yt=66795)   # vco_top bbox (own coordinates)
+CORE_DX = 1000                   # vco_top.CORE_DX (2026-11-12, the PMOS vg decap): every vco_top x from the core's DAC
+                                 # rightwards (bit / vg / vbnf risers, VDD / VSS straps, cgm_ref) moved +1.0 um; lsdiv's did not
+VT = dict(xl=-100740, xr=305940 + CORE_DX, yb=-4000, yt=66795)   # vco_top bbox (own coordinates)
 
 
 def mx(x):
@@ -71,17 +73,17 @@ def mx(x):
 
 
 # vco_top pin geometry (own coordinates, from layout/vco_top.gds / docs/top_layout.md)
-BITS = {  # name: M3 riser (x0, x1) at the top edge
+BITS = {k: (a + CORE_DX, b + CORE_DX) for k, (a, b) in {  # name: M3 riser (x0, x1) at the top edge
     "bitb0": (30450, 30830), "bit0": (33090, 33470), "bitb1": (34150, 34530), "bit1": (36790, 37170),
     "bitb2": (37850, 38230), "bit2": (40490, 40870), "bitb3": (41550, 41930), "bit3": (44190, 44570),
-    "bitb4": (45250, 45630), "bit4": (47890, 48270)}
+    "bitb4": (45250, 45630), "bit4": (47890, 48270)}.items()}
 CK = (-44390, -44010)            # ck M3 riser at the top edge
 LS_PIN = (-21600, -21220)        # ls M3 riser at the top edge (lsdiv's ls port, layout/gen/vco_top.py)
 VDDLS = (-47800, -46600, 64395, 66795)   # VDD_LS M3 pad
-VDD_STRAP = (56500, 305940, 62880, 66795)  # VDD M3 strap
-VSS_STRAP = [(-100740, 28400), (29980, 305940)]  # VSS M3 strap x ranges, y -2400 ... 0
-VCTRL_M2 = (300000, 305940, 12745, 13125)
-VBN_M2 = (302880, 305940, 44190, 47085)
+VDD_STRAP = (56500 + CORE_DX, VT["xr"], 62880, 66795)  # VDD M3 strap
+VSS_STRAP = [(-100740, 28400 + CORE_DX), (29980 + CORE_DX, VT["xr"])]  # VSS M3 strap x ranges, y -2400 ... 0
+VCTRL_M2 = (300000 + CORE_DX, VT["xr"], 12745, 13125)
+VBN_M2 = (302880 + CORE_DX, VT["xr"], 44190, 47085)
 
 # tx_drv (layout/tx_drv.gds), mirrored in y (pins ls / en_p / en_n face down), placed above lsdiv
 TXD = dict(w=72970, yb=-67000, yt=38915, ls=27200, en_n=22940, en_p=45460,   # own coordinates (layout/gen/tx_drv.py)
@@ -103,8 +105,8 @@ MAC_GDS = REPO / "macro/tx_fine/gds/tx_fine.gds"
 TOPPINS = {"clk": "clk", "rst_n": "rst_n", "sclk": "uio_in[0]", "mosi": "uio_in[1]", "cs_n": "uio_in[2]",
            "miso": "uio_out[3]", "fsk": "ui_in[7]", "ck_o": "uo_out[0]", "div16": "uo_out[1]", "div64": "uo_out[2]",
            "div1024": "uo_out[3]"}
-VG_TOP = (29000, 29380)          # vco_top's vg / vbnf M3 risers at its top edge (own x)
-VBNF_TOP = (51810, 52190)
+VG_TOP = (29000 + CORE_DX, 29380 + CORE_DX)          # vco_top's vg / vbnf M3 risers at its top edge (own x)
+VBNF_TOP = (51810 + CORE_DX, 52190 + CORE_DX)
 JOG_X = (192500, 231800)         # the M3 jog channel between the TX risers (x 181...189 and 236...244)
 HOP_X = (331000, 333400)         # M3 antenna hop on every DAC control line, between the ui_in drops and the DAC
 
@@ -250,7 +252,7 @@ def build(defpath, gds_out, lef_out):
     # ---- analog: ua[0] <- vctrl, ua[1] <- vbn ----
     # vctrl: macro M2 at its (mirrored) left edge, y Y0 + 12.745 ... 13.125
     vy = Y0 + (VCTRL_M2[2] + VCTRL_M2[3]) // 2
-    vx = 295800
+    vx = 294800                                                     # 1.2 um left of the macro edge (296.0)
     r("m2", vx - PAD // 2, Y0 + VCTRL_M2[2], mx(VCTRL_M2[1]) + 100, Y0 + VCTRL_M2[3])
     via(2, vx, vy)
     r("m3", vx - PAD // 2, 5000, vx + PAD // 2, vy)                 # M3 down
@@ -260,7 +262,7 @@ def build(defpath, gds_out, lef_out):
     via_array(3, ua0[0], ua0[2], 5000, 6000, margin=120)
     # vbn: macro M2 pad, y Y0 + 44.19 ... 47.085
     by0, by1 = Y0 + 45000, Y0 + 46400
-    bx = (292400, 294400)
+    bx = (291400, 293400)
     r("m2", bx[0], by0, mx(VBN_M2[1]) + 100, by1)
     r("m3", bx[0], 3000, bx[1], by1)
     via_array(2, bx[0], bx[1], by0, by1)
@@ -281,9 +283,9 @@ def build(defpath, gds_out, lef_out):
     sx = {(n, x): (x, x + w) for n, x, w in STRIPES}
     nv = {}
     for (n, x0), (a, b) in sx.items():
-        if 297000 < a and b < 546000 and n == "VDPWR":              # VDD strap: tile x 297.0 ... 546.44
+        if mx(VDD_STRAP[1]) < a and b < mx(VDD_STRAP[0]) and n == "VDPWR":   # VDD strap: tile x 296.0 ... 545.44
             nv[(n, x0)] = via_array(3, a, b, Y0 + VDD_STRAP[2], Y0 + VDD_STRAP[3], margin=150)
-        if n == "VGND" and a > 297000:                              # VSS strap, y Y0 - 2.4 ... Y0
+        if n == "VGND" and a > mx(VT["xr"]):                              # VSS strap, y Y0 - 2.4 ... Y0
             assert any(mx(s1) < a and b < mx(s0) for s0, s1 in VSS_STRAP), (a, b)
             nv[(n, x0)] = via_array(3, a, b, Y0 - 2400, Y0, margin=150)
     # VDD_LS: its own VDPWR stripe on the M3 pad
@@ -561,10 +563,10 @@ def add_tx_fine(ly, top, L, r, cut, pad, via, via_array, pin_x, top_pin_drop, PI
     r("m3", bx_ - PAD // 2, by_ - PAD // 2, vbx + PAD // 2, by_ + PAD // 2)
     r("m3", vbx - PAD // 2, ytop - 400, vbx + PAD // 2, by_ + PAD // 2)
     log["mdac"] = dict(origin=[v / 1000 for v in MDAC], vg=[gx / 1000, gy / 1000], vbnf=[bx_ / 1000, by_ / 1000])
-    # ---- vctrl pull-down: a -> vctrl (the ua[0] M3 at x 295.8), b -> VSS (cgm_ref's bottom M2 rail) ----
+    # ---- vctrl pull-down: a -> vctrl (the ua[0] M3 at x 294.8), b -> VSS (cgm_ref's bottom M2 rail) ----
     pa = (VPD[0] + 31910, VPD[1] + 11300)
     pb_ = (VPD[0] + 580, VPD[1] + 1100)
-    vx = 295800
+    vx = 294800
     r("m2", pa[0] - PAD // 2, pa[1] - PAD // 2, vx + PAD // 2, pa[1] + PAD // 2)
     via(2, vx, pa[1])
     r("m2", pb_[0] - PAD // 2, Y0 - 190 - 100, mx(VT["xr"]) + 600, Y0 + 190 - 100)
