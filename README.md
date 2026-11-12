@@ -12,6 +12,8 @@ ASIC Course.
 - [Where the design is at, and what's next](STATUS.md)
 - [Schematics](docs/schematics.md) and [top-level layout](docs/top_layout.md)
 
+> **Radio regulations.** This is an experimental, uncertified transmitter. The antenna driver is off unless ui_in[5] / ui_in[6] enable it. The coarse code alone puts the ring anywhere in about 193–851 MHz, and until the RP2350 has tuned it, it can be tens of MHz away from 433.92 MHz, outside the narrow 433.05–434.79 MHz licence-exempt band. That range includes frequencies used by aviation, emergency services and the 406 MHz distress beacons. The output is close to a square wave: in simulation the 3rd harmonic (1.3 GHz) is −14 dBc and the 5th −23 dBc at the dipole, well above the band's spurious-emission limits. Power is low (about +6 dBm, 4 mW, into the dipole), but transmitting over the air may need an amateur radio licence (the 70 cm band is 420–450 MHz in the US, 430–440 MHz in the UK and much of Europe), and outside the amateur band it may not be legal at all. Measure the frequency and harmonics with an SDR or spectrum analyser first, keep transmissions short, and prefer a cabled link with an attenuator. Receiving is fine. You are responsible for following your local rules.
+
 ## What is Tiny Tapeout?
 
 Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital designs manufactured on a real chip.

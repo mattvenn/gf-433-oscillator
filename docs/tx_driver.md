@@ -181,7 +181,8 @@ workflow: gds, precheck and viewer jobs), and so does the CI LVS workflow.
 - **Harmonics.** The drive is close to a square wave. At tt the dipole's 73 Ω sees the 3rd harmonic at -14.1 dBc and
   the 5th at -23.3 dBc (on chip: -11.5 / -18.3 dBc; the even ones cancel, -41 dBc). The pad path filters only a few
   dB, and a real half-wave dipole is near resonance again at 3f, so a bench demo is fine but meeting the 433 MHz
-  band's spurious limits (about -36 dBm) would need a board filter or slower, shaped edges.
+  band's spurious limits (about -36 dBm) would need a board filter or slower, shaped edges. The README carries the
+  radio-regulations notice.
 - **Pin current: over the limit at ff with low routing R.** The `ua` pins are limited to 10 mA rms (tnt, via Matt,
   2026-11-11). The pin carries the dipole current, √(P / 73 Ω) from the block sims (`sim/tx/results/block_sch.txt`,
   section 4): 7.8-8.1 mA rms at tt with 40 Ω of routing, 5.8-9.9 mA at ss / sf / fs, 9.2-9.5 mA at tt with 15 Ω, and
