@@ -83,6 +83,7 @@ It is to become an **FM radio toolkit**:
      range unchanged (no headroom issue).
    - **Clock gating (2026-11-11, macro r12):** 4 icgtp gates, small CTS buffers; clock charge 21.1 -> 4.48 pC per
      25 MHz cycle (OpenSTA, `macro/tx_fine/power/clk_charge.py`); supply spur −32.1 -> **−45.5 dBc** (target −40).
+   - **Next: `docs/handoff_vg_decap_pmos.md`** (the vg decap to VDD as a PMOS gate cap, model to tile).
    - **To look at later: the 25 MHz supply spur** (-45.5 dBc, target -40). More decap barely helps (|Z| < 1.3 ohm
      at 25 MHz needs ~5 nF, about 1 mm² of MOS cap; no MIM on TT GF, `docs/platform.md`). **Coupling path found (2026-11-12, `sim/tune/spur_paths.py`,
      schematic, tt, supply path only):** all of it comes through the ring inverters' VDD: ripple on the ring alone
