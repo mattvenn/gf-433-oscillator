@@ -102,6 +102,12 @@ It is to become an **FM radio toolkit**:
    - On the extracted vco_top: the tap does not disturb the ring. Behind TT's power switch (tt_pg_3v3_hp_2, Ron
      1.2–1.5 ohm, common to the whole tile) keying the driver on moves the ring +0.03…+0.05 % (+110…+210 kHz), ripple
      12–15 mV, no jitter change. LS duty passes through (out_p 54.0 % at ff). 3rd harmonic at the dipole -14 dBc.
+   - **To check: on-chip harmonic reduction** (the 3rd is -14 dBc at the dipole; the ETSI spurious limit at 1.3 GHz
+     is about -36 dBc at our power; the pad path filters only ~2.6 dB). Block sims on the driver bench:
+     - slower, controlled edges (rise time ~T/3 = 0.77 ns nulls the 3rd; ~1.7 dB of fundamental; the null moves with
+       corner);
+     - two ring taps 72 deg apart summed in a split final stage (~8 dB off the 3rd, ~1 dB of fundamental; tracks
+       process); together perhaps -30…-35 dBc.
    - In the 2x2 tile above lsdiv; wrapper LVS passes (5 mutations caught), KLayout DRC clean except fill rules.
    - CI on 6503f1c: TT precheck, LVS and docs workflows pass.
    - **ua pin limit is 10 mA rms** (tnt, 2026-11-11): each arm carries 7.8-8.1 mA rms at tt / 40 Ω, but
