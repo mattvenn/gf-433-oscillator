@@ -1,5 +1,7 @@
 # Handoff: return the vg decap to VDD (PMOS gate cap), model to tile (local session)
 
+**Done (2026-11-12).** Extracted 25 MHz spur −84.6 / −84.3 / −84.1 dBc (tt / ss / ff, was −46.1 / −47.8 / −44.2); write-up in `docs/tx_fine_tune.md`, "Supply coupling: the vg decap". Open: the re-drawn layout runs 0.10-0.11 % low (Limits there).
+
 **Goal: move the ring's 3 pF `vg` decap from VSS to VDD by redrawing it as a PMOS gate cap (gate `vg`, S/D/B on
 VDD, in an n-well), and carry the change through the simulation model, the schematic, the layout, the top level, the
 tile and the docs, with every check passing. Then confirm the 25 MHz supply spur on the re-extracted layout.**

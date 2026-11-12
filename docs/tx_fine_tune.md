@@ -26,7 +26,7 @@ All numbers are at 27 °C and VDD 3.3 V unless a corner is named (corner policy,
 | Extracted DAC on the extracted vco_top | LSB ≤ 50 kHz, range ≥ 1.3 steps | LSB 27.4 (ss) / 31.1 (tt) / 35.6 (ff) kHz, range 28.0-36.5 MHz; −0.2 % against the schematic DAC | Table VII |
 | ΣΔ spurs, transistor level | ≤ −40 dBc | −58.2 dBc (fraction 77, model −60.1), −65.8 dBc (fraction ½), extracted DAC | Fig. 3 |
 | FSK, ±3 LSB | ±100 kHz | 201-204 kHz step; settles to 2 % within 260 ns | Fig. 3 |
-| Digital supply coupling | ≤ −40 dBc | −45.5 dBc at 25 MHz with clock gating (−32.1 dBc without), from the measured clock charge | Fig. 3 |
+| Digital supply coupling | ≤ −40 dBc | −84.1 … −84.6 dBc at 25 MHz on the extracted layout (tt / ss / ff) with clock gating and the `vg` decap to VDD; −45.5 dBc with the decap to VSS | Fig. 3, Table X |
 | Macro timing | 10-50 MHz clk, ~108 MHz ck | 50 MHz at tt 3.3 V (+1.6 ns); about 40 MHz at ss 125 °C 3.0 V | `macro/tx_fine` |
 | Supply headroom | works at VDD 3.15 V | LSB and range unchanged (≤ 0.3 %) at 3.15, 3.0 and 2.8 V, tt and ss | Table V |
 | Tile checks | LVS, DRC, antenna, CI | LVS match (7/7 mutations caught), magic DRC 0, antenna 0, KLayout only DCF.1a (fill); TT precheck passes in CI | |
@@ -293,14 +293,19 @@ extracted ring is 0.93× the schematic value, close to the ring's own extracted 
 433.11 MHz, so 433.92 MHz is reached from code 8. The range (more than 1.3 steps) ensures one of the two codes
 covers it.
 
+Table VII is the layout with the `vg` decap to VSS. The re-drawn layout with the decap to VDD (below) runs
+0.10-0.11 % lower at every word and corner: 420.53 MHz at tt word 512 (−460 kHz), LSB 31.09 / 27.41 / 35.64 kHz
+(tt / ss / ff), and ff code 7 tops out at 432.65 MHz, so the codes are unchanged. The cause is an open item
+(Limits).
+
 ![Phase C](img/tx_fine_phase_c.png)
 
 *Fig. 3. Extracted DAC. Left: FSK by ±3 LSB (word 509 ↔ 515), a 204 kHz step that settles within 260 ns; this
 pair crosses the major carry at 512, and each edge overshoots the new frequency by about 450 kHz for one 20 ns window. Middle: mean
 frequency against the ΣΔ fraction, 8.4 kHz (fraction 77) and 14.0 kHz (fraction ½) above the static LSB line.
 Right: the phase spectrum
-with the macro's measured clock charge on the tile supply: −32.1 dBc at 25 MHz without clock gating (r10), −45.5 dBc
-with it (r12).*
+with the macro's measured clock charge on the tile supply (schematic ring, from 0.25 µs). With the `vg` decap to VSS:
+−31.8 dBc at 25 MHz without clock gating (r10), −45.2 dBc with it (r12). With the decap to VDD: −67.9 and −79.4 dBc.*
 
 - **Extracted against schematic DAC.** With the first 1 µs left out of both, the ΣΔ spurs are −58.2 / −65.8 dBc
   extracted against −57.9 / −64.3 dBc schematic (fractions 77 and ½), and the ΣΔ excess is 8.4 / 14.0 kHz against
@@ -324,8 +329,71 @@ with it (r12).*
   volt-seconds per edge are set by charge × 1.32 Ω, so the fix is less charge per edge (clock gating, above).
   Without gating (r10, 21.1 pC) VDD moves 57.6 mV p-p and the 25 MHz line is −32.1 dBc. With gating (r12, 4.48 pC)
   it is 15.4 mV p-p and −45.5 dBc, 5.5 dB inside the target. (The first estimate, 12 pC scaled from LibreLane's
-  power report, gave −37.0 dBc; the measured charge of the ungated macro was higher.)
+  power report, gave −37.0 dBc; the measured charge of the ungated macro was higher.) These numbers are with the
+  ring's `vg` decap to VSS; with it to VDD the same charge gives −79.4 dBc (next section).
 - **FM noise** with the DAC is Table IV (`.noise`, schematic): +5 % at mid-scale.
+
+### Supply coupling: the vg decap
+
+*Problem.* With clock gating the 25 MHz line was −45.5 dBc at tt, but only 3.4 dB inside the target at ff
+(−43.4 dBc). More decap on VDD barely helps: below 1.3 Ω at 25 MHz needs about 5 nF, about 1 mm² of MOS cap, and
+the TT GF180 process has no metal-insulator-metal (MIM) capacitor (`docs/platform.md`). `sim/tune/spur_paths.py`
+puts the measured ripple on one path at a time (schematic, tt):
+
+*Table VIII. The 25 MHz line with the r12 supply ripple on one path only.*
+
+| Rippled path | 25 MHz line |
+|---|---|
+| ring inverters' VDD only | −45.3 dBc |
+| either DAC's VDD only | about −80 dBc |
+| nothing | about −80 dBc |
+
+All of it comes in through the ring. The current-fed ring runs between VDD and `vg`, so its own supply is
+VDD − `vg`. The 3 pF decap tied `vg` to VSS, so at 25 MHz `vg` held still (2 mV p-p) while VDD moved 15 mV, and the
+whole ripple appeared across the inverters.
+
+*Fix.* Return the decap to VDD, so that `vg` rides with VDD above the reference loop's bandwidth. With no MIM it is
+a PMOS gate capacitor: gate on `vg`, source, drain and body on VDD, in its own n-well, 6 × 29.82 / 4.12 µm (737 µm²,
+the same area as the NMOS it replaces). Its C(V) is 3.06 pF at `vg` = 1.4 V and 3.01 pF at 2.0 V (tt), within
+2.9-3.15 pF at every corner's `vg`; the NMOS was 2.9-3.1 pF (`sim/tune/vg_decap.py cv`). The layout is in
+[ring_layout_v3.md](ring_layout_v3.md), "Decap".
+
+*Evidence.* The supply sensitivity against ripple frequency (`vg_decap.py psr`, schematic, tt, a sine on VDD,
+frequency deviation per mV) shows the mechanism directly. At DC both are the same, because the reference sets
+`vg`; above about 1 MHz the decap to VSS holds `vg` and the sensitivity rises more than 100-fold.
+
+*Table IX. Supply frequency modulation (FM), size of the deviation in kHz per mV of VDD ripple, with the decap to VSS and to VDD.*
+
+| Ripple frequency | DC | 1 MHz | 3 MHz | 10 MHz | 25 MHz | 60 MHz |
+|---|---|---|---|---|---|---|
+| decap to VSS | 8.3 | 95 | 273 | 687 | 919 | 972 |
+| decap to VDD | 8.3 | 6.7 | 6.4 | 8.5 | 14.8 | 30.6 |
+
+The 25 MHz line, with r12's measured clock charge on the 1.32 Ω tile supply:
+
+*Table X. The 25 MHz line, decap to VSS against decap to VDD (tt / ss / ff).*
+
+| Bench | Decap to VSS | Decap to VDD |
+|---|---|---|
+| schematic ring, ideal 3 pF / PMOS model | −45.2 / −47.0 / −43.4 dBc | −79.8 / −80.3 / −80.8 dBc |
+| extracted vco_top, decap swapped in the netlist | −46.1 / −47.8 / −44.2 dBc | −88.4 / −89.6 / −89.7 dBc |
+| extracted vco_top, re-drawn layout (`layout/pex/vco_top_rcx.spice`) | −46.1 / −47.8 / −44.2 dBc | **−84.6 / −84.3 / −84.1 dBc** |
+
+The 50 MHz line on the re-drawn layout is −83.7 / −84.6 / −82.5 dBc (was −51.6 / −53.5 / −49.8). The re-drawn
+layout is about 4-5 dB worse than the netlist swap, which is still about 44 dB inside the target; the difference
+was not investigated.
+
+- **Size** (ideal C to VDD, tt): 1 / 2 / 3 / 4 / 6 pF give −68.6 / −76.6 / −80.5 / −77.5 / −74.1 dBc. The best is
+  near 3 pF, so the size is kept. Why more C is worse above 3 pF is not explained at the time of writing.
+- **Any C left from `vg` to VSS undoes the fix:** 2 pF to VDD with 1 pF to VSS gives −54.9 dBc. The re-drawn layout
+  has 14.3 fF of wiring C from `vg` to VSS (0.5 % of the decap) and 24 fF to VDD.
+- **TX driver** (extracted vco_top, C only, the driver behind the power switch): ring jitter with the driver on is
+  0.11 / 0.13 / 0.10 ps rms at tt / ss / ff (was 0.25 / 0.20 / 0.29). The on/off shift, +0.03 … +0.05 %, is the DC
+  drop through 1.32 Ω and is unchanged; so is the output power (+6.31 / +4.80 / +7.31 dBm).
+- **Start-up** (5 corners × codes 0 and 31, 10 µs ramp, plus tt with a 1 µs ramp, with the real `vbn` filter): every
+  case starts in the fundamental mode, `vg` never goes above VDD, and the ring starts 0.5-1 µs later than before.
+- **Checks:** ring_core_v3 DRC (magic and KLayout), antenna and LVS, with a new LVS mutation (decap S/D on VSS)
+  caught; vco_top and the tile LVS, DRC and antenna clean; the schematic netlist check passes.
 
 ## RP2350 tuning model (`sim/tune/rp2350_model.py`)
 
@@ -344,8 +412,18 @@ up to 0.4 LSB off.
 ## Limits and open items (at the time of writing)
 
 - **Digital supply coupling** uses the charge per cycle from OpenSTA's cell power models with the SPEF, put into
-  one 1 ns pulse per cycle. It is not a transistor-level simulation of the macro, and the current through the
-  chip's grid before the power switch is not modelled.
+  one 1 ns pulse per cycle. It is not a transistor-level simulation of the macro. Only the macro's own charge
+  through the 1.32 Ω power switch is modelled: the ripple on the chip's VDPWR before the switch (from other
+  projects) is unknown, and VSS is ideal, so ground ripple is not modelled either. How a VSS ripple couples in with the decap on VDD has
+  not been simulated; it needs the TT ground path's resistance and inductance.
+- **The re-drawn layout runs 0.10-0.11 % low** (−410 … −470 kHz at every word and corner, extracted RC) against the
+  layout with the NMOS decap. It is not the decap device: on the old layout, the PMOS or an ideal 3 pF to VSS or to
+  VDD in place of the NMOS all give the same f within 1 ppm (+180 ppm against the NMOS), and on the new layout an
+  ideal 3 pF gives the PMOS's f within 1 ppm. `vg` sits 0.76 mV lower in the new layout, which accounts for about
+  half of the shift (f ≈ I / (C × swing)). The C-only extraction moves f by only −0.011 % (the TX bench), so the
+  wiring resistance of the re-drawn core is the likely place to look. The mechanism had not been found at the time
+  of writing; the next step is to swap the core's extraction (old against new) inside the same top. The codes and
+  the 1.3-step range are unaffected.
 - **The medium DAC's extraction is C only.** The RC netlist does not converge in transients (above). Its static
   transfer from the RC netlist was not checked separately.
 - **Monte Carlo** used the schematic DAC (unit instances), not the layout. The extracted DAC adds only C, which

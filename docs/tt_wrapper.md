@@ -9,7 +9,7 @@ and `lef/tt_um_mattvenn_gf433_vco.lef`. It passes the TT precheck and layout ver
 
 ![TT wrapper layout](img/tt_wrapper.png)
 
-**Fig. 1.** The wrapper, 711.20 × 325.36 µm. vco_top (406.7 × 70.8 µm, mirrored) sits at the bottom right, next to
+**Fig. 1.** The wrapper, 711.20 × 325.36 µm. vco_top (407.7 × 70.8 µm, mirrored) sits at the bottom right, next to
 the analog pads; the bit, ck and tie-low routes go up to the digital pins on the top edge.
 
 ## Floorplan

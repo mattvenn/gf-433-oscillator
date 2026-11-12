@@ -83,29 +83,24 @@ It is to become an **FM radio toolkit**:
      range unchanged (no headroom issue).
    - **Clock gating (2026-11-11, macro r12):** 4 icgtp gates, small CTS buffers; clock charge 21.1 -> 4.48 pC per
      25 MHz cycle (OpenSTA, `macro/tx_fine/power/clk_charge.py`); supply spur −32.1 -> **−45.5 dBc** (target −40).
-   - **Next: `docs/handoff_vg_decap_pmos.md`** (the vg decap to VDD as a PMOS gate cap, model to tile).
-   - **To look at later: the 25 MHz supply spur** (-45.5 dBc, target -40). More decap barely helps (|Z| < 1.3 ohm
-     at 25 MHz needs ~5 nF, about 1 mm² of MOS cap; no MIM on TT GF, `docs/platform.md`). **Coupling path found (2026-11-12, `sim/tune/spur_paths.py`,
-     schematic, tt, supply path only):** all of it comes through the ring inverters' VDD: ripple on the ring alone
-     -45.3 dBc, on the DACs or nothing about -80 dBc. vg's 3 pF decap goes to VSS, so vg holds still (2 mV p-p) while
-     VDD moves 15 mV, and the ring sees ~17 mV across it. **Returning that decap to VDD gives -80.5 dBc.** Study (`sim/tune/vg_decap.py`, schematic, 2026-11-12):
-     a PMOS gate cap (gate vg, S/D/B VDD, same 6 x 30.71/4 um) is 2.9-3.15 pF at every corner's vg (today's NMOS
-     2.9-3.1); spur with it -79.8 / -80.3 / -80.8 dBc at tt / ss / ff (today -45.2 / -47.0 / -43.4), f within 6 kHz;
-     best near 3 pF (2-4 pF within 4 dB; any C left to VSS undoes it: 2 to VDD + 1 to VSS -54.9); supply FM per mV
-     8.3 kHz at DC both, at 1 / 10 / 25 / 60 MHz 95 / 687 / 919 / 972 kHz today against 6.7 / 8.5 / 15 / 31 kHz;
-     start-up (5 corners x code 0/31, 10 us ramp, + tt 1 us ramp, real vbn filter): all 24 start in the fundamental
-     mode, vg never above VDD, 0.5-1 us later than today, same f (ss code 0 checked to 50 us). **Extracted vco_top** (decap fingers
-     swapped to PMOS in the netlist): 25 MHz spur -88.4 / -89.6 / -89.7 dBc at tt / ss / ff (today -46.1 / -47.8 /
-     -44.2), f +70 kHz; TX driver behind the power switch: on/off shift unchanged (+0.03…+0.05 %, the DC drop through
-     1.32 ohm), ring jitter with the driver on 0.10-0.13 ps rms (today 0.20-0.29), P unchanged. **To do:** the layout
-     (ring_core_v3 decap -> PMOS in an n-well), then re-extract and re-run `vg_decap.py pex` on the real layout; ground ripple is not modelled. Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
-     model); the analog on VAPWR (needs the `_pgvaa` template, VAPWR set to 3.3 V, ask tnt whether it is switched);
-     an RC filter on the ring supply (~1 kohm + 20-100 pF: -10…-24 dB); trimming the 10 always-clocked flops.
+   - **25 MHz supply spur fixed: the vg decap is on VDD (2026-11-12, `docs/handoff_vg_decap_pmos.md`, done).** The
+     spur came in through the ring's own supply, VDD − vg: the 3 pF decap tied vg to VSS, so vg held still while VDD
+     rippled (`sim/tune/spur_paths.py`: ring only -45.3 dBc, DACs or nothing about -80). The decap is now a PMOS gate
+     cap (gate vg, S/D/B VDD, own n-well, 6 x 29.82/4.12 um, 3.0 pF) in ring_core_v3, vco_top and the tile, all checks
+     clean. **Extracted layout: 25 MHz spur -84.6 / -84.3 / -84.1 dBc at tt / ss / ff (was -46.1 / -47.8 / -44.2)**;
+     schematic -79.8 / -80.3 / -80.8; TX driver-on jitter 0.10-0.13 ps (was 0.20-0.29); start-up fine (0.5-1 us
+     later). Write-up: `docs/tx_fine_tune.md`, "Supply coupling: the vg decap".
+     - **Open:** the re-drawn layout runs 0.10-0.11 % low (-410…-470 kHz, LSB 31.09 kHz tt) against the NMOS-decap
+       layout. Not the decap device (an ideal C gives the same f within 1 ppm); vg is 0.76 mV lower (about half of
+       it); C-only extraction shows only -0.011 %, so look at the core's wiring R. Next step: swap the core extraction
+       old/new inside the same top. Codes unchanged.
+     - **Not modelled:** ground ripple (needs the TT ground path's R and L) and VDPWR before the power switch (ask tnt).
+       Still open as options: the floorplan coupling Matt suspects; the analog on VAPWR.
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
      corrects it) and the FSK overshoot at a major carry (firmware keeps the FSK pair inside one block of 32).
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
    Extracted core + extracted reference: f within −0.03 % of the schematic reference at tt/ss/ff, vbnf start-up
-   88–94 µs. **Top level `vco_top` done** (`docs/top_layout.md`, 406.7 × 70.8 µm, DRC/LVS/antenna clean, no Metal4/5): the extracted
+   88–94 µs. **Top level `vco_top` done** (`docs/top_layout.md`, 407.7 × 70.8 µm, DRC/LVS/antenna clean, no Metal4/5): the extracted
    top matches the blocks within 0.07 % (tt 418.0 MHz at code 9 with the LS). As a straight row it needs a 2x2;
    folded (about 29k µm²) it would fit a 1x2. Open: a0 tap for the TX driver, full start-up to settling.
    - **Tempco at room temperature is +100…+140 ppm/°C (about 45–60 kHz/°C)**, schematic and layout alike. The sizing

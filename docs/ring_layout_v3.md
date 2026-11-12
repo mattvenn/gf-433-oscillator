@@ -31,7 +31,7 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.
 ## Decap
 - **Device (since 2026-11-12):** pfet_03v3, 6 × 29.82/4.12 µm (737 µm²), with the gate on vg and S/D/B on VDD, in
   its own n-well. The return to VDD keeps the ring's own supply, VDD − vg, quiet at the digital macro's 25 MHz clock:
-  the 25 MHz supply spur goes from about −46 to about −88 dBc (`docs/tx_fine_tune.md`, "Supply coupling: the vg decap").
+  the 25 MHz supply spur on the extracted layout goes from −44 … −48 to −84 … −85 dBc (tt / ss / ff) (`docs/tx_fine_tune.md`, "Supply coupling: the vg decap").
 - **Before:** nfet_03v3, 6 × 30.71/4 µm, S/D/B on VSS, C(V) 2.95–3.00 pF over 1.1–3.0 V. The PMOS of the same area
   gives 2.9–3.15 pF at every corner's vg (`sim/tune/vg_decap.py cv`).
 - **Drawing:** an n+ tap strip with a VDD strap (M1 + M2) runs under the fingers, just above the VSS rail; the S/D
@@ -39,7 +39,10 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.
   went from 4 to 4.12 µm so that W (29.82 µm) leaves room for the tap strip without moving anything above the decap:
   the core's vbn pin still meets cgm_ref's vbnf at the same y. The n-well is 0.43 µm from the DAC's p+ rails, so the
   DAC side moved 1.0 µm right.
-- **LVS:** it replaces Cvg. f moves by 0.1 % or less.
+- **LVS:** it replaces Cvg.
+- **Frequency:** the extracted vco_top runs 0.10-0.11 % lower than with the NMOS decap (420.53 against 420.99 MHz at
+  tt word 512). An ideal 3 pF in place of either decap device gives the same f within 1 ppm, so it is the re-drawn
+  wiring, not the device; the mechanism is an open item (`docs/tx_fine_tune.md`, Limits).
 
 ## vg resistance
 - From each N source: 8.0–8.2 Ω to the decap and 12.6–13.0 Ω to the DAC (PMOS decap, `ring_core_v3_w30chk_rc.spice`,
