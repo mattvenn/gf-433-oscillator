@@ -40,6 +40,24 @@ REFS = dict(
     ref_i=dict(typical=70.21e-6, ss=73.77e-6, ff=67.02e-6))         # I(vddr) of the extracted reference
 
 
+HDR19 = ".subckt vco_top VDD VDD_LS VSS vctrl bit0 bit1 bit2 bit3 bit4 bitb0 bitb1 bitb2 bitb3 bitb4 ck a0 vbn vg ls"
+
+
+def pex_file(pex):
+    """The extracted vco_top with the 19 ports these benches connect. pex_top.sh also exports vbnf as a 20th port (for
+    the medium DAC benches, sim/tune/phase_c.py); here it is dropped from the .subckt line so vbnf stays internal and
+    is probed as v(xtop.vbnf), as before. Returns a path to include."""
+    src = Path(PEX[pex]) if not isinstance(PEX[pex], Path) else PEX[pex]
+    txt = src.read_text()
+    if txt.count(HDR19 + "\n") == 1:
+        return src
+    assert txt.count(HDR19 + " vbnf\n") == 1, f"vco_top header changed in {src}"
+    out = OUT / "netlists" / f"{src.stem}_19.spice"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(txt.replace(HDR19 + " vbnf\n", HDR19 + "\n"))
+    return out
+
+
 def hdr(corner):
     return (".include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice\n"
             f".lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice {corner}\n"
@@ -52,7 +70,7 @@ def circuit(pex, corner, supplies):
                    for i in range(5))
     return f"""{hdr(corner)}{supplies}vctrl vctrl 0 {VCTRL}
 {bits}Xtop vdd vls 0 vctrl {' '.join(f'bit{i}' for i in range(5))} {' '.join(f'bitb{i}' for i in range(5))} ck a0 vbn vg ls vco_top
-.include {PEX[pex]}
+.include {pex_file(pex)}
 Cwire ck 0 20f
 XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1
 """

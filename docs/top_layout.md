@@ -9,7 +9,7 @@ schematic is `xschem/vco_top.sch` (`xschem/gen/vco_top.py`), and it is the layou
 
 ![vco_top layout](img/vco_top.png)
 
-**Fig. 1.** The vco_top layout, 406.7 × 70.8 µm. From the left: the VDD_LS decap, the level shifter and ÷4 (lsdiv,
+**Fig. 1.** The vco_top layout, 407.7 × 70.8 µm. From the left: the VDD_LS decap, the level shifter and ÷4 (lsdiv,
 raised so its a0 pin meets the ring's), the ring core, and the bias reference with its 1 MΩ / 20 pF filter.
 
 ![vco_top schematic](img/xschem/vco_top.png)
@@ -17,11 +17,12 @@ raised so its a0 pin meets the ring's), the ring core, and the bias reference wi
 **Fig. 2.** The vco_top schematic: the LVS source of Fig. 1.
 
 ## Floorplan
-- **Size:** bbox −100.74 … 305.94 × −4.00 … 66.80 µm, 406.7 × 70.8 µm (28 791 µm²). All blocks share the core's y
+- **Size:** bbox −100.74 … 306.94 × −4.00 … 66.80 µm, 407.7 × 70.8 µm (28 862 µm²). The core grew 1.0 µm in x on
+  2026-11-12 (the PMOS vg decap, `docs/ring_layout_v3.md`); `CORE_DX` in `layout/gen/vco_top.py` carries it. All blocks share the core's y
   origin (the bottom VSS rail, y −2.4 … 0).
 - **Placement** (block origin in vco_top; the block GDS cells are instances, unchanged):
   - `ring_core` at (0, 0);
-  - `cgm_ref` at (67.19, 0): it abuts the core's right edge, so its `vbnf` pin meets the core's `vbn` (DAC gate)
+  - `cgm_ref` at (68.19, 0): it abuts the core's right edge, so its `vbnf` pin meets the core's `vbn` (DAC gate)
     pin and its `vctrl` feed-through meets the core's `vctrl` pin;
   - `lsdiv` at (−42.39, 31.455): its a0 M2 spine (right edge, y 4.715) touches the core's a0 M2 tap (left edge,
     y 36.17). **There is no a0 wire**: the extracted a0 total is 5.83 fF, the sum of the two blocks' own a0 C
@@ -54,19 +55,19 @@ Tile facts, from `tt-support-tools` (main branch, `tech/gf180mcuD/`, read 2026-1
   320.36 µm, at least 0.8 µm wide (template default: VDPWR at x 1 µm and VGND at x 4 µm, 2 µm wide).
 
 **vco_top does not fit a 1x2 tile; it needs the 2x2.** The width is set by the a0 abutment and the reference's
-abutment: lsdiv + core + reference alone are 40.49 + 69.09 + 238.75 = 348.33 µm, 1.7 µm more than the 1x2 tile's
+abutment: lsdiv + core + reference alone are 40.49 + 70.09 + 238.75 = 349.33 µm, 2.7 µm more than the 1x2 tile's
 whole width, before the decap (55 µm) and any margin. The height (70.8 µm) uses 22 % of the tile. In the 2x2 tile
 the macro uses 57 % of the width and leaves about 240 µm of height free for the transmitter and receiver blocks.
 
 ![vco_top in the 2x2 tile](img/vco_top_tile.png)
 
-**Fig. 3.** vco_top in the 2x2 analog tile, 406.7 × 70.8 µm placed 20 µm from the left edge and 14 µm above the ua
+**Fig. 3.** vco_top in the 2x2 analog tile, 407.7 × 70.8 µm placed 20 µm from the left edge and 14 µm above the ua
 pads. The red dashed line is the 1x2 tile's right edge. Proposed Metal4 stripes: VDPWR and VGND over the reference
 (they land on the VDD M3 strap at the top edge and the VSS M3 strap at the bottom edge) and a separate VDD_LS
 branch over the decap's M3 pad.
 
 **Stripe clearance:** the macro has no Metal4, so a stripe can cross it anywhere; via3s land on the M3 straps
-(VDD along the top edge from x 56.5 µm to the right edge, VSS along the bottom edge, VDD_LS on its pad). The
+(VDD along the top edge from x 57.5 µm to the right edge, VSS along the bottom edge, VDD_LS on its pad). The
 VDD_LS branch can come from VDPWR as its own stripe (a star at the power grid), or from VAPWR with the `_pgvaa`
 template.
 
@@ -76,7 +77,7 @@ template.
 | Metal4 / via3 / Metal5 / via4 in the GDS | none |
 | magic DRC (full, hierarchical) | count 0 |
 | KLayout DRC (feol + beol, 176 decks, 768 rules run) | count 0 |
-| Antenna (magic, flattened) | 0 violations; 22 feedback entries: the gate-cap fingers with S = D = VSS (core 6, CF 10, decap 5, lsdiv C1 1) |
+| Antenna (magic, flattened) | 0 violations; 22 feedback entries: the gate-cap fingers with S = D tied (core vg decap 6, on VDD; CF 10, decap 5, lsdiv C1 1, on VSS) |
 | LVS (netgen), flattened layout vs the xschem `vco_top` netlist | `Final result: Circuits match uniquely.`, no property errors; 18 of 18 pins match |
 | Resistor sizes (4 devices) | RBW 2 / 5.025 µm (source 5.023, +0.04 % L), RBN 2 / 100, RF 1 / 970.23, R1 1 / 159.12 µm: pass |
 | Mutation: DCLS m 5 → 4 | LVS fails (property errors), as expected |

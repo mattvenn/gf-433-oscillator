@@ -16,10 +16,11 @@ TT GF: docs/platform.md) before it goes into the layout:
   size    tt, ideal C from vg to VDD: 1, 2, 3, 4, 6 pF, and 3 pF split 2 to VDD + 1 to VSS (why 6 pF was worse).
   psr     tt, no macro: VDD = 3.3 V + 5 mV sine at 1, 3, 10, 25 and 60 MHz, and a +10 mV DC step: the ring's FM per mV
           of supply against frequency, today against the PMOS decap.
-  pex     the extracted vco_top with its six decap fingers (NMOS, gate vg, S/D/B VSS) swapped for PMOS (gate vg,
-          S/D/B on the VDD port): (a) the c4 spur bench on vco_top_rcx + the schematic medium DAC (vbnf held), tt / ss /
-          ff, today against PMOS; (b) sim/tx/tb_tx_top.py's 'pg' / 'pgoff' cases (driver on / off behind TT's power
-          switch) on vco_top_c with the PMOS decap (today's are in sim/tx/results/top.json).
+  pex     the extracted vco_top as laid out since 2026-11-12 (the PMOS decap drawn, layout/pex/vco_top_*.spice)
+          against the last extraction with the NMOS decap (git PEX_OLD_REV): (a) the c4 spur bench on vco_top_rcx +
+          the schematic medium DAC (vbnf held), tt / ss / ff; (b) sim/tx/tb_tx_top.py's 'pg' / 'pgoff' cases (driver
+          on / off behind TT's power switch) on vco_top_c (today's are in sim/tx/results/top.json). Before the layout
+          had it, this mode swapped the six NMOS fingers for PMOS in the netlist (git 1411a0a).
   startup power-on from 0 V (VDD ramp 10 us; also 1 us at tt), every node from 0, the real vbn filter (no hold),
           5 corners x coarse code 0 / 31, word 512, 20 us: today against the PMOS decap. Ring start time, mode
           (a0 -> a2 phase), vg - VDD overshoot, f over the last 2 us.
@@ -249,22 +250,26 @@ def startup(a):
 
 
 # --------------------------------------------------------------------------------------------------- extracted
-DECAP_RX = r"^(X\S+) (VSS\S*) (vg\S*) (VSS\S*) (VSS\S*) nfet_03v3 .*w=30\.71u l=4u$"
+# Since 2026-11-12 the layout has the PMOS decap (6 x 29.82 / 4.12 um, gate vg, S/D/B VDD): layout/pex/vco_top_*.spice
+# is the "pmos" case as committed. "today" is the last extraction with the NMOS decap to VSS, read from git.
+PEX_OLD_REV = "48d9cb6"
+DECAP_NEW_RX = r"^X\S+ VDD\S* vg\S* VDD\S* VDD\S* pfet_03v3 .*w=29\.82u l=4\.12u$"
 
 
-def pmos_netlist(kind):
-    """vco_top_<kind>.spice with the vg decap fingers as PMOS to the VDD port."""
-    src = (REPO / f"layout/pex/vco_top_{kind}.spice").read_text()
-    new, n = re.subn(DECAP_RX, r"\1 VDD \3 VDD VDD pfet_03v3 ad=8.5988p pd=31.27u as=8.5988p ps=31.27u w=30.71u l=4u",
-                     src, flags=re.M)
-    assert n == 6, f"{n} decap fingers in vco_top_{kind}"
-    out = OUT / "pex" / f"vco_top_{kind}_pmos.spice"
-    out.parent.mkdir(parents=True, exist_ok=True); out.write_text(new)
+def old_netlist(kind):
+    """vco_top_<kind>.spice of PEX_OLD_REV (the NMOS decap to VSS), from git."""
+    import subprocess
+    out = OUT / "pex" / f"vco_top_{kind}_nmos.spice"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    src = subprocess.run(["git", "show", f"{PEX_OLD_REV}:layout/pex/vco_top_{kind}.spice"], cwd=REPO, check=True,
+                         capture_output=True, text=True).stdout
+    assert len(re.findall(r"^X\S+ VSS\S* vg\S* VSS\S* VSS\S* nfet_03v3 .*w=30\.71u l=4u$", src, re.M)) == 6
+    out.write_text(src)
     return out
 
 
 def pex_c4_deck(corner, pmos):
-    code = pc.PEX_CODE[corner] if hasattr(pc, "PEX_CODE") else ms.CODE433[corner]
+    code = pc.PEX_CODE[corner]
     t = pc.pex_deck(corner, code, 512, tstop=4.2e-6)
     ipk = 2 * pc.QCLK["q_r12"] / 1e-9
     sup = ("vsup vsup 0 3.3\nRpg vsup vdd 1.32\nCdec vdd 0 9.8p\nImdc vdd 0 0.6m\n"
@@ -273,21 +278,27 @@ def pex_c4_deck(corner, pmos):
     assert "vdd vdd 0 3.3\n" in t
     t = t.replace("vdd vdd 0 3.3\n", sup)
     t = t.replace("save v(a0) v(vg)", "save v(a0) v(vg) v(vdd)").replace("write out.raw v(a0) v(vg)", "write out.raw v(a0) v(vg) v(vdd)")
+    cur = REPO / "layout/pex/vco_top_rcx.spice"
     if pmos:
-        t = t.replace(str(REPO / "layout/pex/vco_top_rcx.spice"), str(pmos_netlist("rcx")))
+        assert len(re.findall(DECAP_NEW_RX, cur.read_text(), re.M)) == 6, "the committed vco_top_rcx has no PMOS decap"
+    else:
+        t = t.replace(str(cur), str(old_netlist("rcx")))
     return t
 
 
 def pex(a):
     sys.path += [str(REPO / "sim/tx"), str(REPO / "sim/top"), str(REPO / "sim/lsdiv")]
     import tb_tx_top as tbt, top_pex as TP
-    TP.PEX["cp"] = pmos_netlist("c")
+    assert len(re.findall(DECAP_NEW_RX, TP.PEX["c"].read_text(), re.M)) == 6
     tbt.OUT = OUT / "pex" / "tx"
     jobs = [(OUT / "pex" / f"c4_{c}_{tag}", pex_c4_deck(c, tag == "pmos")) for c in ("typical", "ss", "ff")
             for tag in ("today", "pmos")]
-    tx = {f"{c}_{case}": dict(pex="cp", corner=c, case=case) for c in ("typical", "ss", "ff") for case in ("pg", "pgoff")}
+    tx = {f"{c}_{case}": dict(pex="c", corner=c, case=case) for c in ("typical", "ss", "ff") for case in ("pg", "pgoff")}
+    run = getattr(a, "run", "all")          # all | pmos (the new layout's c4 + tx only) | none (analysis only)
+    rj = [j for j in jobs if run == "all" or (run == "pmos" and j[0].name.endswith("_pmos"))]
+    rt = tx if run in ("all", "pmos") else {}
     with ThreadPoolExecutor(max_workers=a.jobs) as ex:
-        fs = [ex.submit(pc.run_one, *j) for j in jobs] + [ex.submit(tbt.run1, k, kw, 1.2e-6) for k, kw in tx.items()]
+        fs = [ex.submit(pc.run_one, *j) for j in rj] + [ex.submit(tbt.run1, k, kw, 1.2e-6) for k, kw in rt.items()]
         [f.result() for f in fs]
     res = {}
     for d, _ in jobs:
@@ -304,10 +315,12 @@ def pex(a):
         sh = r["pg"]["f_a0"] / r["pgoff"]["f_a0"] - 1
         osh = o["pg"]["f_a0"] / o["pgoff"]["f_a0"] - 1 if o["pg"] and o["pgoff"] else float("nan")
         res[f"tx_{c}"] = dict(new={k: {q: v.get(q) for q in ("f_a0", "jit_rms_ps", "vdd_ripple_mv", "p1_dbm", "flags")}
-                                   for k, v in r.items()}, shift_new=sh, shift_old=osh)
+                                   for k, v in r.items()}, shift_new=sh, shift_old=osh,
+                              f_off_old=o["pgoff"].get("f_a0"))
         print(f"tx {c:8s} driver-on shift {sh*100:+.3f} % (today {osh*100:+.3f} %)  jitter on {r['pg']['jit_rms_ps']:.2f} ps"
               f" (today {o['pg'].get('jit_rms_ps', float('nan')):.2f})  P1 {r['pg']['p1_dbm']:+.2f} dBm"
-              f" (today {o['pg'].get('p1_dbm', float('nan')):+.2f})")
+              f" (today {o['pg'].get('p1_dbm', float('nan')):+.2f})  f off {r['pgoff']['f_a0']/1e6:.3f} MHz"
+              f" (today {o['pgoff'].get('f_a0', float('nan'))/1e6:.3f})")
     (OUT / "pex" / "pex.json").write_text(json.dumps(res, indent=1, default=str))
 
 
@@ -316,6 +329,7 @@ if __name__ == "__main__":
     ap.add_argument("mode", choices=["cv", "spur", "size", "psr", "startup", "pex", "all"])
     ap.add_argument("--jobs", type=int, default=28)
     ap.add_argument("--m", type=int, default=DEV["m"], help="PMOS decap fingers (30.71 / 4 um each)")
+    ap.add_argument("--run", choices=["all", "pmos", "none"], default="all", help="pex: which runs to (re)do before the analysis")
     a = ap.parse_args()
     for mode in (["cv", "spur", "size", "psr", "startup"] if a.mode == "all" else [a.mode]):
         print(f"== {mode}")

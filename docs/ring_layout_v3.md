@@ -6,8 +6,9 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.
 
 ## Floorplan (`docs/img/ring_core_v3.png`)
 - **Left:** the decap, with the vg strap (M1+M2) on it. The v2 cluster sits on the strap without heads, and each N source drops 0.3 µm into it.
+  Since 2026-11-12 the decap is a PMOS gate cap to VDD in its own n-well (Decap, below).
 - **Right:** the DAC. It has 7 × 6 slots, point-symmetric, with the fine leg and g0 in the middle row. The switches sit above it, in a shared n-well.
-- **Area: 69.1 × 51.9 µm = 3584 µm²**, against 5889 µm² for v2.
+- **Area: 70.1 × 51.9 µm = 3636 µm²** (69.1 × 51.9 µm = 3584 µm² with the NMOS decap), against 5889 µm² for v2.
 
 ## Node C, C-only (fF)
 | | a0 | a1 | a2 | a3 | a4 |
@@ -28,17 +29,26 @@ Scripts are in `layout/gen/`: `ring_core_v3.py`, `export_core_v3.py`, `check_v3.
   close to the C column. The "RC" effective cw of 6.2 fF is the double count.
 
 ## Decap
-- **Device:** nfet_03v3, 6 × 30.71/4 µm (737 µm²), with the gate on vg and S/D/B on VSS.
-- **C(V):** 2.95–3.00 pF over 1.1–3.0 V.
+- **Device (since 2026-11-12):** pfet_03v3, 6 × 29.82/4.12 µm (737 µm²), with the gate on vg and S/D/B on VDD, in
+  its own n-well. The return to VDD keeps the ring's own supply, VDD − vg, quiet at the digital macro's 25 MHz clock:
+  the 25 MHz supply spur goes from about −46 to about −88 dBc (`docs/tx_fine_tune.md`, "Supply coupling: the vg decap").
+- **Before:** nfet_03v3, 6 × 30.71/4 µm, S/D/B on VSS, C(V) 2.95–3.00 pF over 1.1–3.0 V. The PMOS of the same area
+  gives 2.9–3.15 pF at every corner's vg (`sim/tune/vg_decap.py cv`).
+- **Drawing:** an n+ tap strip with a VDD strap (M1 + M2) runs under the fingers, just above the VSS rail; the S/D
+  columns drop onto it. Two 1 µm M3 drops bring VDD down from the top rail over the inverter cluster (no Metal4). L
+  went from 4 to 4.12 µm so that W (29.82 µm) leaves room for the tap strip without moving anything above the decap:
+  the core's vbn pin still meets cgm_ref's vbnf at the same y. The n-well is 0.43 µm from the DAC's p+ rails, so the
+  DAC side moved 1.0 µm right.
 - **LVS:** it replaces Cvg. f moves by 0.1 % or less.
 
 ## vg resistance
-- From each N source: 8.4 Ω to the decap and 13 Ω to the DAC.
+- From each N source: 8.0–8.2 Ω to the decap and 12.6–13.0 Ω to the DAC (PMOS decap, `ring_core_v3_w30chk_rc.spice`,
+  2026-11-12; 8.3–8.5 Ω to the NMOS decap).
 - Between two sources: 6 Ω or less.
 
 ## Checks (`build/check/ring_core_v3*/summary.txt`)
-- **Script:** `bash layout/gen/check_v3.sh [gds] [outdir]`. The LVS source is the xschem netlist of `xschem/ring_core_v3.sch`; `layout/ref/ring_core_v3.spice` is only a cross-check. Two broken copies of the schematic must fail LVS. `XSCH_SET=wfu=0.25,wff=0.25` checks a GDS made at another width.
-- **Results:** DRC 0 in magic and in KLayout (FEOL+BEOL), antenna 0, LVS "match uniquely" with no property errors. Magic's feedback log has 6 entries, which are not violations: they are the decap fingers (S = D = VSS, "device missing 1 terminal").
+- **Script:** `bash layout/gen/check_v3.sh [gds] [outdir]`. The LVS source is the xschem netlist of `xschem/ring_core_v3.sch`; `layout/ref/ring_core_v3.spice` is only a cross-check. Three broken copies of the schematic must fail LVS (a DAC leg's m, a switch gate, the decap's S/D on VSS). `XSCH_SET=wfu=0.25,wff=0.25` checks a GDS made at another width.
+- **Results:** DRC 0 in magic and in KLayout (FEOL+BEOL), antenna 0, LVS "match uniquely" with no property errors. Magic's feedback log has 6 entries, which are not violations: they are the decap fingers (S = D = B = VDD, "device missing 1 terminal; connecting remainder to node VDD").
 - **Widths covered:** wfu 0.25, 0.30 and 0.35.
 
 ## For the level shifter
