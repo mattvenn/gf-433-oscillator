@@ -93,9 +93,11 @@ It is to become an **FM radio toolkit**:
      best near 3 pF (2-4 pF within 4 dB; any C left to VSS undoes it: 2 to VDD + 1 to VSS -54.9); supply FM per mV
      8.3 kHz at DC both, at 1 / 10 / 25 / 60 MHz 95 / 687 / 919 / 972 kHz today against 6.7 / 8.5 / 15 / 31 kHz;
      start-up (5 corners x code 0/31, 10 us ramp, + tt 1 us ramp, real vbn filter): all 24 start in the fundamental
-     mode, vg never above VDD, 0.5-1 us later than today, same f (ss code 0 checked to 50 us). **To do:** the layout
-     (ring_core_v3 decap -> PMOS in an n-well), then the extracted spur; ground ripple is not modelled; the TX driver
-     keying shift (110-210 kHz) should also drop. Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
+     mode, vg never above VDD, 0.5-1 us later than today, same f (ss code 0 checked to 50 us). **Extracted vco_top** (decap fingers
+     swapped to PMOS in the netlist): 25 MHz spur -88.4 / -89.6 / -89.7 dBc at tt / ss / ff (today -46.1 / -47.8 /
+     -44.2), f +70 kHz; TX driver behind the power switch: on/off shift unchanged (+0.03…+0.05 %, the DC drop through
+     1.32 ohm), ring jitter with the driver on 0.10-0.13 ps rms (today 0.20-0.29), P unchanged. **To do:** the layout
+     (ring_core_v3 decap -> PMOS in an n-well), then re-extract and re-run `vg_decap.py pex` on the real layout; ground ripple is not modelled. Other options: the floorplan (Matt suspects routing / placement coupling, which the supply-only bench doesn't
      model); the analog on VAPWR (needs the `_pgvaa` template, VAPWR set to 3.3 V, ask tnt whether it is switched);
      an RC filter on the ring supply (~1 kohm + 20-100 pF: -10…-24 dB); trimming the 10 always-clocked flops.
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo

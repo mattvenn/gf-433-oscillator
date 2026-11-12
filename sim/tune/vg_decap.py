@@ -16,6 +16,10 @@ TT GF: docs/platform.md) before it goes into the layout:
   size    tt, ideal C from vg to VDD: 1, 2, 3, 4, 6 pF, and 3 pF split 2 to VDD + 1 to VSS (why 6 pF was worse).
   psr     tt, no macro: VDD = 3.3 V + 5 mV sine at 1, 3, 10, 25 and 60 MHz, and a +10 mV DC step: the ring's FM per mV
           of supply against frequency, today against the PMOS decap.
+  pex     the extracted vco_top with its six decap fingers (NMOS, gate vg, S/D/B VSS) swapped for PMOS (gate vg,
+          S/D/B on the VDD port): (a) the c4 spur bench on vco_top_rcx + the schematic medium DAC (vbnf held), tt / ss /
+          ff, today against PMOS; (b) sim/tx/tb_tx_top.py's 'pg' / 'pgoff' cases (driver on / off behind TT's power
+          switch) on vco_top_c with the PMOS decap (today's are in sim/tx/results/top.json).
   startup power-on from 0 V (VDD ramp 10 us; also 1 us at tt), every node from 0, the real vbn filter (no hold),
           5 corners x coarse code 0 / 31, word 512, 20 us: today against the PMOS decap. Ring start time, mode
           (a0 -> a2 phase), vg - VDD overshoot, f over the last 2 us.
@@ -241,9 +245,72 @@ def startup(a):
     (OUT / "startup" / "startup.json").write_text(json.dumps(res, indent=1))
 
 
+# --------------------------------------------------------------------------------------------------- extracted
+DECAP_RX = r"^(X\S+) (VSS\S*) (vg\S*) (VSS\S*) (VSS\S*) nfet_03v3 .*w=30\.71u l=4u$"
+
+
+def pmos_netlist(kind):
+    """vco_top_<kind>.spice with the vg decap fingers as PMOS to the VDD port."""
+    src = (REPO / f"layout/pex/vco_top_{kind}.spice").read_text()
+    new, n = re.subn(DECAP_RX, r"\1 VDD \3 VDD VDD pfet_03v3 ad=8.5988p pd=31.27u as=8.5988p ps=31.27u w=30.71u l=4u",
+                     src, flags=re.M)
+    assert n == 6, f"{n} decap fingers in vco_top_{kind}"
+    out = OUT / "pex" / f"vco_top_{kind}_pmos.spice"
+    out.parent.mkdir(parents=True, exist_ok=True); out.write_text(new)
+    return out
+
+
+def pex_c4_deck(corner, pmos):
+    code = pc.PEX_CODE[corner] if hasattr(pc, "PEX_CODE") else ms.CODE433[corner]
+    t = pc.pex_deck(corner, code, 512, tstop=4.2e-6)
+    ipk = 2 * pc.QCLK["q_r12"] / 1e-9
+    sup = ("vsup vsup 0 3.3\nRpg vsup vdd 1.32\nCdec vdd 0 9.8p\nImdc vdd 0 0.6m\n"
+           f"Imclk vdd 0 PULSE(0 {ipk:.4g} 0.2u 0.5n 0.5n 0 40n)\nImck vdd 0 PULSE(0 4.6m 0.2u 0.2n 0.2n 0 9.2n)\n"
+           f"vhold vbnf 0 {ms.VBNF[corner]}\n")
+    assert "vdd vdd 0 3.3\n" in t
+    t = t.replace("vdd vdd 0 3.3\n", sup)
+    t = t.replace("save v(a0) v(vg)", "save v(a0) v(vg) v(vdd)").replace("write out.raw v(a0) v(vg)", "write out.raw v(a0) v(vg) v(vdd)")
+    if pmos:
+        t = t.replace(str(REPO / "layout/pex/vco_top_rcx.spice"), str(pmos_netlist("rcx")))
+    return t
+
+
+def pex(a):
+    sys.path += [str(REPO / "sim/tx"), str(REPO / "sim/top"), str(REPO / "sim/lsdiv")]
+    import tb_tx_top as tbt, top_pex as TP
+    TP.PEX["cp"] = pmos_netlist("c")
+    tbt.OUT = OUT / "pex" / "tx"
+    jobs = [(OUT / "pex" / f"c4_{c}_{tag}", pex_c4_deck(c, tag == "pmos")) for c in ("typical", "ss", "ff")
+            for tag in ("today", "pmos")]
+    tx = {f"{c}_{case}": dict(pex="cp", corner=c, case=case) for c in ("typical", "ss", "ff") for case in ("pg", "pgoff")}
+    with ThreadPoolExecutor(max_workers=a.jobs) as ex:
+        fs = [ex.submit(pc.run_one, *j) for j in jobs] + [ex.submit(tbt.run1, k, kw, 1.2e-6) for k, kw in tx.items()]
+        [f.result() for f in fs]
+    res = {}
+    for d, _ in jobs:
+        ok, bad = pc.log_ok(d)
+        if not ok:
+            res[d.name] = dict(error=bad); print(d.name, bad); continue
+        s25, f, _ = line25(d / "out.raw", t0=1.7e-6); s50, _, _ = line25(d / "out.raw", t0=1.7e-6, fm=50e6)
+        res[d.name] = dict(spur25=s25, spur50=s50, f=f)
+        print(f"{d.name:18s} 25 MHz {s25:6.1f} dBc   50 MHz {s50:6.1f} dBc   f {f/1e6:.3f} MHz")
+    old = {r["name"]: r for r in json.loads((REPO / "sim/tx/results/top.json").read_text())}
+    for c in ("typical", "ss", "ff"):
+        r = {case: tbt.analyse(f"{c}_{case}") for case in ("pg", "pgoff")}
+        o = {case: old.get(f"c_{c}_{case}", {}) for case in ("pg", "pgoff")}
+        sh = r["pg"]["f_a0"] / r["pgoff"]["f_a0"] - 1
+        osh = o["pg"]["f_a0"] / o["pgoff"]["f_a0"] - 1 if o["pg"] and o["pgoff"] else float("nan")
+        res[f"tx_{c}"] = dict(new={k: {q: v.get(q) for q in ("f_a0", "jit_rms_ps", "vdd_ripple_mv", "p1_dbm", "flags")}
+                                   for k, v in r.items()}, shift_new=sh, shift_old=osh)
+        print(f"tx {c:8s} driver-on shift {sh*100:+.3f} % (today {osh*100:+.3f} %)  jitter on {r['pg']['jit_rms_ps']:.2f} ps"
+              f" (today {o['pg'].get('jit_rms_ps', float('nan')):.2f})  P1 {r['pg']['p1_dbm']:+.2f} dBm"
+              f" (today {o['pg'].get('p1_dbm', float('nan')):+.2f})")
+    (OUT / "pex" / "pex.json").write_text(json.dumps(res, indent=1, default=str))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["cv", "spur", "size", "psr", "startup", "all"])
+    ap.add_argument("mode", choices=["cv", "spur", "size", "psr", "startup", "pex", "all"])
     ap.add_argument("--jobs", type=int, default=28)
     ap.add_argument("--m", type=int, default=DEV["m"], help="PMOS decap fingers (30.71 / 4 um each)")
     a = ap.parse_args()
