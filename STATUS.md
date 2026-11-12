@@ -11,7 +11,8 @@ A tunable 433.92 MHz oscillator on GF180MCU (Tiny Tapeout, ttgf26c), with no ind
 It is to become an **FM radio toolkit**:
 - **On chip:** the VCO, dividers, the antenna driver, the LNA, the mixer and the IF chain.
 - **On the RP2350:** all the digital: tuning, demodulation and framing.
-- **Receiver:** single LO, low IF (about 200–300 kHz), demodulated by RP2350 PIO. I/Q is deferred to a later tapeout.
+- **Receiver (option B, Matt 2026-11-12):** zero IF, I/Q mixers on two ring taps 72° apart, a limiter per arm, two bits to
+  uo[4]/uo[5], decoded by the RP2350 PIO as a quadrature counter (`sim/rx/rx_model.py`).
 - **Range:** room-temperature operation only.
 
 ## Start here
@@ -127,9 +128,14 @@ It is to become an **FM radio toolkit**:
    - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid); re-floorplan with the receiver.
      The pin plan can't be known before tapeout (it depends on the other projects then), so the TX is checked
      over n_off 0-3 instead.
-6. **Receiver blocks:**
-   - port the OOK LNA (linear, not limiting) to GF180;
-   - new: mixer, IF preamp, filter, limiter and comparator.
+6. **Receiver: option B chosen (Matt, 2026-11-12); schematics and first-pass sims handed to the sim server
+   (`docs/handoff_rx_schematic.md`), review before layout.**
+   - Python model (`sim/rx/rx_model.py`, figures `sim/rx/results/`): at NF 10 dB, BER 1e-3, 10 kbit/s, B −107.9 vs
+     A (low IF 250 kHz, one real mixer) −104.3 dBm; at A's image B takes a CW +16.6 dB above the signal, A −1.1 dB.
+     The ring's LO noise and the 72° taps (vs 90°) cost nothing measurable; the comparators need hysteresis.
+   - The pin costs NF: 26–97 Ω of switch + routing and 7.7 pF per side (a 240 MHz low-pass with the dipole).
+   - Blocks: differential inductorless LNA, passive I/Q mixers, LO taps (I from `ls`, Q from a second `ls_ac` on
+     a2/a3), AC-coupled baseband with a 150 kHz low-pass, limiter + comparator with hysteresis, `rx_en`.
 
    **Pin budget: GF analog pin model done** (`docs/pad_model.md`, `sim/pad/pad_model_gf180.spice`,
    `xschem/pad_model_gf180.sch`, checked by `sim/pad/check_xsch.py`). tnt's `tt_asw_5v0` switch is 11–37 Ω tt
