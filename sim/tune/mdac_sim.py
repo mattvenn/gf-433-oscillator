@@ -391,7 +391,7 @@ def noise_deck(p, m, corner, temp, code, word, out):
     return f"""* mdac noise {corner} {temp} code {code} word {word} {out}
 {HDR.format(corner=corner)}vdd vdd 0 dc {VDD} ac 1
 vctrl vctrl 0 0
-{src}{body.replace('Cvg vg 0', '* Cvg vg 0')}vvg1 vg 0 {VG_OP[corner]}
+{src}{re.sub(r'^Cvg ', '* Cvg ', body, flags=re.M)}vvg1 vg 0 {VG_OP[corner]}
 {mdac_netlist(p, m, g=vb.gnet(p))}vvg2 vgo 0 {VG_OP[corner]}
 {ctl_sources(m, word, 0)}{outs}.option temp={temp}
 .control

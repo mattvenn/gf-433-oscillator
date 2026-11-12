@@ -5,7 +5,7 @@
 
 (a) FSK step (c5), (b) mean f against the SD fraction (c2), both from --dir (default: the extracted-DAC runs);
 (c) the phase spectrum with the macro's measured clock charge on the tile supply (c4q, schematic DAC): r10 (no clock
-gating) against r12 (clock-gated).
+gating) against r12 (clock-gated), with the vg decap to VSS (before 2026-11-12) and to VDD.
 """
 import argparse, json, math, sys
 from pathlib import Path
@@ -55,17 +55,24 @@ def main():
     ax[1].plot(xs, ys, "o-", label="transistor level")
     ax[1].set(xlabel="fraction x", ylabel="f − f(word 512) (kHz)", title=f"ΣΔ cell, 25 MHz clock ({tag})")
     ax[1].legend(fontsize=8); ax[1].grid(alpha=.3)
-    # (c) supply coupling, measured clock charge: r10 against r12
+    # (c) supply coupling, measured clock charge: r10 against r12, vg decap to VSS (c4q_vss, before 2026-11-12) and to
+    # VDD (c4q, the circuit now). The 25 MHz line by a least-squares tone fit (vg_decap.line25).
+    import vg_decap as vd
     q = json.loads((REPO / "build/tx_fine/c4q.json").read_text())
-    for k, lab, col in (("q_r10", "r10, no clock gating", "0.6"), ("q_r12", "r12, clock-gated", "C0")):
-        fr, S = phase_spectrum(REPO / "build/tx_fine/c4" / k / "out.raw")
+    for k, lab, col, ls in (("q_r10_vss", "r10, decap to VSS", "0.7", "-"), ("q_r12_vss", "r12, decap to VSS", "C0", "-"),
+                            ("q_r10", "r10, decap to VDD", "0.4", ":"), ("q_r12", "r12, decap to VDD", "C3", "-")):
+        raw = REPO / "build/tx_fine/c4" / k / "out.raw"
+        if not raw.exists():
+            continue
+        fr, S = phase_spectrum(raw)
         sel = (fr > 0.5e6) & (fr < 60e6)
-        s25 = q[k]["spur_25m"][1]
-        ax[2].plot(fr[sel] / 1e6, 20 * np.log10(S[sel] + 1e-12), lw=.8, color=col,
-                   label=f"{lab}: {q[k]['qclk']*1e12:.1f} pC/cycle, {s25:.1f} dBc")
+        s25 = vd.line25(raw, t0=0.25e-6)[0]
+        qc = q[k.replace("_vss", "")]["qclk"]
+        ax[2].plot(fr[sel] / 1e6, 20 * np.log10(S[sel] + 1e-12), lw=.8, color=col, ls=ls,
+                   label=f"{lab}: {qc*1e12:.1f} pC, 25 MHz {s25:.1f} dBc")
     ax[2].axhline(-40, color="k", ls="--", lw=.8)
     ax[2].set(xlabel="offset (MHz)", ylabel="phase line (dBc, one sideband)",
-              title="Macro clock charge on the tile supply (1.32 Ω)", ylim=(-110, -20))
+              title="Macro clock charge on the tile supply (1.32 Ω)", ylim=(-110, 0))
     ax[2].legend(fontsize=8, loc="upper left"); ax[2].grid(alpha=.3)
     fig.tight_layout()
     out = REPO / "docs/img/tx_fine_phase_c.png"

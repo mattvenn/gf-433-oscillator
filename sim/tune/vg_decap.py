@@ -37,7 +37,8 @@ from rawread import read_raw  # noqa: E402
 OUT = REPO / "build/tx_fine/vg_decap"
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 DEV = dict(w=30.71, l=4.0, m=6)          # today's decap gate: 737 um²
-CVG_OLD = "Cvg vg 0 3e-12"
+CVG_OLD = "Cvg vg 0 3e-12"               # "today" in this study: the decap to VSS (vco_bias cvg_to="vss")
+CVG_MODEL = "Cvg vg vdd 3e-12"           # what vco_bias.netlist() writes since 2026-11-12 (cvg_to="vdd")
 
 
 def mos(name, d, g, s, b, typ, w, l, m):
@@ -112,8 +113,8 @@ def c4_deck(corner, code, cvg_line, qclk=pc.QCLK["q_r12"]):
             f"Imclk vdd 0 PULSE(0 {ipk:.4g} 0.2u 0.5n 0.5n 0 40n)\n"
             "Imck vdd 0 PULSE(0 4.6m 0.2u 0.2n 0.2n 0 9.2n)\n")
     t = pc.ring_tran(corner, code, ctl, 4.2e-6, "v(a0) v(vdd) v(vg)", extra=imac, supply=sup)
-    assert CVG_OLD + "\n" in t
-    return t.replace(CVG_OLD + "\n", cvg_line)
+    assert CVG_MODEL + "\n" in t
+    return t.replace(CVG_MODEL + "\n", cvg_line)
 
 
 def line25(raw, t0=1.25e-6, fm=pc.FCLK):
@@ -169,7 +170,8 @@ PSR_F = (1e6, 3e6, 10e6, 25e6, 60e6)
 def psr_deck(cvg_line, fm=None, dv=0.0):
     sup = f"vdd vdd 0 SIN(3.3 5m {fm:g} 0.3u)\n" if fm else f"vdd vdd 0 {3.3 + dv:.4f}\n"
     t = pc.ring_tran("typical", 9, pc.static_ctl(512), 2.6e-6, "v(a0) v(vdd) v(vg)", supply=sup)
-    return t.replace(CVG_OLD + "\n", cvg_line)
+    assert CVG_MODEL + "\n" in t
+    return t.replace(CVG_MODEL + "\n", cvg_line)
 
 
 def psr(a):
@@ -197,7 +199,8 @@ def startup_deck(corner, code, cvg_line, tramp):
     ms.VBNF.setdefault(corner, ms.VBNF["typical"])                      # placeholder: the hold is removed below
     ramp = f"PWL(0 0 {tramp:g} 3.3)"
     t = pc.ring_tran(corner, code, pc.static_ctl(512), 20e-6, "v(vdd) v(vg) v(vbnf) v(a0) v(a2)")
-    t = t.replace(CVG_OLD + "\n", cvg_line)
+    assert CVG_MODEL + "\n" in t
+    t = t.replace(CVG_MODEL + "\n", cvg_line)
     t = re.sub(r"^vhold .*\n", "", t, flags=re.M)                       # the real vbn filter
     t = re.sub(r"^\.ic .*\n", "", t, flags=re.M)                        # every node from 0
     t = re.sub(r"^vdd vdd 0 3\.3$", f"vdd vdd 0 {ramp}", t, flags=re.M)

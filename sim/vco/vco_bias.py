@@ -38,6 +38,7 @@ P = dict(n=5, L=0.28, wn=2.0, wp=5.0,          # core
          cfn=0.0,                                # extra C (F) on each ring stage's foot node f{i} (layout f wiring); 0 = none
          topo="starved",                         # ring stage: starved | stack | cfed (see netlist())
          kc=2.5, cvg=3e-12,                      # cfed: shared DAC scale (x one stage's foot W/L), vg decap (F)
+         cvg_to="vdd",                          # cfed: vg decap's other plate: vdd (2026-11-12) | vss (before)
          ka=1.0)                                 # cfed: DAC area scale (W and L of every DAC device x sqrt(ka), W/L kept)
 CORNERS = ("typical", "ss", "ff", "sf", "fs")
 
@@ -91,7 +92,7 @@ def netlist(p):
       stack:   VDD -> P switch (a) -> h -> head (vbp) -> out -> foot -> f -> N switch (a) -> GND
                (current sources next to the output, switches at the rails; master leg unchanged)
       cfed:    current-fed ring: plain inverters (P source at VDD), every N source on one shared node vg with a decap
-               cvg to GND, and one shared foot DAC (W x kc) from vg to GND; no heads, no master leg.
+               cvg to VDD (cvg_to), and one shared foot DAC (W x kc) from vg to GND; no heads, no master leg.
                The ring swings about vg..VDD."""
     topo = p.get("topo", "starved")
     s = ""
@@ -137,7 +138,9 @@ def netlist(p):
         kw, kl = max(p["kc"], 1.0), 1.0 / min(p["kc"], 1.0)   # kc > 1: wider; kc < 1: longer (keeps W >= min)
         kw, kl = kw * p.get("ka", 1.0) ** 0.5, kl * p.get("ka", 1.0) ** 0.5   # ka: area x ka at the same W/L
         s += foot("C", dict(p, wfu=p["wfu"] * kw, wff=p["wff"] * kw, ls=p["ls"] * kl, lff=p["lff"] * kl), "vg", g)
-        s += f"Cvg vg 0 {p['cvg']}\n"
+        # vg decap to VDD (2026-11-12, docs/tx_fine_tune.md): vg rides with VDD, so the ring's own supply VDD - vg
+        # stays quiet at the macro's 25 MHz; cvg_to="vss" reproduces the circuit before.
+        s += f"Cvg vg {'0' if p.get('cvg_to', 'vdd') == 'vss' else 'vdd'} {p['cvg']}\n"
         for i in range(n):
             a, y = f"a{i}", f"a{(i + 1) % n}"
             s += fet(f"P{i}", y, a, "vdd", "vdd", "pfet_03v3", p["wp"], p["L"])

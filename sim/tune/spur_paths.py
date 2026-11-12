@@ -30,8 +30,12 @@ CASES = {"all": set(GROUPS), "none": set(), "ring": {"ring"}, "mdac": {"mdac"}, 
 FIX = {"cvg_vdd": "Cvg vg vdd 3e-12", "cvg6_vdd": "Cvg vg vdd 6e-12"}
 
 
-def deck(rippled):
+def deck(rippled, cvg="Cvg vg 0 3e-12"):
+    """The path-isolation cases are the circuit they were run on (2026-11-12): the decap to VSS. vco_bias writes
+    it to VDD since (cvg_to="vdd"), so put the old one back unless cvg says otherwise."""
     (_, text), = pc.jobs_c4(pc.QCLK["q_r12"], "x")
+    assert "Cvg vg vdd 3e-12\n" in text
+    text = text.replace("Cvg vg vdd 3e-12\n", cvg + "\n")
     text = text.replace("v(a0) v(vdd) v(vg)", "v(a0) v(vdd) v(vg) v(mo) v(pb)")
     text = text.replace("Rpg vsup vdd 1.32\n", "Rpg vsup vdd 1.32\nvclean vddc 0 3.3\n")
     out = []
@@ -45,7 +49,7 @@ def deck(rippled):
 
 def run(which=None):
     jobs = [(OUT / c, deck(r)) for c, r in CASES.items()] + \
-           [(OUT / c, deck(set(GROUPS)).replace("Cvg vg 0 3e-12", ln)) for c, ln in FIX.items()]
+           [(OUT / c, deck(set(GROUPS), ln)) for c, ln in FIX.items()]
     jobs = [j for j in jobs if which is None or j[0].name in which]
     with ThreadPoolExecutor(max_workers=len(jobs)) as ex:
         list(ex.map(lambda dt: pc.run_one(*dt), jobs))
