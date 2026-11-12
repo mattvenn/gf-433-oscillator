@@ -352,7 +352,8 @@ up to 0.4 LSB off.
   does not change the mismatch.
 - **Corners:** 27 °C, VDD 3.3 V, except the supply-headroom check (Table V).
 - **The ΣΔ cell's charge injection** (1.1 Hz·ms per edge) and the FSK major-carry spike are measured and explained,
-  but not designed out.
+  but not designed out, by choice (2026-11-12): the first bends f against the fraction without reversing it, and
+  the servo measures the result; the second is avoided in firmware by keeping both FSK words inside one block of 32.
 - **Crystal error:** tuning is relative to each RP2350's crystal (±30 ppm, ±13 kHz), so two boards agree to the sum
   of their crystal errors unless the receiver corrects it.
 

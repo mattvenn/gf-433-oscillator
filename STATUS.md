@@ -83,8 +83,8 @@ It is to become an **FM radio toolkit**:
      range unchanged (no headroom issue).
    - **Clock gating (2026-11-11, macro r12):** 4 icgtp gates, small CTS buffers; clock charge 21.1 -> 4.48 pC per
      25 MHz cycle (OpenSTA, `macro/tx_fine/power/clk_charge.py`); supply spur −32.1 -> **−45.5 dBc** (target −40).
-   - **Open (to discuss):** ΣΔ-cell charge injection (+0.4 LSB at fraction ½) and an FSK overshoot at a major carry
-     are measured, not designed out.
+   - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
+     corrects it) and the FSK overshoot at a major carry (firmware keeps the FSK pair inside one block of 32).
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
    Extracted core + extracted reference: f within −0.03 % of the schematic reference at tt/ss/ff, vbnf start-up
    88–94 µs. **Top level `vco_top` done** (`docs/top_layout.md`, 406.7 × 70.8 µm, DRC/LVS/antenna clean, no Metal4/5): the extracted
