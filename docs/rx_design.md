@@ -12,7 +12,7 @@ layout.
 
 **Summary (2026-11-13).** NF from the antenna to the comparator 7.27 dB at tt (5.7–8.4 dB over corners, pin
 routing and other projects on the pin), about 7 mA, I/Q phase 71–74°, the 6-bit FSK test decoded with no errors at
-−95 and −70 dBm, 1 dB compression at −23.5 dBm. With these numbers the model gives −110.4 dBm sensitivity at BER 1e-3
+−95 and −70 dBm with an ideal LO and with no errors at −70 dBm through the real ring LO, 1 dB compression at −23.5 dBm. With these numbers the model gives −110.4 dBm sensitivity at BER 1e-3
 and 10 kbit/s (target −105). Open questions for the review are listed at the end.
 
 Brief: `docs/handoff_rx_schematic.md`. Netlisters and benches: `sim/rx/` (one per block). Results: `sim/rx/results/`.
@@ -391,11 +391,25 @@ the same delay mismatch as in A1, so the two copies must match in layout.
 | Baseband I/Q phase (tone 1.34 MHz from the LO) | 64° |
 | LO leakage to the antenna (the 73 Ω dipole) | −108.7 dBm |
 
-**Limit.** The decode test through the real LO did not happen. The tone was placed 100 kHz above the ring frequency
-measured in a 2 µs run, but the ring was still settling there (its reference filter has a 138 µs start-up), so over
-the 5–25 µs window the tone sat 1.34 MHz from the LO. That is outside the baseband passband, so the comparators did not toggle. A
-run with the reference pre-settled (vbnf in the initial conditions) and the tone placed from it is the next step. The LO
-leakage here comes from the receiver's own asymmetry in this bench; mismatch will add to it.
+**First attempt.** In this run the tone was placed 100 kHz above the ring frequency measured in a 2 µs run. The ring was
+still settling, so over the 5–25 µs window the tone sat 1.34 MHz from the LO, outside the baseband passband, and
+the comparators did not toggle. The cause: the operating point starts vg near 0 V (the ring is held static), vg then
+steps to about 1.89 V once the ring runs, and the step couples through the large DAC's gate capacitance onto vbnf,
+which relaxes through the 1 MΩ / 20 pF reference filter.
+
+**Decode through the real LO (2026-11-13).** The same deck with vg held at its running value (1.891 V) in the
+operating point, 10 ps maximum step, and 2-FSK (±100 kHz, 50 kbit/s, 1 settling bit and 4 data bits) centred on the
+ring's own frequency at −70 dBm (`sim/rx/rx_chain.py realfsk`, 4.9 h). A 10 µs pre-run first checked that the ring
+is settled: 411.8395 and 411.8392 MHz over the two halves.
+
+| | Steps per bit | Bit errors | Glitches (< 1 µs) |
+|---|---|---|---|
+| circuit, real ring LO | −8, +7, −7, +7 | 0 of 4 | 0 |
+| model, same bits | +8, −7, +7, −7 | – | – |
+
+The ring stayed within 1.4 kHz over the 105 µs (411.8387 to 411.8373 MHz), and the supply current of the ring,
+lsdiv and the receiver together was 6.7 mA. The receiver therefore decodes FSK with the LO from the ring's own taps.
+At −70 dBm this tests function, not sensitivity.
 
 ### rx_en
 
