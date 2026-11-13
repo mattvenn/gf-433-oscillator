@@ -52,7 +52,7 @@ def dbm_emf(p_dbm, r=73.0):
 def lo_src(name, node, vdd, delay_deg, tr=50e-12, duty=0.5):
     T = 1 / FLO
     td = (delay_deg % 360) / 360 * T
-    return f'V{name} {node} 0 pulse(0 {vdd} {td:.5e} {tr} {tr} {duty * T - tr:.5e} {T:.5e})\n'
+    return f'V{name} {node} 0 pulse(0 {vdd} {td:.15e} {tr} {tr} {duty * T - tr:.15e} {T:.15e})\n'
 
 
 def bench_deck(corner, case, s=None, fif=2e6, pin_dbm=-50, tstop=3e-6, dphi=72.0, noff=3, lo='ideal', extra='', lna=None):

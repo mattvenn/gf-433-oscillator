@@ -250,6 +250,7 @@ def main():
     ap.add_argument('--nf', type=float, default=None)
     ap.add_argument('--tag', default='chain')
     ap.add_argument('--nbits', type=int, default=len(BITS))
+    ap.add_argument('--flo', type=float, default=411.05e6, help='reallo: the ring f with the receiver on it')
     a = ap.parse_args()
     t0 = time.time()
     if a.mode in ('fsk', 'noise'):
@@ -285,7 +286,7 @@ def main():
         (rxc.BUILD / a.tag / f'{a.mode}.json').write_text(json.dumps(rows, indent=1))
     elif a.mode == 'reallo':
         d, log, bad = rxc.run(f'reallo_{rxc.CN[a.corner]}', real_lo_deck(a.tstop, level=a.level, corner=a.corner,
-                                                                          f_lo=409.60e6), sub=a.tag, timeout=8 * 3600)
+                                                                          f_lo=a.flo), sub=a.tag, timeout=8 * 3600)
         try:
             r = real_lo_analyse(d, 100e3)
         except Exception as e:  # noqa: BLE001
