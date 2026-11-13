@@ -173,7 +173,7 @@ def cw_analyse(d, tone, blocker, tskip):
     return r
 
 
-def real_lo_deck(tstop, df=100e3, level=-70, corner='typical', code=9, f_lo=None):
+def real_lo_deck(tstop, df=100e3, level=-70, corner='typical', code=9, f_lo=None, fbits=None, maxstep=5e-12, vg0=None):
     """The ring (extracted core) + extracted lsdiv + the TX splitter as in rx_lo.py's A1 bench, driving the whole
     rx_top (its own rx_lo: I from lsdiv's ls, Q tap copy on a2) behind the pads; a CW tone at the ring's own f
     (f_lo, from A1) + df."""
@@ -192,6 +192,12 @@ def real_lo_deck(tstop, df=100e3, level=-70, corner='typical', code=9, f_lo=None
              + 'XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1\n'
              + f'Cpa a0 0 {LD.S["cpa"]}\nCpg xlsdiv.lg 0 {LD.S["cpg"]}\n')
     cpgq = f'Cpgq xrx.xlo.xlq.lg 0 {LD.S["cpg"]}\n'
+    if fbits is None:
+        src = f'Bsig dp dn V={a}*sin(2*pi*{f_lo + df}*time)\n'
+    else:       # CPFSK around the ring's own (settled) frequency
+        src = f'vph ph 0 pwl({phase_pwl(fbits)})\nBsig dp dn V={a}*sin(2*pi*{f_lo}*time+v(ph))\n'
+    if vg0 is not None:   # vg held at its running value in the operating point: no step on vg at the start,
+        ics = ics + f' v(vg)={vg0}'   # so the DAC's gate capacitance doesn't kick vbnf (the 1 MOhm / 20 pF filter)
     return f"""* rx chain, real LO (ring + taps, schematic level shifters) {corner} code {code}
 {LD.hdr(corner)}.lib {rxc.PDK}/sm141064.ngspice diode_typical
 .include {rxc.PAD}/tt_asw_5v0.spice
@@ -205,7 +211,7 @@ VSS VSS 0 0
 Ven en 0 {vdd}
 {bits}{body}{ipath}{tx_drv.split(tx_drv.S)}Xtxs vls 0 lsout txa txb tx_split
 Cpaq a2 0 {LD.S['cpa']}
-{cpgq}{rx_top.block()}Bsig dp dn V={a}*sin(2*pi*{f_lo + df}*time)
+{cpgq}{rx_top.block()}{src}
 Rsp dp pinp 36.5
 Rsn dn pinn 36.5
 Rdc dn 0 1e9
@@ -215,8 +221,8 @@ Xrx VDD VSS inp inn lsout a2 en q_i q_q rx_top
 .ic {ics}
 .control
 option temp=27
-save v(q_i) v(q_q) v(a0) v(xrx.lo_i) v(xrx.lo_q) v(xrx.oi_p) v(xrx.oi_n) v(xrx.oq_p) v(xrx.oq_n) v(dp) v(pinp)
-tran 5p {tstop} 0 5p
+save v(q_i) v(q_q) v(a0) v(vg) v(xrx.lo_i) v(xrx.lo_q) v(xrx.oi_p) v(xrx.oi_n) v(xrx.oq_p) v(xrx.oq_n) v(dp) v(pinp) i(vdd)
+tran {maxstep} {tstop} 0 {maxstep}
 set filetype=binary
 write out.raw
 quit
@@ -300,6 +306,39 @@ def main():
             return r
         rows = rxc.pmap(one, jobs, len(jobs))
         (rxc.BUILD / a.tag / f'{a.mode}.json').write_text(json.dumps(rows, indent=1))
+    elif a.mode == 'realfsk':
+        # 1) pre-run: settled? and the ring's frequency with the receiver on it
+        bits = np.array([1, 1, 0, 1, 0])          # 1 settling bit + 4 data bits
+        d, log, bad = rxc.run('realfsk_pre', real_lo_deck(10e-6, level=a.level, f_lo=a.flo, fbits=bits, maxstep=10e-12,
+                                                          vg0=1.891), sub=a.tag, timeout=4 * 3600)
+        pl = rxc.read_raw(d / 'out.raw')[0]['vars']
+        t, a0 = pl['time'], pl['v(a0)']
+        f = {}
+        for k, (t1, t2) in enumerate(((3e-6, 6.5e-6), (6.5e-6, 10e-6))):
+            m = (t > t1) & (t < t2)
+            r = rxc.xings(t[m], a0[m], (a0[m].min() + a0[m].max()) / 2)
+            f[k] = (len(r) - 1) / (r[-1] - r[0])
+        pre = dict(f1=f[0], f2=f[1], drift_hz=f[1] - f[0], vg_end=float(pl['v(vg)'][-1]), bad=bad)
+        print(json.dumps(pre), flush=True)
+        (rxc.BUILD / a.tag / 'realfsk_pre.json').write_text(json.dumps(pre))
+        # 2) FSK centred on the settled frequency
+        d, log, bad = rxc.run('realfsk', real_lo_deck(len(bits) / RATE + 5e-6, level=a.level, f_lo=f[1], fbits=bits,
+                                                      maxstep=10e-12, vg0=1.891), sub=a.tag, timeout=10 * 3600)
+        try:
+            r = fsk_analyse(d, bits)
+            pl = rxc.read_raw(d / 'out.raw')[0]['vars']
+            t, a0 = pl['time'], pl['v(a0)']
+            ff = []
+            for t1 in np.arange(10e-6, t[-1] - 10e-6, 20e-6):
+                m = (t > t1) & (t < t1 + 10e-6)
+                rr = rxc.xings(t[m], a0[m], (a0[m].min() + a0[m].max()) / 2)
+                ff.append((len(rr) - 1) / (rr[-1] - rr[0]))
+            r['f_ring_track'] = ff
+        except Exception as e:  # noqa: BLE001
+            r = dict(error=str(e), log=log.splitlines()[-5:])
+        r.update(mode='realfsk', pre=pre, level=a.level, bad=bad, wall_s=time.time() - t0)
+        (d / 'result.json').write_text(json.dumps(r, indent=1))
+        print(json.dumps(r))
     elif a.mode == 'reallo':
         d, log, bad = rxc.run(f'reallo_{rxc.CN[a.corner]}', real_lo_deck(a.tstop, level=a.level, corner=a.corner,
                                                                           f_lo=a.flo), sub=a.tag, timeout=8 * 3600)
