@@ -52,17 +52,20 @@ L 7 110 -220 130 -220 {}
 B 5 127.5 -222.5 132.5 -217.5 {name=a0 dir=out sim_pinnumber=16}
 T {a0} 105 -226 0 1 0.25 0.25 {}
 L 7 110 -180 130 -180 {}
-B 5 127.5 -182.5 132.5 -177.5 {name=ck dir=out sim_pinnumber=15}
-T {ck} 105 -186 0 1 0.25 0.25 {}
+B 5 127.5 -182.5 132.5 -177.5 {name=a2 dir=out sim_pinnumber=21}
+T {a2} 105 -186 0 1 0.25 0.25 {}
 L 7 110 -140 130 -140 {}
-B 5 127.5 -142.5 132.5 -137.5 {name=ls dir=out sim_pinnumber=19}
-T {ls} 105 -146 0 1 0.25 0.25 {}
+B 5 127.5 -142.5 132.5 -137.5 {name=ck dir=out sim_pinnumber=15}
+T {ck} 105 -146 0 1 0.25 0.25 {}
 L 7 110 -100 130 -100 {}
-B 5 127.5 -102.5 132.5 -97.5 {name=vbn dir=out sim_pinnumber=17}
-T {vbn} 105 -106 0 1 0.25 0.25 {}
+B 5 127.5 -102.5 132.5 -97.5 {name=ls dir=out sim_pinnumber=19}
+T {ls} 105 -106 0 1 0.25 0.25 {}
 L 7 110 -60 130 -60 {}
-B 5 127.5 -62.5 132.5 -57.5 {name=vg dir=inout sim_pinnumber=18}
-T {vg} 105 -66 0 1 0.25 0.25 {}
+B 5 127.5 -62.5 132.5 -57.5 {name=vbn dir=out sim_pinnumber=17}
+T {vbn} 105 -66 0 1 0.25 0.25 {}
+L 7 110 -20 130 -20 {}
+B 5 127.5 -22.5 132.5 -17.5 {name=vg dir=inout sim_pinnumber=18}
+T {vg} 105 -26 0 1 0.25 0.25 {}
 L 7 -80 -270 -80 -250 {}
 B 5 -82.5 -272.5 -77.5 -267.5 {name=VDD dir=inout sim_pinnumber=1}
 T {VDD} -86 -245 0 0 0.25 0.25 {}

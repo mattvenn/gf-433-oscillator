@@ -33,6 +33,9 @@ N 720 -220 800 -220 {}
 N 800 -220 860 -220 {}
 N 800 -220 800 -520 {}
 N 800 -520 1400 -520 {}
+N 720 -140 780 -140 {}
+N 780 -140 780 620 {}
+N 780 620 1400 620 {}
 N 1060 -220 1400 -220 {}
 N 1060 -180 1400 -180 {}
 N 720 -20 1400 -20 {}
@@ -48,11 +51,11 @@ N 1280 -270 1300 -270 {}
 N -100 660 -40 660 {}
 N -100 720 -40 720 {}
 N -100 780 -40 780 {}
-C {devices/iopin.sym} -100 660 0 1 {name=p18
+C {devices/iopin.sym} -100 660 0 1 {name=p19
 lab=VDD}
-C {devices/iopin.sym} -100 720 0 1 {name=p19
+C {devices/iopin.sym} -100 720 0 1 {name=p20
 lab=VDD_LS}
-C {devices/iopin.sym} -100 780 0 1 {name=p20
+C {devices/iopin.sym} -100 780 0 1 {name=p21
 lab=VSS}
 C {devices/ipin.sym} -100 180 0 0 {name=p11
 lab=vctrl}
@@ -76,18 +79,20 @@ C {devices/ipin.sym} -100 -100 0 0 {name=p4
 lab=bitb3}
 C {devices/ipin.sym} -100 -180 0 0 {name=p2
 lab=bitb4}
-C {devices/opin.sym} 1400 -220 0 0 {name=p15
+C {devices/opin.sym} 1400 -220 0 0 {name=p16
 lab=ck}
 C {devices/opin.sym} 1400 -520 0 0 {name=p14
 lab=a0}
 C {devices/opin.sym} 1400 560 0 0 {name=p13
 lab=vbn}
-C {devices/iopin.sym} 1400 -20 0 0 {name=p17
+C {devices/iopin.sym} 1400 -20 0 0 {name=p18
 lab=vg}
-C {devices/opin.sym} 1400 -180 0 0 {name=p16
+C {devices/opin.sym} 1400 -180 0 0 {name=p17
 lab=ls}
 C {devices/opin.sym} -100 300 0 0 {name=p12
 lab=vbnf}
+C {devices/opin.sym} 1400 620 0 0 {name=p15
+lab=a2}
 C {ring_core_v3.sym} 600 0 0 0 {name=xcore}
 C {cgm_ref.sym} 200 420 0 0 {name=xref}
 C {lsdiv.sym} 960 -200 0 0 {name=xls}

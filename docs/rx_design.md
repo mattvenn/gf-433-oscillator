@@ -286,7 +286,35 @@ the noise rms at the comparator.
 | rx_bias | about 0.06 |
 | **Total** | **about 7.0** (target ≤ 10) |
 
-PHASE_B
+## Phase B: schematics
+
+Each block is an xschem sheet generated from Python (`xschem/gen/rx_*.py`). Every device is looked up in the sim
+netlist (`sim/rx/rx_top.py`), so the drawn sizes can't drift from the simulated ones. The sheets are drawn with wires;
+only ports and supplies are labelled. Links are in `docs/schematics.md`, previews in `docs/img/xschem/rx_*.png`.
+
+| Sheet | Devices | Contents |
+|---|---|---|
+| rx_top | 323 (flat) | the blocks below and the 4.9 pF supply decap; rx_lo's `qenb` tied to VSS |
+| rx_bias | 14 | beta-multiplier reference, start-up, enable |
+| rx_lna, rx_lna2 | 21 (with 2 × 5) | stage 1 (amp_dp port), vcm divider, the two second stages |
+| rx_lo, rx_lsq, rx_lobuf | 101 | Q tap copy (`ls_ac` + `tspc_t1` reused from lsdiv), two LO buffers |
+| rx_mix | 10 | four transmission gates and the hold caps |
+| rx_bb | 41 | three stages, two AC couplings, vb / vgr bias |
+| rx_lim | 42 | two AC couplings, the limiter stage, the comparator and output inverters |
+
+**Check** (`xschem/gen/check_rx.py`, step 3e of `xschem/gen/check.py`). For every sheet, netgen compares the xschem
+netlist with the sim subckt, and a device-by-device size diff catches what netgen can't see in the PDK resistors.
+All 10 cells pass. Four deliberate mutations each fail as they must:
+1) rx_lna M1 width −10 % (netgen and sizes);
+2) rx_mix S1n gate lo → lob (netgen);
+3) rx_bb coupling resistor length +20 % (sizes);
+4) rx_top `qenb` VSS → enb (netgen).
+The full `check.py`, including the existing VCO checks, passes.
+
+**vco_top** now has the port `a2`, the ring node for the Q tap, as the brief asks. The ring, DAC, reference and
+lsdiv circuits are unchanged. The vco_top layout doesn't have the pin yet, so `layout/gen/check_top.sh` will report
+the extra port until the layout catches up after the review.
+
 
 PHASE_C
 

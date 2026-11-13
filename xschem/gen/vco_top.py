@@ -4,7 +4,8 @@ ring_core_v3 (ring + DAC + vg decap) driven by cgm_ref (reference + 1 MOhm / 20 
 lsdiv (level shifter + TSPC /4 + clock buffer) on a0, on its own supply VDD_LS, and the VDD_LS decap DCLS
 (nfet_03v3 gate cap, gate VDD_LS, S/D/B VSS, sized as drawn by layout/gen/vco_top.py).
 
-Ports: VDD (ring + reference), VDD_LS (level shifter / divider), VSS, vctrl, bit0-4, bitb0-4, ck (a0 / 4),
+Ports: VDD (ring + reference), VDD_LS (level shifter / divider), VSS, vctrl, bit0-4, bitb0-4, ck (a0 / 4), a2 (the
+receiver's Q LO tap, 2026-11-13; the layout doesn't have this pin yet),
 a0 (the ring tap), vbn (unfiltered reference bias, monitor), vg (DAC node, monitor), ls (lsdiv's level-shifter
 output: the TX driver's tap).
 
@@ -25,7 +26,7 @@ DCLS = _lay.DCLS
 
 BITS = P['bits']
 PINS = (['VDD', 'VDD_LS', 'VSS', 'vctrl'] + [f'bit{b}' for b in range(BITS)] + [f'bitb{b}' for b in range(BITS)]
-        + ['ck', 'a0', 'vbn', 'vg', 'ls', 'vbnf'])
+        + ['ck', 'a0', 'vbn', 'vg', 'ls', 'vbnf', 'a2'])      # a2: the receiver's Q LO tap (docs/rx_design.md)
 STAIR = [x for b in reversed(range(BITS)) for x in (f'bit{b}', f'bitb{b}')]
 
 
@@ -64,6 +65,10 @@ def build():
     s.bus(a0, la0, [ta])
     s.route(ta, (800, -520), (xr, -520), vfirst=True)
     port(s, (xr, -520), 'a0', 'out')
+    # a2: the ring node 72 deg after a0, out to the receiver's Q tap level shifter (rx_lsq)
+    a2 = core.pin('a2')
+    s.route(a2, (780, a2[1]), (780, 620), (xr, 620))
+    port(s, (xr, 620), 'a2', 'out')
     # ck out
     ck = ls.pin('ck')
     s.wire(ck, (xr, ck[1]))
@@ -104,7 +109,7 @@ def build():
     title(s, xl, -800, ['vco_top: 433.92 MHz current-fed ring VCO, GF180MCU (top level)',
                         'cgm_ref -> vbnf -> ring_core_v3 -> a0 -> lsdiv -> ck = f / 4; lsdiv on its own supply VDD_LS',
                         'the LVS source of layout/vco_top.gds (layout/gen/check_top.sh)'])
-    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl', 'vbnf'], right=['a0', 'ck', 'ls', 'vbn', 'vg'],
+    finish(s, 'vco_top', PINS, left=STAIR + ['vctrl', 'vbnf'], right=['a0', 'a2', 'ck', 'ls', 'vbn', 'vg'],
            top=['VDD', 'VDD_LS'], bottom=['VSS'], width=220, label='vco_top')
 
 

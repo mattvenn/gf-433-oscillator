@@ -232,3 +232,92 @@ def resdev(s, cell, name, x, y, top):
     supply(s, (b[0] + (20 if r.rot == 2 else -20), b[1]), 'VSS')
     pt, pb = (r.pin('P'), r.pin('M')) if r.rot == 0 else (r.pin('M'), r.pin('P'))
     return pt, pb, r
+
+
+def couple_side(s, cell, tag, side, X, prev, gnet, prevnet, ytop=-200, yr=150, yvb=330, yvgr=410, yout=0):
+    """One side of an AC coupling (sim/rx/rx_bb.py couple()): Cc<tag><side> (pfet gate cap: gate on the next stage's
+    gate node gnet, S/D/n-well on the previous output) and the bias element Rp<tag><side>: Mr (subthreshold pfet,
+    gate vgr) in parallel with the two-pfet pseudo-resistor, from gnet down to the vb line.
+    prev: the end of the previous output's track, above the cap column at x = X - 40. Returns the point on gnet at
+    y = yout (to the next stage), and the vb / vgr tap points."""
+    cc = place(s, cell, f'Cc{tag}{side}', X, ytop, flip=1)
+    check(cc, D=prevnet, G=gnet, S=prevnet, B=prevnet)
+    xt = X - 40
+    if prev[0] != xt:
+        s.wire(prev, (xt, prev[1]))
+        prev = (xt, prev[1])
+    for pin in ('S', 'B', 'D'):
+        s.wire(cc.pin(pin), (xt, cc.pin(pin)[1]))
+    s.bus(prev, (xt, cc.pin('D')[1]), [(xt, cc.pin('S')[1]), (xt, cc.pin('B')[1])])
+    mr = vmirror_place(s, cell, f'Rp{tag}{side}r', X + 80, yr)
+    check(mr, D=gnet, G='vgr', S='vb', B='vb')
+    from common import bulk as _bulk
+    _bulk(s, mr, to='S')
+    xg = X + 100
+    s.route(cc.pin('G'), (xg, ytop))
+    s.bus((xg, ytop), mr.pin('D'), [(xg, yout), (xg, yr - 120)])
+    xh = X + 260
+    aa = place(s, cell, f'Rp{tag}{side}a', xh, yr - 60)
+    ab = vmirror_place(s, cell, f'Rp{tag}{side}b', xh, yr + 60)
+    m = f'mRp{tag}{side}'
+    check(aa, D=m, G=m, S=gnet, B=gnet); check(ab, D=m, G=m, S='vb', B='vb')
+    _bulk(s, aa, to='S'); _bulk(s, ab, to='S')
+    s.route((xg, yr - 120), (xh + 20, yr - 120), aa.pin('S'))
+    s.bus(aa.pin('D'), ab.pin('D'), [(xh + 20, yr)])
+    s.wire(aa.pin('G'), (xh - 40, aa.pin('G')[1])); s.wire(ab.pin('G'), (xh - 40, ab.pin('G')[1]))
+    s.bus((xh - 40, aa.pin('G')[1]), (xh - 40, ab.pin('G')[1]), [(xh - 40, yr)])
+    s.wire((xh - 40, yr), (xh + 20, yr))
+    s.wire(mr.pin('S'), (mr.pin('S')[0], yvb)); s.wire(ab.pin('S'), (ab.pin('S')[0], yvb))
+    s.route(mr.pin('G'), (X + 20, yr), (X + 20, yvgr))
+    return (xg, yout), [(mr.pin('S')[0], yvb), (ab.pin('S')[0], yvb)], [(X + 20, yvgr)]
+
+
+def stage(s, cell, x, tag, ip, im, op, om, tail, caps=False, y=0, yop=-300, yom=-360, ynb=520):
+    """A gain stage (dpair) at x with its outputs led up to two tracks (op at yop, om at yom) heading right; with
+    caps, the load caps C<tag>a (om) / C<tag>b (op) hang off the output verticals. Returns (op track start,
+    om track start, nb tap point on the ynb line, (ip, im) gate pins)."""
+    p = dpair(s, cell, x, y, f'M{tag}a', f'M{tag}b', f'Mt{tag}' if f'Mt{tag}' in DEV[cell] else f'Mt{tag}f',
+              f'R{tag}a', f'R{tag}b', ip, im, op, om, tail)
+    xa, xb = x - 300, x + 300
+    s.wire(p['om'], (xa, p['om'][1])); s.wire(p['op'], (xb, p['op'][1]))
+    bot = y + 120 if caps else p['om'][1]
+    s.bus((xa, yom), (xa, bot), [(xa, p['om'][1])] if caps else [])
+    s.bus((xb, yop), (xb, bot), [(xb, p['op'][1])] if caps else [])
+    if caps:
+        for nm, xx, nt in ((f'C{tag}a', x - 200, om), (f'C{tag}b', x + 400, op)):
+            g, c = capdev(s, cell, nm, xx, y + 120)
+            check(c, D='VSS', G=nt, S='VSS', B='VSS')
+            s.wire((xa if nm.endswith('a') else xb, y + 120), g)
+    s.route(p['nb'], (x - 60, p['nb'][1]), (x - 60, ynb))
+    return (xb, yop), (xa, yom), (x - 60, ynb), (p['ip'], p['im'])
+
+
+def vbias_draw(s, cell, x, yvb=330, yvgr=410, ynb=520):
+    """rx_bb.vbias(): Mvbs (gate enb) -> Rvb1 -> vb -> Rvb2 -> VSS, Cvb on vb; the replica pfet diode Mvbrep (vgr)
+    on vb and its sink Mvbsnk (gate nb). Returns (enb gate end, vb tap, vgr tap, nb tap)."""
+    ms = place(s, cell, 'Mvbs', x - 20, -300)
+    check(ms, D='vbt', G='enb', S='VDD', B='VDD')
+    from common import bulk as _bulk
+    _bulk(s, ms, to='VDD'); supply(s, ms.pin('S'), 'VDD')
+    t1, b1, _ = resdev(s, cell, 'Rvb1', x, -100, 'vbt')
+    s.wire(ms.pin('D'), t1)
+    t2, b2, _ = resdev(s, cell, 'Rvb2', x, 700, 'vb')
+    supply(s, b2, 'VSS')
+    s.wire(b1, (x, yvb)); s.wire(t2, (x, yvb))
+    g, _ = capdev(s, cell, 'Cvb', x - 220, 200)
+    s.route(g, (g[0] - 40, g[1]), (g[0] - 40, yvb))
+    rep = vmirror_place(s, cell, 'Mvbrep', x + 180, 230)        # D (vgr) on top, S (vb) below
+    check(rep, D='vgr', G='vgr', S='vb', B='vb')
+    _bulk(s, rep, to='S')
+    s.wire(rep.pin('S'), (rep.pin('S')[0], yvb))
+    snk = place(s, cell, 'Mvbsnk', x + 180, 600)
+    check(snk, D='vgr', G='nb', S='VSS', B='VSS')
+    _bulk(s, snk, to='VSS'); supply(s, snk.pin('S'), 'VSS')
+    xv = x + 120
+    s.route(rep.pin('D'), (rep.pin('D')[0], 140), (xv, 140))
+    s.bus((xv, 140), (xv, yvgr), [(xv, rep.pin('G')[1])])
+    s.wire((xv, rep.pin('G')[1]), rep.pin('G'))
+    s.wire(snk.pin('D'), (snk.pin('D')[0], yvgr))
+    s.route(snk.pin('G'), (snk.pin('G')[0] - 20, snk.pin('G')[1]), (snk.pin('G')[0] - 20, ynb))
+    vbt = sorted({(g[0] - 40, yvb), (x, yvb), (rep.pin('S')[0], yvb)})
+    return ms.pin('G'), vbt, [(snk.pin('D')[0], yvgr), (xv, yvgr)], (snk.pin('G')[0] - 20, ynb), rep

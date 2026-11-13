@@ -15,6 +15,8 @@ Check the generated schematics are the simulated circuit (run from the repo root
       instead of VDD (a wiring error: netgen must fail)
   3d. netgen: mdac vs layout/gen/mdac.py lvs_source() and (dummies removed) vs sim/tune/mdac_sim.py mdac_netlist();
       mutation: the SD cell's m 1 -> 2 must fail both
+  3e. the receiver sheets rx_* vs sim/rx/rx_top.py block() (xschem/gen/check_rx.py: netgen + device sizes per cell;
+      mutations: rx_lna M1 W -10 %, rx_mix S1n gate lo -> lob, rx_bb Rp2ar L +20 %, rx_top qenb VSS -> enb)
   4. mutation: one DAC leg's m changed in a copy of cfed_dac.sch -> both comparisons must fail
   5. simulate vco_cfed from the xschem netlist at tt 27 C, code 9, vctrl 1.65 V, against vco_bias's own
      deck at the same point (same deck, only the circuit swapped); |df| < 0.5 %
@@ -245,6 +247,10 @@ def main():
     log(f'mutation MUsd m 1 -> 2: vs layout {"FAIL (expected)" if not ok16 else "PASS (BAD: not caught)"}  [{r16}]; '
         f'vs sim {"FAIL (expected)" if not ok17 else "PASS (BAD: not caught)"}  [{r17}]')
     ok3 &= ok14 and ok15 and nmm == 1 and not ok16 and not ok17
+    # 3e. the receiver sheets (rx_*) vs sim/rx/rx_top.py block(), netgen + sizes, 4 mutations (xschem/gen/check_rx.py)
+    sys.modules.setdefault('check', sys.modules[__name__])
+    import check_rx
+    ok3 &= check_rx.main()
     # 4. mutation: FC_3 (bit 3, m = 8) -> m = 7 in a copy
     mut = OUT / 'mut'
     if mut.exists():

@@ -7,8 +7,8 @@ LIGHT='set dark_colorscheme 0; set draw_grid 0; set light_colors {
  "#ffffff" "#000000" "#dddddd" "#000000" "#000000" "#8a1c1c" "#000000" "#555555" "#000000" "#000000"
  "#000000" "#000000" "#000000" "#000000" "#000000" "#000000" "#000000" "#000000" "#000000" "#000000"
  "#000000" "#000000"}; xschem build_colors'
-declare -A SIZE=([lv2hv]="1800 1100" [tt_asw_5v0]="1600 1000" [pad_model_gf180]="1800 1000" [cfed_ring]="1800 1000" [cfed_dac]="2200 1100" [ring_core_v3]="1600 1000" [cgm_ref]="1600 1700" [vco_cfed]="1400 1200" [ls_ac]="1800 1300" [tspc_t1]="1800 1300" [tspc_t2]="1800 1300" [lsdiv]="1800 900" [vco_top]="2000 1200" [tx_split]="1800 1500" [tx_arm]="2000 1100" [tx_drv]="1600 1300")
-for s in ${@:-cfed_ring cfed_dac ring_core_v3 cgm_ref vco_cfed ls_ac tspc_t1 tspc_t2 lsdiv vco_top tx_split tx_arm tx_drv}; do
+declare -A SIZE=([lv2hv]="1800 1100" [tt_asw_5v0]="1600 1000" [pad_model_gf180]="1800 1000" [cfed_ring]="1800 1000" [cfed_dac]="2200 1100" [ring_core_v3]="1600 1000" [cgm_ref]="1600 1700" [vco_cfed]="1400 1200" [ls_ac]="1800 1300" [tspc_t1]="1800 1300" [tspc_t2]="1800 1300" [lsdiv]="1800 900" [vco_top]="2000 1200" [tx_split]="1800 1500" [tx_arm]="2000 1100" [tx_drv]="1600 1300" [rx_bias]="1800 1500" [rx_lna2]="1400 1300" [rx_lna]="2000 1500" [rx_mix]="2000 1200" [rx_lobuf]="2600 1400" [rx_lsq]="1800 1400" [rx_lo]="1600 1200" [rx_bb]="2800 1300" [rx_lim]="2800 1300" [rx_top]="2400 1700")
+for s in ${@:-cfed_ring cfed_dac ring_core_v3 cgm_ref vco_cfed ls_ac tspc_t1 tspc_t2 lsdiv vco_top tx_split tx_arm tx_drv rx_bias rx_lna2 rx_lna rx_mix rx_lobuf rx_lsq rx_lo rx_bb rx_lim rx_top}; do
   timeout 90 xvfb-run -a xschem -q --command "$LIGHT; xschem zoom_full; \
     xschem print svg ../docs/img/xschem/$s.svg; xschem print png ../docs/img/xschem/$s.png ${SIZE[$s]:-1600 1000}; \
     xschem exit closewindow force" $s.sch > /dev/null 2>&1
