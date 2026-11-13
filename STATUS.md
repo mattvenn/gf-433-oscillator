@@ -128,15 +128,18 @@ It is to become an **FM radio toolkit**:
    - **Open:** ask tnt about VDPWR before the power switch (bond wires, chip grid); re-floorplan with the receiver.
      The pin plan can't be known before tapeout (it depends on the other projects then), so the TX is checked
      over n_off 0-3 instead.
-6. **Receiver: option B chosen (Matt, 2026-11-12); schematics and first-pass sims handed to the sim server
-   (`docs/handoff_rx_schematic.md`), review before layout.**
-   - Python model (`sim/rx/rx_model.py`, figures `sim/rx/results/`): at NF 10 dB, BER 1e-3, 10 kbit/s, B −107.9 vs
-     A (low IF 250 kHz, one real mixer) −104.3 dBm; at A's image B takes a CW +16.6 dB above the signal, A −1.1 dB.
-     The ring's LO noise and the 72° taps (vs 90°) cost nothing measurable; the comparators need hysteresis.
+6. **Receiver: option B, schematics and first-pass sims done on branch `rx-option-b` (2026-11-13), for Matt's review
+   before layout** (`docs/rx_design.md`, handoff `docs/handoff_rx_schematic.md`).
+   - Blocks (`sim/rx/rx_*.py`, sheets `xschem/rx_*.sch`, checked by `xschem/gen/check_rx.py`): constant-gm bias;
+     two-stage LNA (the OOK amp_dp port, pin self-biased at vcm, one second stage per mixer); Q tap = a copy of
+     lsdiv's level shifter with the same load, on a2 (I from `ls`); passive TG mixers; 3-stage baseband (LPF 137-150 kHz,
+     HPF 8.3-9.4 kHz); limiter + hysteresis comparator to uo[4] / uo[5]. vco_top has a new `a2` port (not in the layout yet).
+   - Results: NF antenna to comparator 5.7-8.4 dB over corners / n_off / routing (7.27 dB tt, n_off 3, 40 ohm); I/Q 71-74 deg;
+     hysteresis 0.29-0.41 x noise; about 7 mA; the model with these numbers gives -110.4 dBm at BER 1e-3, 10 kbit/s.
+   - **For the review:** rx_en vs the ring (gating the Q tap moves the ring 14-23 LSB; keeping it on costs 0.18-0.26 mA
+     off-state; the schematic keeps it on); offset-step recovery about 1 ms; rx_en wiring; VAPWR vs VDPWR; filter order;
+     the areas.
    - The pin costs NF: 26–97 Ω of switch + routing and 7.7 pF per side (a 240 MHz low-pass with the dipole).
-   - Blocks: LNA ported from the OOK receiver's first stage (amp_dp: resistively loaded NMOS pair, AC-coupled input),
-     passive I/Q mixers, LO taps (I from `ls`, Q from a second `ls_ac` on
-     a2/a3), AC-coupled baseband with a 150 kHz low-pass, limiter + comparator with hysteresis, `rx_en`.
 
    **Pin budget: GF analog pin model done** (`docs/pad_model.md`, `sim/pad/pad_model_gf180.spice`,
    `xschem/pad_model_gf180.sch`, checked by `sim/pad/check_xsch.py`). tnt's `tt_asw_5v0` switch is 11–37 Ω tt
