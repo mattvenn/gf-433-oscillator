@@ -67,9 +67,13 @@ def front(level_dbm, bits, noise_nf=None, noff=3, tone=None, blocker=None):  # n
 
 
 def chain_body(lo='ideal', dphi=72.0):
+    """Ideal LO squares as smooth tanh(20 sin) waveforms (about 55 ps edges, 50 % duty): no pulse breakpoints, which
+    after about 6600 periods put two sources' edges almost on top of each other (pass 1 stopped at 15.26 us)."""
     vdd = rxc.VDD
-    los = (rx_mix.lo_src('loi', 'lo_i', vdd, 0) + rx_mix.lo_src('lobi', 'lob_i', vdd, 180)
-           + rx_mix.lo_src('loq', 'lo_q', vdd, dphi) + rx_mix.lo_src('lobq', 'lob_q', vdd, 180 + dphi))
+
+    def sq(n, node, deg):
+        return f'B{n} {node} 0 V={vdd / 2}*(1+tanh(20*sin(2*pi*{FLO}*time-{np.deg2rad(deg):.12f})))\n'
+    los = sq('loi', 'lo_i', 0) + sq('lobi', 'lob_i', 180) + sq('loq', 'lo_q', dphi) + sq('lobq', 'lob_q', 180 + dphi)
     return (los + 'xb VDD VSS en enb nb rx_bias\n'
             'xlna VDD VSS inp inn ri_p ri_n rq_p rq_n nb enb rx_lna\n'
             'xmi VDD VSS ri_p ri_n bi_p bi_n lo_i lob_i rx_mix\nxmq VDD VSS rq_p rq_n bq_p bq_n lo_q lob_q rx_mix\n'
