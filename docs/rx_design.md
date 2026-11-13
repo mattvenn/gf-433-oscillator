@@ -8,8 +8,12 @@ This is the receiver for the 433.92 MHz FM radio toolkit on GF180MCU (Tiny Tapeo
 RP2350's PIO (programmable I/O) then decodes the two bits as a quadrature counter, like a rotary encoder. This
 document covers the first pass: each block sized and simulated at schematic level at 27 °C and 3.3 V, on the
 typical (tt) and the process corners (ss, ff, sf, fs). Matt reviews the schematics and the numbers before any
-layout. Status: **phase A (block sizing) done**; phases B (schematics), C (chain runs) and D (model and write-up)
-follow below as they land.
+layout.
+
+**Summary (2026-11-13).** NF from the antenna to the comparator 7.27 dB at tt (5.7–8.4 dB over corners, pin
+routing and other projects on the pin), about 7 mA, I/Q phase 71–74°, the 6-bit FSK test decoded with no errors at
+−95 and −70 dBm, 1 dB compression at −23.5 dBm. With these numbers the model gives −110.4 dBm sensitivity at BER 1e-3
+and 10 kbit/s (target −105). Open questions for the review are listed at the end.
 
 Brief: `docs/handoff_rx_schematic.md`. Netlisters and benches: `sim/rx/` (one per block). Results: `sim/rx/results/`.
 
@@ -316,6 +320,138 @@ lsdiv circuits are unchanged. The vco_top layout doesn't have the pin yet, so `l
 the extra port until the layout catches up after the review.
 
 
-PHASE_C
+## Phase C: chain runs
 
-PHASE_D
+ngspice has no periodic noise analysis, so the chain NF from the antenna to each limiter input comes from the
+assembled budget (Table V). The bounding corners from phase A are ss (worst NF, lowest gain) and ff (highest gain,
+lowest hysteresis ratio); the budget covers all five corners. The transient runs below are at tt.
+Bench: `sim/rx/rx_chain.py`, driver `sim/rx/run_chain.sh`, results `sim/rx/results/chain/`.
+
+**Ideal LO in the chain benches.** The first pass used pulse sources for the ideal LO. After about 6600 LO periods
+two sources' breakpoints nearly coincided, and every run stopped at 15.26 µs ("timestep too small"). The sources
+are now smooth squares (1.65 × (1 + tanh(20 sin ωt)), edges about 55 ps, 50 % duty). The conversion gain is the same
+(22.80 against 22.81 dB).
+
+### FSK decoding (ideal LO, tt)
+
+2-FSK at ±100 kHz, 50 kbit/s, continuous phase: one settling bit, then 6 data bits. The comparator outputs q_i and
+q_q are sampled at 8 MHz and turned into signed quadrant steps per bit with `rx_model.steps_b`, as the PIO would.
+
+Table VI. Quadrant steps per bit from the circuit and from the model on the same bits (noiseless).
+
+| Antenna level | Circuit, steps per bit | Model, steps per bit | Bit errors | Comparator glitches (< 1 µs) |
+|---|---|---|---|---|
+| −95 dBm | −8, +7, −7, −8, +7, +8 | +8, −7, +7, +8, −7, −8 | 0 of 6 | 0 |
+| −70 dBm | −8, +7, −7, −8, +7, +8 | +8, −7, +7, +8, −7, −8 | 0 of 6 | 0 |
+
+The step counts match the model's exactly in size; the sign is inverted (the decoder learns it from the preamble,
+as the model assumes). The receiver draws 5.5 mA in these runs, which have no LO buffers; with them it is about
+6.7 mA.
+
+### Noise and comparator chatter (tt)
+
+ngspice has no device noise in `.tran`, and the VACASK route would need the pad model's diodes and the poly
+resistors ported, so this run lumps all the noise at the antenna: a white `trnoise` source with the receiver's
+budget NF (7.3 dB, tt, n_off 3). The level is −105 dBm, about 5 dB above the model's sensitivity, for 3 bits.
+Result: 0 bit errors and **no comparator glitches** (no pulse shorter than 1 µs on q_i or q_q). The step counts
+were −9 and +7. This run is short (2 data bits), so it shows the hysteresis stops chatter on real-level noise, not a BER.
+
+### Linearity and blocking (ideal LO, tt)
+
+**Compression.** With a tone 2 MHz above the LO, the gain from the antenna to the mixer output is 22.81 dB up to
+−40 dBm, 22.66 dB at −30 dBm, 22.26 dB at −25 dBm and 20.77 dB at −20 dBm. The **input 1 dB compression point is
+about −23.5 dBm** (target ≥ −45 dBm). The baseband saturates much earlier, by design: it is the limiter.
+
+**Blocking.** The wanted is a tone 150 kHz above the LO at −70 dBm; a CW blocker at +1 or +2 MHz is raised in
+10 dB steps. The criterion is the amplitude ratio of wanted to blocker at the baseband output (the limiter's
+input): a 1-bit limiter is captured by the larger of the two. A full BER count with a blocker would need a much
+longer run.
+
+| Blocker offset | wanted / blocker at the baseband output, blocker at −70 / −50 / −40 / −30 / −20 dBm | Blocker level at 0 dB (interpolated) |
+|---|---|---|
+| +1 MHz | +27.8 / −2.5 / −11.6 / −18.0 / −21.1 dB | about −52 dBm, 18 dB above the wanted |
+| +2 MHz | +39.5 / +10.5 / +1.3 / −6.0 / −9.7 dB | about −38 dBm, 32 dB above the wanted |
+
+The model with the measured filter gives 20.4 and 35.0 dB at +1 and +2 MHz (Fig. 6, near sensitivity), within
+3 dB of these. Fig. 5 of the original model needs a CW up to about −64 dBm to pass linearly; −52 dBm at 1 MHz
+covers that.
+
+### The real LO (ring + taps, tt)
+
+REALLO
+
+### rx_en
+
+With rx_en = 0 the whole receiver draws 2–3 nA (operating point, all corners), except the Q tap copy, which
+rx_top keeps on: 0.18–0.26 mA with the ring running (Table II). The ring moves by at most 7 kHz (0.23 LSB) between
+rx_en 0 and 1 with the copy kept on. Gating it instead moves the ring by +443 to +727 kHz. These are the A1 runs at
+the two rx_en states; no separate toggling transient was run.
+
+
+## Phase D: back into the model
+
+`sim/rx/rx_model_meas.py` runs `rx_model.py` with the measured receiver in place of the design assumptions:
+- the baseband response fitted as 4 first-order high-passes at 2.6 kHz and 2 low-passes at 230 kHz (Fig. 4; within
+  1.3 dB of the simulated tt response from 3 kHz to 3 MHz);
+- the NF to the comparator from Table V;
+- the measured baseband I/Q phase, 72.9°;
+- the hysteresis ratio from Table V.
+
+![baseband response](img/rx/rx_bb_response.png)
+
+**Fig. 4.** Baseband and limiter-stage response at the five corners: −3 dB at 8.5 kHz and 143 kHz at tt. The fit
+used in the model is dashed, and the design's Butterworth assumption is dotted.
+
+![noise figure](img/rx/rx_nf.png)
+
+**Fig. 5.** NF from the antenna to the comparator input against the pad routing resistance: 7.27 dB at tt,
+n_off 3, 40 Ω; 5.7–8.4 dB over every corner.
+
+Table VII. Sensitivity at BER 1e-3, 10 kbit/s, from the model (`sim/rx/results/meas_model.json`).
+
+| Case | NF (dB) | Filter, I/Q, hysteresis | Sensitivity (dBm) |
+|---|---|---|---|
+| design assumptions | 10.0 | Butterworth 2nd order 150 kHz + 10 kHz HPF, 72°, 0.5 | −108.6 |
+| measured, tt n_off 3 40 Ω | 7.27 | measured | **−110.4** |
+| measured, worst corner | 8.44 | measured, lowest hysteresis ratio | −109.1 |
+
+The target was ≤ −105 dBm; the receiver beats it by 4–5 dB, mostly from the lower NF.
+
+![selectivity](img/rx/rx_sel_meas.png)
+
+**Fig. 6.** Selectivity from the model with the measured receiver: a CW 20.4 dB above the wanted is tolerated at
++1 MHz and 35.0 dB at +2 MHz, against 28.9 and 43.5 dB with the design's Butterworth. The two real poles (Q 0.5)
+roll off later than a Butterworth past 300 kHz, which costs about 8 dB here. A sharper filter is the knob (below).
+
+## Open questions for the review
+
+1. **rx_en and the Q tap.** Keep the Q tap copy always on (the ring doesn't move, 0.18–0.26 mA when the RX is
+   off) or gate it with rx_en (no off current, but the ring jumps 14–23 fine-DAC LSB and the RP2350 re-tunes after
+   each TX/RX switch)? The schematic keeps it on; the other choice is one wire.
+2. **rx_en wiring.** An SPI register bit in tx_fine or uio[4]. rx_en should rise 1–2 ms before a packet: the AC
+   couplings take about 0.9 ms to recover from a 10 mV offset step.
+3. **Supply: VAPWR or VDPWR.** The LNA's output follows VDD as common mode (−1.4 dB at 25 MHz, Table I); the
+   differential output is set by matching, which the schematic doesn't model. The TX's 12.6 mA isn't on at the same
+   time (half duplex), and the ring and lsdiv are already on VDPWR.
+4. **Filter order.** Two real poles (Q 0.5) cost about 8 dB of selectivity at ±1–2 MHz against a 2nd-order
+   Butterworth. A third pole (one more RC stage) or an active biquad would recover it, at about 2000 µm² more per
+   arm in MOS caps.
+5. **Area (first floorplan input).** Device area (gate and resistor area, before layout overhead):
+
+   | Block | Device area (µm²) |
+   |---|---|
+   | rx_bias | 333 |
+   | rx_lna | 1150 |
+   | rx_lo (Q tap copy, two buffers) | 721 |
+   | rx_mix × 2 | 545 |
+   | rx_bb × 2 | 14335 (of which the 4 pF low-pass caps 7900) |
+   | rx_lim × 2 | 2230 |
+   | supply decap | 1200 |
+   | **Total** | **about 20500** |
+
+   With a layout factor of 2–3 that is 40,000–60,000 µm², two to three TT tiles. Higher load resistors (smaller
+   caps for the same poles) are the first place to save area.
+6. **Not done in this pass:** temperature, VDD and Monte Carlo (mismatch: LO leakage to the antenna, comparator
+   offset against the hysteresis, I/Q gain), extraction, and a BER count with a blocker. The vco_top layout needs
+   the new a2 pin, and the Q tap copy must be a copy of lsdiv's level-shifter layout.
+

@@ -1,0 +1,23 @@
+{
+ "glitches": 0,
+ "counts": [
+  -9,
+  7
+ ],
+ "model_counts": [
+  8,
+  -7
+ ],
+ "sign": -1,
+ "bit_errors": 0,
+ "delay_us": 1.0,
+ "edges_i": 4,
+ "edges_q": 5,
+ "idd_ma": 5.4913743029608435,
+ "mode": "noise",
+ "corner": "tt",
+ "level": -105.0,
+ "nf": 7.3,
+ "bad": [],
+ "wall_s": 2603.10129570961
+}

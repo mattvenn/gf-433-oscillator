@@ -1,0 +1,31 @@
+{
+ "glitches": 0,
+ "counts": [
+  -8,
+  7,
+  -7,
+  -8,
+  7,
+  8
+ ],
+ "model_counts": [
+  8,
+  -7,
+  7,
+  8,
+  -7,
+  -8
+ ],
+ "sign": -1,
+ "bit_errors": 0,
+ "delay_us": 0.0,
+ "edges_i": 11,
+ "edges_q": 12,
+ "idd_ma": 5.498902231232448,
+ "mode": "fsk",
+ "corner": "tt",
+ "level": -70.0,
+ "nf": null,
+ "bad": [],
+ "wall_s": 4277.283328771591
+}

@@ -186,7 +186,13 @@ def real_lo_deck(tstop, df=100e3, level=-70, corner='typical', code=9, f_lo=None
     bits = ''.join(f'vbit{b} bit{b} 0 {vdd if (code >> b) & 1 else 0}\nvbitb{b} bitb{b} 0 {0 if (code >> b) & 1 else vdd}\n'
                    for b in range(5))
     a = rx_mix.dbm_emf(level)
-    return f"""* rx chain, real LO (ring + taps) {corner} code {code}
+    # both level shifters as schematics with lsdiv's parasitic stand-ins (Cpa on the ring node, Cpg on INV1's gate):
+    # an extracted I copy against a schematic Q copy gives the 64 deg delay mismatch of docs/rx_design.md (A1)
+    ipath = (LD.block() + 'Xlsdiv vls 0 a0 ck lsout lsdiv\n' + f'Cwire ck 0 {LD.S["cwire"]}\n'
+             + 'XFF 0 ck ffq vff vff 0 0 gf180mcu_fd_sc_mcu7t5v0__dffq_1\n'
+             + f'Cpa a0 0 {LD.S["cpa"]}\nCpg xlsdiv.lg 0 {LD.S["cpg"]}\n')
+    cpgq = f'Cpgq xrx.xlo.xlq.lg 0 {LD.S["cpg"]}\n'
+    return f"""* rx chain, real LO (ring + taps, schematic level shifters) {corner} code {code}
 {LD.hdr(corner)}.lib {rxc.PDK}/sm141064.ngspice diode_typical
 .include {rxc.PAD}/tt_asw_5v0.spice
 .include {rxc.PAD}/pad_model_gf180.spice
@@ -197,9 +203,9 @@ vff vff 0 {vdd}
 vctrl vctrl 0 1.65
 VSS VSS 0 0
 Ven en 0 {vdd}
-{bits}{body}{LD.ls_x(LD.S)}{tx_drv.split(tx_drv.S)}Xtxs vls 0 lsout txa txb tx_split
+{bits}{body}{ipath}{tx_drv.split(tx_drv.S)}Xtxs vls 0 lsout txa txb tx_split
 Cpaq a2 0 {LD.S['cpa']}
-{rx_top.block()}Bsig dp dn V={a}*sin(2*pi*{f_lo + df}*time)
+{cpgq}{rx_top.block()}Bsig dp dn V={a}*sin(2*pi*{f_lo + df}*time)
 Rsp dp pinp 36.5
 Rsn dn pinn 36.5
 Rdc dn 0 1e9
@@ -228,7 +234,13 @@ def real_lo_analyse(d, df, tskip=5e-6):
     f = (len(rxc.xings(t[m], a0[m], (a0[m].min() + a0[m].max()) / 2)) - 1) / (t[-1] - tskip)
     oi = pl['v(xrx.oi_p)'] - pl['v(xrx.oi_n)']
     oq = pl['v(xrx.oq_p)'] - pl['v(xrx.oq_n)']
+    fr = np.arange(20e3, 400e3, 5e3)
+    df = float(fr[np.argmax([abs(M.dft(t, oi, x, tskip)) for x in fr])])      # the actual baseband tone
     ci, cq = M.dft(t, oi, df, tskip), M.dft(t, oq, df, tskip)
+    ri0 = rxc.xings(t[m], pl['v(xrx.lo_i)'][m], rxc.VDD / 2)
+    rq0 = rxc.xings(t[m], pl['v(xrx.lo_q)'][m], rxc.VDD / 2)
+    per = np.median(np.diff(ri0))
+    lo_ph = float(np.median([((rq0[rq0 > x][0] - x) / per * 360) % 360 for x in ri0[:-2]]))
     ri = rxc.xings(t[m], pl['v(q_i)'][m], rxc.VDD / 2)
     rq = rxc.xings(t[m], pl['v(q_q)'][m], rxc.VDD / 2)
     ph = [((rq[rq > x][0] - x) * df * 360) % 360 for x in ri[:-1] if (rq > x).any()]
@@ -236,7 +248,7 @@ def real_lo_analyse(d, df, tskip=5e-6):
     tu = np.arange(tskip, t[-1], 1 / fs)
     st = rx_model.steps_b(np.interp(tu, t, pl['v(q_i)']) > rxc.VDD / 2, np.interp(tu, t, pl['v(q_q)']) > rxc.VDD / 2)
     i_ant = (pl['v(dp)'] - pl['v(pinp)']) / 36.5
-    return dict(f_ring=f, bb_iq_phase=float(np.angle(cq / ci, deg=True)), bb_i_v=float(abs(ci)), bb_q_v=float(abs(cq)),
+    return dict(f_bb=df, lo_iq_phase=lo_ph, f_ring=f, bb_iq_phase=float(np.angle(cq / ci, deg=True)), bb_i_v=float(abs(ci)), bb_q_v=float(abs(cq)),
                 q_iq_phase=float(np.median(ph)) if ph else None, steps=int(st.sum()),
                 steps_expected=float(df * (t[-1] - tskip) * 4),
                 duty_lo_i=rxc.duty(t[m], pl['v(xrx.lo_i)'][m], rxc.VDD / 2),

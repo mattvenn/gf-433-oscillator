@@ -1,4 +1,4 @@
-> Running: phase C pass 2 (LO source precision fix; real LO at the measured 411.05 MHz) since 04:36, ETA 07:56
+> Running: phase C last job (real LO, schematic level shifters on both taps) since 06:23, ETA 08:23
 # Handoff: the receiver (option B, zero-IF 1-bit I/Q), schematics and first-pass sims (sim server)
 
 **Goal: design the receiver as xschem schematics, with each block sized and the whole chain simulated once, at
