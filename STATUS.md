@@ -94,7 +94,8 @@ It is to become an **FM radio toolkit**:
        layout. Not the decap device (an ideal C gives the same f within 1 ppm); vg is 0.76 mV lower (about half of
        it); C-only extraction shows only -0.011 %, likely the core's wiring R. Codes, LSB and range unchanged.
      - **Not modelled:** ground ripple (needs the TT ground path's R and L) and VDPWR before the power switch (ask tnt).
-       Still open as options: the floorplan coupling Matt suspects; the analog on VAPWR.
+       Still open as options: the floorplan coupling Matt suspects; the analog on VAPWR (VAPWR and VDPWR are separate
+       on chip and from separate pins, both 3.3 V by default on the demo board; `docs/platform.md`, Matt 2026-11-13).
    - **Kept as is (Matt, 2026-11-12):** the ΣΔ-cell charge injection (+0.4 LSB at fraction ½; monotonic, the servo
      corrects it) and the FSK overshoot at a major carry (firmware keeps the FSK pair inside one block of 32).
 4. **Reference layout: done** (`docs/ref_layout.md`, `layout/cgm_ref.gds`, 238.8 × 69.4 µm, DRC/LVS/antenna clean).
