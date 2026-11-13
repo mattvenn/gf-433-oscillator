@@ -378,7 +378,24 @@ covers that.
 
 ### The real LO (ring + taps, tt)
 
-REALLO
+The ring (extracted core, schematic reference, code 9, vctrl 1.65 V) with lsdiv on a0, the TX splitter, and the
+whole rx_top on `ls` and a2, behind the pads, with a −70 dBm tone, for 25 µs. Both level shifters are schematics with
+lsdiv's parasitic stand-ins. A first run used the extracted lsdiv for I and the schematic copy for Q, and gave 7°:
+the same delay mismatch as in A1, so the two copies must match in layout.
+
+| Measured (5–25 µs) | Value |
+|---|---|
+| LO I/Q phase at the mixer switches | 73.0° |
+| LO duty, lo_i / lo_q | 50.6 / 50.8 % |
+| Ring frequency with the receiver on it | 413.31 MHz (code 9, vctrl 1.65 V; drifting −0.7 MHz over the 20 µs) |
+| Baseband I/Q phase (tone 1.34 MHz from the LO) | 64° |
+| LO leakage to the antenna (the 73 Ω dipole) | −108.7 dBm |
+
+**Limit.** The decode test through the real LO did not happen. The tone was placed 100 kHz above the ring frequency
+measured in a 2 µs run, but the ring was still settling there (its reference filter has a 138 µs start-up), so over
+the 5–25 µs window the tone sat 1.34 MHz from the LO. That is outside the baseband passband, so the comparators did not toggle. A
+run with the reference pre-settled (vbnf in the initial conditions) and the tone placed from it is the next step. The LO
+leakage here comes from the receiver's own asymmetry in this bench; mismatch will add to it.
 
 ### rx_en
 
